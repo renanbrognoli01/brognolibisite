@@ -15,7 +15,10 @@ export default async function ContactPage({
       <PageHero title={dict.contact.title} description={dict.contact.description} />
       <Section title={locale === "pt-br" ? "Canais oficiais" : "Official channels"}>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
-          <GlassCard title="Email" description={dict.contact.email}>
+          <GlassCard
+            title="Email"
+            description={locale === "pt-br" ? "Contato direto para parcerias e produtos" : "Direct contact for partnerships and products"}
+          >
             <a href={`mailto:${dict.contact.email}`} className="text-sm font-semibold text-[#f6b23c]">
               {dict.contact.email}
             </a>
