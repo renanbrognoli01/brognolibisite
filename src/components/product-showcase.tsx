@@ -14,11 +14,18 @@ type ProductLink = {
   primary?: boolean;
 };
 
+type ProductMetric = {
+  value: string;
+  label: string;
+};
+
 type ProductDetails = {
   id: string;
   name: string;
   tagline: string;
   summary: string;
+  accent: string;
+  metrics: ProductMetric[];
   idealFor: string;
   patientTitle: string;
   patientBullets: string[];
@@ -37,9 +44,15 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       id: "calmia",
       name: "Calmia",
       tagline:
-        "Assistente de terapia para registrar pensamentos disfuncionais, acompanhar humor e fortalecer o processo terapeutico com mais constancia.",
+        "Um app de terapia pensado para transformar registros emocionais em acompanhamento pratico, seguro e continuo.",
       summary:
         "O Calmia e um aplicativo mobile criado para apoiar a Terapia Cognitivo-Comportamental. Ele ajuda pacientes a registrarem pensamentos automaticos de forma estruturada e permite que terapeutas acompanhem melhor a evolucao entre as sessoes.",
+      accent: "from-[#93c5fd] via-[#7c8cff] to-[#6d5dfc]",
+      metrics: [
+        { value: "CBT", label: "base terapeutica" },
+        { value: "PDF", label: "exportacao rapida" },
+        { value: "1:1", label: "paciente e terapeuta" },
+      ],
       idealFor:
         "Ideal para pacientes que querem registrar o que sentem no dia a dia e para terapeutas que desejam enriquecer o acompanhamento com dados reais, organizados e compartilhados com consentimento.",
       patientTitle: "Para pacientes",
@@ -86,9 +99,15 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       id: "calmia",
       name: "Calmia",
       tagline:
-        "A therapy companion built to record dysfunctional thoughts, track mood, and strengthen the therapeutic process with more consistency.",
+        "A therapy app designed to turn emotional records into practical, secure, and continuous follow-up.",
       summary:
         "Calmia is a mobile application designed to support Cognitive Behavioral Therapy. It helps patients record automatic thoughts in a structured way and gives therapists better visibility between sessions.",
+      accent: "from-[#93c5fd] via-[#7c8cff] to-[#6d5dfc]",
+      metrics: [
+        { value: "CBT", label: "therapy foundation" },
+        { value: "PDF", label: "fast export" },
+        { value: "1:1", label: "patient and therapist" },
+      ],
       idealFor:
         "Ideal for patients who want to capture what they feel in real life and for therapists who want richer follow-up based on organized, consent-based data sharing.",
       patientTitle: "For patients",
@@ -159,8 +178,8 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className="relative h-16 w-16 overflow-hidden rounded-[1.1rem] border border-white/10 bg-[#10141b]">
-                  <Image src={product.logo} alt={product.name} fill className="object-cover" />
+                <div className="relative h-16 w-16 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#10141b]">
+                  <Image src={product.logo} alt={product.name} fill className="object-contain p-2.5" />
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">
@@ -176,10 +195,55 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
       </div>
 
       <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-        <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr]">
+        <div className="grid gap-10 lg:grid-cols-[0.84fr_1.16fr]">
           <div className="space-y-6">
-            <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-white/10 bg-[#10141b] p-6">
-              <Image src={selected.logo} alt={selected.name} fill className="object-contain p-8" />
+            <div className="rounded-[2rem] border border-white/10 bg-[#10141b] p-5">
+              <div className={`rounded-[1.9rem] bg-gradient-to-br ${selected.accent} p-[1px]`}>
+                <div className="rounded-[1.85rem] bg-[#0d1118] p-5">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="relative h-14 w-14 overflow-hidden rounded-[1rem] bg-white/5">
+                      <Image
+                        src={selected.logo}
+                        alt={selected.name}
+                        fill
+                        className="object-contain p-2.5"
+                      />
+                    </div>
+                    <div className="text-right">
+                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-white/42">
+                        {isPt ? "App mobile" : "Mobile app"}
+                      </p>
+                      <h3 className="mt-1 text-lg font-semibold text-white">{selected.name}</h3>
+                    </div>
+                  </div>
+
+                  <div className="relative mx-auto mt-5 w-full max-w-[18rem] overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#05070c] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
+                    <div className="absolute left-1/2 top-2 z-10 h-1.5 w-16 -translate-x-1/2 rounded-full bg-white/12" />
+                    <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem]">
+                      <Image
+                        src={selected.screenshots[0]?.src ?? selected.logo}
+                        alt={selected.screenshots[0]?.title ?? selected.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mt-5 grid grid-cols-3 gap-3">
+                    {selected.metrics.map((metric) => (
+                      <div
+                        key={metric.label}
+                        className="rounded-[1.2rem] border border-white/10 bg-white/[0.03] px-3 py-3 text-center"
+                      >
+                        <p className="text-lg font-semibold text-white">{metric.value}</p>
+                        <p className="mt-1 text-[0.68rem] uppercase tracking-[0.18em] text-white/45">
+                          {metric.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-5">
@@ -200,7 +264,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                     link.pending
                       ? "border border-white/10 bg-white/[0.03] text-white/48"
                       : link.primary
-                        ? "bg-[#f6b23c] text-[#151618] hover:scale-[1.02]"
+                        ? "bg-white text-[#151618] hover:scale-[1.02]"
                         : "border border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]"
                   }`}
                 >
@@ -225,6 +289,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                   key={item}
                   className="rounded-[1.4rem] border border-white/10 bg-[#10141b] p-4"
                 >
+                  <div className="mb-3 h-2 w-12 rounded-full bg-white/12" />
                   <p className="text-sm leading-7 text-white/76">{item}</p>
                 </div>
               ))}
@@ -233,17 +298,17 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
             <div className="grid gap-5 xl:grid-cols-2">
               <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-6">
                 <h4 className="text-lg font-semibold text-white">{selected.patientTitle}</h4>
-                <ul className="mt-4 space-y-3 text-sm leading-7 text-white/74">
+                <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-7 text-white/74 marker:text-white/40">
                   {selected.patientBullets.map((bullet) => (
-                    <li key={bullet}>• {bullet}</li>
+                    <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
               </div>
               <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-6">
                 <h4 className="text-lg font-semibold text-white">{selected.therapistTitle}</h4>
-                <ul className="mt-4 space-y-3 text-sm leading-7 text-white/74">
+                <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-7 text-white/74 marker:text-white/40">
                   {selected.therapistBullets.map((bullet) => (
-                    <li key={bullet}>• {bullet}</li>
+                    <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
               </div>
