@@ -41,17 +41,18 @@ export function SiteShell({ locale, children }: SiteShellProps) {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090b11]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
           <Link href={locale === "pt-br" ? "/pt-br" : "/en"} className="flex items-center gap-3">
-            <div className="relative h-11 w-11 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+            <div className="relative h-14 w-14 shrink-0">
               <Image
                 src="/media/brognolibi 1.png"
                 alt="Brognoli BI"
                 fill
-                className="object-contain p-1"
+                className="object-contain"
+                priority
               />
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.24em] text-white/45">Brognoli BI</p>
-              <p className="text-base font-semibold text-white">{dict.siteTitle}</p>
+              <p className="text-xl font-semibold text-white">{dict.siteTitle}</p>
             </div>
           </Link>
 
@@ -77,8 +78,8 @@ export function SiteShell({ locale, children }: SiteShellProps) {
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 md:grid-cols-[1.2fr_1fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative h-12 w-12 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
-                <Image src="/media/brognolibi 1.png" alt="Brognoli BI" fill className="object-contain p-1" />
+              <div className="relative h-14 w-14 shrink-0">
+                <Image src="/media/brognolibi 1.png" alt="Brognoli BI" fill className="object-contain" />
               </div>
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-white/45">Brognoli BI</p>

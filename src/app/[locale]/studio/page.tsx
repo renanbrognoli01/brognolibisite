@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import {
   GlassCard,
   PageHero,
@@ -46,6 +47,33 @@ export default async function StudioPage({
         "BI teams seeking governance and productivity",
         "Professionals who want AI with real model context",
       ];
+
+  const screenshotTitles = isPt
+    ? [
+        "DAX Creator",
+        "Measure Optimization",
+        "Background Generator",
+        "Theme Creator",
+        "Performance Analyzer",
+        "Data Model Analyzer",
+        "Best Practice Checker",
+        "Model Translator",
+      ]
+    : [
+        "DAX Creator",
+        "Measure Optimization",
+        "Background Generator",
+        "Theme Creator",
+        "Performance Analyzer",
+        "Data Model Analyzer",
+        "Best Practice Checker",
+        "Model Translator",
+      ];
+
+  const galleryItems = studioScreenshots.map((src, index) => ({
+    src,
+    title: screenshotTitles[index] ?? "BROGNOLI Studio",
+  }));
 
   return (
     <>
@@ -179,17 +207,12 @@ export default async function StudioPage({
       <Section
         eyebrow={isPt ? "Prova visual" : "Visual proof"}
         title={isPt ? "Veja partes reais do produto em ação" : "See real parts of the product in action"}
+        description={
+          isPt
+            ? "Clique em qualquer imagem para ampliar e explorar melhor os detalhes da interface."
+            : "Click any image to enlarge it and explore the interface details more clearly."}
       >
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {studioScreenshots.map((src) => (
-            <div
-              key={src}
-              className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]"
-            >
-              <Image src={src} alt="BROGNOLI Studio screenshot" fill className="object-cover" />
-            </div>
-          ))}
-        </div>
+        <ScreenshotGallery items={galleryItems} />
       </Section>
 
       <Section
