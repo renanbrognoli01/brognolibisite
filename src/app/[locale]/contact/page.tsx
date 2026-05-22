@@ -14,7 +14,7 @@ export default async function ContactPage({
     <>
       <PageHero title={dict.contact.title} description={dict.contact.description} />
       <Section title={locale === "pt-br" ? "Canais oficiais" : "Official channels"}>
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
           <GlassCard title="Email" description={dict.contact.email}>
             <a href={`mailto:${dict.contact.email}`} className="text-sm font-semibold text-[#f6b23c]">
               {dict.contact.email}
@@ -23,6 +23,32 @@ export default async function ContactPage({
           <GlassCard title="LinkedIn" description="Renan Brognoli">
             <a href={dict.contact.linkedin} target="_blank" rel="noreferrer" className="text-sm font-semibold text-[#f6b23c]">
               {locale === "pt-br" ? "Abrir perfil" : "Open profile"}
+            </a>
+          </GlassCard>
+          <GlassCard
+            title={locale === "pt-br" ? "YouTube PT-BR" : "YouTube PT-BR"}
+            description={locale === "pt-br" ? "Canal em portugues" : "Portuguese channel"}
+          >
+            <a
+              href="https://www.youtube.com/@renanbrognolibr"
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-semibold text-[#f6b23c]"
+            >
+              {locale === "pt-br" ? "Abrir canal" : "Open channel"}
+            </a>
+          </GlassCard>
+          <GlassCard
+            title={locale === "pt-br" ? "YouTube EN" : "YouTube EN"}
+            description={locale === "pt-br" ? "Canal em ingles" : "English channel"}
+          >
+            <a
+              href="https://www.youtube.com/@renanbrognoliint"
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-semibold text-[#f6b23c]"
+            >
+              {locale === "pt-br" ? "Abrir canal" : "Open channel"}
             </a>
           </GlassCard>
           <GlassCard title="Instagram" description={dict.contact.instagramLabel} />
