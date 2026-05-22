@@ -27,7 +27,7 @@ export default async function HomePage({
         title={dict.home.hero.title}
         description={dict.home.hero.description}
       >
-        <HeroPortrait />
+        <HeroPortrait src="/media/renan 2.png" />
       </PageHero>
 
       <section className="py-10">
@@ -53,6 +53,48 @@ export default async function HomePage({
           </div>
         </Container>
       </section>
+
+      <Section
+        eyebrow={locale === "pt-br" ? "Credenciais" : "Credentials"}
+        title={
+          locale === "pt-br"
+            ? "Certificações e experiência prática para transformar dados em decisões"
+            : "Certifications and hands-on experience focused on turning data into decisions"
+        }
+        description={
+          locale === "pt-br"
+            ? "Uma base construída com formação sólida, prática real em projetos, certificações Microsoft e atuação contínua em software, conteúdo e analytics."
+            : "Built on formal education, real project delivery, Microsoft certifications, and ongoing work in software, content, and analytics."
+        }
+      >
+        <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {["/media/certificacao 1.png", "/media/certificacao 2.png", "/media/certificacao 3.png", "/media/certificacao 4.png"].map((src) => (
+              <div key={src} className="rounded-[1.75rem] border border-white/10 bg-white p-4">
+                <div className="relative mx-auto aspect-square w-full max-w-[10rem]">
+                  <Image src={src} alt="Microsoft certification" fill className="object-contain" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <GlassCard
+            title={locale === "pt-br" ? "Resumo profissional" : "Professional snapshot"}
+            description={
+              locale === "pt-br"
+                ? "Mais de uma década combinando BI, Excel, dashboards, performance, governança e produtos digitais."
+                : "More than a decade combining BI, Excel, dashboards, performance, governance, and digital products."
+            }
+          >
+            <ul className="space-y-3 text-sm leading-7 text-white/72">
+              <li>• {locale === "pt-br" ? "Atuação com clientes nacionais e internacionais" : "Experience with national and international clients"}</li>
+              <li>• {locale === "pt-br" ? "Mais de 200 dashboards e soluções analíticas entregues" : "More than 200 dashboards and analytical solutions delivered"}</li>
+              <li>• {locale === "pt-br" ? "Conteúdo em português e inglês para a comunidade de dados" : "Content in Portuguese and English for the data community"}</li>
+              <li>• {locale === "pt-br" ? "Foco em software, produtividade e analytics aplicado" : "Strong focus on software, productivity, and applied analytics"}</li>
+            </ul>
+          </GlassCard>
+        </div>
+      </Section>
 
       <Section
         eyebrow={locale === "pt-br" ? "Ecossistema" : "Ecosystem"}
@@ -94,8 +136,8 @@ export default async function HomePage({
             }
             href={`/${locale}/studio`}
           >
-            <div className="relative mt-4 aspect-[16/10] overflow-hidden rounded-[1.5rem] border border-white/10">
-              <Image src="/media/studio 2.png" alt="BROGNOLI Studio" fill className="object-cover" />
+            <div className="relative mt-4 aspect-[16/10] overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0f121a]">
+              <Image src="/media/studio 2.png" alt="BROGNOLI Studio" fill className="object-contain p-8" />
             </div>
           </GlassCard>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -105,6 +147,46 @@ export default async function HomePage({
               </div>
             ))}
           </div>
+        </div>
+      </Section>
+
+      <Section
+        eyebrow={locale === "pt-br" ? "Presença digital" : "Digital presence"}
+        title={locale === "pt-br" ? "Conteúdo, comunidade e produtos" : "Content, community, and products"}
+        description={
+          locale === "pt-br"
+            ? "Além do software, o ecossistema Brognoli BI reúne vídeos, ebooks e outros produtos digitais em expansão."
+            : "Beyond software, the Brognoli BI ecosystem brings together videos, ebooks, and expanding digital products."
+        }
+      >
+        <div className="grid gap-6 lg:grid-cols-3">
+          <GlassCard
+            title={locale === "pt-br" ? "Canal em português" : "Portuguese channel"}
+            description={
+              locale === "pt-br"
+                ? "Dicas, novidades e tutoriais sobre Power BI, Excel e produtividade."
+                : "Tutorials, updates, and practical content about Power BI, Excel, and productivity."
+            }
+            href={`/${locale}/videos`}
+          />
+          <GlassCard
+            title={locale === "pt-br" ? "Guias de bolso" : "Pocket guides"}
+            description={
+              locale === "pt-br"
+                ? "Materiais diretos para apoiar a rotina de quem quer evoluir mais rápido."
+                : "Practical materials designed to support professionals who want to move faster."
+            }
+            href={`/${locale}/guides`}
+          />
+          <GlassCard
+            title={locale === "pt-br" ? "Outros produtos" : "Other products"}
+            description={
+              locale === "pt-br"
+                ? "Conheça também iniciativas como o Calmia e futuros produtos do grupo."
+                : "Explore initiatives such as Calmia and future products from the group."
+            }
+            href={`/${locale}/products`}
+          />
         </div>
       </Section>
     </>

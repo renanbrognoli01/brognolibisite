@@ -131,9 +131,9 @@ export const siteData: Record<Locale, SharedData> = {
     home: {
       hero: {
         eyebrow: "Bem-vindo ao universo Brognoli BI",
-        title: "Power BI, Excel e Analytics com mais performance, clareza e produtividade.",
+        title: "Power BI, Excel e Analytics para acelerar análises, decisões e produtividade.",
         description:
-          "Sou Renan Brognoli, especialista em Power BI, Excel e Analytics. Aqui você encontra software, conteúdo, guias práticos e produtos para acelerar análises e gerar mais valor com dados.",
+          "Sou Renan Brognoli, especialista em Power BI, Excel e Analytics. Aqui você encontra software, conteúdo técnico, guias práticos e produtos digitais criados para ajudar profissionais e empresas a trabalharem melhor com dados.",
         primaryCta: { label: "Conheça o BROGNOLI Studio", href: "/pt-br/studio" },
         secondaryCta: { label: "Sobre mim", href: "/pt-br/about" },
       },
@@ -416,9 +416,9 @@ export const siteData: Record<Locale, SharedData> = {
     home: {
       hero: {
         eyebrow: "Welcome to the Brognoli BI universe",
-        title: "Power BI, Excel, and Analytics with more performance, clarity, and productivity.",
+        title: "Power BI, Excel, and Analytics to accelerate analysis, decisions, and productivity.",
         description:
-          "I am Renan Brognoli, a specialist in Power BI, Excel, and Analytics. Here you will find software, practical content, guides, and products designed to accelerate analysis and create more value from data.",
+          "I am Renan Brognoli, a specialist in Power BI, Excel, and Analytics. Here you will find software, technical content, practical guides, and digital products created to help professionals and companies work better with data.",
         primaryCta: { label: "Explore BROGNOLI Studio", href: "/en/studio" },
         secondaryCta: { label: "About me", href: "/en/about" },
       },
