@@ -91,12 +91,16 @@ export function GlassCard({
   return <Link href={href}>{content}</Link>;
 }
 
-export function HeroPortrait() {
+export function HeroPortrait({
+  src = "/media/renan 1.png",
+}: {
+  src?: string;
+}) {
   return (
     <div className="relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#0f1118] via-[#141722] to-[#12141d] shadow-[0_40px_120px_rgba(0,0,0,0.32)]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(246,178,60,0.22),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(19,118,110,0.22),_transparent_30%)]" />
       <Image
-        src="/media/renan 1.png"
+        src={src}
         alt="Renan Brognoli"
         fill
         className="object-contain object-bottom"
