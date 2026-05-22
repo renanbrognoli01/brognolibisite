@@ -80,7 +80,6 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         "Suporte a multiplos idiomas.",
       ],
       links: [
-        { label: "Ver site piloto", href: "https://renanbrognoli01.github.io/" },
         { label: "Apple Store", href: "#", pending: true },
         { label: "Play Store", href: "#", pending: true, primary: true },
       ],
@@ -135,7 +134,6 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         "Multiple language support.",
       ],
       links: [
-        { label: "View pilot website", href: "https://renanbrognoli01.github.io/" },
         { label: "Apple Store", href: "#", pending: true },
         { label: "Play Store", href: "#", pending: true, primary: true },
       ],
@@ -178,8 +176,8 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className="relative h-16 w-16 overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#10141b]">
-                  <Image src={product.logo} alt={product.name} fill className="object-contain p-2.5" />
+                <div className="relative h-16 w-16 overflow-hidden rounded-[1.15rem] border border-white/10 bg-white">
+                  <Image src={product.logo} alt={product.name} fill className="object-cover" />
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">
@@ -201,12 +199,12 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               <div className={`rounded-[1.9rem] bg-gradient-to-br ${selected.accent} p-[1px]`}>
                 <div className="rounded-[1.85rem] bg-[#0d1118] p-5">
                   <div className="flex items-center justify-between gap-4">
-                    <div className="relative h-14 w-14 overflow-hidden rounded-[1rem] bg-white/5">
+                    <div className="relative h-14 w-14 overflow-hidden rounded-[1rem] bg-white">
                       <Image
                         src={selected.logo}
                         alt={selected.name}
                         fill
-                        className="object-contain p-2.5"
+                        className="object-cover"
                       />
                     </div>
                     <div className="text-right">
@@ -217,14 +215,14 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                     </div>
                   </div>
 
-                  <div className="relative mx-auto mt-5 w-full max-w-[18rem] overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#05070c] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
+                  <div className="relative mx-auto mt-5 w-full max-w-[21rem] overflow-hidden rounded-[2.7rem] border border-white/10 bg-[#05070c] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
                     <div className="absolute left-1/2 top-2 z-10 h-1.5 w-16 -translate-x-1/2 rounded-full bg-white/12" />
                     <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem]">
                       <Image
                         src={selected.screenshots[0]?.src ?? selected.logo}
                         alt={selected.screenshots[0]?.title ?? selected.name}
                         fill
-                        className="object-cover"
+                        className="object-contain bg-white"
                       />
                     </div>
                   </div>

@@ -16,7 +16,12 @@ export default async function AboutPage({
     <>
       <PageHero title={dict.about.introTitle} description={dict.about.intro[0]}>
         <div className="relative mx-auto aspect-[0.9] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
-          <Image src="/media/renan 5.png" alt="Renan Brognoli" fill className="object-contain object-bottom" />
+          <Image
+            src="/media/renan 5.png"
+            alt="Renan Brognoli"
+            fill
+            className="object-cover object-[center_12%] scale-[1.08]"
+          />
         </div>
       </PageHero>
 
