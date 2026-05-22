@@ -81,7 +81,7 @@ export default async function StudioPage({
         <div className="space-y-5">
           <div className="relative mx-auto aspect-[1.1] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
             <Image
-              src="/media/studio 5.png"
+              src="/media/studio 4.png"
               alt="BROGNOLI Studio logo"
               fill
               className="object-contain p-8"

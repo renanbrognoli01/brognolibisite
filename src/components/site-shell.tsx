@@ -40,8 +40,8 @@ export function SiteShell({ locale, children }: SiteShellProps) {
       <div className="absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top_left,_rgba(246,178,60,0.2),_transparent_40%),radial-gradient(circle_at_top_right,_rgba(19,118,110,0.16),_transparent_35%)] pointer-events-none" />
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090b11]/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
-          <Link href={locale === "pt-br" ? "/pt-br" : "/en"} className="flex items-center gap-3">
-            <div className="relative h-14 w-14 shrink-0">
+          <Link href={locale === "pt-br" ? "/pt-br" : "/en"} className="flex items-center gap-4">
+            <div className="relative h-16 w-16 shrink-0">
               <Image
                 src="/media/brognolibi 1.png"
                 alt="Brognoli BI"
@@ -50,10 +50,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
                 priority
               />
             </div>
-            <div>
-              <p className="text-sm uppercase tracking-[0.24em] text-white/45">Brognoli BI</p>
-              <p className="text-xl font-semibold text-white">{dict.siteTitle}</p>
-            </div>
+            <p className="text-2xl font-semibold tracking-tight text-white">{dict.siteTitle}</p>
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex">
