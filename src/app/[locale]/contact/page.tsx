@@ -19,7 +19,10 @@ export default async function ContactPage({
             title="Email"
             description={locale === "pt-br" ? "Contato direto para parcerias e produtos" : "Direct contact for partnerships and products"}
           >
-            <a href={`mailto:${dict.contact.email}`} className="text-sm font-semibold text-[#f6b23c]">
+            <a
+              href={`mailto:${dict.contact.email}`}
+              className="whitespace-nowrap text-[0.78rem] font-semibold tracking-[-0.01em] text-[#f6b23c] sm:text-[0.82rem]"
+            >
               {dict.contact.email}
             </a>
           </GlassCard>
