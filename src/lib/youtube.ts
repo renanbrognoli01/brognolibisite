@@ -31,6 +31,15 @@ type PlaylistApiResponse = {
   }>;
 };
 
+type VideosApiResponse = {
+  items?: Array<{
+    id?: string;
+    contentDetails?: {
+      duration?: string;
+    };
+  }>;
+};
+
 const uploadsPlaylists: Record<Locale, string> = {
   "pt-br": "UUgq8atNbogkGweKMlV54tqQ",
   en: "UUX00tSU386WYrDFk0IDBoaQ",
@@ -53,6 +62,20 @@ function getFallback(locale: Locale): VideoItem[] {
   ];
 }
 
+function parseIsoDurationToSeconds(value: string): number {
+  const match = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/i.exec(value);
+
+  if (!match) {
+    return 0;
+  }
+
+  const hours = Number(match[1] ?? 0);
+  const minutes = Number(match[2] ?? 0);
+  const seconds = Number(match[3] ?? 0);
+
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
 export async function getLatestVideos(locale: Locale): Promise<VideoItem[]> {
   const apiKey = process.env.YOUTUBE_API_KEY;
   const uploadsPlaylist = uploadsPlaylists[locale];
@@ -64,7 +87,7 @@ export async function getLatestVideos(locale: Locale): Promise<VideoItem[]> {
   const endpoint = new URL("https://www.googleapis.com/youtube/v3/playlistItems");
   endpoint.searchParams.set("part", "snippet,contentDetails");
   endpoint.searchParams.set("playlistId", uploadsPlaylist);
-  endpoint.searchParams.set("maxResults", "5");
+  endpoint.searchParams.set("maxResults", "15");
   endpoint.searchParams.set("key", apiKey);
 
   try {
@@ -83,7 +106,7 @@ export async function getLatestVideos(locale: Locale): Promise<VideoItem[]> {
       return getFallback(locale);
     }
 
-    return items
+    const mappedItems = items
       .map((item) => {
         const snippet = item.snippet;
         const videoId = snippet?.resourceId?.videoId ?? item.contentDetails?.videoId ?? "";
@@ -108,6 +131,36 @@ export async function getLatestVideos(locale: Locale): Promise<VideoItem[]> {
         } satisfies VideoItem;
       })
       .filter((item): item is VideoItem => item !== null);
+
+    if (!mappedItems.length) {
+      return getFallback(locale);
+    }
+
+    const detailsEndpoint = new URL("https://www.googleapis.com/youtube/v3/videos");
+    detailsEndpoint.searchParams.set("part", "contentDetails");
+    detailsEndpoint.searchParams.set("id", mappedItems.map((item) => item.id).join(","));
+    detailsEndpoint.searchParams.set("key", apiKey);
+
+    const detailsResponse = await fetch(detailsEndpoint.toString(), {
+      next: { revalidate: 3600 },
+    });
+
+    if (!detailsResponse.ok) {
+      return mappedItems.slice(0, 5);
+    }
+
+    const detailsData = (await detailsResponse.json()) as VideosApiResponse;
+    const durationsById = new Map(
+      (detailsData.items ?? [])
+        .filter((item): item is { id: string; contentDetails?: { duration?: string } } => Boolean(item.id))
+        .map((item) => [item.id, parseIsoDurationToSeconds(item.contentDetails?.duration ?? "")]),
+    );
+
+    const longVideos = mappedItems
+      .filter((item) => (durationsById.get(item.id) ?? 0) > 120)
+      .slice(0, 5);
+
+    return longVideos.length > 0 ? longVideos : mappedItems.slice(0, 5);
   } catch {
     return getFallback(locale);
   }
