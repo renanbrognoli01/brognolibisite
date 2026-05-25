@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { getDictionaryLabel, locales, type Locale } from "@/lib/i18n";
 import { siteData } from "@/lib/site-data";
+import { SiteAccountEntry } from "@/components/site-account-entry";
 
 type SiteShellProps = {
   locale: Locale;
@@ -65,7 +66,10 @@ export function SiteShell({ locale, children }: SiteShellProps) {
             ))}
           </nav>
 
-          <LocaleSwitcher locale={locale} />
+          <div className="flex items-center gap-3">
+            <SiteAccountEntry locale={locale} />
+            <LocaleSwitcher locale={locale} />
+          </div>
         </div>
       </header>
 

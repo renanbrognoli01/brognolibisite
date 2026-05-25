@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  Container,
-  GlassCard,
-  PrimaryButton,
-  SecondaryButton,
-  Section,
-} from "@/components/ui";
+import { Container, GlassCard, PrimaryButton, SecondaryButton, Section } from "@/components/ui";
 import type { Locale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
@@ -36,21 +30,24 @@ export default async function BillingCancelPage({
   const { locale } = await params;
   const isPt = locale === "pt-br";
 
-  const title = isPt ? "Checkout cancelado" : "Checkout canceled";
-  const description = isPt
-    ? "Nenhuma cobrança foi concluída. Você pode retomar a assinatura ou a compra de créditos quando quiser."
-    : "No charge was completed. You can restart the subscription or credit purchase whenever you want.";
-
   return (
-    <Section eyebrow="Billing" title={title} description={description}>
+    <Section
+      eyebrow="Billing"
+      title={isPt ? "Checkout cancelado" : "Checkout canceled"}
+      description={
+        isPt
+          ? "Nenhuma cobranca foi concluida. Voce pode retomar a assinatura ou a compra de creditos quando quiser."
+          : "No charge was completed. You can restart the subscription or credit purchase whenever you want."
+      }
+    >
       <Container>
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <GlassCard
             title={isPt ? "Sem problema" : "No problem"}
             description={
               isPt
-                ? "Se você saiu do checkout por engano, basta iniciar o processo novamente pelo Studio."
-                : "If you left checkout by mistake, just start the process again from Studio."
+                ? "Se voce saiu do checkout por engano, basta iniciar o processo novamente pela sua conta."
+                : "If you left checkout by mistake, just start the process again from your account."
             }
           >
             <div className="mt-2 flex items-start gap-4">
@@ -63,33 +60,33 @@ export default async function BillingCancelPage({
                 </p>
                 <p>
                   {isPt
-                    ? "Quando a área de assinante estiver pronta, o site também permitirá retomar e gerenciar compras com mais facilidade."
-                    : "Once the subscriber area is ready, the website will also make it easier to resume and manage purchases."}
+                    ? "Voce pode tentar novamente agora mesmo pela area do assinante ou pedir ajuda em support@brognolibi.com."
+                    : "You can try again right now from the subscriber area or ask for help at support@brognolibi.com."}
                 </p>
               </div>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <PrimaryButton href={`/${locale}/studio`}>
-                {isPt ? "Voltar para o Studio" : "Back to Studio"}
+              <PrimaryButton href={`/${locale}/account`}>
+                {isPt ? "Ir para minha conta" : "Go to my account"}
               </PrimaryButton>
-              <SecondaryButton href={`/${locale}/contact`}>
-                {isPt ? "Falar comigo" : "Talk to me"}
+              <SecondaryButton href="mailto:support@brognolibi.com">
+                {isPt ? "Falar com suporte" : "Contact support"}
               </SecondaryButton>
             </div>
           </GlassCard>
 
           <GlassCard
-            title={isPt ? "Quando usar esta página" : "When this page appears"}
+            title={isPt ? "Quando usar esta pagina" : "When this page appears"}
             description={
               isPt
-                ? "Ela é usada como retorno do checkout da Stripe quando a compra não é concluída."
+                ? "Ela e usada como retorno do checkout da Stripe quando a compra nao e concluida."
                 : "It is used as the Stripe checkout return page when the purchase is not completed."
             }
           >
             <ul className="space-y-3 text-sm leading-7 text-white/72">
-              <li>• {isPt ? "Fechamento manual do checkout." : "Manual checkout close."}</li>
-              <li>• {isPt ? "Mudança de ideia antes de pagar." : "Change of mind before paying."}</li>
-              <li>• {isPt ? "Tentativa interrompida para revisar plano ou créditos." : "Interrupted attempt to review plan or credits."}</li>
+              <li>- {isPt ? "Fechamento manual do checkout." : "Manual checkout close."}</li>
+              <li>- {isPt ? "Mudanca de ideia antes de pagar." : "Change of mind before paying."}</li>
+              <li>- {isPt ? "Tentativa interrompida para revisar plano ou creditos." : "Interrupted attempt to review plan or credits."}</li>
             </ul>
           </GlassCard>
         </div>
