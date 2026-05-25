@@ -18,6 +18,7 @@ type AccountSnapshot = {
   planName: string | null;
   planCode: string | null;
   nextBillingAt: string | null;
+  cancelAtPeriodEnd: boolean;
   planCredits: number;
   extraCredits: number;
   currentPriceLabel: string | null;
@@ -32,8 +33,10 @@ type CheckoutTarget = {
 export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
   const [account, setAccount] = useState<AccountSnapshot | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [cancelLoading, setCancelLoading] = useState(false);
 
   const dict = useMemo(
     () =>
@@ -62,7 +65,12 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             subscribePro: "Assinar Pro",
             buyCredits: "Comprar 1.000 creditos",
             buyMore: "Comprar 5.000 creditos",
-            billingPortalSoon: "Portal de cobranca e cancelamento guiado em breve.",
+            currentPlanAction: "Plano atual",
+            cancelSubscription: "Cancelar assinatura",
+            cancellationScheduled: "Cancelamento agendado para o fim do periodo atual.",
+            cancellationDone:
+              "Sua assinatura foi marcada para cancelamento ao fim do periodo atual.",
+            billingPortalSoon: "Gestao completa de cobranca em breve.",
             processing: "Processando...",
             currentPrice: "Valor atual",
             noPrice: "Sera exibido aqui quando o plano estiver vinculado.",
@@ -94,7 +102,12 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             subscribePro: "Subscribe to Pro",
             buyCredits: "Buy 1,000 credits",
             buyMore: "Buy 5,000 credits",
-            billingPortalSoon: "Guided billing portal and cancellation flow coming soon.",
+            currentPlanAction: "Current plan",
+            cancelSubscription: "Cancel subscription",
+            cancellationScheduled: "Cancellation scheduled for the end of the current billing period.",
+            cancellationDone:
+              "Your subscription has been scheduled to cancel at the end of the current billing period.",
+            billingPortalSoon: "Full billing management is coming soon.",
             processing: "Processing...",
             currentPrice: "Current price",
             noPrice: "It will appear here once the plan is linked.",
@@ -111,6 +124,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
     async function loadAccount() {
       setLoading(true);
       setError(null);
+      setMessage(null);
 
       try {
         const supabase = getSupabaseBrowserClient();
@@ -140,11 +154,16 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             .maybeSingle<{ email: string; full_name: string | null }>(),
           supabase
             .from("subscriptions")
-            .select("plan_id, status, current_period_end")
+            .select("plan_id, status, current_period_end, cancel_at_period_end")
             .eq("user_id", userId)
             .order("updated_at", { ascending: false })
             .limit(1)
-            .maybeSingle<{ plan_id: string | null; status: string; current_period_end: string | null }>(),
+            .maybeSingle<{
+              plan_id: string | null;
+              status: string;
+              current_period_end: string | null;
+              cancel_at_period_end: boolean | null;
+            }>(),
           supabase
             .from("credit_wallets")
             .select("plan_credit_balance, extra_credit_balance")
@@ -214,6 +233,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
           planName,
           planCode,
           nextBillingAt: subscriptionResult.data?.current_period_end ?? null,
+          cancelAtPeriodEnd: Boolean(subscriptionResult.data?.cancel_at_period_end),
           planCredits: walletResult.data?.plan_credit_balance ?? 0,
           extraCredits: walletResult.data?.extra_credit_balance ?? 0,
           currentPriceLabel,
@@ -241,6 +261,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   async function startCheckout(target: CheckoutTarget) {
     setCheckoutLoading(`${target.targetKind}:${target.targetCode}`);
     setError(null);
+    setMessage(null);
 
     try {
       const supabase = getSupabaseBrowserClient();
@@ -292,6 +313,63 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
     window.location.assign(`/${locale}/login`);
   }
 
+  async function handleCancelSubscription() {
+    setCancelLoading(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { supabaseUrl, publishableKey } = getSupabaseBrowserConfig();
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError || !session?.access_token) {
+        throw sessionError ?? new Error("Missing authenticated session.");
+      }
+      if (!supabaseUrl || !publishableKey) {
+        throw new Error(dict.missingEnv);
+      }
+
+      const response = await fetch(`${supabaseUrl}/functions/v1/cancel-subscription`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+          apikey: publishableKey,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = (await response.json()) as {
+        success?: boolean;
+        currentPeriodEnd?: string | null;
+        error?: string;
+        details?: string;
+      };
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.details ?? data.error ?? "Failed to cancel subscription.");
+      }
+
+      setAccount((current) =>
+        current
+          ? {
+              ...current,
+              cancelAtPeriodEnd: true,
+              nextBillingAt: data.currentPeriodEnd ?? current.nextBillingAt,
+            }
+          : current,
+      );
+      setMessage(dict.cancellationDone);
+    } catch (caughtError) {
+      setError(caughtError instanceof Error ? caughtError.message : "Unexpected cancellation error.");
+    } finally {
+      setCancelLoading(false);
+    }
+  }
+
   function formatDate(value: string | null) {
     if (!value) {
       return "-";
@@ -303,6 +381,14 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
       year: "numeric",
     }).format(new Date(value));
   }
+
+  const isStarterActive = account?.planCode === "starter" && account.subscriptionStatus === "active";
+  const isProActive = account?.planCode === "pro" && account.subscriptionStatus === "active";
+  const hasCancellableSubscription = Boolean(
+    account?.planCode &&
+      account.subscriptionStatus &&
+      ["active", "trialing", "past_due"].includes(account.subscriptionStatus),
+  );
 
   if (loading) {
     return <div className="h-64 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8" />;
@@ -339,6 +425,12 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             </div>
           ) : null}
 
+          {message ? (
+            <div className="mt-6 rounded-2xl border border-[#13766e]/30 bg-[#13766e]/10 px-4 py-3 text-sm text-[#d4fff9]">
+              {message}
+            </div>
+          ) : null}
+
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">Email</p>
@@ -355,6 +447,11 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.nextBilling}</p>
               <p className="mt-3 text-lg font-semibold text-white">{formatDate(account.nextBillingAt)}</p>
+              {account.cancelAtPeriodEnd ? (
+                <p className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-[#f6b23c]">
+                  {dict.cancellationScheduled}
+                </p>
+              ) : null}
             </div>
             <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5 sm:col-span-2">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.currentPrice}</p>
@@ -377,22 +474,34 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
         <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
           <h2 className="text-2xl font-semibold text-white">{dict.quickActions}</h2>
           <div className="mt-6 grid gap-3">
-            <button
-              type="button"
-              disabled={checkoutLoading !== null}
-              onClick={() => void startCheckout({ targetKind: "subscription", targetCode: "starter", currency: "BRL" })}
-              className="rounded-full bg-[#f6b23c] px-5 py-3 text-sm font-semibold text-[#12141a] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {checkoutLoading === "subscription:starter" ? dict.processing : dict.subscribeStarter}
-            </button>
-            <button
-              type="button"
-              disabled={checkoutLoading !== null}
-              onClick={() => void startCheckout({ targetKind: "subscription", targetCode: "pro", currency: "BRL" })}
-              className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {checkoutLoading === "subscription:pro" ? dict.processing : dict.subscribePro}
-            </button>
+            {isStarterActive ? (
+              <div className="rounded-full border border-[#f6b23c]/30 bg-[#f6b23c]/10 px-5 py-3 text-center text-sm font-semibold text-[#f6b23c]">
+                {dict.currentPlanAction}: Starter
+              </div>
+            ) : (
+              <button
+                type="button"
+                disabled={checkoutLoading !== null}
+                onClick={() => void startCheckout({ targetKind: "subscription", targetCode: "starter", currency: "BRL" })}
+                className="rounded-full bg-[#f6b23c] px-5 py-3 text-sm font-semibold text-[#12141a] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {checkoutLoading === "subscription:starter" ? dict.processing : dict.subscribeStarter}
+              </button>
+            )}
+            {isProActive ? (
+              <div className="rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 text-center text-sm font-semibold text-white">
+                {dict.currentPlanAction}: Pro
+              </div>
+            ) : (
+              <button
+                type="button"
+                disabled={checkoutLoading !== null}
+                onClick={() => void startCheckout({ targetKind: "subscription", targetCode: "pro", currency: "BRL" })}
+                className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {checkoutLoading === "subscription:pro" ? dict.processing : dict.subscribePro}
+              </button>
+            )}
             <button
               type="button"
               disabled={checkoutLoading !== null}
@@ -409,6 +518,16 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             >
               {checkoutLoading === "credit_pack:credits_5000" ? dict.processing : dict.buyMore}
             </button>
+            {hasCancellableSubscription ? (
+              <button
+                type="button"
+                disabled={cancelLoading || account.cancelAtPeriodEnd}
+                onClick={() => void handleCancelSubscription()}
+                className="rounded-full border border-[#f37070]/30 bg-[#f37070]/10 px-5 py-3 text-center text-sm font-semibold text-[#ffd2d2] transition hover:bg-[#f37070]/16 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {cancelLoading ? dict.processing : account.cancelAtPeriodEnd ? dict.cancellationScheduled : dict.cancelSubscription}
+              </button>
+            ) : null}
           </div>
 
           <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">

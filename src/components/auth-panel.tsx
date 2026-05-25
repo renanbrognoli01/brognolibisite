@@ -36,6 +36,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             fullName: "Nome completo",
             submitLogin: "Entrar na conta",
             submitSignup: "Criar conta",
+            forgotPassword: "Esqueci minha senha",
+            forgotPasswordSent:
+              "Enviamos um e-mail de redefinicao de senha. Verifique sua caixa de entrada e siga o link para criar uma nova senha.",
+            forgotPasswordMissingEmail: "Informe seu e-mail antes de pedir a redefinicao de senha.",
             withGoogle: "Continuar com Google",
             withMicrosoft: "Continuar com Microsoft",
             switchToSignup: "Ainda nao tem conta? Criar acesso",
@@ -60,6 +64,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             fullName: "Full name",
             submitLogin: "Sign in",
             submitSignup: "Create account",
+            forgotPassword: "Forgot password",
+            forgotPasswordSent:
+              "We sent a password reset email. Check your inbox and follow the link to create a new password.",
+            forgotPasswordMissingEmail: "Enter your email before requesting a password reset.",
             withGoogle: "Continue with Google",
             withMicrosoft: "Continue with Microsoft",
             switchToSignup: "Don't have an account yet? Create one",
@@ -141,6 +149,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         options: {
           redirectTo: authRedirectUrl,
           queryParams: provider === "google" ? { access_type: "offline", prompt: "consent" } : undefined,
+          scopes: provider === "azure" ? "openid email profile offline_access" : undefined,
         },
       });
 
@@ -149,6 +158,35 @@ export function AuthPanel({ locale }: AuthPanelProps) {
       }
     } catch (caughtError) {
       setError(caughtError instanceof Error ? caughtError.message : "Unexpected authentication error.");
+      setLoading(false);
+    }
+  }
+
+  async function handleForgotPassword() {
+    setError(null);
+    setMessage(null);
+
+    if (!email.trim()) {
+      setError(dict.forgotPasswordMissingEmail);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: `${window.location.origin}/${locale}/auth/callback?next=/${locale}/reset-password`,
+      });
+
+      if (resetError) {
+        throw resetError;
+      }
+
+      setMessage(dict.forgotPasswordSent);
+    } catch (caughtError) {
+      setError(caughtError instanceof Error ? caughtError.message : "Unexpected authentication error.");
+    } finally {
       setLoading(false);
     }
   }
@@ -223,6 +261,17 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               placeholder="********"
             />
           </label>
+
+          {mode === "login" ? (
+            <button
+              type="button"
+              onClick={() => void handleForgotPassword()}
+              disabled={loading || envMissing}
+              className="text-left text-sm font-medium text-[#f6b23c] transition hover:text-[#ffd089] disabled:cursor-not-allowed disabled:opacity-70"
+            >
+              {dict.forgotPassword}
+            </button>
+          ) : null}
 
           {envMissing ? (
             <div className="rounded-2xl border border-[#f37070]/30 bg-[#f37070]/10 px-4 py-3 text-sm text-[#ffd2d2]">
