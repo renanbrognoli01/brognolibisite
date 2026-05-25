@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 
-import {
-  Container,
-  GlassCard,
-  PrimaryButton,
-  SecondaryButton,
-  Section,
-} from "@/components/ui";
+import { Container, GlassCard, PrimaryButton, SecondaryButton, Section } from "@/components/ui";
 import type { Locale } from "@/lib/i18n";
 
 export const metadata: Metadata = {
@@ -35,21 +29,24 @@ export default async function BillingSuccessPage({
   const { locale } = await params;
   const isPt = locale === "pt-br";
 
-  const title = isPt ? "Pagamento confirmado" : "Payment confirmed";
-  const description = isPt
-    ? "Seu checkout foi concluído com sucesso. A assinatura ou compra de créditos já pode ser processada no ecossistema do BROGNOLI Studio."
-    : "Your checkout was completed successfully. The subscription or credit purchase can now be processed in the BROGNOLI Studio ecosystem.";
-
   return (
-    <Section eyebrow="Billing" title={title} description={description}>
+    <Section
+      eyebrow="Billing"
+      title={isPt ? "Pagamento confirmado" : "Payment confirmed"}
+      description={
+        isPt
+          ? "Seu checkout foi concluido com sucesso. A assinatura ou compra de creditos ja pode ser processada no ecossistema do BROGNOLI Studio."
+          : "Your checkout was completed successfully. The subscription or credit purchase can now be processed in the BROGNOLI Studio ecosystem."
+      }
+    >
       <Container>
         <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <GlassCard
-            title={isPt ? "Próximo passo" : "Next step"}
+            title={isPt ? "Proximo passo" : "Next step"}
             description={
               isPt
-                ? "Abra o Studio para continuar sua experiência com o plano ativo ou com os créditos extras já liberados."
-                : "Open Studio to continue with your active plan or the extra credits that were just unlocked."
+                ? "Abra sua area do assinante ou volte ao Studio para continuar com o plano ativo e os creditos liberados."
+                : "Open your subscriber area or return to Studio to continue with your active plan and unlocked credits."
             }
           >
             <div className="mt-2 flex items-start gap-4">
@@ -57,22 +54,22 @@ export default async function BillingSuccessPage({
               <div className="space-y-3 text-sm leading-7 text-white/72">
                 <p>
                   {isPt
-                    ? "Em breve o site também terá uma área de assinante para acompanhar conta, cobrança e histórico."
-                    : "The website will also get a subscriber area soon to manage account, billing, and history."}
+                    ? "Sua area do assinante no site centraliza login, assinatura, creditos e proximos passos."
+                    : "Your subscriber area on the website centralizes login, subscription, credits, and next steps."}
                 </p>
                 <p>
                   {isPt
-                    ? "Por enquanto, essa página funciona como retorno oficial do checkout e confirmação visual do processo."
-                    : "For now, this page works as the official checkout return and visual confirmation of the process."}
+                    ? "Se algo nao aparecer como esperado, entre em contato com support@brognolibi.com."
+                    : "If anything does not appear as expected, contact support@brognolibi.com."}
                 </p>
               </div>
             </div>
             <div className="mt-8 flex flex-wrap gap-4">
-              <PrimaryButton href={`/${locale}/studio`}>
-                {isPt ? "Voltar para o Studio" : "Back to Studio"}
+              <PrimaryButton href={`/${locale}/account`}>
+                {isPt ? "Abrir minha conta" : "Open my account"}
               </PrimaryButton>
-              <SecondaryButton href={`/${locale}/contact`}>
-                {isPt ? "Preciso de ajuda" : "I need help"}
+              <SecondaryButton href="mailto:support@brognolibi.com">
+                {isPt ? "Falar com suporte" : "Contact support"}
               </SecondaryButton>
             </div>
           </GlassCard>
@@ -81,14 +78,14 @@ export default async function BillingSuccessPage({
             title={isPt ? "O que acontece agora" : "What happens now"}
             description={
               isPt
-                ? "Seu pagamento entra no fluxo de validação e sincronização do BROGNOLI Studio."
+                ? "Seu pagamento entra no fluxo de validacao e sincronizacao do BROGNOLI Studio."
                 : "Your payment enters the BROGNOLI Studio validation and sync flow."
             }
           >
             <ul className="space-y-3 text-sm leading-7 text-white/72">
-              <li>• {isPt ? "Assinaturas são sincronizadas com seu usuário." : "Subscriptions are synced to your user."}</li>
-              <li>• {isPt ? "Créditos do plano ou créditos extras são liberados automaticamente." : "Plan credits or extra credits are granted automatically."}</li>
-              <li>• {isPt ? "Seu uso continuará centralizado no software." : "Your usage continues to stay centered in the desktop software."}</li>
+              <li>- {isPt ? "Assinaturas sao sincronizadas com seu usuario." : "Subscriptions are synced to your user."}</li>
+              <li>- {isPt ? "Creditos do plano ou creditos extras sao liberados automaticamente." : "Plan credits or extra credits are granted automatically."}</li>
+              <li>- {isPt ? "Seu uso continua centralizado no software." : "Your usage continues to stay centered in the desktop software."}</li>
             </ul>
           </GlassCard>
         </div>
