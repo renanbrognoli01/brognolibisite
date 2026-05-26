@@ -24,12 +24,12 @@ export default async function GuidesPage({
         <div className="space-y-5 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
           <h2 className="text-2xl font-semibold text-white">
             {isPt
-              ? "Aprenda mais rapido com materiais diretos e praticos"
+              ? "Aprenda mais rápido com materiais diretos e práticos"
               : "Learn faster with direct and practical materials"}
           </h2>
           <p className="text-sm leading-7 text-white/72">
             {isPt
-              ? "Os guias de bolso foram pensados para quem quer reduzir duvidas, ganhar confianca e aplicar melhor Power BI e Excel no dia a dia."
+              ? "Os guias de bolso foram pensados para quem quer reduzir dúvidas, ganhar confiança e aplicar melhor Power BI e Excel no dia a dia."
               : "The pocket guides were designed for professionals who want fewer doubts, more confidence, and better day-to-day use of Power BI and Excel."}
           </p>
           <div className="flex flex-wrap gap-4">
@@ -52,32 +52,32 @@ export default async function GuidesPage({
         }
         description={
           isPt
-            ? "Em vez de perder tempo pulando entre varios conteudos, voce recebe um material focado, pratico e pronto para consulta rapida."
+            ? "Em vez de perder tempo pulando entre vários conteúdos, você recebe um material focado, prático e pronto para consulta rápida."
             : "Instead of losing time across scattered content, you get focused, practical material designed for quick reference."
         }
       >
         <div className="grid gap-6 md:grid-cols-3">
           <GlassCard
-            title={isPt ? "Aplicacao pratica" : "Practical application"}
+            title={isPt ? "Aplicação prática" : "Practical application"}
             description={
               isPt
-                ? "Conteudo pensado para quem precisa usar a ferramenta de verdade, e nao apenas estudar teoria."
+                ? "Conteúdo pensado para quem precisa usar a ferramenta de verdade, e não apenas estudar teoria."
                 : "Content built for people who need to use the tools in real work, not only study theory."
             }
           />
           <GlassCard
-            title={isPt ? "Consulta rapida" : "Quick reference"}
+            title={isPt ? "Consulta rápida" : "Quick reference"}
             description={
               isPt
-                ? "Materiais de bolso para voltar sempre que surgir uma duvida importante."
+                ? "Materiais de bolso para voltar sempre que surgir uma dúvida importante."
                 : "Pocket-style materials you can revisit whenever an important question appears."
             }
           />
           <GlassCard
-            title={isPt ? "Evolucao mais rapida" : "Faster growth"}
+            title={isPt ? "Evolução mais rápida" : "Faster growth"}
             description={
               isPt
-                ? "Menos dispersao, mais clareza e uma curva de aprendizado melhor."
+                ? "Menos dispersão, mais clareza e uma curva de aprendizado melhor."
                 : "Less distraction, more clarity, and a better learning curve."
             }
           />
@@ -92,12 +92,12 @@ export default async function GuidesPage({
         eyebrow={isPt ? "Chamada final" : "Final call"}
         title={
           isPt
-            ? "Escolha o material certo e evolua com mais consistencia"
+            ? "Escolha o material certo e evolua com mais consistência"
             : "Choose the right material and grow with more consistency"
         }
         description={
           isPt
-            ? "Se voce quer um caminho mais pratico para estudar Power BI ou Excel, os guias de bolso foram feitos exatamente para isso."
+            ? "Se você quer um caminho mais prático para estudar Power BI ou Excel, os guias de bolso foram feitos exatamente para isso."
             : "If you want a more practical path to learn Power BI or Excel, the pocket guides were built exactly for that."
         }
       >

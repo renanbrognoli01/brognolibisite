@@ -23,10 +23,10 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
         ? {
             working: "Finalizando seu login...",
             done: "Redirecionando...",
-            body: "Estamos conectando sua conta e levando voce para a area do assinante.",
-            failed: "Falha na autenticacao",
+            body: "Estamos conectando sua conta e levando você para a área do assinante.",
+            failed: "Falha na autenticação",
             back: "Voltar para o login",
-            missingCode: "Codigo de autenticacao ausente.",
+            missingCode: "Código de autenticação ausente.",
           }
         : {
             working: "Finalizing your login...",

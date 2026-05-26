@@ -463,7 +463,7 @@ export const siteData: Record<Locale, SharedData> = {
       intro: [
         "I am Brazilian, originally from Porto Alegre in southern Brazil, and I have been working with BI, analytics, and KPI optimization for more than a decade.",
         "I graduated in Business Administration from UFRGS in 2010 and later earned an MBA in Business Analytics. My deeper connection with analytics started in 2013 through Excel, when I realized how transformative data could be in real business contexts.",
-        "In 2016 I immersed myself in Power BI. Since then, I have combined continuous study, hands-on delivery, and national and international client work to build impactful data solutions, dashboards, and Analysis Services projects.",
+        "In 2016 I immersed myself in Power BI. Since then, I have combined cont?nuous study, hands-on delivery, and national and international client work to build impactful data solutions, dashboards, and Analysis Services projects.",
       ],
       timelineTitle: "Journey",
       timeline: [

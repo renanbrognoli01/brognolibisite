@@ -44,40 +44,40 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       id: "calmia",
       name: "Calmia",
       tagline:
-        "Um app de terapia pensado para transformar registros emocionais em acompanhamento pratico, seguro e continuo.",
+        "Um app de terapia pensado para transformar registros emocionais em acompanhamento pr?tico, seguro e cont?nuo.",
       summary:
-        "O Calmia e um aplicativo mobile criado para apoiar a Terapia Cognitivo-Comportamental. Ele ajuda pacientes a registrarem pensamentos automaticos de forma estruturada e permite que terapeutas acompanhem melhor a evolucao entre as sessoes.",
+        "O Calmia ? um aplicativo mobile criado para apoiar a Terapia Cognitivo-Comportamental. Ele ajuda pacientes a registrarem pensamentos autom?ticos de forma estruturada e permite que terapeutas acompanhem melhor a evolu??o entre as sess?es.",
       accent: "from-[#93c5fd] via-[#7c8cff] to-[#6d5dfc]",
       metrics: [
-        { value: "CBT", label: "base terapeutica" },
-        { value: "PDF", label: "exportacao rapida" },
+        { value: "CBT", label: "base terap?utica" },
+        { value: "PDF", label: "exporta??o rapida" },
         { value: "1:1", label: "paciente e terapeuta" },
       ],
       idealFor:
         "Ideal para pacientes que querem registrar o que sentem no dia a dia e para terapeutas que desejam enriquecer o acompanhamento com dados reais, organizados e compartilhados com consentimento.",
       patientTitle: "Para pacientes",
       patientBullets: [
-        "Registro guiado passo a passo de situacoes, emocoes, pensamentos, evidencias e alternativas.",
-        "Historico completo para acompanhar evolucao e padroes emocionais.",
+        "Registro guiado passo a passo de situa??es, emo??es, pensamentos, evid?ncias e alternativas.",
+        "Hist?rico completo para acompanhar evolu??o e padr?es emocionais.",
         "Exportacao em PDF para levar aos atendimentos ou arquivar progresso.",
         "Bloqueio por biometria para proteger registros pessoais.",
       ],
       therapistTitle: "Para terapeutas",
       therapistBullets: [
         "Acesso aos registros compartilhados pelos pacientes de forma segura.",
-        "Mais contexto entre as sessoes, com informacoes do cotidiano real.",
-        "Codigo de vinculacao para conectar paciente e terapeuta com clareza.",
-        "Visao mais rica da evolucao terapeutica ao longo do tempo.",
+        "Mais contexto entre as sess?es, com informa??es do cotidiano real.",
+        "C?digo de vincula??o para conectar paciente e terapeuta com clareza.",
+        "Vis?o mais rica da evolu??o terap?utica ao longo do tempo.",
       ],
       privacy:
-        "Privacidade vem primeiro. O Calmia foi pensado para dados sensiveis, com autenticacao segura, armazenamento local, compartilhamento opcional e alinhamento com a LGPD.",
+        "Privacidade vem primeiro. O Calmia foi pensado para dados sens?veis, com autentica??o segura, armazenamento local, compartilhamento opcional e alinhamento com a LGPD.",
       highlights: [
         "Registro de pensamentos disfuncionais em formato estruturado.",
-        "Historico e analise para acompanhar evolucao emocional.",
+        "Hist?rico e an?lise para acompanhar evolu??o emocional.",
         "Compartilhamento opcional com o terapeuta.",
         "Exportacao em PDF para consultas e acompanhamento.",
-        "Biometria e seguranca para proteger dados pessoais.",
-        "Suporte a multiplos idiomas.",
+        "Biometria e seguran?a para proteger dados pessoais.",
+        "Suporte a m?ltiplos idiomas.",
       ],
       links: [
         { label: "Apple Store", href: "#", pending: true },
@@ -86,9 +86,9 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       screenshots: [
         { src: "/media/calmia 1.png", title: "Tela principal do Calmia" },
         { src: "/media/calmia 2.png", title: "Fluxo de registro guiado" },
-        { src: "/media/calmia 3.png", title: "Historico e acompanhamento" },
+        { src: "/media/calmia 3.png", title: "Hist?rico e acompanhamento" },
         { src: "/media/calmia 4.png", title: "Detalhes do registro" },
-        { src: "/media/calmia 5.png", title: "Experiencia do aplicativo" },
+        { src: "/media/calmia 5.png", title: "Experi?ncia do aplicativo" },
       ],
       logo: "/media/calmia logo.jpeg",
     },
@@ -98,7 +98,7 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       id: "calmia",
       name: "Calmia",
       tagline:
-        "A therapy app designed to turn emotional records into practical, secure, and continuous follow-up.",
+        "A therapy app designed to turn emotional records into practical, secure, and cont?nuous follow-up.",
       summary:
         "Calmia is a mobile application designed to support Cognitive Behavioral Therapy. It helps patients record automatic thoughts in a structured way and gives therapists better visibility between sessions.",
       accent: "from-[#93c5fd] via-[#7c8cff] to-[#6d5dfc]",

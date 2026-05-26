@@ -36,7 +36,7 @@ export default async function BillingCancelPage({
       title={isPt ? "Checkout cancelado" : "Checkout canceled"}
       description={
         isPt
-          ? "Nenhuma cobranca foi concluida. Voce pode retomar a assinatura ou a compra de creditos quando quiser."
+          ? "Nenhuma cobrança foi concluída. Você pode retomar a assinatura ou a compra de créditos quando quiser."
           : "No charge was completed. You can restart the subscription or credit purchase whenever you want."
       }
     >
@@ -46,7 +46,7 @@ export default async function BillingCancelPage({
             title={isPt ? "Sem problema" : "No problem"}
             description={
               isPt
-                ? "Se voce saiu do checkout por engano, basta iniciar o processo novamente pela sua conta."
+                ? "Se você saiu do checkout por engano, basta iniciar o processo novamente pela sua conta."
                 : "If you left checkout by mistake, just start the process again from your account."
             }
           >
@@ -60,7 +60,7 @@ export default async function BillingCancelPage({
                 </p>
                 <p>
                   {isPt
-                    ? "Voce pode tentar novamente agora mesmo pela area do assinante ou pedir ajuda em support@brognolibi.com."
+                    ? "Você pode tentar novamente agora mesmo pela área do assinante ou pedir ajuda em support@brognolibi.com."
                     : "You can try again right now from the subscriber area or ask for help at support@brognolibi.com."}
                 </p>
               </div>
@@ -76,17 +76,17 @@ export default async function BillingCancelPage({
           </GlassCard>
 
           <GlassCard
-            title={isPt ? "Quando usar esta pagina" : "When this page appears"}
+            title={isPt ? "Quando usar esta página" : "When this page appears"}
             description={
               isPt
-                ? "Ela e usada como retorno do checkout da Stripe quando a compra nao e concluida."
+                ? "Ela é usada como retorno do checkout da Stripe quando a compra não é concluída."
                 : "It is used as the Stripe checkout return page when the purchase is not completed."
             }
           >
             <ul className="space-y-3 text-sm leading-7 text-white/72">
               <li>- {isPt ? "Fechamento manual do checkout." : "Manual checkout close."}</li>
-              <li>- {isPt ? "Mudanca de ideia antes de pagar." : "Change of mind before paying."}</li>
-              <li>- {isPt ? "Tentativa interrompida para revisar plano ou creditos." : "Interrupted attempt to review plan or credits."}</li>
+              <li>- {isPt ? "Mudança de ideia antes de pagar." : "Change of mind before paying."}</li>
+              <li>- {isPt ? "Tentativa interrompida para revisar plano ou créditos." : "Interrupted attempt to review plan or credits."}</li>
             </ul>
           </GlassCard>
         </div>

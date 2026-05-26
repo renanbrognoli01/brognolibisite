@@ -30,20 +30,20 @@ const guideDetailsByLocale: Record<Locale, GuideDetails[]> = {
       label: "Excel Essencial",
       hero: "Excel Essencial",
       subhero:
-        "Aprenda a maximizar sua produtividade, desde as operacoes basicas ate tecnicas avancadas e automacao.",
+        "Aprenda a maximizar sua produtividade, desde as operações básicas até técnicas avançadas e automação.",
       overview:
-        "Este guia foi pensado para ajudar voce a dominar o Excel de A a Z. O foco e sair da teoria solta e entregar um material direto, com explicacoes claras, exemplos reais e aplicacao imediata.",
+        "Este guia foi pensado para ajudar você a dominar o Excel de A a Z. O foco é sair da teoria solta e entregar um material direto, com explicações claras, exemplos reais e aplicação imediata.",
       highlights: [
-        "Domine o Excel do basico ao avancado com uma trilha completa e objetiva.",
-        "Receba orientacoes praticas de um profissional certificado em Excel e analise de dados.",
-        "Aprenda atalhos e recursos que ajudam voce a trabalhar com mais rapidez e precisao.",
-        "Aplique o conteudo imediatamente em trabalho, estudos e rotinas reais.",
+        "Domine o Excel do básico ao avançado com uma trilha completa e objetiva.",
+        "Receba orientações práticas de um profissional certificado em Excel e análise de dados.",
+        "Aprenda atalhos e recursos que ajudam você a trabalhar com mais rapidez e precisão.",
+        "Aplique o conteúdo imediatamente em trabalho, estudos e rotinas reais.",
       ],
       idealFor:
-        "Indicado tanto para quem esta comecando agora quanto para quem quer mais seguranca, organizacao e produtividade com o Excel.",
-      access: "Acesso vitalicio ao material.",
+        "Indicado tanto para quem está começando agora quanto para quem quer mais segurança, organização e produtividade com o Excel.",
+      access: "Acesso vitalício ao material.",
       guarantee: "Garantia de 7 dias com possibilidade de reembolso.",
-      payment: "Pagamento pela Hotmart com cartao, Pix e demais formas aceitas na plataforma.",
+      payment: "Pagamento pela Hotmart com cartão, Pix e demais formas aceitas na plataforma.",
     },
     {
       id: "excel-en",
@@ -70,20 +70,20 @@ const guideDetailsByLocale: Record<Locale, GuideDetails[]> = {
       label: "Power BI Descomplicado",
       hero: "Power BI Descomplicado",
       subhero:
-        "Aprenda do zero ao avancado, criando relatorios interativos, modelando dados com precisao e publicando insights com mais facilidade.",
+        "Aprenda do zero ao avançado, criando relatórios interativos, modelando dados com precisão e publicando insights com mais facilidade.",
       overview:
-        "Um ebook criado para transformar dados brutos em insights valiosos. Ele guia voce pelos fundamentos do Power BI e avanca para modelagem, visualizacoes e DAX com exemplos praticos.",
+        "Um ebook criado para transformar dados brutos em insights valiosos. Ele guia você pelos fundamentos do Power BI e avança para modelagem, visualizações e DAX com exemplos práticos.",
       highlights: [
-        "Domine uma das ferramentas de analise de dados mais poderosas do mercado.",
-        "Aprenda a criar relatorios interativos e visualizacoes mais impactantes.",
-        "Veja aplicacao pratica desde a instalacao ate tecnicas avancadas de DAX.",
-        "Evolua com um material que vai do basico ao avancado sem dispersao.",
+        "Domine uma das ferramentas de análise de dados mais poderosas do mercado.",
+        "Aprenda a criar relatórios interativos e visualizações mais impactantes.",
+        "Veja aplicação prática desde a instalação até técnicas avançadas de DAX.",
+        "Evolua com um material que vai do básico ao avançado sem dispersão.",
       ],
       idealFor:
-        "Recomendado para quem esta comecando agora e tambem para quem quer estruturar melhor dashboards e analises no Power BI.",
-      access: "Acesso vitalicio ao material.",
+        "Recomendado para quem está começando agora e também para quem quer estruturar melhor dashboards e análises no Power BI.",
+      access: "Acesso vitalício ao material.",
       guarantee: "Garantia de 7 dias com possibilidade de reembolso.",
-      payment: "Pagamento pela Hotmart com cartao, Pix e demais formas aceitas na plataforma.",
+      payment: "Pagamento pela Hotmart com cartão, Pix e demais formas aceitas na plataforma.",
     },
     {
       id: "powerbi-en",
@@ -254,10 +254,10 @@ export function GuideShowcase({
             <p className="mt-3 text-sm leading-7 text-white/72">
               {group.accent === "excel"
                 ? isPt
-                  ? "Escolha a versao do material e veja abaixo exatamente o que voce vai aprender, para quem ele e indicado e como funciona a compra."
+                  ? "Escolha a versão do material e veja abaixo exatamente o que você vai aprender, para quem ele é indicado e como funciona a compra."
                   : "Choose the guide version and see below exactly what you will learn, who it is for, and how the purchase works."
                 : isPt
-                  ? "Selecione a versao do guia e confira abaixo os principais beneficios, publico ideal e detalhes da entrega."
+                  ? "Selecione a versão do guia e confira abaixo os principais benefícios, público ideal e detalhes da entrega."
                   : "Select the guide version and review the key benefits, ideal audience, and delivery details below."}
             </p>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -336,7 +336,7 @@ export function GuideShowcase({
           <div className="space-y-4 rounded-[1.8rem] border border-white/10 bg-[#0f131a] p-6">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
-                {isPt ? "Para quem e" : "Ideal for"}
+                {isPt ? "Para quem é" : "Ideal for"}
               </p>
               <p className="mt-3 text-sm leading-7 text-white/76">{selectedDetails.idealFor}</p>
             </div>

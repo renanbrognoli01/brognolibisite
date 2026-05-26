@@ -25,10 +25,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
     () =>
       locale === "pt-br"
         ? {
-            eyebrow: "Area do assinante",
+            eyebrow: "Área do assinante",
             title: "Entre para acessar sua conta do BROGNOLI Studio",
             description:
-              "Use e-mail e senha, Google ou Microsoft para acompanhar sua assinatura, seus creditos e suas proximas cobrancas.",
+              "Use e-mail e senha, Google ou Microsoft para acompanhar sua assinatura, seus créditos e suas próximas cobranças.",
             login: "Entrar",
             signup: "Criar conta",
             email: "E-mail",
@@ -38,19 +38,19 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             submitSignup: "Criar conta",
             forgotPassword: "Esqueci minha senha",
             forgotPasswordSent:
-              "Enviamos um e-mail de redefinicao de senha. Verifique sua caixa de entrada e siga o link para criar uma nova senha.",
-            forgotPasswordMissingEmail: "Informe seu e-mail antes de pedir a redefinicao de senha.",
+              "Enviamos um e-mail de redefinição de senha. Verifique sua caixa de entrada e siga o link para criar uma nova senha.",
+            forgotPasswordMissingEmail: "Informe seu e-mail antes de pedir a redefinição de senha.",
             withGoogle: "Continuar com Google",
             withMicrosoft: "Continuar com Microsoft",
-            switchToSignup: "Ainda nao tem conta? Criar acesso",
-            switchToLogin: "Ja tem conta? Fazer login",
+            switchToSignup: "Ainda não tem conta? Criar acesso",
+            switchToLogin: "Já tem conta? Fazer login",
             signupSuccess:
               "Conta criada. Verifique seu e-mail para confirmar o acesso antes de continuar.",
             supportLabel: "Suporte ao assinante",
             supportBody:
-              "Se precisar de ajuda com acesso, assinatura ou cobranca, fale com nosso suporte.",
+              "Se precisar de ajuda com acesso, assinatura ou cobrança, fale com nosso suporte.",
             missingEnv:
-              "As variaveis publicas do Supabase ainda nao foram configuradas neste site.",
+              "As variáveis públicas do Supabase ainda não foram configuradas neste site.",
           }
         : {
             eyebrow: "Subscriber area",
@@ -343,14 +343,14 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         </a>
 
         <div className="mt-8 space-y-4 rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
-          <h3 className="text-lg font-semibold text-white">
-            {locale === "pt-br" ? "O que voce vai encontrar aqui" : "What you will find here"}
+            <h3 className="text-lg font-semibold text-white">
+            {locale === "pt-br" ? "O que você vai encontrar aqui" : "What you will find here"}
           </h3>
           <ul className="space-y-3 text-sm leading-7 text-white/72">
             <li>- {locale === "pt-br" ? "Plano atual e status da assinatura" : "Current plan and subscription status"}</li>
-            <li>- {locale === "pt-br" ? "Creditos do plano e creditos extras" : "Plan credits and extra credits"}</li>
-            <li>- {locale === "pt-br" ? "Proxima cobranca e dados da conta" : "Next billing date and account details"}</li>
-            <li>- {locale === "pt-br" ? "Acoes de assinatura e compra de creditos" : "Subscription actions and credit purchases"}</li>
+            <li>- {locale === "pt-br" ? "Créditos do plano e créditos extras" : "Plan credits and extra credits"}</li>
+            <li>- {locale === "pt-br" ? "Próxima cobrança e dados da conta" : "Next billing date and account details"}</li>
+            <li>- {locale === "pt-br" ? "Ações de assinatura e compra de créditos" : "Subscription actions and credit purchases"}</li>
           </ul>
         </div>
       </div>
