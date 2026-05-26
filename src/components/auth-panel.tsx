@@ -176,7 +176,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
     try {
       const supabase = getSupabaseBrowserClient();
       const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: `${window.location.origin}/${locale}/auth/callback?next=/${locale}/reset-password`,
+        redirectTo: `${window.location.origin}/${locale}/reset-password`,
       });
 
       if (resetError) {
