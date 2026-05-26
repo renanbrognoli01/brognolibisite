@@ -24,7 +24,7 @@ export default async function AccountPage({
       title={locale === "pt-br" ? "Minha conta" : "My account"}
       description={
         locale === "pt-br"
-          ? "Seu ponto central para assinatura, creditos, suporte e proximos passos no BROGNOLI Studio."
+          ? "Seu ponto central para assinatura, créditos, suporte e próximos passos no BROGNOLI Studio."
           : "Your central place for subscription, credits, support, and next steps in BROGNOLI Studio."
       }
     >

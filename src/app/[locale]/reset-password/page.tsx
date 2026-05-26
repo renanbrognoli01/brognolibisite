@@ -24,7 +24,7 @@ export default async function ResetPasswordPage({
       title={locale === "pt-br" ? "Redefinir senha" : "Reset password"}
       description={
         locale === "pt-br"
-          ? "Crie uma nova senha para sua area do assinante do BROGNOLI Studio."
+          ? "Crie uma nova senha para sua ?rea do assinante do BROGNOLI Studio."
           : "Create a new password for your BROGNOLI Studio subscriber area."
       }
     >

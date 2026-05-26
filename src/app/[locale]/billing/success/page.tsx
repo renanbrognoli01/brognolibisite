@@ -35,7 +35,7 @@ export default async function BillingSuccessPage({
       title={isPt ? "Pagamento confirmado" : "Payment confirmed"}
       description={
         isPt
-          ? "Seu checkout foi concluido com sucesso. A assinatura ou compra de creditos ja pode ser processada no ecossistema do BROGNOLI Studio."
+          ? "Seu checkout foi concluído com sucesso. A assinatura ou compra de créditos já pode ser processada no ecossistema do BROGNOLI Studio."
           : "Your checkout was completed successfully. The subscription or credit purchase can now be processed in the BROGNOLI Studio ecosystem."
       }
     >
@@ -45,7 +45,7 @@ export default async function BillingSuccessPage({
             title={isPt ? "Proximo passo" : "Next step"}
             description={
               isPt
-                ? "Abra sua area do assinante ou volte ao Studio para continuar com o plano ativo e os creditos liberados."
+                ? "Abra sua área do assinante ou volte ao Studio para continuar com o plano ativo e os créditos liberados."
                 : "Open your subscriber area or return to Studio to continue with your active plan and unlocked credits."
             }
           >
@@ -54,12 +54,12 @@ export default async function BillingSuccessPage({
               <div className="space-y-3 text-sm leading-7 text-white/72">
                 <p>
                   {isPt
-                    ? "Sua area do assinante no site centraliza login, assinatura, creditos e proximos passos."
+                    ? "Sua área do assinante no site centraliza login, assinatura, créditos e próximos passos."
                     : "Your subscriber area on the website centralizes login, subscription, credits, and next steps."}
                 </p>
                 <p>
                   {isPt
-                    ? "Se algo nao aparecer como esperado, entre em contato com support@brognolibi.com."
+                    ? "Se algo não aparecer como esperado, entre em contato com support@brognolibi.com."
                     : "If anything does not appear as expected, contact support@brognolibi.com."}
                 </p>
               </div>
@@ -78,13 +78,13 @@ export default async function BillingSuccessPage({
             title={isPt ? "O que acontece agora" : "What happens now"}
             description={
               isPt
-                ? "Seu pagamento entra no fluxo de validacao e sincronizacao do BROGNOLI Studio."
+                ? "Seu pagamento entra no fluxo de validação e sincronização do BROGNOLI Studio."
                 : "Your payment enters the BROGNOLI Studio validation and sync flow."
             }
           >
             <ul className="space-y-3 text-sm leading-7 text-white/72">
-              <li>- {isPt ? "Assinaturas sao sincronizadas com seu usuario." : "Subscriptions are synced to your user."}</li>
-              <li>- {isPt ? "Creditos do plano ou creditos extras sao liberados automaticamente." : "Plan credits or extra credits are granted automatically."}</li>
+              <li>- {isPt ? "Assinaturas são sincronizadas com seu usuário." : "Subscriptions are synced to your user."}</li>
+              <li>- {isPt ? "Créditos do plano ou créditos extras são liberados automaticamente." : "Plan credits or extra credits are granted automatically."}</li>
               <li>- {isPt ? "Seu uso continua centralizado no software." : "Your usage continues to stay centered in the desktop software."}</li>
             </ul>
           </GlassCard>

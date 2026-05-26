@@ -23,7 +23,7 @@ export default async function ProductsPage({
           </h2>
           <p className="text-sm leading-7 text-white/72">
             {isPt
-              ? "Aqui voce encontra produtos do ecossistema Brognoli apresentados de forma mais clara, com explicacao do que cada um faz, para quem ele foi criado e como acessar."
+              ? "Aqui você encontra produtos do ecossistema Brognoli apresentados de forma mais clara, com explicação do que cada um faz, para quem ele foi criado e como acessar."
               : "Here you can explore products from the Brognoli ecosystem with clear explanations about what each one does, who it is for, and how to access it."}
           </p>
         </div>
@@ -34,7 +34,7 @@ export default async function ProductsPage({
         title={isPt ? "Escolha um produto para ver os detalhes" : "Choose a product to view details"}
         description={
           isPt
-            ? "A ideia aqui e manter a navegacao simples: voce escolhe o produto e o conteudo aparece logo abaixo, sem precisar sair do site para entender a proposta."
+            ? "A ideia aqui é manter a navegação simples: você escolhe o produto e o conteúdo aparece logo abaixo, sem precisar sair do site para entender a proposta."
             : "The idea here is to keep navigation simple: choose a product and the content appears right below, without forcing you to leave the site just to understand the offer."
         }
       >
@@ -46,7 +46,7 @@ export default async function ProductsPage({
         title={isPt ? "Mais produtos vao entrar aqui em breve" : "More products will be added here soon"}
         description={
           isPt
-            ? "Esta estrutura ja esta pronta para receber novos apps, plataformas, ebooks e produtos digitais do Grupo Brognoli."
+            ? "Esta estrutura já está pronta para receber novos apps, plataformas, ebooks e produtos digitais do Grupo Brognoli."
             : "This structure is already prepared to receive new apps, platforms, ebooks, and digital products from the Brognoli ecosystem."
         }
       >
@@ -55,7 +55,7 @@ export default async function ProductsPage({
             title={isPt ? "Apps e mobile" : "Apps and mobile"}
             description={
               isPt
-                ? "Espaco pronto para produtos publicados em App Store e Play Store."
+                ? "Espaço pronto para produtos publicados em App Store e Play Store."
                 : "Ready for products published to the App Store and Play Store."
             }
           />
@@ -63,7 +63,7 @@ export default async function ProductsPage({
             title={isPt ? "Ferramentas e software" : "Tools and software"}
             description={
               isPt
-                ? "Produtos focados em produtividade, dados, BI e automacao."
+                ? "Produtos focados em produtividade, dados, BI e automação."
                 : "Products focused on productivity, data, BI, and automation."
             }
           />
@@ -71,7 +71,7 @@ export default async function ProductsPage({
             title={isPt ? "Conteudo digital" : "Digital content"}
             description={
               isPt
-                ? "Guias, ebooks e materiais criados para aprendizado pratico."
+                ? "Guias, ebooks e materiais criados para aprendizado prático."
                 : "Guides, ebooks, and materials created for practical learning."
             }
           />

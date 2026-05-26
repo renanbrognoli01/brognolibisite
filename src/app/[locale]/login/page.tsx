@@ -24,7 +24,7 @@ export default async function LoginPage({
       title={locale === "pt-br" ? "Login do assinante" : "Subscriber login"}
       description={
         locale === "pt-br"
-          ? "Acesse sua conta para acompanhar assinatura, creditos e gestao do BROGNOLI Studio."
+          ? "Acesse sua conta para acompanhar assinatura, créditos e gestão do BROGNOLI Studio."
           : "Access your account to track subscription, credits, and BROGNOLI Studio management."
       }
     >

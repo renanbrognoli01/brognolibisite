@@ -24,16 +24,16 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
         ? {
             title: "Defina sua nova senha",
             description:
-              "Crie uma nova senha para continuar acessando sua area do assinante do BROGNOLI Studio.",
+              "Crie uma nova senha para continuar acessando sua área do assinante do BROGNOLI Studio.",
             password: "Nova senha",
             confirmPassword: "Confirmar nova senha",
             submit: "Salvar nova senha",
-            success: "Senha atualizada com sucesso. Agora voce ja pode entrar normalmente.",
-            mismatch: "As senhas nao coincidem.",
+            success: "Senha atualizada com sucesso. Agora você já pode entrar normalmente.",
+            mismatch: "As senhas não coincidem.",
             invalidLink:
-              "Este link de redefinicao nao esta valido ou expirou. Solicite um novo e-mail para continuar.",
+              "Este link de redefinição não está válido ou expirou. Solicite um novo e-mail para continuar.",
             backToLogin: "Voltar para o login",
-            preparing: "Estamos preparando sua sessao de recuperacao...",
+            preparing: "Estamos preparando sua sessão de recuperação...",
           }
         : {
             title: "Set your new password",
