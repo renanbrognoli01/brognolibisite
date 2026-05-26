@@ -37,6 +37,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   const [account, setAccount] = useState<AccountSnapshot | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
   const [cancelLoading, setCancelLoading] = useState(false);
+  const [resumeLoading, setResumeLoading] = useState(false);
 
   const dict = useMemo(
     () =>
@@ -67,6 +68,10 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             buyMore: "Comprar 5.000 creditos",
             currentPlanAction: "Plano atual",
             cancelSubscription: "Cancelar assinatura",
+            confirmCancelSubscription:
+              "Tem certeza que deseja cancelar sua assinatura? Ela continuara ativa ate o fim do periodo atual.",
+            resumeSubscription: "Reativar assinatura",
+            resumeDone: "Sua assinatura foi reativada e a renovacao automatica voltou a ficar ativa.",
             cancellationScheduled: "Cancelamento agendado para o fim do periodo atual.",
             cancellationDone:
               "Sua assinatura foi marcada para cancelamento ao fim do periodo atual.",
@@ -104,6 +109,10 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             buyMore: "Buy 5,000 credits",
             currentPlanAction: "Current plan",
             cancelSubscription: "Cancel subscription",
+            confirmCancelSubscription:
+              "Are you sure you want to cancel your subscription? It will remain active until the end of the current billing period.",
+            resumeSubscription: "Resume subscription",
+            resumeDone: "Your subscription has been resumed and automatic renewal is active again.",
             cancellationScheduled: "Cancellation scheduled for the end of the current billing period.",
             cancellationDone:
               "Your subscription has been scheduled to cancel at the end of the current billing period.",
@@ -314,6 +323,10 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   }
 
   async function handleCancelSubscription() {
+    if (!window.confirm(dict.confirmCancelSubscription)) {
+      return;
+    }
+
     setCancelLoading(true);
     setError(null);
     setMessage(null);
@@ -367,6 +380,63 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
       setError(caughtError instanceof Error ? caughtError.message : "Unexpected cancellation error.");
     } finally {
       setCancelLoading(false);
+    }
+  }
+
+  async function handleResumeSubscription() {
+    setResumeLoading(true);
+    setError(null);
+    setMessage(null);
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { supabaseUrl, publishableKey } = getSupabaseBrowserConfig();
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError || !session?.access_token) {
+        throw sessionError ?? new Error("Missing authenticated session.");
+      }
+      if (!supabaseUrl || !publishableKey) {
+        throw new Error(dict.missingEnv);
+      }
+
+      const response = await fetch(`${supabaseUrl}/functions/v1/resume-subscription`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+          apikey: publishableKey,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = (await response.json()) as {
+        success?: boolean;
+        currentPeriodEnd?: string | null;
+        error?: string;
+        details?: string;
+      };
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.details ?? data.error ?? "Failed to resume subscription.");
+      }
+
+      setAccount((current) =>
+        current
+          ? {
+              ...current,
+              cancelAtPeriodEnd: false,
+              nextBillingAt: data.currentPeriodEnd ?? current.nextBillingAt,
+            }
+          : current,
+      );
+      setMessage(dict.resumeDone);
+    } catch (caughtError) {
+      setError(caughtError instanceof Error ? caughtError.message : "Unexpected resume error.");
+    } finally {
+      setResumeLoading(false);
     }
   }
 
@@ -519,14 +589,25 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
               {checkoutLoading === "credit_pack:credits_5000" ? dict.processing : dict.buyMore}
             </button>
             {hasCancellableSubscription ? (
-              <button
-                type="button"
-                disabled={cancelLoading || account.cancelAtPeriodEnd}
-                onClick={() => void handleCancelSubscription()}
-                className="rounded-full border border-[#f37070]/30 bg-[#f37070]/10 px-5 py-3 text-center text-sm font-semibold text-[#ffd2d2] transition hover:bg-[#f37070]/16 disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {cancelLoading ? dict.processing : account.cancelAtPeriodEnd ? dict.cancellationScheduled : dict.cancelSubscription}
-              </button>
+              account.cancelAtPeriodEnd ? (
+                <button
+                  type="button"
+                  disabled={resumeLoading}
+                  onClick={() => void handleResumeSubscription()}
+                  className="rounded-full border border-[#13766e]/30 bg-[#13766e]/10 px-5 py-3 text-center text-sm font-semibold text-[#d4fff9] transition hover:bg-[#13766e]/16 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {resumeLoading ? dict.processing : dict.resumeSubscription}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={cancelLoading}
+                  onClick={() => void handleCancelSubscription()}
+                  className="rounded-full border border-[#f37070]/30 bg-[#f37070]/10 px-5 py-3 text-center text-sm font-semibold text-[#ffd2d2] transition hover:bg-[#f37070]/16 disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {cancelLoading ? dict.processing : dict.cancelSubscription}
+                </button>
+              )
             ) : null}
           </div>
 
