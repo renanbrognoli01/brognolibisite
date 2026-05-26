@@ -30,6 +30,22 @@ type CheckoutTarget = {
   currency: "BRL" | "USD" | "EUR";
 };
 
+type PlanOption = {
+  code: "light" | "starter" | "pro" | "expert" | "business";
+  name: string;
+  price: string;
+  credits: string;
+  note: string;
+  highlight?: boolean;
+};
+
+type CreditPackOption = {
+  code: "credits_1000" | "credits_5000" | "credits_10000";
+  name: string;
+  price: string;
+  note: string;
+};
+
 export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -80,6 +96,13 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             currentPrice: "Valor atual",
             noPrice: "Sera exibido aqui quando o plano estiver vinculado.",
             quickActions: "Acoes rapidas",
+            plansBlock: "Planos",
+            plansBody:
+              "Escolha o nivel ideal para sua rotina. Todos os planos contam com trial de 15 dias e podem ser gerenciados aqui mesmo.",
+            extraCreditsBlock: "Creditos extras",
+            extraCreditsBody:
+              "Pacotes avulsos para reforcar seu saldo sem trocar de plano.",
+            subscribeLight: "Assinar Light",
             missingEnv:
               "As variaveis publicas do Supabase ainda nao foram configuradas neste site.",
           }
@@ -121,9 +144,144 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             currentPrice: "Current price",
             noPrice: "It will appear here once the plan is linked.",
             quickActions: "Quick actions",
+            plansBlock: "Plans",
+            plansBody:
+              "Choose the right level for your workflow. Every plan includes a 15-day trial and can be managed right here.",
+            extraCreditsBlock: "Extra credits",
+            extraCreditsBody:
+              "One-off packs to boost your balance without changing plans.",
+            subscribeLight: "Subscribe to Light",
             missingEnv:
               "The public Supabase variables have not been configured for this website yet.",
           },
+    [locale],
+  );
+
+  const planOptions: PlanOption[] = useMemo(
+    () =>
+      locale === "pt-br"
+        ? [
+            {
+              code: "light",
+              name: "Light",
+              price: "R$ 9,90/mes",
+              credits: "0 creditos",
+              note: "API propria ou modo manual",
+            },
+            {
+              code: "starter",
+              name: "Starter",
+              price: "R$ 29,00/mes",
+              credits: "2.000 creditos",
+              note: "Entrada ideal para usar IA do Studio com rotina leve",
+            },
+            {
+              code: "pro",
+              name: "Pro",
+              price: "R$ 59,00/mes",
+              credits: "6.000 creditos",
+              note: "Melhor custo-beneficio para uso recorrente",
+              highlight: true,
+            },
+            {
+              code: "expert",
+              name: "Expert",
+              price: "R$ 119,00/mes",
+              credits: "15.000 creditos",
+              note: "Para fluxo intenso, projetos e consultoria",
+            },
+            {
+              code: "business",
+              name: "Business",
+              price: "R$ 299,00/mes",
+              credits: "50.000 creditos",
+              note: "Times, operacao e escala com governanca",
+            },
+          ]
+        : [
+            {
+              code: "light",
+              name: "Light",
+              price: "US$ 4.90/month",
+              credits: "0 credits",
+              note: "Bring your own API or use manual mode",
+            },
+            {
+              code: "starter",
+              name: "Starter",
+              price: "US$ 9.90/month",
+              credits: "2,000 credits",
+              note: "Ideal entry point for light Studio AI usage",
+            },
+            {
+              code: "pro",
+              name: "Pro",
+              price: "US$ 19.90/month",
+              credits: "6,000 credits",
+              note: "Best value for recurring workflows",
+              highlight: true,
+            },
+            {
+              code: "expert",
+              name: "Expert",
+              price: "US$ 39.90/month",
+              credits: "15,000 credits",
+              note: "For heavier project and consulting workflows",
+            },
+            {
+              code: "business",
+              name: "Business",
+              price: "US$ 99.90/month",
+              credits: "50,000 credits",
+              note: "For teams, operations, and scale",
+            },
+          ],
+    [locale],
+  );
+
+  const creditPackOptions: CreditPackOption[] = useMemo(
+    () =>
+      locale === "pt-br"
+        ? [
+            {
+              code: "credits_1000",
+              name: "1.000 creditos",
+              price: "R$ 19,90",
+              note: "Pacote extra para complementar o plano quando necessario",
+            },
+            {
+              code: "credits_5000",
+              name: "5.000 creditos",
+              price: "R$ 89,00",
+              note: "Ideal para reforcar periodos de entrega e uso mais forte",
+            },
+            {
+              code: "credits_10000",
+              name: "10.000 creditos",
+              price: "R$ 169,00",
+              note: "Mais escala para operacao intensa e compras pontuais",
+            },
+          ]
+        : [
+            {
+              code: "credits_1000",
+              name: "1,000 credits",
+              price: "US$ 6.90",
+              note: "Extra pack to complement your plan whenever needed",
+            },
+            {
+              code: "credits_5000",
+              name: "5,000 credits",
+              price: "US$ 29.90",
+              note: "Ideal for delivery peaks and stronger AI usage",
+            },
+            {
+              code: "credits_10000",
+              name: "10,000 credits",
+              price: "US$ 59.90",
+              note: "More scale for intensive workflows and one-off boosts",
+            },
+          ],
     [locale],
   );
 
@@ -453,12 +611,14 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   }
 
   const isStarterActive = account?.planCode === "starter" && account.subscriptionStatus === "active";
-  const isProActive = account?.planCode === "pro" && account.subscriptionStatus === "active";
   const hasCancellableSubscription = Boolean(
     account?.planCode &&
       account.subscriptionStatus &&
       ["active", "trialing", "past_due"].includes(account.subscriptionStatus),
   );
+  const subscriptionCurrency: "BRL" | "USD" | "EUR" = locale === "pt-br" ? "BRL" : "USD";
+
+  const availablePlanOptions = planOptions.filter((plan) => plan.code !== account?.planCode);
 
   if (loading) {
     return <div className="h-64 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8" />;
@@ -543,51 +703,120 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
 
         <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
           <h2 className="text-2xl font-semibold text-white">{dict.quickActions}</h2>
-          <div className="mt-6 grid gap-3">
-            {isStarterActive ? (
-              <div className="rounded-full border border-[#f6b23c]/30 bg-[#f6b23c]/10 px-5 py-3 text-center text-sm font-semibold text-[#f6b23c]">
-                {dict.currentPlanAction}: Starter
+          <div className="mt-6 space-y-8">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-white">{dict.plansBlock}</h3>
+                <p className="text-sm leading-7 text-white/68">{dict.plansBody}</p>
               </div>
-            ) : (
-              <button
-                type="button"
-                disabled={checkoutLoading !== null}
-                onClick={() => void startCheckout({ targetKind: "subscription", targetCode: "starter", currency: "BRL" })}
-                className="rounded-full bg-[#f6b23c] px-5 py-3 text-sm font-semibold text-[#12141a] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {checkoutLoading === "subscription:starter" ? dict.processing : dict.subscribeStarter}
-              </button>
-            )}
-            {isProActive ? (
-              <div className="rounded-full border border-white/10 bg-white/[0.06] px-5 py-3 text-center text-sm font-semibold text-white">
-                {dict.currentPlanAction}: Pro
+              <div className="grid gap-4">
+                {account.planName ? (
+                  <div className="rounded-[1.5rem] border border-[#f6b23c]/30 bg-[#f6b23c]/10 p-4">
+                    <p className="text-xs uppercase tracking-[0.18em] text-[#f6b23c]">
+                      {dict.currentPlanAction}
+                    </p>
+                    <div className="mt-3 flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-lg font-semibold text-white">{account.planName}</p>
+                        <p className="mt-1 text-sm text-white/68">{account.currentPriceLabel ?? "-"}</p>
+                      </div>
+                      <span className="rounded-full border border-[#f6b23c]/30 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#f6b23c]">
+                        {account.subscriptionStatus ?? "active"}
+                      </span>
+                    </div>
+                  </div>
+                ) : null}
+                {availablePlanOptions.map((plan) => (
+                  <div
+                    key={plan.code}
+                    className={`rounded-[1.5rem] border p-4 ${
+                      plan.highlight
+                        ? "border-[#f6b23c]/30 bg-[#f6b23c]/10"
+                        : "border-white/10 bg-white/[0.04]"
+                    }`}
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-lg font-semibold text-white">{plan.name}</p>
+                          <p className="mt-1 text-sm text-white/72">{plan.price}</p>
+                        </div>
+                        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f6b23c]">
+                          {plan.credits}
+                        </span>
+                      </div>
+                      <p className="text-sm leading-6 text-white/68">{plan.note}</p>
+                      <button
+                        type="button"
+                        disabled={checkoutLoading !== null}
+                        onClick={() =>
+                          void startCheckout({
+                            targetKind: "subscription",
+                            targetCode: plan.code,
+                            currency: subscriptionCurrency,
+                          })
+                        }
+                        className={`w-full rounded-full px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-70 ${
+                          plan.highlight
+                            ? "bg-[#f6b23c] text-[#12141a] hover:scale-[1.01]"
+                            : "border border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]"
+                        }`}
+                      >
+                        {checkoutLoading === `subscription:${plan.code}`
+                          ? dict.processing
+                          : locale === "pt-br"
+                            ? `Assinar ${plan.name}`
+                            : `Subscribe to ${plan.name}`}
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ) : (
-              <button
-                type="button"
-                disabled={checkoutLoading !== null}
-                onClick={() => void startCheckout({ targetKind: "subscription", targetCode: "pro", currency: "BRL" })}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {checkoutLoading === "subscription:pro" ? dict.processing : dict.subscribePro}
-              </button>
-            )}
-            <button
-              type="button"
-              disabled={checkoutLoading !== null}
-              onClick={() => void startCheckout({ targetKind: "credit_pack", targetCode: "credits_1000", currency: "BRL" })}
-              className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {checkoutLoading === "credit_pack:credits_1000" ? dict.processing : dict.buyCredits}
-            </button>
-            <button
-              type="button"
-              disabled={checkoutLoading !== null}
-              onClick={() => void startCheckout({ targetKind: "credit_pack", targetCode: "credits_5000", currency: "BRL" })}
-              className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
-            >
-              {checkoutLoading === "credit_pack:credits_5000" ? dict.processing : dict.buyMore}
-            </button>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-white">{dict.extraCreditsBlock}</h3>
+                <p className="text-sm leading-7 text-white/68">{dict.extraCreditsBody}</p>
+              </div>
+              <div className="grid gap-4">
+                {creditPackOptions.map((pack) => (
+                  <div
+                    key={pack.code}
+                    className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-4"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-lg font-semibold text-white">{pack.name}</p>
+                          <p className="mt-1 text-sm text-white/72">{pack.price}</p>
+                        </div>
+                      </div>
+                      <p className="text-sm leading-6 text-white/68">{pack.note}</p>
+                      <button
+                        type="button"
+                        disabled={checkoutLoading !== null}
+                        onClick={() =>
+                          void startCheckout({
+                            targetKind: "credit_pack",
+                            targetCode: pack.code,
+                            currency: subscriptionCurrency,
+                          })
+                        }
+                        className="w-full rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
+                      >
+                        {checkoutLoading === `credit_pack:${pack.code}`
+                          ? dict.processing
+                          : locale === "pt-br"
+                            ? `Comprar ${pack.name}`
+                            : `Buy ${pack.name}`}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {hasCancellableSubscription ? (
               account.cancelAtPeriodEnd ? (
                 <button
