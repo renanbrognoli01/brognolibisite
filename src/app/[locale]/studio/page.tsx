@@ -476,7 +476,11 @@ export default async function StudioPage({
 
       <Section
         eyebrow={copy.problemEyebrow}
-        title="Menos trabalho operacional. Mais tempo para análise."
+        title={
+          isPt
+            ? "Menos trabalho operacional. Mais tempo para análise."
+            : "Less operational work. More time for analysis."
+        }
         description={
           isPt
             ? "O BROGNOLI Studio foi criado para reduzir as tarefas mais cansativas do dia a dia em Power BI e devolver velocidade para quem precisa construir, revisar e evoluir análises."
