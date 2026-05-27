@@ -200,8 +200,10 @@ export default async function StudioPage({
                 ? "Criar conta e iniciar trial de 15 dias"
                 : "Create an account and start a 15-day trial"}
             </PrimaryButton>
+            <SecondaryButton href={`/${locale}/download`}>
+              {isPt ? "Baixar para Windows" : "Download for Windows"}
+            </SecondaryButton>
             <SecondaryButton href={`/${locale}/account`}>
-              {isPt ? "Entrar na ?rea do assinante" : "Open subscriber area"}
               {isPt ? "Entrar na área do assinante" : "Open subscriber area"}
             </SecondaryButton>
           </div>
@@ -374,6 +376,9 @@ export default async function StudioPage({
                     ? "Criar conta para escolher o plano"
                     : "Create account to choose a plan"}
                 </PrimaryButton>
+                <SecondaryButton href={`/${locale}/download`}>
+                  {isPt ? "Ver página de download" : "Open download page"}
+                </SecondaryButton>
                 <SecondaryButton href={`/${locale}/account`}>
                   {isPt ? "J? tenho conta" : "I already have an account"}
                 </SecondaryButton>
@@ -472,6 +477,9 @@ export default async function StudioPage({
                   ? "Criar conta e iniciar meu trial"
                   : "Create account and start my trial"}
               </PrimaryButton>
+              <SecondaryButton href={`/${locale}/download`}>
+                {isPt ? "Baixar instalador" : "Download installer"}
+              </SecondaryButton>
               <SecondaryButton href={`/${locale}/account`}>
                 {isPt ? "Ir para minha conta" : "Go to my account"}
               </SecondaryButton>
