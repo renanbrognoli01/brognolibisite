@@ -44,14 +44,16 @@ export function SiteShell({ locale, children }: SiteShellProps) {
           <Link href={locale === "pt-br" ? "/pt-br" : "/en"} className="flex items-center gap-4">
             <div className="relative h-16 w-16 shrink-0">
               <Image
-                src="/media/brognolibi 1.png"
+                src="/media/LogoDesktop.png"
                 alt="Brognoli BI"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
-            <p className="text-2xl font-semibold tracking-tight text-white">{dict.siteTitle}</p>
+            <p className="whitespace-nowrap text-2xl font-semibold tracking-tight text-white">
+              {dict.siteTitle}
+            </p>
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex">
@@ -80,7 +82,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="relative h-14 w-14 shrink-0">
-                <Image src="/media/brognolibi 1.png" alt="Brognoli BI" fill className="object-contain" />
+                <Image src="/media/LogoDesktop.png" alt="Brognoli BI" fill className="object-contain" />
               </div>
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-white/45">Brognoli BI</p>

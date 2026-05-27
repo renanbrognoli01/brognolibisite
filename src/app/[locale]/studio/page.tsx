@@ -8,6 +8,7 @@ import {
   SecondaryButton,
   Section,
 } from "@/components/ui";
+import { getStudioDownloadInfo } from "@/lib/downloads";
 import type { Locale } from "@/lib/i18n";
 import { siteData, studioScreenshots } from "@/lib/site-data";
 
@@ -33,11 +34,13 @@ export default async function StudioPage({
   const { locale } = await params;
   const dict = siteData[locale];
   const isPt = locale === "pt-br";
+  const download = getStudioDownloadInfo();
+  const downloadHref = download.windowsUrl ?? `/${locale}/login`;
 
   const painPoints = isPt
     ? [
-        "Medidas DAX demoradas e repetitivas",
-        "Falta de padronização e documentação",
+        "Medidas DAX lentas e repetitivas",
+        "Falta de padronizacao e documentacao",
         "Ajustes visuais que tomam tempo demais",
         "Dificuldade para diagnosticar gargalos no modelo",
       ]
@@ -52,7 +55,7 @@ export default async function StudioPage({
     ? [
         "Analistas e desenvolvedores Power BI",
         "Consultores e freelancers que precisam ganhar escala",
-        "Equipes de BI que buscam governança e produtividade",
+        "Equipes de BI que buscam governanca e produtividade",
         "Profissionais que querem usar IA com contexto real do modelo",
       ]
     : [
@@ -82,34 +85,34 @@ export default async function StudioPage({
     ? [
         {
           name: "Light",
-          price: "R$ 9,90/mês",
-          credits: "0 créditos",
-          note: "API própria ou modo manual",
+          price: "R$ 9,90/mes",
+          credits: "0 creditos",
+          note: "API propria ou modo manual",
         },
         {
           name: "Starter",
-          price: "R$ 29,00/mês",
-          credits: "2.000 créditos",
+          price: "R$ 29,00/mes",
+          credits: "2.000 creditos",
           note: "Entrada ideal para usar IA do Studio com rotina leve",
         },
         {
           name: "Pro",
-          price: "R$ 59,00/mês",
-          credits: "6.000 créditos",
-          note: "Melhor custo-benefício para uso recorrente",
+          price: "R$ 59,00/mes",
+          credits: "6.000 creditos",
+          note: "Melhor custo-beneficio para uso recorrente",
           highlight: true,
         },
         {
           name: "Expert",
-          price: "R$ 119,00/mês",
-          credits: "15.000 créditos",
+          price: "R$ 119,00/mes",
+          credits: "15.000 creditos",
           note: "Para fluxo intenso, projetos e consultoria",
         },
         {
           name: "Business",
-          price: "R$ 299,00/mês",
-          credits: "50.000 créditos",
-          note: "Times, operação e escala com governança",
+          price: "R$ 299,00/mes",
+          credits: "50.000 creditos",
+          note: "Times, operacao e escala com governanca",
         },
       ]
     : [
@@ -149,19 +152,19 @@ export default async function StudioPage({
   const creditPacks: CreditPackCard[] = isPt
     ? [
         {
-          name: "1.000 créditos",
+          name: "1.000 creditos",
           price: "R$ 19,90",
-          note: "Pacote extra para complementar o plano quando necessário",
+          note: "Pacote extra para complementar o plano quando necessario",
         },
         {
-          name: "5.000 créditos",
+          name: "5.000 creditos",
           price: "R$ 89,00",
-          note: "Ideal para reforçar períodos de entrega e uso mais forte",
+          note: "Ideal para periodos de entrega e uso mais forte",
         },
         {
-          name: "10.000 créditos",
+          name: "10.000 creditos",
           price: "R$ 169,00",
-          note: "Mais escala para operação intensa e compras pontuais",
+          note: "Mais escala para operacao intensa e compras pontuais",
         },
       ]
     : [
@@ -186,40 +189,71 @@ export default async function StudioPage({
     <>
       <PageHero title={dict.studio.title} description={dict.studio.heroText}>
         <div className="space-y-5">
-          <div className="relative mx-auto aspect-[1.1] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+          <div className="relative mx-auto aspect-[1.02] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.25)]">
             <Image
-              src="/media/studio 4.png"
-              alt="BROGNOLI Studio logo"
+              src="/media/LogoDesktop.png"
+              alt="BROGNOLI Studio"
               fill
               className="object-contain p-8"
+              priority
             />
           </div>
-          <div className="flex flex-wrap gap-3">
+
+          <div className="flex flex-col gap-3">
             <PrimaryButton href={`/${locale}/login`}>
               {isPt
                 ? "Criar conta e iniciar trial de 15 dias"
                 : "Create an account and start a 15-day trial"}
             </PrimaryButton>
-            <SecondaryButton href={`/${locale}/download`}>
-              {isPt ? "Baixar para Windows" : "Download for Windows"}
-            </SecondaryButton>
-            <SecondaryButton href={`/${locale}/account`}>
-              {isPt ? "Entrar na área do assinante" : "Open subscriber area"}
-            </SecondaryButton>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <SecondaryButton href={downloadHref}>
+                {isPt ? "Baixar para Windows" : "Download for Windows"}
+              </SecondaryButton>
+              <SecondaryButton href={`/${locale}/account`}>
+                {isPt ? "Entrar na area do assinante" : "Open subscriber area"}
+              </SecondaryButton>
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                {isPt ? "Sistema operacional" : "Operating system"}
+              </p>
+              <p className="mt-3 text-2xl font-semibold text-white">Windows 10+</p>
+              <p className="mt-2 text-sm leading-7 text-white/66">{download.minOs}</p>
+            </div>
+            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
+              <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                {isPt ? "Versao disponivel" : "Available version"}
+              </p>
+              <p className="mt-3 text-2xl font-semibold text-white">
+                {download.version ?? "1.0.0"}
+              </p>
+              <p className="mt-2 text-sm leading-7 text-white/66">
+                {download.sha256
+                  ? isPt
+                    ? "Instalador pronto para download direto."
+                    : "Installer ready for direct download."
+                  : isPt
+                    ? "Link publico sera publicado junto com a release."
+                    : "Public link will be published with the release."}
+              </p>
+            </div>
           </div>
         </div>
       </PageHero>
 
       <Section
-        eyebrow={isPt ? "Problema e solução" : "Problem and solution"}
+        eyebrow={isPt ? "Problema e solucao" : "Problem and solution"}
         title={
           isPt
-            ? "Menos trabalho operacional. Mais tempo para análise."
+            ? "Menos trabalho operacional. Mais tempo para analise."
             : "Less operational work. More time for analysis."
         }
         description={
           isPt
-            ? "O BROGNOLI Studio foi criado para reduzir as tarefas mais cansativas do dia a dia em Power BI e devolver velocidade para quem precisa construir, revisar e evoluir análises."
+            ? "O BROGNOLI Studio foi criado para reduzir as tarefas mais cansativas do dia a dia em Power BI e devolver velocidade para quem precisa construir, revisar e evoluir analises."
             : "BROGNOLI Studio was built to reduce the most time-consuming Power BI tasks and give professionals more speed when building, reviewing, and improving analytics."
         }
       >
@@ -228,8 +262,8 @@ export default async function StudioPage({
             title={isPt ? "Onde o Studio gera impacto" : "Where Studio creates impact"}
             description={
               isPt
-                ? "Ele atua exatamente nas frentes que mais consomem tempo em projetos reais."
-                : "It focuses on the exact areas that consume the most time in real-world projects."
+                ? "Ele atua nas frentes que mais consomem tempo em projetos reais."
+                : "It focuses on the areas that consume the most time in real-world projects."
             }
           >
             <ul className="space-y-3 text-sm leading-7 text-white/72">
@@ -239,10 +273,10 @@ export default async function StudioPage({
             </ul>
           </GlassCard>
           <GlassCard
-            title={isPt ? "Resultado pr?tico" : "Practical outcome"}
+            title={isPt ? "Resultado pratico" : "Practical outcome"}
             description={
               isPt
-                ? "Mais padronização, mais autonomia e mais capacidade de focar naquilo que realmente agrega valor."
+                ? "Mais padronizacao, mais autonomia e mais capacidade de focar no que realmente agrega valor."
                 : "More standardization, more autonomy, and more ability to focus on what actually creates value."
             }
           >
@@ -269,7 +303,7 @@ export default async function StudioPage({
         }
         description={
           isPt
-            ? "Do DAX à performance, de governança à criação visual, o Studio conecta frentes que normalmente ficam espalhadas em várias ferramentas."
+            ? "Do DAX a performance, de governanca a criacao visual, o Studio conecta frentes que normalmente ficam espalhadas em varias ferramentas."
             : "From DAX to performance, from governance to visual creation, Studio connects workflows that are usually spread across multiple tools."
         }
       >
@@ -285,7 +319,7 @@ export default async function StudioPage({
       </Section>
 
       <Section
-        eyebrow={isPt ? "Para quem é" : "Who it is for"}
+        eyebrow={isPt ? "Para quem e" : "Who it is for"}
         title={
           isPt
             ? "Feito para profissionais que precisam de velocidade com qualidade"
@@ -297,7 +331,7 @@ export default async function StudioPage({
             title={isPt ? "Perfil ideal" : "Ideal profile"}
             description={
               isPt
-                ? "Se você trabalha com Power BI de forma recorrente, o ganho de produtividade e consistência tende a ser imediato."
+                ? "Se voce trabalha com Power BI de forma recorrente, o ganho de produtividade e consistencia tende a ser imediato."
                 : "If you work with Power BI regularly, the productivity and consistency gains tend to be immediate."
             }
           >
@@ -312,19 +346,19 @@ export default async function StudioPage({
             title={isPt ? "Como o Studio entra na rotina" : "How Studio fits your routine"}
             description={
               isPt
-                ? "Use o Studio para acelerar tarefas repetitivas, fortalecer a governança do modelo e elevar a qualidade do que você entrega."
+                ? "Use o Studio para acelerar tarefas repetitivas, fortalecer a governanca do modelo e elevar a qualidade do que voce entrega."
                 : "Use Studio to accelerate repetitive work, strengthen model governance, and improve the quality of what you deliver."
             }
           >
             <div className="space-y-4 text-sm leading-7 text-white/72">
               <p>
                 {isPt
-                  ? "Ele foi pensado para funcionar como companheiro de trabalho, não como ferramenta pontual."
+                  ? "Ele foi pensado para funcionar como companheiro de trabalho, nao como ferramenta pontual."
                   : "It is designed to work as a day-to-day companion, not as a one-off tool."}
               </p>
               <p>
                 {isPt
-                  ? "Isso significa mais velocidade na execução e mais clareza para padronizar o que sua equipe faz."
+                  ? "Isso significa mais velocidade na execucao e mais clareza para padronizar o que sua equipe faz."
                   : "That means more execution speed and more clarity when standardizing what your team delivers."}
               </p>
             </div>
@@ -336,7 +370,7 @@ export default async function StudioPage({
         eyebrow={isPt ? "Prova visual" : "Visual proof"}
         title={
           isPt
-            ? "Veja partes reais do produto em ação"
+            ? "Veja partes reais do produto em acao"
             : "See real parts of the product in action"
         }
         description={
@@ -353,7 +387,7 @@ export default async function StudioPage({
         title={dict.studio.plansTitle}
         description={
           isPt
-            ? "Escolha o nível certo para sua rotina, entre na área do assinante e gerencie trial, assinatura e créditos em um único lugar."
+            ? "Escolha o nivel certo para sua rotina, entre na area do assinante e gerencie trial, assinatura e creditos em um unico lugar."
             : "Choose the right level for your workflow, enter the subscriber area, and manage trial, subscription, and credits in one place."
         }
       >
@@ -366,7 +400,7 @@ export default async function StudioPage({
                 </h3>
                 <p className="text-sm leading-7 text-white/68">
                   {isPt
-                    ? "Todos os planos contam com trial de 15 dias e levam você para a área do assinante, onde assinatura, créditos e próximos passos ficam centralizados."
+                    ? "Todos os planos contam com trial de 15 dias e levam voce para a area do assinante, onde assinatura, creditos e proximos passos ficam centralizados."
                     : "Every plan includes a 15-day trial and takes you into the subscriber area, where subscription, credits, and next steps stay centralized."}
                 </p>
               </div>
@@ -376,11 +410,11 @@ export default async function StudioPage({
                     ? "Criar conta para escolher o plano"
                     : "Create account to choose a plan"}
                 </PrimaryButton>
-                <SecondaryButton href={`/${locale}/download`}>
-                  {isPt ? "Ver página de download" : "Open download page"}
+                <SecondaryButton href={downloadHref}>
+                  {isPt ? "Baixar para Windows" : "Download for Windows"}
                 </SecondaryButton>
                 <SecondaryButton href={`/${locale}/account`}>
-                  {isPt ? "J? tenho conta" : "I already have an account"}
+                  {isPt ? "Entrar na area do assinante" : "Open subscriber area"}
                 </SecondaryButton>
               </div>
             </div>
@@ -415,17 +449,17 @@ export default async function StudioPage({
             <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
               <div className="max-w-3xl space-y-2">
                 <h3 className="text-2xl font-semibold text-white">
-                  {isPt ? "Cr?ditos extras" : "Extra credits"}
+                  {isPt ? "Creditos extras" : "Extra credits"}
                 </h3>
                 <p className="text-sm leading-7 text-white/68">
                   {isPt
-                    ? "Pacotes extras para ampliar seu uso sem trocar de plano. Eles aparecem na sua área do assinante e somam ao seu saldo existente."
+                    ? "Pacotes extras para ampliar seu uso sem trocar de plano. Eles aparecem na sua area do assinante e somam ao seu saldo existente."
                     : "One-off packs to expand your usage without changing plans. They appear in your subscriber area and add to your existing balance."}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <PrimaryButton href={`/${locale}/login`}>
-                  {isPt ? "Entrar para comprar créditos" : "Sign in to buy credits"}
+                  {isPt ? "Entrar para comprar creditos" : "Sign in to buy credits"}
                 </PrimaryButton>
                 <SecondaryButton href={`/${locale}/account`}>
                   {isPt ? "Ver minha conta" : "View my account"}
@@ -455,12 +489,12 @@ export default async function StudioPage({
         eyebrow={isPt ? "Chamada final" : "Final call"}
         title={
           isPt
-            ? "Se o Power BI faz parte da sua rotina, o Studio foi feito para você"
+            ? "Se o Power BI faz parte da sua rotina, o Studio foi feito para voce"
             : "If Power BI is part of your routine, Studio was built for you"
         }
         description={
           isPt
-            ? "A proposta do BROGNOLI Studio é simples: reduzir fricção, elevar qualidade e te dar mais tempo para gerar valor com dados."
+            ? "A proposta do BROGNOLI Studio e simples: reduzir friccao, elevar qualidade e te dar mais tempo para gerar valor com dados."
             : "BROGNOLI Studio has a simple goal: reduce friction, improve quality, and give you more time to create value with data."
         }
       >
@@ -468,7 +502,7 @@ export default async function StudioPage({
           <div className="space-y-6">
             <p className="max-w-3xl text-sm leading-7 text-white/78">
               {isPt
-                ? "Comece criando sua conta. A partir dela você entra na área do assinante, escolhe o plano, acompanha créditos, compra pacotes extras e gerencia sua assinatura."
+                ? "Comece criando sua conta. A partir dela voce entra na area do assinante, escolhe o plano, acompanha creditos, compra pacotes extras e gerencia sua assinatura."
                 : "Start by creating your account. From there you enter the subscriber area, choose a plan, track credits, buy extra packs, and manage your subscription."}
             </p>
             <div className="flex flex-wrap gap-4">
@@ -477,14 +511,14 @@ export default async function StudioPage({
                   ? "Criar conta e iniciar meu trial"
                   : "Create account and start my trial"}
               </PrimaryButton>
-              <SecondaryButton href={`/${locale}/download`}>
-                {isPt ? "Baixar instalador" : "Download installer"}
+              <SecondaryButton href={downloadHref}>
+                {isPt ? "Baixar para Windows" : "Download for Windows"}
               </SecondaryButton>
               <SecondaryButton href={`/${locale}/account`}>
-                {isPt ? "Ir para minha conta" : "Go to my account"}
+                {isPt ? "Entrar na area do assinante" : "Open subscriber area"}
               </SecondaryButton>
               <SecondaryButton href={`/${locale}/videos`}>
-                {isPt ? "Ver mais conteúdo" : "See more content"}
+                {isPt ? "Ver mais conteudo" : "See more content"}
               </SecondaryButton>
             </div>
           </div>
