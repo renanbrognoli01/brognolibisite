@@ -2,15 +2,15 @@ import Image from "next/image";
 
 import { ScreenshotGallery } from "@/components/screenshot-gallery";
 import {
+  Container,
   GlassCard,
-  PageHero,
   PrimaryButton,
   SecondaryButton,
   Section,
 } from "@/components/ui";
 import { getStudioDownloadInfo } from "@/lib/downloads";
 import type { Locale } from "@/lib/i18n";
-import { siteData, studioScreenshots } from "@/lib/site-data";
+import { studioScreenshots } from "@/lib/site-data";
 
 type PlanCard = {
   name: string;
@@ -26,13 +26,242 @@ type CreditPackCard = {
   note: string;
 };
 
+type StudioCopy = {
+  title: string;
+  heroText: string;
+  osLabel: string;
+  versionLabel: string;
+  versionHintReady: string;
+  versionHintPending: string;
+  createTrial: string;
+  downloadWindows: string;
+  subscriberArea: string;
+  benefits: string[];
+  features: { title: string; description: string }[];
+  plansTitle: string;
+  plansIntro: string;
+  plansHeading: string;
+  plansDescription: string;
+  choosePlan: string;
+  extraCreditsTitle: string;
+  extraCreditsDescription: string;
+  signInToBuyCredits: string;
+  viewMyAccount: string;
+  finalTitle: string;
+  finalDescription: string;
+  finalBody: string;
+  startMyTrial: string;
+  seeMoreContent: string;
+  painPointsTitle: string;
+  painPointsDescription: string;
+  practicalOutcomeTitle: string;
+  practicalOutcomeDescription: string;
+  capabilitiesTitle: string;
+  capabilitiesDescription: string;
+  audienceTitle: string;
+  idealProfileTitle: string;
+  idealProfileDescription: string;
+  routineTitle: string;
+  routineDescription: string;
+  routineBody: string[];
+  visualTitle: string;
+  visualDescription: string;
+  problemEyebrow: string;
+  capabilityEyebrow: string;
+  audienceEyebrow: string;
+  visualEyebrow: string;
+  pricingEyebrow: string;
+  finalEyebrow: string;
+};
+
+const studioCopy: Record<Locale, StudioCopy> = {
+  "pt-br": {
+    title: "BROGNOLI Studio",
+    heroText:
+      "O BROGNOLI Studio é um software completo para Power BI e analytics. Ele combina automação, melhores práticas e inteligência artificial para reduzir tarefas repetitivas e devolver tempo para o que realmente importa: analisar, decidir e gerar valor com dados.",
+    osLabel: "Sistema operacional",
+    versionLabel: "Versão disponível",
+    versionHintReady: "Instalador pronto para download direto.",
+    versionHintPending: "Link público será publicado junto com a release.",
+    createTrial: "Criar conta e iniciar trial de 15 dias",
+    downloadWindows: "Baixar para Windows",
+    subscriberArea: "Entrar na área do assinante",
+    benefits: [
+      "Criação, otimização e documentação de medidas DAX",
+      "Análise de performance, server timings e diagnóstico de modelo",
+      "Theme Creator e Background Generator com suporte a IA",
+      "Tradução de modelo, calculation groups e governança",
+      "Mais velocidade, autonomia e consistência para profissionais e equipes",
+    ],
+    features: [
+      {
+        title: "DAX e produtividade",
+        description:
+          "Crie, formate, documente e melhore medidas usando o contexto completo do modelo semântico.",
+      },
+      {
+        title: "Governança e qualidade",
+        description:
+          "Inspecione objetos, padrões, relacionamentos e melhores práticas para manter modelos mais saudáveis.",
+      },
+      {
+        title: "Performance e diagnóstico",
+        description:
+          "Investigue comportamento de queries, tempos de execução e gargalos com fluxos avançados.",
+      },
+      {
+        title: "Criação visual com IA",
+        description:
+          "Gere backgrounds, temas e estruturas visuais para dashboards de forma muito mais rápida.",
+      },
+    ],
+    plansTitle: "Planos e trial",
+    plansIntro:
+      "Escolha o nível certo para sua rotina, entre na área do assinante e gerencie trial, assinatura e créditos em um único lugar.",
+    plansHeading: "Planos do BROGNOLI Studio",
+    plansDescription:
+      "Todos os planos contam com trial de 15 dias e levam você para a área do assinante, onde assinatura, créditos e próximos passos ficam centralizados.",
+    choosePlan: "Criar conta para escolher o plano",
+    extraCreditsTitle: "Créditos extras",
+    extraCreditsDescription:
+      "Pacotes extras para ampliar seu uso sem trocar de plano. Eles aparecem na sua área do assinante e somam ao seu saldo existente.",
+    signInToBuyCredits: "Entrar para comprar créditos",
+    viewMyAccount: "Ver minha conta",
+    finalTitle: "Se o Power BI faz parte da sua rotina, o Studio foi feito para você",
+    finalDescription:
+      "A proposta do BROGNOLI Studio é simples: reduzir fricção, elevar qualidade e te dar mais tempo para gerar valor com dados.",
+    finalBody:
+      "Comece criando sua conta. A partir dela você entra na área do assinante, escolhe o plano, acompanha créditos, compra pacotes extras e gerencia sua assinatura.",
+    startMyTrial: "Criar conta e iniciar meu trial",
+    seeMoreContent: "Ver mais conteúdo",
+    painPointsTitle: "Onde o Studio gera impacto",
+    painPointsDescription:
+      "Ele atua nas frentes que mais consomem tempo em projetos reais.",
+    practicalOutcomeTitle: "Resultado prático",
+    practicalOutcomeDescription:
+      "Mais padronização, mais autonomia e mais capacidade de focar no que realmente agrega valor.",
+    capabilitiesTitle: "Uma plataforma pensada para o fluxo completo de trabalho",
+    capabilitiesDescription:
+      "Do DAX à performance, de governança à criação visual, o Studio conecta frentes que normalmente ficam espalhadas em várias ferramentas.",
+    audienceTitle: "Feito para profissionais que precisam de velocidade com qualidade",
+    idealProfileTitle: "Perfil ideal",
+    idealProfileDescription:
+      "Se você trabalha com Power BI de forma recorrente, o ganho de produtividade e consistência tende a ser imediato.",
+    routineTitle: "Como o Studio entra na rotina",
+    routineDescription:
+      "Use o Studio para acelerar tarefas repetitivas, fortalecer a governança do modelo e elevar a qualidade do que você entrega.",
+    routineBody: [
+      "Ele foi pensado para funcionar como companheiro de trabalho, não como ferramenta pontual.",
+      "Isso significa mais velocidade na execução e mais clareza para padronizar o que sua equipe faz.",
+    ],
+    visualTitle: "Veja partes reais do produto em ação",
+    visualDescription:
+      "Clique em qualquer imagem para ampliar e explorar melhor os detalhes da interface.",
+    problemEyebrow: "Problema e solução",
+    capabilityEyebrow: "Capacidades",
+    audienceEyebrow: "Para quem é",
+    visualEyebrow: "Prova visual",
+    pricingEyebrow: "Planos",
+    finalEyebrow: "Chamada final",
+  },
+  en: {
+    title: "BROGNOLI Studio",
+    heroText:
+      "BROGNOLI Studio is a complete software platform for Power BI and analytics. It combines automation, best practices, and artificial intelligence to reduce repetitive work and give professionals more time to focus on decisions and business value.",
+    osLabel: "Operating system",
+    versionLabel: "Available version",
+    versionHintReady: "Installer ready for direct download.",
+    versionHintPending: "Public link will be published with the release.",
+    createTrial: "Create an account and start a 15-day trial",
+    downloadWindows: "Download for Windows",
+    subscriberArea: "Open subscriber area",
+    benefits: [
+      "DAX creation, optimization, and documentation",
+      "Performance analysis, server timings, and model diagnostics",
+      "Theme Creator and Background Generator with AI support",
+      "Model translation, calculation groups, and governance workflows",
+      "More speed, autonomy, and consistency for analysts and teams",
+    ],
+    features: [
+      {
+        title: "DAX and productivity",
+        description:
+          "Create, format, document, and improve measures using the full semantic model context.",
+      },
+      {
+        title: "Governance and quality",
+        description:
+          "Inspect objects, standards, relationships, and best practices to keep models healthier.",
+      },
+      {
+        title: "Performance and diagnostics",
+        description:
+          "Investigate query behavior, execution times, and bottlenecks with advanced workflows.",
+      },
+      {
+        title: "Visual creation with AI",
+        description:
+          "Generate dashboard backgrounds, themes, and visual structures in a much faster way.",
+      },
+    ],
+    plansTitle: "Plans and trial",
+    plansIntro:
+      "Choose the right level for your workflow, enter the subscriber area, and manage trial, subscription, and credits in one place.",
+    plansHeading: "BROGNOLI Studio plans",
+    plansDescription:
+      "Every plan includes a 15-day trial and takes you into the subscriber area, where subscription, credits, and next steps stay centralized.",
+    choosePlan: "Create account to choose a plan",
+    extraCreditsTitle: "Extra credits",
+    extraCreditsDescription:
+      "One-off packs to expand your usage without changing plans. They appear in your subscriber area and add to your existing balance.",
+    signInToBuyCredits: "Sign in to buy credits",
+    viewMyAccount: "View my account",
+    finalTitle: "If Power BI is part of your routine, Studio was built for you",
+    finalDescription:
+      "BROGNOLI Studio has a simple goal: reduce friction, improve quality, and give you more time to create value with data.",
+    finalBody:
+      "Start by creating your account. From there you enter the subscriber area, choose a plan, track credits, buy extra packs, and manage your subscription.",
+    startMyTrial: "Create account and start my trial",
+    seeMoreContent: "See more content",
+    painPointsTitle: "Where Studio creates impact",
+    painPointsDescription:
+      "It focuses on the areas that consume the most time in real-world projects.",
+    practicalOutcomeTitle: "Practical outcome",
+    practicalOutcomeDescription:
+      "More standardization, more autonomy, and more ability to focus on what actually creates value.",
+    capabilitiesTitle: "A platform designed for the full workflow",
+    capabilitiesDescription:
+      "From DAX to performance, from governance to visual creation, Studio connects workflows that are usually spread across multiple tools.",
+    audienceTitle: "Built for professionals who need speed with quality",
+    idealProfileTitle: "Ideal profile",
+    idealProfileDescription:
+      "If you work with Power BI regularly, the productivity and consistency gains tend to be immediate.",
+    routineTitle: "How Studio fits your routine",
+    routineDescription:
+      "Use Studio to accelerate repetitive work, strengthen model governance, and improve the quality of what you deliver.",
+    routineBody: [
+      "It is designed to work as a day-to-day companion, not as a one-off tool.",
+      "That means more execution speed and more clarity when standardizing what your team delivers.",
+    ],
+    visualTitle: "See real parts of the product in action",
+    visualDescription:
+      "Click any image to enlarge it and explore the interface details more clearly.",
+    problemEyebrow: "Problem and solution",
+    capabilityEyebrow: "Capabilities",
+    audienceEyebrow: "Who it is for",
+    visualEyebrow: "Visual proof",
+    pricingEyebrow: "Pricing",
+    finalEyebrow: "Final call",
+  },
+};
+
 export default async function StudioPage({
   params,
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  const dict = siteData[locale];
+  const copy = studioCopy[locale];
   const isPt = locale === "pt-br";
   const download = getStudioDownloadInfo();
   const downloadHref = download.windowsUrl ?? `/${locale}/login`;
@@ -40,7 +269,7 @@ export default async function StudioPage({
   const painPoints = isPt
     ? [
         "Medidas DAX lentas e repetitivas",
-        "Falta de padronizacao e documentacao",
+        "Falta de padronização e documentação",
         "Ajustes visuais que tomam tempo demais",
         "Dificuldade para diagnosticar gargalos no modelo",
       ]
@@ -55,7 +284,7 @@ export default async function StudioPage({
     ? [
         "Analistas e desenvolvedores Power BI",
         "Consultores e freelancers que precisam ganhar escala",
-        "Equipes de BI que buscam governanca e produtividade",
+        "Equipes de BI que buscam governança e produtividade",
         "Profissionais que querem usar IA com contexto real do modelo",
       ]
     : [
@@ -85,34 +314,34 @@ export default async function StudioPage({
     ? [
         {
           name: "Light",
-          price: "R$ 9,90/mes",
-          credits: "0 creditos",
-          note: "API propria ou modo manual",
+          price: "R$ 9,90/mês",
+          credits: "0 créditos",
+          note: "API própria ou modo manual",
         },
         {
           name: "Starter",
-          price: "R$ 29,00/mes",
-          credits: "2.000 creditos",
+          price: "R$ 29,00/mês",
+          credits: "2.000 créditos",
           note: "Entrada ideal para usar IA do Studio com rotina leve",
         },
         {
           name: "Pro",
-          price: "R$ 59,00/mes",
-          credits: "6.000 creditos",
-          note: "Melhor custo-beneficio para uso recorrente",
+          price: "R$ 59,00/mês",
+          credits: "6.000 créditos",
+          note: "Melhor custo-benefício para uso recorrente",
           highlight: true,
         },
         {
           name: "Expert",
-          price: "R$ 119,00/mes",
-          credits: "15.000 creditos",
+          price: "R$ 119,00/mês",
+          credits: "15.000 créditos",
           note: "Para fluxo intenso, projetos e consultoria",
         },
         {
           name: "Business",
-          price: "R$ 299,00/mes",
-          credits: "50.000 creditos",
-          note: "Times, operacao e escala com governanca",
+          price: "R$ 299,00/mês",
+          credits: "50.000 créditos",
+          note: "Times, operação e escala com governança",
         },
       ]
     : [
@@ -152,19 +381,19 @@ export default async function StudioPage({
   const creditPacks: CreditPackCard[] = isPt
     ? [
         {
-          name: "1.000 creditos",
+          name: "1.000 créditos",
           price: "R$ 19,90",
-          note: "Pacote extra para complementar o plano quando necessario",
+          note: "Pacote extra para complementar o plano quando necessário",
         },
         {
-          name: "5.000 creditos",
+          name: "5.000 créditos",
           price: "R$ 89,00",
-          note: "Ideal para periodos de entrega e uso mais forte",
+          note: "Ideal para períodos de entrega e uso mais forte",
         },
         {
-          name: "10.000 creditos",
+          name: "10.000 créditos",
           price: "R$ 169,00",
-          note: "Mais escala para operacao intensa e compras pontuais",
+          note: "Mais escala para operação intensa e compras pontuais",
         },
       ]
     : [
@@ -187,85 +416,75 @@ export default async function StudioPage({
 
   return (
     <>
-      <PageHero title={dict.studio.title} description={dict.studio.heroText}>
-        <div className="space-y-5">
-          <div className="relative mx-auto aspect-[1.02] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.25)]">
-            <Image
-              src="/media/LogoDesktop.png"
-              alt="BROGNOLI Studio"
-              fill
-              className="object-contain p-8"
-              priority
-            />
-          </div>
+      <section className="border-b border-white/10">
+        <Container>
+          <div className="grid gap-12 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-6xl">
+                  {copy.title}
+                </h1>
+                <p className="max-w-3xl text-lg leading-8 text-white/72">{copy.heroText}</p>
+              </div>
 
-          <div className="flex flex-col gap-3">
-            <PrimaryButton href={`/${locale}/login`}>
-              {isPt
-                ? "Criar conta e iniciar trial de 15 dias"
-                : "Create an account and start a 15-day trial"}
-            </PrimaryButton>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <SecondaryButton href={downloadHref}>
-                {isPt ? "Baixar para Windows" : "Download for Windows"}
-              </SecondaryButton>
-              <SecondaryButton href={`/${locale}/account`}>
-                {isPt ? "Entrar na area do assinante" : "Open subscriber area"}
-              </SecondaryButton>
+              <div className="grid max-w-xl gap-4 sm:grid-cols-2">
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                    {copy.osLabel}
+                  </p>
+                  <p className="mt-3 text-2xl font-semibold text-white">Windows 10+</p>
+                  <p className="mt-2 text-sm leading-7 text-white/66">{download.minOs}</p>
+                </div>
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                    {copy.versionLabel}
+                  </p>
+                  <p className="mt-3 text-2xl font-semibold text-white">
+                    {download.version ?? "1.0.0"}
+                  </p>
+                  <p className="mt-2 text-sm leading-7 text-white/66">
+                    {download.sha256 ? copy.versionHintReady : copy.versionHintPending}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm uppercase tracking-[0.18em] text-white/45">
-                {isPt ? "Sistema operacional" : "Operating system"}
-              </p>
-              <p className="mt-3 text-2xl font-semibold text-white">Windows 10+</p>
-              <p className="mt-2 text-sm leading-7 text-white/66">{download.minOs}</p>
-            </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-sm uppercase tracking-[0.18em] text-white/45">
-                {isPt ? "Versao disponivel" : "Available version"}
-              </p>
-              <p className="mt-3 text-2xl font-semibold text-white">
-                {download.version ?? "1.0.0"}
-              </p>
-              <p className="mt-2 text-sm leading-7 text-white/66">
-                {download.sha256
-                  ? isPt
-                    ? "Instalador pronto para download direto."
-                    : "Installer ready for direct download."
-                  : isPt
-                    ? "Link publico sera publicado junto com a release."
-                    : "Public link will be published with the release."}
-              </p>
+            <div className="space-y-5">
+              <div className="relative mx-auto aspect-[1.02] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.25)]">
+                <Image
+                  src="/media/StudioHero.png"
+                  alt="BROGNOLI Studio"
+                  fill
+                  className="object-contain p-8"
+                  priority
+                />
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <PrimaryButton href={`/${locale}/login`}>{copy.createTrial}</PrimaryButton>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <SecondaryButton href={downloadHref}>{copy.downloadWindows}</SecondaryButton>
+                  <SecondaryButton href={`/${locale}/account`}>
+                    {copy.subscriberArea}
+                  </SecondaryButton>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </PageHero>
+        </Container>
+      </section>
 
       <Section
-        eyebrow={isPt ? "Problema e solucao" : "Problem and solution"}
-        title={
-          isPt
-            ? "Menos trabalho operacional. Mais tempo para analise."
-            : "Less operational work. More time for analysis."
-        }
+        eyebrow={copy.problemEyebrow}
+        title="Menos trabalho operacional. Mais tempo para análise."
         description={
           isPt
-            ? "O BROGNOLI Studio foi criado para reduzir as tarefas mais cansativas do dia a dia em Power BI e devolver velocidade para quem precisa construir, revisar e evoluir analises."
+            ? "O BROGNOLI Studio foi criado para reduzir as tarefas mais cansativas do dia a dia em Power BI e devolver velocidade para quem precisa construir, revisar e evoluir análises."
             : "BROGNOLI Studio was built to reduce the most time-consuming Power BI tasks and give professionals more speed when building, reviewing, and improving analytics."
         }
       >
         <div className="grid gap-6 lg:grid-cols-2">
-          <GlassCard
-            title={isPt ? "Onde o Studio gera impacto" : "Where Studio creates impact"}
-            description={
-              isPt
-                ? "Ele atua nas frentes que mais consomem tempo em projetos reais."
-                : "It focuses on the areas that consume the most time in real-world projects."
-            }
-          >
+          <GlassCard title={copy.painPointsTitle} description={copy.painPointsDescription}>
             <ul className="space-y-3 text-sm leading-7 text-white/72">
               {painPoints.map((item) => (
                 <li key={item}>- {item}</li>
@@ -273,15 +492,11 @@ export default async function StudioPage({
             </ul>
           </GlassCard>
           <GlassCard
-            title={isPt ? "Resultado pratico" : "Practical outcome"}
-            description={
-              isPt
-                ? "Mais padronizacao, mais autonomia e mais capacidade de focar no que realmente agrega valor."
-                : "More standardization, more autonomy, and more ability to focus on what actually creates value."
-            }
+            title={copy.practicalOutcomeTitle}
+            description={copy.practicalOutcomeDescription}
           >
             <div className="grid gap-4 sm:grid-cols-2">
-              {dict.studio.benefits.map((benefit) => (
+              {copy.benefits.map((benefit) => (
                 <div
                   key={benefit}
                   className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 text-sm leading-6 text-white/78"
@@ -295,20 +510,12 @@ export default async function StudioPage({
       </Section>
 
       <Section
-        eyebrow={isPt ? "Capacidades" : "Capabilities"}
-        title={
-          isPt
-            ? "Uma plataforma pensada para o fluxo completo de trabalho"
-            : "A platform designed for the full workflow"
-        }
-        description={
-          isPt
-            ? "Do DAX a performance, de governanca a criacao visual, o Studio conecta frentes que normalmente ficam espalhadas em varias ferramentas."
-            : "From DAX to performance, from governance to visual creation, Studio connects workflows that are usually spread across multiple tools."
-        }
+        eyebrow={copy.capabilityEyebrow}
+        title={copy.capabilitiesTitle}
+        description={copy.capabilitiesDescription}
       >
         <div id="features" className="grid gap-6 lg:grid-cols-2">
-          {dict.studio.features.map((feature) => (
+          {copy.features.map((feature) => (
             <GlassCard
               key={feature.title}
               title={feature.title}
@@ -318,23 +525,9 @@ export default async function StudioPage({
         </div>
       </Section>
 
-      <Section
-        eyebrow={isPt ? "Para quem e" : "Who it is for"}
-        title={
-          isPt
-            ? "Feito para profissionais que precisam de velocidade com qualidade"
-            : "Built for professionals who need speed with quality"
-        }
-      >
+      <Section eyebrow={copy.audienceEyebrow} title={copy.audienceTitle}>
         <div className="grid gap-6 lg:grid-cols-2">
-          <GlassCard
-            title={isPt ? "Perfil ideal" : "Ideal profile"}
-            description={
-              isPt
-                ? "Se voce trabalha com Power BI de forma recorrente, o ganho de produtividade e consistencia tende a ser imediato."
-                : "If you work with Power BI regularly, the productivity and consistency gains tend to be immediate."
-            }
-          >
+          <GlassCard title={copy.idealProfileTitle} description={copy.idealProfileDescription}>
             <ul className="space-y-3 text-sm leading-7 text-white/72">
               {idealFor.map((item) => (
                 <li key={item}>- {item}</li>
@@ -342,79 +535,41 @@ export default async function StudioPage({
             </ul>
           </GlassCard>
 
-          <GlassCard
-            title={isPt ? "Como o Studio entra na rotina" : "How Studio fits your routine"}
-            description={
-              isPt
-                ? "Use o Studio para acelerar tarefas repetitivas, fortalecer a governanca do modelo e elevar a qualidade do que voce entrega."
-                : "Use Studio to accelerate repetitive work, strengthen model governance, and improve the quality of what you deliver."
-            }
-          >
+          <GlassCard title={copy.routineTitle} description={copy.routineDescription}>
             <div className="space-y-4 text-sm leading-7 text-white/72">
-              <p>
-                {isPt
-                  ? "Ele foi pensado para funcionar como companheiro de trabalho, nao como ferramenta pontual."
-                  : "It is designed to work as a day-to-day companion, not as a one-off tool."}
-              </p>
-              <p>
-                {isPt
-                  ? "Isso significa mais velocidade na execucao e mais clareza para padronizar o que sua equipe faz."
-                  : "That means more execution speed and more clarity when standardizing what your team delivers."}
-              </p>
+              {copy.routineBody.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
           </GlassCard>
         </div>
       </Section>
 
       <Section
-        eyebrow={isPt ? "Prova visual" : "Visual proof"}
-        title={
-          isPt
-            ? "Veja partes reais do produto em acao"
-            : "See real parts of the product in action"
-        }
-        description={
-          isPt
-            ? "Clique em qualquer imagem para ampliar e explorar melhor os detalhes da interface."
-            : "Click any image to enlarge it and explore the interface details more clearly."
-        }
+        eyebrow={copy.visualEyebrow}
+        title={copy.visualTitle}
+        description={copy.visualDescription}
       >
         <ScreenshotGallery items={galleryItems} />
       </Section>
 
       <Section
-        eyebrow={isPt ? "Planos" : "Pricing"}
-        title={dict.studio.plansTitle}
-        description={
-          isPt
-            ? "Escolha o nivel certo para sua rotina, entre na area do assinante e gerencie trial, assinatura e creditos em um unico lugar."
-            : "Choose the right level for your workflow, enter the subscriber area, and manage trial, subscription, and credits in one place."
-        }
+        eyebrow={copy.pricingEyebrow}
+        title={copy.plansTitle}
+        description={copy.plansIntro}
       >
         <div id="plans" className="space-y-10">
           <div className="space-y-6">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div className="max-w-3xl space-y-2">
-                <h3 className="text-2xl font-semibold text-white">
-                  {isPt ? "Planos do BROGNOLI Studio" : "BROGNOLI Studio plans"}
-                </h3>
-                <p className="text-sm leading-7 text-white/68">
-                  {isPt
-                    ? "Todos os planos contam com trial de 15 dias e levam voce para a area do assinante, onde assinatura, creditos e proximos passos ficam centralizados."
-                    : "Every plan includes a 15-day trial and takes you into the subscriber area, where subscription, credits, and next steps stay centralized."}
-                </p>
+                <h3 className="text-2xl font-semibold text-white">{copy.plansHeading}</h3>
+                <p className="text-sm leading-7 text-white/68">{copy.plansDescription}</p>
               </div>
               <div className="flex flex-wrap gap-3">
-                <PrimaryButton href={`/${locale}/login`}>
-                  {isPt
-                    ? "Criar conta para escolher o plano"
-                    : "Create account to choose a plan"}
-                </PrimaryButton>
-                <SecondaryButton href={downloadHref}>
-                  {isPt ? "Baixar para Windows" : "Download for Windows"}
-                </SecondaryButton>
+                <PrimaryButton href={`/${locale}/login`}>{copy.choosePlan}</PrimaryButton>
+                <SecondaryButton href={downloadHref}>{copy.downloadWindows}</SecondaryButton>
                 <SecondaryButton href={`/${locale}/account`}>
-                  {isPt ? "Entrar na area do assinante" : "Open subscriber area"}
+                  {copy.subscriberArea}
                 </SecondaryButton>
               </div>
             </div>
@@ -448,21 +603,17 @@ export default async function StudioPage({
           <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-6 md:p-8">
             <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
               <div className="max-w-3xl space-y-2">
-                <h3 className="text-2xl font-semibold text-white">
-                  {isPt ? "Creditos extras" : "Extra credits"}
-                </h3>
+                <h3 className="text-2xl font-semibold text-white">{copy.extraCreditsTitle}</h3>
                 <p className="text-sm leading-7 text-white/68">
-                  {isPt
-                    ? "Pacotes extras para ampliar seu uso sem trocar de plano. Eles aparecem na sua area do assinante e somam ao seu saldo existente."
-                    : "One-off packs to expand your usage without changing plans. They appear in your subscriber area and add to your existing balance."}
+                  {copy.extraCreditsDescription}
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
                 <PrimaryButton href={`/${locale}/login`}>
-                  {isPt ? "Entrar para comprar creditos" : "Sign in to buy credits"}
+                  {copy.signInToBuyCredits}
                 </PrimaryButton>
                 <SecondaryButton href={`/${locale}/account`}>
-                  {isPt ? "Ver minha conta" : "View my account"}
+                  {copy.viewMyAccount}
                 </SecondaryButton>
               </div>
             </div>
@@ -486,39 +637,21 @@ export default async function StudioPage({
       </Section>
 
       <Section
-        eyebrow={isPt ? "Chamada final" : "Final call"}
-        title={
-          isPt
-            ? "Se o Power BI faz parte da sua rotina, o Studio foi feito para voce"
-            : "If Power BI is part of your routine, Studio was built for you"
-        }
-        description={
-          isPt
-            ? "A proposta do BROGNOLI Studio e simples: reduzir friccao, elevar qualidade e te dar mais tempo para gerar valor com dados."
-            : "BROGNOLI Studio has a simple goal: reduce friction, improve quality, and give you more time to create value with data."
-        }
+        eyebrow={copy.finalEyebrow}
+        title={copy.finalTitle}
+        description={copy.finalDescription}
       >
         <div className="rounded-[2rem] border border-[#f6b23c]/20 bg-[linear-gradient(135deg,rgba(246,178,60,0.14),rgba(246,178,60,0.04),rgba(255,255,255,0.02))] p-8">
           <div className="space-y-6">
-            <p className="max-w-3xl text-sm leading-7 text-white/78">
-              {isPt
-                ? "Comece criando sua conta. A partir dela voce entra na area do assinante, escolhe o plano, acompanha creditos, compra pacotes extras e gerencia sua assinatura."
-                : "Start by creating your account. From there you enter the subscriber area, choose a plan, track credits, buy extra packs, and manage your subscription."}
-            </p>
+            <p className="max-w-3xl text-sm leading-7 text-white/78">{copy.finalBody}</p>
             <div className="flex flex-wrap gap-4">
-              <PrimaryButton href={`/${locale}/login`}>
-                {isPt
-                  ? "Criar conta e iniciar meu trial"
-                  : "Create account and start my trial"}
-              </PrimaryButton>
-              <SecondaryButton href={downloadHref}>
-                {isPt ? "Baixar para Windows" : "Download for Windows"}
-              </SecondaryButton>
+              <PrimaryButton href={`/${locale}/login`}>{copy.startMyTrial}</PrimaryButton>
+              <SecondaryButton href={downloadHref}>{copy.downloadWindows}</SecondaryButton>
               <SecondaryButton href={`/${locale}/account`}>
-                {isPt ? "Entrar na area do assinante" : "Open subscriber area"}
+                {copy.subscriberArea}
               </SecondaryButton>
               <SecondaryButton href={`/${locale}/videos`}>
-                {isPt ? "Ver mais conteudo" : "See more content"}
+                {copy.seeMoreContent}
               </SecondaryButton>
             </div>
           </div>
