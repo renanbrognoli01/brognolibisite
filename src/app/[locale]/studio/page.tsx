@@ -493,40 +493,44 @@ export default async function StudioPage({
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
-                <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-                  <div className="relative min-h-[260px] border-b border-white/10 bg-[#0d1017] lg:min-h-[320px] lg:border-b-0 lg:border-r">
-                    <Image
-                      src="/media/aviso-studio.png"
-                      alt={installNotice.title}
-                      fill
-                      className="object-contain p-4"
-                    />
-                  </div>
-                  <div className="space-y-5 p-6">
-                    <div className="space-y-3">
-                      <p className="text-sm uppercase tracking-[0.18em] text-white/45">
-                        {installNotice.eyebrow}
-                      </p>
-                      <h2 className="text-2xl font-semibold text-white">
-                        {installNotice.title}
-                      </h2>
-                      <p className="text-sm leading-7 text-white/72">{installNotice.body}</p>
+              <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6">
+                <div className="space-y-5">
+                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                    {installNotice.eyebrow}
+                  </p>
+
+                  <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
+                    <div className="relative min-h-[340px] overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#0d1017]">
+                      <Image
+                        src="/media/aviso-studio.png"
+                        alt={installNotice.title}
+                        fill
+                        className="object-contain p-4"
+                      />
                     </div>
 
-                    <div className="space-y-3">
-                      {installNotice.steps.map((step, index) => (
-                        <div
-                          key={step}
-                          className={`rounded-[1.25rem] border p-4 text-sm leading-7 ${
-                            index === 2
-                              ? "border-[#f6b23c]/20 bg-[#f6b23c]/10 text-white/82"
-                              : "border-white/10 bg-white/[0.03] text-white/78"
-                          }`}
-                        >
-                          {index + 1}. {step}
-                        </div>
-                      ))}
+                    <div className="space-y-5">
+                      <div className="space-y-3">
+                        <h2 className="text-2xl font-semibold text-white">
+                          {installNotice.title}
+                        </h2>
+                        <p className="text-sm leading-7 text-white/72">{installNotice.body}</p>
+                      </div>
+
+                      <div className="space-y-3">
+                        {installNotice.steps.map((step, index) => (
+                          <div
+                            key={step}
+                            className={`rounded-[1.25rem] border p-4 text-sm leading-7 ${
+                              index === 2
+                                ? "border-[#f6b23c]/20 bg-[#f6b23c]/10 text-white/82"
+                                : "border-white/10 bg-white/[0.03] text-white/78"
+                            }`}
+                          >
+                            {index + 1}. {step}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
