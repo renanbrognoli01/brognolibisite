@@ -2,8 +2,8 @@ import { PageHero, Section } from "@/components/ui";
 import { MDXContent } from "@/components/mdx-content";
 import { getArticle, getArticleSlugs } from "@/lib/articles";
 import type { Locale } from "@/lib/i18n";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
-import { compile } from "@mdx-js/mdx";
 
 export async function generateStaticParams({
   params,
@@ -34,22 +34,6 @@ export default async function ArticlePage({
     notFound();
   }
 
-  // Compilar MDX para componente React
-  let Component;
-  try {
-    const compiled = await compile(article.content, {
-      jsx: true,
-      development: false,
-    });
-
-    // Extrair o componente default
-    const mod = compiled.default as any;
-    Component = await mod({});
-  } catch (error) {
-    console.error("Error compiling MDX:", error);
-    return notFound();
-  }
-
   return (
     <>
       <PageHero
@@ -73,7 +57,7 @@ export default async function ArticlePage({
 
       <Section>
         <MDXContent>
-          {Component}
+          <MDXRemote source={article.content} />
         </MDXContent>
       </Section>
     </>
