@@ -1,0 +1,216 @@
+---
+title: "Guia Completo de DAX: CALCULATE, Filter Context e Otimização de Performance"
+description: "Guia Completo de DAX: CALCULATE, Filter Context e Otimização de Performance"
+author: "Renan Brognoli"
+date: "2026-05-28"
+readTime: "1 min"
+category: "Power BI"
+---
+
+
+# Guia Completo de DAX em 2026: CALCULATE, Filter Context e Performance Sem Mistério
+
+Se você já abriu o Power BI, escreveu um `SUM`, viu funcionar, escreveu um `CALCULATE`, viu funcionar… e depois escreveu uma medida só um pouco mais complexa e o número veio errado — bem-vindo ao clube. DAX é assim: parece fácil até o dia em que não é.
+
+A boa notícia? Existem só três ou quatro ideias por trás de 90% dos erros que você comete em DAX. Quando essas ideias caem a ficha, você para de "decorar fórmula" e começa a *desenhar* fórmula. E como bônus, em **abril de 2026** a Microsoft liberou em preview as **DAX User-Defined Functions (UDFs)**, que mudam um pouco como a gente reaproveita lógica no modelo. Vou falar delas no final.
+
+A ideia desse guia é simples: explicar CALCULATE, contextos, ALL/ALLSELECTED, time intelligence e performance como se a gente estivesse num café, não numa documentação. Bora.
+
+## Por que DAX é a habilidade mais cara (e mais mal entendida) do Power BI
+
+DAX é, ao mesmo tempo, a linguagem mais procurada por analistas e a mais difícil de explicar. A própria Microsoft diz, na documentação oficial, que "entender e usar contexto de forma eficaz é muito importante para construir fórmulas de alta performance, análises dinâmicas e para resolver problemas em fórmulas". Tradução: se você não entende contexto, você está chutando.
+
+E o problema não é a sintaxe — é que **DAX parece SQL, parece Excel, mas não é nenhum dos dois**. Ela tem regras próprias. Se você tenta encaixar a lógica de fórmula de célula do Excel num modelo tabular, vira sopa.
+
+Vamos direto ao osso.
+
+## Row context e filter context: os dois mundos paralelos do DAX
+
+Toda fórmula DAX vive em um (ou dois) contextos ao mesmo tempo.
+
+**Row context** é o "mundo da linha". Você só tem row context quando o DAX está iterando linha a linha — em colunas calculadas e dentro de funções iteradoras como `SUMX`, `AVERAGEX`, `FILTER`. Dentro do row context, você consegue referenciar colunas direto: `Vendas[Quantidade] * Vendas[PrecoUnitario]` faz sentido porque DAX sabe em qual linha está.
+
+**Filter context** é o "mundo do recorte". Ele vem das visualizações, dos slicers, dos argumentos do `CALCULATE`. É o conjunto de filtros ativos no momento. Quando você arrasta uma matriz com "Categoria" nas linhas e "Total de Vendas" nos valores, cada célula tem um filter context diferente (uma para cada categoria).
+
+A confusão clássica: você escreve `Vendas[Quantidade] * Vendas[PrecoUnitario]` dentro de uma medida — e o Power BI dá erro. Por quê? Porque medida não tem row context. Medida vive em filter context. Não existe "a linha atual" dentro de uma medida.
+
+A solução? `SUMX(Vendas, Vendas[Quantidade] * Vendas[PrecoUnitario])`. O `SUMX` cria o row context que faltava.
+
+Essa é a primeira regra de ouro: **medida = filter context, coluna calculada = row context**. Quando você precisa de uma na situação da outra, você usa um iterador (`SUMX`, `AVERAGEX`, `FILTER`) ou usa o `CALCULATE` (que veremos já já).
+
+## CALCULATE: a função que muda o jogo (literalmente)
+
+`CALCULATE` é a única função em DAX que **muda o filter context**. Pensa nela como um teletransportador: você dá uma expressão e um conjunto de filtros, e ela executa aquela expressão num universo paralelo onde os filtros que você pediu estão ativos.
+
+Sintaxe básica:
+```dax
+Vendas Eletrônicos = 
+CALCULATE(
+    [Total Vendas],
+    Produtos[Categoria] = "Eletrônicos"
+)
+```
+
+Esse "Produtos[Categoria] = 'Eletrônicos'" é açúcar sintático. Por baixo dos panos, vira `FILTER(ALL(Produtos[Categoria]), Produtos[Categoria] = "Eletrônicos")`. Isso é importante porque o `ALL` ali está jogando fora qualquer filtro existente sobre `Categoria` e colocando o novo. É por isso que `CALCULATE` **sobrescreve** filtros por padrão.
+
+E aí vem a outra mágica: a **context transition**. Quando você chama `CALCULATE` (ou qualquer medida, que é só açúcar para um `CALCULATE` implícito) **dentro de um row context**, o DAX converte automaticamente aquela linha atual em filter context.
+
+Exemplo. Imagine uma coluna calculada na tabela `Produtos`:
+```dax
+Vendas do Produto = CALCULATE([Total Vendas])
+```
+Sem filtro nenhum. Sem nada. Por que funciona? Porque ao chamar `CALCULATE` dentro do row context da coluna calculada, o DAX transforma a linha atual ("eu sou o produto SKU-123") em um filtro ("filter context: Produto = SKU-123") e aí a medida calcula só para esse produto.
+
+Essa única ideia — context transition — é responsável por uns 30% dos "por que esse número está errado?". Toda vez que você vê uma medida sendo chamada dentro de `SUMX`, `AVERAGEX`, `FILTER` ou coluna calculada, *pensa duas vezes*. A transição está acontecendo.
+
+## ALL vs ALLSELECTED: a dupla que ninguém entende de primeira
+
+Hora de matar essa dúvida.
+
+**`ALL`** remove **todos** os filtros de uma tabela ou coluna. Ignora visual, slicer, tudo. É a faxina total.
+
+**`ALLSELECTED`** remove os filtros **internos do visual atual**, mas **respeita** o que o usuário selecionou em slicers e em outros filtros do nível externo. É o equivalente a "ignore só o que está na linha/coluna da minha matriz, mantenha o resto".
+
+Caso prático: você quer mostrar "% do total" numa matriz com Categoria e Subcategoria.
+
+```dax
+% sobre Total Geral = 
+DIVIDE([Total Vendas], CALCULATE([Total Vendas], ALL(Produtos)))
+```
+Esse aqui sempre divide pelo total geral, sem importar o que o usuário fez no slicer. Bom para "share absoluto".
+
+```dax
+% sobre Total Selecionado = 
+DIVIDE([Total Vendas], CALCULATE([Total Vendas], ALLSELECTED(Produtos)))
+```
+Esse aqui respeita o slicer. Se o usuário filtrou para Q1, o "total" passa a ser o total do Q1.
+
+Regra prática: **se você quer um número que ignora o usuário, use `ALL`. Se quer um número que respeita o usuário mas ignora o recorte do próprio visual, use `ALLSELECTED`.**
+
+## Time intelligence: SAMEPERIODLASTYEAR, DATEADD e a tabela de datas
+
+Time intelligence em DAX exige uma coisa **inegociável**: uma tabela de datas marcada como tabela de datas, contínua, com todas as datas do período. Sem isso, nada funciona direito. Isso vem batido por todos os especialistas — SQLBI, Microsoft Learn, blogs especializados como Casewhen e Elysiate dizem a mesma coisa.
+
+Com a tabela de datas pronta, comparar ano contra ano vira uma linha:
+
+```dax
+Vendas Ano Anterior = 
+CALCULATE([Total Vendas], SAMEPERIODLASTYEAR(DimData[Data]))
+```
+
+O `SAMEPERIODLASTYEAR` pega o intervalo de datas que está no filter context atual e devolve o mesmo intervalo um ano antes. Se o usuário está olhando "Maio de 2026", ele devolve "Maio de 2025".
+
+`DATEADD` é o irmão flexível:
+```dax
+Vendas 3 Meses Atrás = 
+CALCULATE([Total Vendas], DATEADD(DimData[Data], -3, MONTH))
+```
+
+E aqui vai um detalhe que o pessoal do Exceltown deixa claro: às vezes você precisa adicionar `ALL(DimData)` como argumento extra para "limpar" filtros que o visual está aplicando. Não é sempre — é quando você quer comparar com o mesmo período, ignorando o recorte da data.
+
+YoY virou clássico:
+```dax
+YoY % = 
+VAR Atual = [Total Vendas]
+VAR Anterior = [Vendas Ano Anterior]
+RETURN DIVIDE(Atual - Anterior, Anterior)
+```
+
+Repara que eu usei `VAR`. Isso me leva direto para o próximo assunto.
+
+## Performance: VAR é seu melhor amigo (e iteradores aninhados, o pior inimigo)
+
+Quando uma medida demora 8 segundos para abrir, geralmente é um desses três pecados: você está calculando a mesma coisa várias vezes, está aninhando iteradores que não deviam ser aninhados, ou está pedindo coisa demais para o Formula Engine.
+
+### Use `VAR`. Sempre que puder.
+
+```dax
+-- Ruim
+Margem % = 
+DIVIDE(
+    [Total Vendas] - [Total Custo],
+    [Total Vendas]
+)
+```
+
+Parece inocente, né? Mas `[Total Vendas]` é calculado **duas vezes**. O Formula Engine não tem garantia de cachê interno aí.
+
+```dax
+-- Bom
+Margem % = 
+VAR Vendas = [Total Vendas]
+VAR Custo = [Total Custo]
+RETURN DIVIDE(Vendas - Custo, Vendas)
+```
+
+Agora cada coisa é calculada uma vez. Além de ficar mais rápido, fica mais legível — e VAR "congela" o valor naquele filter context, o que evita bugs sutis quando você combina com `CALCULATE` ou context transition.
+
+### Iteradores aninhados: o assassino silencioso
+
+O SQLBI publicou um artigo célebre sobre otimização de iteradores aninhados. O resumo é brutal: cada nível de iteração multiplica o trabalho. Um `SUMX` dentro de outro `SUMX` que itera 100 mil linhas vira 10 bilhões de cálculos. O Formula Engine engasga.
+
+Padrão problemático:
+```dax
+Total Esforço = 
+SUMX(
+    Produtos,
+    SUMX(
+        RELATEDTABLE(Vendas),
+        Vendas[Quantidade] * Produtos[PrecoBase]
+    )
+)
+```
+
+Quase sempre dá para reescrever como um único `SUMX` sobre a tabela de fatos, deixando o engine de armazenamento (storage engine, o famoso "VertiPaq") fazer o trabalho pesado:
+```dax
+Total Esforço = 
+SUMX(
+    Vendas,
+    Vendas[Quantidade] * RELATED(Produtos[PrecoBase])
+)
+```
+
+Regra prática: **itere a tabela de fatos uma vez, puxe colunas das dimensões com `RELATED`**. Storage engine é rápido, formula engine é lento. Empurra trabalho para o storage sempre que possível.
+
+### Medida ou coluna calculada?
+
+Coluna calculada é processada no refresh, fica na RAM, ocupa espaço. Medida é calculada em query time, em cima do que o usuário pediu.
+
+Regra: **se o valor depende da seleção do usuário, é medida. Se é um atributo intrínseco da linha (categoria do produto, faixa etária do cliente), pode ser coluna**. Não use coluna calculada para "cachear" totais — você vai pagar isso em tamanho de modelo e em refresh lento.
+
+## A novidade de 2026: DAX User-Defined Functions
+
+Em abril de 2026, a Microsoft liberou em preview as **DAX User-Defined Functions** no Power BI Desktop. A SQLBI e a documentação oficial da Microsoft já têm material sobre.
+
+A ideia: empacotar lógica DAX reutilizável dentro do próprio modelo. Em vez de copiar e colar a mesma expressão em 30 medidas, você define uma função uma vez e usa em todo lugar.
+
+Sintaxe (simplificada, conceitual):
+```dax
+FUNCTION Margem(vendas, custo) =
+    DIVIDE(vendas - custo, vendas)
+```
+
+E aí, em qualquer medida:
+```dax
+Margem Produtos = Margem([Total Vendas], [Total Custo])
+```
+
+Por que isso é grande? Porque, até abril de 2026, a única forma de reaproveitar lógica era copiar fórmulas (ruim de manter) ou criar medidas intermediárias (poluem o modelo). UDFs resolvem isso com elegância de linguagem de programação de verdade.
+
+Os "gotchas" que o pessoal da SQLBI alerta: ainda é preview, performance precisa ser testada caso a caso (UDF não é mágica, ela ainda passa pelo Formula Engine), e a depuração é menos óbvia quando algo dá errado lá dentro.
+
+Recomendação prática: comece usando UDFs em **utilitários puros** (formatação, cálculos matemáticos, transformações de string). Deixe medidas de negócio complexas como medidas tradicionais por enquanto. Quando a feature sair de preview, expanda.
+
+## Resumo do que importa lembrar amanhã de manhã
+
+- **Filter context vive em medidas, row context vive em iteradores e colunas calculadas.** Quando precisar trocar, use `CALCULATE` ou um iterador.
+- **`CALCULATE` sobrescreve filtros** e dispara **context transition** quando chamado dentro de row context.
+- **`ALL` é faxina total, `ALLSELECTED` respeita o usuário.** Use isso para % do total.
+- **Time intelligence exige tabela de datas decente.** `SAMEPERIODLASTYEAR` e `DATEADD` resolvem 90% dos comparativos.
+- **Performance:** `VAR` sempre, evite iteradores aninhados, prefira iterar a fato uma vez com `RELATED`.
+- **Medida ≠ coluna calculada.** Não use coluna para cachear total.
+- **DAX UDFs (abril/2026, preview)** chegaram para resolver reaproveitamento de lógica. Comece pelos utilitários.
+
+DAX premia quem entende as regras e pune quem decora. Se você dedicar duas tardes pra brincar com esses conceitos no DAX Studio, vendo Storage Engine vs Formula Engine no profiler, sua vida em Power BI muda de patamar. Sério.
+
+E quando bater dúvida, lembra: 80% dos erros de DAX são erro de contexto. Volte para a pergunta básica — **"em que contexto eu estou nesse ponto da fórmula?"** — e a resposta aparece.
