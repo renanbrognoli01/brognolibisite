@@ -1,0 +1,87 @@
+---
+title: "Guia Completo de DAX: CALCULATE, Filter Context e Otimização de Performance"
+description: "Aprenda CALCULATE, Filter Context e otimização de performance em DAX"
+author: "Renan Brognoli"
+date: "2026-05-28"
+readTime: "12 min"
+category: "Power BI"
+---
+
+# Guia Completo de DAX: CALCULATE, Filter Context e Otimização de Performance
+
+Neste artigo abrangente, vamos explorar os conceitos fundamentais de DAX, focando especialmente na função CALCULATE e no contexto de filtro que é crucial para dominar o Power BI.
+
+## O que é DAX?
+
+DAX (Data Analysis Expressions) é a linguagem de fórmulas usada no Power BI, Analysis Services e Power Pivot. Com DAX, você consegue criar medidas e colunas calculadas que transformam dados brutos em insights valiosos.
+
+## Entendendo Filter Context
+
+O **Filter Context** (Contexto de Filtro) é um dos conceitos mais importantes em DAX. É o conjunto de filtros aplicados aos dados no momento em que uma fórmula é avaliada.
+
+### Como funciona:
+- Cada linha em uma tabela tem seu próprio contexto de linha
+- Cada célula em um visual tem seu próprio contexto de filtro
+- Os filtros são aplicados na ordem: visuais, slicers, relações
+
+## A Função CALCULATE
+
+`CALCULATE` é a função mais poderosa do DAX. Ela permite modificar o contexto de filtro para cálculos específicos.
+
+### Sintaxe básica:
+```
+CALCULATE(expression, filter1, filter2, ...)
+```
+
+### Exemplos práticos:
+
+**Vendas totais:**
+```
+Total Vendas = CALCULATE(SUM(Vendas[Valor]))
+```
+
+**Vendas do ano anterior:**
+```
+Vendas Ano Anterior = CALCULATE(
+    SUM(Vendas[Valor]),
+    SAMEPERIODLASTYEAR(Datas[Data])
+)
+```
+
+**Vendas de um produto específico:**
+```
+Vendas Produto X = CALCULATE(
+    SUM(Vendas[Valor]),
+    Produtos[Nome] = "Produto X"
+)
+```
+
+## Context Transition
+
+Um conceito importante é o **Context Transition**. Quando você usa uma coluna em um contexto de linha, ela se transforma em um filtro no contexto de filtro.
+
+Exemplo:
+```
+TotalPorProduto = CALCULATE(
+    SUM(Vendas[Valor]),
+    Produtos[ProdutoID] = VALUES(Produtos[ProdutoID])
+)
+```
+
+## Otimizando Performance
+
+### 1. Use FILTER com cuidado
+`FILTER` é poderoso mas custoso. Prefira outras funções quando possível.
+
+### 2. Evite iteradoras desnecessárias
+`SUMX`, `MAXX` e companhia são úteis mas lentas em grandes volumes.
+
+### 3. Use SELECTEDVALUE
+Para contexto de linha, `SELECTEDVALUE` é mais eficiente que `VALUES`.
+
+### 4. Cache de resultados
+Divide medidas complexas em partes menores para melhorar cache.
+
+## Conclusão
+
+Dominar CALCULATE e Filter Context é essencial para ser um expert em Power BI. Continue praticando e experimentando diferentes abordagens!

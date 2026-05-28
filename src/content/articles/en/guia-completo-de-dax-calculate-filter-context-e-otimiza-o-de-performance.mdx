@@ -1,0 +1,87 @@
+---
+title: "Complete Guide to DAX: CALCULATE, Filter Context and Performance Optimization"
+description: "Learn CALCULATE, Filter Context and performance optimization in DAX"
+author: "Renan Brognoli"
+date: "2026-05-28"
+readTime: "12 min"
+category: "Power BI"
+---
+
+# Complete Guide to DAX: CALCULATE, Filter Context and Performance Optimization
+
+In this comprehensive article, we will explore the fundamental concepts of DAX, focusing especially on the CALCULATE function and filter context that is crucial to master Power BI.
+
+## What is DAX?
+
+DAX (Data Analysis Expressions) is the formula language used in Power BI, Analysis Services and Power Pivot. With DAX, you can create measures and calculated columns that transform raw data into valuable insights.
+
+## Understanding Filter Context
+
+The **Filter Context** is one of the most important concepts in DAX. It's the set of filters applied to the data at the moment a formula is evaluated.
+
+### How it works:
+- Each row in a table has its own row context
+- Each cell in a visual has its own filter context
+- Filters are applied in order: visuals, slicers, relationships
+
+## The CALCULATE Function
+
+`CALCULATE` is the most powerful function in DAX. It allows you to modify the filter context for specific calculations.
+
+### Basic syntax:
+```
+CALCULATE(expression, filter1, filter2, ...)
+```
+
+### Practical examples:
+
+**Total sales:**
+```
+Total Sales = CALCULATE(SUM(Sales[Value]))
+```
+
+**Previous year sales:**
+```
+Previous Year Sales = CALCULATE(
+    SUM(Sales[Value]),
+    SAMEPERIODLASTYEAR(Dates[Date])
+)
+```
+
+**Sales of a specific product:**
+```
+Product X Sales = CALCULATE(
+    SUM(Sales[Value]),
+    Products[Name] = "Product X"
+)
+```
+
+## Context Transition
+
+An important concept is **Context Transition**. When you use a column in a row context, it transforms into a filter in the filter context.
+
+Example:
+```
+TotalPerProduct = CALCULATE(
+    SUM(Sales[Value]),
+    Products[ProductID] = VALUES(Products[ProductID])
+)
+```
+
+## Optimizing Performance
+
+### 1. Use FILTER carefully
+`FILTER` is powerful but costly. Prefer other functions when possible.
+
+### 2. Avoid unnecessary iterators
+`SUMX`, `MAXX` and friends are useful but slow on large volumes.
+
+### 3. Use SELECTEDVALUE
+For row context, `SELECTEDVALUE` is more efficient than `VALUES`.
+
+### 4. Cache results
+Divide complex measures into smaller parts to improve caching.
+
+## Conclusion
+
+Mastering CALCULATE and Filter Context is essential to becoming a Power BI expert. Keep practicing and experimenting with different approaches!
