@@ -265,6 +265,29 @@ export default async function StudioPage({
   const isPt = locale === "pt-br";
   const download = getStudioDownloadInfo();
   const downloadHref = download.windowsUrl ?? `/${locale}/login`;
+  const installNotice = isPt
+    ? {
+        eyebrow: "Instalação guiada",
+        title: "Primeira instalação no Windows",
+        body:
+          "Como o Studio ainda é uma aplicação nova, o Windows pode mostrar um aviso padrão de proteção na primeira execução. O instalador publicado aqui é o oficial da BROGNOLI e pode ser executado com segurança.",
+        steps: [
+          "Clique em Mais informações.",
+          "Depois clique em Executar assim mesmo.",
+          "Esse é um comportamento padrão do Windows para softwares novos e tende a diminuir com o tempo.",
+        ],
+      }
+    : {
+        eyebrow: "Guided install",
+        title: "First Windows installation",
+        body:
+          "Because Studio is still a new application, Windows may show a standard protection prompt the first time you run it. The installer published here is the official BROGNOLI build and is safe to continue with.",
+        steps: [
+          "Click More info.",
+          "Then click Run anyway.",
+          "This is a standard Windows prompt for new software and it usually becomes less common over time.",
+        ],
+      };
 
   const painPoints = isPt
     ? [
@@ -467,6 +490,45 @@ export default async function StudioPage({
                   <SecondaryButton href={`/${locale}/account`}>
                     {copy.subscriberArea}
                   </SecondaryButton>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+                <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
+                  <div className="relative min-h-[260px] border-b border-white/10 bg-[#0d1017] lg:min-h-[320px] lg:border-b-0 lg:border-r">
+                    <Image
+                      src="/media/aviso-studio.png"
+                      alt={installNotice.title}
+                      fill
+                      className="object-contain p-4"
+                    />
+                  </div>
+                  <div className="space-y-5 p-6">
+                    <div className="space-y-3">
+                      <p className="text-sm uppercase tracking-[0.18em] text-white/45">
+                        {installNotice.eyebrow}
+                      </p>
+                      <h2 className="text-2xl font-semibold text-white">
+                        {installNotice.title}
+                      </h2>
+                      <p className="text-sm leading-7 text-white/72">{installNotice.body}</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {installNotice.steps.map((step, index) => (
+                        <div
+                          key={step}
+                          className={`rounded-[1.25rem] border p-4 text-sm leading-7 ${
+                            index === 2
+                              ? "border-[#f6b23c]/20 bg-[#f6b23c]/10 text-white/82"
+                              : "border-white/10 bg-white/[0.03] text-white/78"
+                          }`}
+                        >
+                          {index + 1}. {step}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
