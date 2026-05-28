@@ -1,4 +1,4 @@
-import { PageHero, Section } from "@/components/ui";
+import { PageHero } from "@/components/ui";
 import type { Locale } from "@/lib/i18n";
 
 const articleContent: Record<string, string> = {
@@ -31,9 +31,9 @@ export default async function ArticlePage({
         </div>
       </PageHero>
 
-      <div className="container mx-auto px-4 py-16">
-        <article className="prose prose-invert max-w-3xl mx-auto">
-          <div className="space-y-6 text-white/90 whitespace-pre-wrap">
+      <div className="container mx-auto px-4 py-16 max-w-4xl">
+        <article className="prose prose-invert max-w-none">
+          <div className="space-y-6 text-white/90 leading-relaxed whitespace-pre-wrap font-normal">
             {content}
           </div>
         </article>
