@@ -45,19 +45,19 @@ Approved cards in Trello contain two different sources:
    - is not the full clean publication source
 
 2. **markdown attachment**
-   - contains the full PT+EN article
+   - contains the full PT + EN article
    - must be treated as the main content source
 
 ### Ignore the following Trello description lines
 
 Do not publish lines like:
 
-- `📅 Gerado: ...`
-- `📊 PT: ... | EN: ...`
-- `🎯 Status: ...`
-- `📎 Versão completa ... anexada`
-- `👇 Abaixo: versão PT-BR para revisão rápida`
-- `🇬🇧 Versão em inglês: ver anexo .md`
+- `Gerado: ...`
+- `PT: ... | EN: ...`
+- `Status: ...`
+- `Versao completa ... anexada`
+- `Abaixo: versao PT-BR para revisao rapida`
+- `Versao em ingles: ver anexo .md`
 
 Also ignore divider lines like:
 
@@ -97,9 +97,7 @@ Each locale must contain:
 - `category`
 - `publishedAt`
 - `readingTime`
-- `intro`
-- `sections`
-- `conclusion` optional
+- `body`
 
 ## Editorial mapping rules
 
@@ -110,19 +108,15 @@ Use the real editorial article title.
 Write a clean editorial summary.
 Do not copy operational text.
 
-### `intro`
-Use the opening paragraphs of the article.
+### `body`
+Convert the markdown article into ordered blocks:
 
-### `sections`
-Convert major `##` headings into sections.
+- regular paragraphs become `{ type: "paragraph", text: ... }`
+- each major `##` heading becomes `{ type: "heading", text: ... }`
+- fenced code blocks become `{ type: "code", language: "dax", code: ... }`
+- bullet recap lists become `{ type: "list", items: [...] }`
 
-Each section should contain:
-- `heading`
-- `paragraphs`
-- `bullets` only when the article clearly contains a bullet summary
-
-### `conclusion`
-Use only if the article clearly closes with final takeaway paragraphs.
+Do not keep raw markdown fences inside paragraph text.
 
 ## Internationalization rules
 
@@ -219,7 +213,6 @@ The publication is wrong if any of these happens:
 - a manual route file was created
 - PT-BR contains internal process notes
 - EN contains Portuguese
-- long-form article has empty `sections`
 - article does not appear in `/articles`
 
 ## Commit style
