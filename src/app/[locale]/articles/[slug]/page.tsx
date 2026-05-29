@@ -163,17 +163,17 @@ export default async function ArticlePage({
             <aside className="space-y-5 lg:sticky lg:top-24">
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.22)]">
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#13766e]">
-                  {locale === "pt-br" ? "Leitura rapida" : "Quick read"}
+                  {locale === "pt-br" ? "Leitura rápida" : "Quick read"}
                 </p>
                 <div className="mt-4 space-y-3 text-sm leading-7 text-white/72">
                   <p>
                     {locale === "pt-br"
-                      ? "Esse artigo foi formatado para leitura completa no site, com exemplos DAX destacados e resumos em blocos para consulta rapida."
+                      ? "Esse artigo foi formatado para leitura completa no site, com exemplos DAX destacados e resumos em blocos para consulta rápida."
                       : "This article is formatted for long-form reading, with highlighted DAX examples and recap blocks for quick reference."}
                   </p>
                   <p>
                     {locale === "pt-br"
-                      ? "Se voce estiver estudando no Power BI, vale abrir o DAX Studio em paralelo para testar os exemplos e observar o comportamento do engine."
+                      ? "Se você estiver estudando no Power BI, vale abrir o DAX Studio em paralelo para testar os exemplos e observar o comportamento do engine."
                       : "If you are studying inside Power BI, open DAX Studio alongside it to test the examples and observe engine behavior."}
                   </p>
                 </div>

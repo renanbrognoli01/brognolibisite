@@ -20,7 +20,7 @@ export default async function ArticlesPage({
           title={locale === "pt-br" ? "Artigos publicados" : "Published articles"}
           description={
             locale === "pt-br"
-              ? "Conteudos autorais sobre Power BI, DAX, analytics e produtividade publicados no site."
+              ? "Conteúdos autorais sobre Power BI, DAX, analytics e produtividade publicados no site."
               : "Original content about Power BI, DAX, analytics, and productivity published on the site."
           }
         >

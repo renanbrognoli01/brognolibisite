@@ -29,9 +29,9 @@ export const articles: ArticleEntry[] = [
     featured: true,
     locales: {
       "pt-br": {
-        title: "Guia Completo de DAX em 2026: CALCULATE, Filter Context e Performance Sem Misterio",
+        title: "Guia Completo de DAX em 2026: CALCULATE, Filter Context e Performance Sem Mistério",
         summary:
-          "Um guia direto sobre contexto, CALCULATE, ALL, time intelligence e performance em DAX para quem quer parar de decorar formula e comecar a pensar em modelo.",
+          "Um guia direto sobre contexto, CALCULATE, ALL, time intelligence e performance em DAX para quem quer parar de decorar fórmula e começar a pensar em modelo.",
         eyebrow: "Power BI e DAX",
         author: "Renan Brognoli",
         category: "Power BI",
@@ -40,27 +40,27 @@ export const articles: ArticleEntry[] = [
         body: [
           {
             type: "paragraph",
-            text: 'Se voce ja abriu o Power BI, escreveu um `SUM`, viu funcionar, escreveu um `CALCULATE`, viu funcionar... e depois escreveu uma medida so um pouco mais complexa e o numero veio errado - bem-vindo ao clube. DAX e assim: parece facil ate o dia em que nao e.',
+            text: 'Se você já abriu o Power BI, escreveu um `SUM`, viu funcionar, escreveu um `CALCULATE`, viu funcionar... e depois escreveu uma medida só um pouco mais complexa e o número veio errado — bem-vindo ao clube. DAX é assim: parece fácil até o dia em que não é.',
           },
           {
             type: "paragraph",
-            text: 'A boa noticia? Existem so tres ou quatro ideias por tras de 90% dos erros que voce comete em DAX. Quando essas ideias caem a ficha, voce para de "decorar formula" e comeca a *desenhar* formula. E como bonus, em **abril de 2026** a Microsoft liberou em preview as **DAX User-Defined Functions (UDFs)**, que mudam um pouco como a gente reaproveita logica no modelo. Vou falar delas no final.',
+            text: 'A boa notícia? Existem só três ou quatro ideias por trás de 90% dos erros que você comete em DAX. Quando essas ideias caem a ficha, você para de "decorar fórmula" e começa a *desenhar* fórmula. E como bônus, em **abril de 2026** a Microsoft liberou em preview as **DAX User-Defined Functions (UDFs)**, que mudam um pouco como a gente reaproveita lógica no modelo. Vou falar delas no final.',
           },
           {
             type: "paragraph",
-            text: "A ideia deste guia e simples: explicar CALCULATE, contextos, ALL/ALLSELECTED, time intelligence e performance como se a gente estivesse num cafe, nao numa documentacao.",
+            text: "A ideia deste guia é simples: explicar CALCULATE, contextos, ALL/ALLSELECTED, time intelligence e performance como se a gente estivesse num café, não numa documentação.",
           },
           {
             type: "heading",
-            text: "Por que DAX e a habilidade mais cara (e mais mal entendida) do Power BI",
+            text: "Por que DAX é a habilidade mais cara (e mais mal entendida) do Power BI",
           },
           {
             type: "paragraph",
-            text: 'DAX e, ao mesmo tempo, a linguagem mais procurada por analistas e a mais dificil de explicar. A propria Microsoft diz, na documentacao oficial, que "entender e usar contexto de forma eficaz e muito importante para construir formulas de alta performance, analises dinamicas e para resolver problemas em formulas". Traducao: se voce nao entende contexto, voce esta chutando.',
+            text: 'DAX é, ao mesmo tempo, a linguagem mais procurada por analistas e a mais difícil de explicar. A própria Microsoft diz, na documentação oficial, que "entender e usar contexto de forma eficaz é muito importante para construir fórmulas de alta performance, análises dinâmicas e para resolver problemas em fórmulas". Tradução: se você não entende contexto, você está chutando.',
           },
           {
             type: "paragraph",
-            text: "E o problema nao e a sintaxe - e que **DAX parece SQL, parece Excel, mas nao e nenhum dos dois**. Ela tem regras proprias. Se voce tenta encaixar a logica de formula de celula do Excel num modelo tabular, vira sopa.",
+            text: "E o problema não é a sintaxe — é que **DAX parece SQL, parece Excel, mas não é nenhum dos dois**. Ela tem regras próprias. Se você tenta encaixar a lógica de fórmula de célula do Excel num modelo tabular, vira sopa.",
           },
           { type: "paragraph", text: "Vamos direto ao osso." },
           {
@@ -69,54 +69,54 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Toda formula DAX vive em um (ou dois) contextos ao mesmo tempo.",
+            text: "Toda fórmula DAX vive em um (ou dois) contextos ao mesmo tempo.",
           },
           {
             type: "paragraph",
-            text: '**Row context** e o "mundo da linha". Voce so tem row context quando o DAX esta iterando linha a linha - em colunas calculadas e dentro de funcoes iteradoras como `SUMX`, `AVERAGEX`, `FILTER`. Dentro do row context, voce consegue referenciar colunas direto: `Vendas[Quantidade] * Vendas[PrecoUnitario]` faz sentido porque DAX sabe em qual linha esta.',
+            text: '**Row context** é o "mundo da linha". Você só tem row context quando o DAX está iterando linha a linha — em colunas calculadas e dentro de funções iteradoras como `SUMX`, `AVERAGEX`, `FILTER`. Dentro do row context, você consegue referenciar colunas direto: `Vendas[Quantidade] * Vendas[PrecoUnitario]` faz sentido porque DAX sabe em qual linha está.',
           },
           {
             type: "paragraph",
-            text: '**Filter context** e o "mundo do recorte". Ele vem das visualizacoes, dos slicers, dos argumentos do `CALCULATE`. E o conjunto de filtros ativos no momento. Quando voce arrasta uma matriz com "Categoria" nas linhas e "Total de Vendas" nos valores, cada celula tem um filter context diferente.',
+            text: '**Filter context** é o "mundo do recorte". Ele vem das visualizações, dos slicers, dos argumentos do `CALCULATE`. É o conjunto de filtros ativos no momento. Quando você arrasta uma matriz com "Categoria" nas linhas e "Total de Vendas" nos valores, cada célula tem um filter context diferente.',
           },
           {
             type: "paragraph",
-            text: 'A confusao classica: voce escreve `Vendas[Quantidade] * Vendas[PrecoUnitario]` dentro de uma medida - e o Power BI da erro. Por que? Porque medida nao tem row context. Medida vive em filter context. Nao existe "a linha atual" dentro de uma medida.',
+            text: 'A confusão clássica: você escreve `Vendas[Quantidade] * Vendas[PrecoUnitario]` dentro de uma medida — e o Power BI dá erro. Por quê? Porque medida não tem row context. Medida vive em filter context. Não existe "a linha atual" dentro de uma medida.',
           },
           {
             type: "paragraph",
-            text: "A solucao? `SUMX(Vendas, Vendas[Quantidade] * Vendas[PrecoUnitario])`. O `SUMX` cria o row context que faltava.",
+            text: "A solução? `SUMX(Vendas, Vendas[Quantidade] * Vendas[PrecoUnitario])`. O `SUMX` cria o row context que faltava.",
           },
           {
             type: "paragraph",
-            text: "Essa e a primeira regra de ouro: **medida = filter context, coluna calculada = row context**. Quando voce precisa de uma na situacao da outra, voce usa um iterador (`SUMX`, `AVERAGEX`, `FILTER`) ou usa o `CALCULATE`.",
+            text: "Essa é a primeira regra de ouro: **medida = filter context, coluna calculada = row context**. Quando você precisa de uma na situação da outra, você usa um iterador (`SUMX`, `AVERAGEX`, `FILTER`) ou usa o `CALCULATE`.",
           },
           {
             type: "heading",
-            text: "CALCULATE: a funcao que muda o jogo (literalmente)",
+            text: "CALCULATE: a função que muda o jogo (literalmente)",
           },
           {
             type: "paragraph",
-            text: "`CALCULATE` e a unica funcao em DAX que **muda o filter context**. Pensa nela como um teletransportador: voce da uma expressao e um conjunto de filtros, e ela executa aquela expressao num universo paralelo onde os filtros que voce pediu estao ativos.",
+            text: "`CALCULATE` é a única função em DAX que **muda o filter context**. Pensa nela como um teletransportador: você dá uma expressão e um conjunto de filtros, e ela executa aquela expressão num universo paralelo onde os filtros que você pediu estão ativos.",
           },
           {
             type: "code",
             language: "dax",
             code: [
-              "Vendas Eletronicos =",
+              "Vendas Eletrônicos =",
               "CALCULATE(",
               "    [Total Vendas],",
-              '    Produtos[Categoria] = "Eletronicos"',
+              '    Produtos[Categoria] = "Eletrônicos"',
               ")",
             ].join("\n"),
           },
           {
             type: "paragraph",
-            text: 'Esse `Produtos[Categoria] = "Eletronicos"` e acucar sintatico. Por baixo dos panos, vira `FILTER(ALL(Produtos[Categoria]), Produtos[Categoria] = "Eletronicos")`. Isso importa porque o `ALL` ali joga fora qualquer filtro existente sobre `Categoria` antes de colocar o novo. E por isso que `CALCULATE` **sobrescreve** filtros por padrao.',
+            text: 'Esse `Produtos[Categoria] = "Eletrônicos"` é açúcar sintático. Por baixo dos panos, vira `FILTER(ALL(Produtos[Categoria]), Produtos[Categoria] = "Eletrônicos")`. Isso importa porque o `ALL` ali joga fora qualquer filtro existente sobre `Categoria` antes de colocar o novo. É por isso que `CALCULATE` sobrescreve filtros por padrão.',
           },
           {
             type: "paragraph",
-            text: "A outra magica e a **context transition**. Quando voce chama `CALCULATE` (ou qualquer medida, que e so acucar para um `CALCULATE` implicito) **dentro de um row context**, o DAX converte automaticamente a linha atual em filter context.",
+            text: "E aí vem a outra mágica: a **context transition**. Quando você chama `CALCULATE` (ou qualquer medida, que é só açúcar para um `CALCULATE` implícito) dentro de um row context, o DAX converte automaticamente a linha atual em filter context.",
           },
           {
             type: "paragraph",
@@ -129,28 +129,28 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'Sem filtro nenhum. Sem nada. Por que funciona? Porque ao chamar `CALCULATE` dentro do row context da coluna calculada, o DAX transforma a linha atual ("eu sou o produto SKU-123") em um filtro ("filter context: Produto = SKU-123") e ai a medida calcula so para esse produto.',
+            text: 'Sem filtro nenhum. Sem nada. Por que funciona? Porque ao chamar `CALCULATE` dentro do row context da coluna calculada, o DAX transforma a linha atual ("eu sou o produto SKU-123") em um filtro ("filter context: Produto = SKU-123") e aí a medida calcula só para esse produto.',
           },
           {
             type: "paragraph",
-            text: 'Essa unica ideia - context transition - e responsavel por uns 30% dos "por que esse numero esta errado?". Toda vez que voce ve uma medida sendo chamada dentro de `SUMX`, `AVERAGEX`, `FILTER` ou coluna calculada, pensa duas vezes. A transicao esta acontecendo.',
+            text: 'Essa única ideia — context transition — é responsável por uns 30% dos "por que esse número está errado?". Toda vez que você vê uma medida sendo chamada dentro de `SUMX`, `AVERAGEX`, `FILTER` ou coluna calculada, pensa duas vezes. A transição está acontecendo.',
           },
           {
             type: "heading",
-            text: "ALL vs ALLSELECTED: a dupla que ninguem entende de primeira",
+            text: "ALL vs ALLSELECTED: a dupla que ninguém entende de primeira",
           },
-          { type: "paragraph", text: "Hora de matar essa duvida." },
+          { type: "paragraph", text: "Hora de matar essa dúvida." },
           {
             type: "paragraph",
-            text: "**`ALL`** remove **todos** os filtros de uma tabela ou coluna. Ignora visual, slicer, tudo. E a faxina total.",
-          },
-          {
-            type: "paragraph",
-            text: '**`ALLSELECTED`** remove os filtros **internos do visual atual**, mas **respeita** o que o usuario selecionou em slicers e em outros filtros do nivel externo. E o equivalente a "ignore so o que esta na linha ou coluna da minha matriz, mantenha o resto".',
+            text: "**`ALL`** remove **todos** os filtros de uma tabela ou coluna. Ignora visual, slicer, tudo. É a faxina total.",
           },
           {
             type: "paragraph",
-            text: 'Caso pratico: voce quer mostrar "% do total" numa matriz com Categoria e Subcategoria.',
+            text: '**`ALLSELECTED`** remove os filtros **internos do visual atual**, mas **respeita** o que o usuário selecionou em slicers e em outros filtros do nível externo. É o equivalente a "ignore só o que está na linha ou coluna da minha matriz, mantenha o resto".',
+          },
+          {
+            type: "paragraph",
+            text: 'Caso prático: você quer mostrar "% do total" numa matriz com Categoria e Subcategoria.',
           },
           {
             type: "code",
@@ -162,7 +162,7 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'Esse aqui sempre divide pelo total geral, sem importar o que o usuario fez no slicer. Bom para "share absoluto".',
+            text: 'Esse aqui sempre divide pelo total geral, sem importar o que o usuário fez no slicer. Bom para "share absoluto".',
           },
           {
             type: "code",
@@ -174,11 +174,11 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'Esse aqui respeita o slicer. Se o usuario filtrou para Q1, o "total" passa a ser o total do Q1.',
+            text: 'Esse aqui respeita o slicer. Se o usuário filtrou para Q1, o "total" passa a ser o total do Q1.',
           },
           {
             type: "paragraph",
-            text: "Regra pratica: se voce quer um numero que ignora o usuario, use `ALL`. Se quer um numero que respeita o usuario mas ignora o recorte do proprio visual, use `ALLSELECTED`.",
+            text: "Regra prática: se você quer um número que ignora o usuário, use `ALL`. Se quer um número que respeita o usuário mas ignora o recorte do próprio visual, use `ALLSELECTED`.",
           },
           {
             type: "heading",
@@ -186,7 +186,7 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Time intelligence em DAX exige uma coisa inegociavel: uma tabela de datas marcada como tabela de datas, continua, com todas as datas do periodo. Sem isso, nada funciona direito. SQLBI, Microsoft Learn e blogs especializados repetem isso porque realmente e a base do assunto.",
+            text: "Time intelligence em DAX exige uma coisa inegociável: uma tabela de datas marcada como tabela de datas, contínua, com todas as datas do período. Sem isso, nada funciona direito. SQLBI, Microsoft Learn e blogs especializados repetem isso porque realmente é a base do assunto.",
           },
           {
             type: "paragraph",
@@ -202,27 +202,27 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'O `SAMEPERIODLASTYEAR` pega o intervalo de datas que esta no filter context atual e devolve o mesmo intervalo um ano antes. Se o usuario esta olhando "Maio de 2026", ele devolve "Maio de 2025".',
+            text: 'O `SAMEPERIODLASTYEAR` pega o intervalo de datas que está no filter context atual e devolve o mesmo intervalo um ano antes. Se o usuário está olhando "Maio de 2026", ele devolve "Maio de 2025".',
           },
           {
             type: "paragraph",
-            text: "`DATEADD` e o irmao flexivel.",
+            text: "`DATEADD` é o irmão flexível.",
           },
           {
             type: "code",
             language: "dax",
             code: [
-              "Vendas 3 Meses Atras =",
+              "Vendas 3 Meses Atrás =",
               "CALCULATE([Total Vendas], DATEADD(DimData[Data], -3, MONTH))",
             ].join("\n"),
           },
           {
             type: "paragraph",
-            text: 'As vezes faz sentido adicionar `ALL(DimData)` como argumento extra para "limpar" filtros que o visual esta aplicando. Nao e sempre - e quando voce quer comparar com o mesmo periodo ignorando o recorte da data.',
+            text: 'E aqui vai um detalhe que o pessoal do Exceltown deixa claro: às vezes você precisa adicionar `ALL(DimData)` como argumento extra para "limpar" filtros que o visual está aplicando. Não é sempre — é quando você quer comparar com o mesmo período, ignorando o recorte da data.',
           },
           {
             type: "paragraph",
-            text: "YoY virou classico.",
+            text: "YoY virou clássico.",
           },
           {
             type: "code",
@@ -236,15 +236,15 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Repara que eu usei `VAR`. Isso leva direto para o proximo assunto.",
+            text: "Repara que eu usei `VAR`. Isso me leva direto para o próximo assunto.",
           },
           {
             type: "heading",
-            text: "Performance: VAR e seu melhor amigo (e iteradores aninhados, o pior inimigo)",
+            text: "Performance: VAR é seu melhor amigo (e iteradores aninhados, o pior inimigo)",
           },
           {
             type: "paragraph",
-            text: "Quando uma medida demora varios segundos para abrir, geralmente e um desses tres pecados: voce esta calculando a mesma coisa varias vezes, esta aninhando iteradores que nao deviam ser aninhados ou esta pedindo coisa demais para o Formula Engine.",
+            text: "Quando uma medida demora 8 segundos para abrir, geralmente é um desses três pecados: você está calculando a mesma coisa várias vezes, está aninhando iteradores que não deviam ser aninhados, ou está pedindo coisa demais para o Formula Engine.",
           },
           {
             type: "heading",
@@ -264,7 +264,7 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'Parece inocente, ne? Mas `[Total Vendas]` e calculado **duas vezes**. O Formula Engine nao tem garantia de cache interno ai.',
+            text: 'Parece inocente, né? Mas `[Total Vendas]` é calculado **duas vezes**. O Formula Engine não tem garantia de cachê interno aí.',
           },
           {
             type: "code",
@@ -279,7 +279,7 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'Agora cada coisa e calculada uma vez. Alem de ficar mais rapido, fica mais legivel - e `VAR` "congela" o valor naquele filter context, o que evita bugs sutis quando voce combina com `CALCULATE` ou context transition.',
+            text: 'Agora cada coisa é calculada uma vez. Além de ficar mais rápido, fica mais legível — e `VAR` "congela" o valor naquele filter context, o que evita bugs sutis quando você combina com `CALCULATE` ou context transition.',
           },
           {
             type: "heading",
@@ -287,17 +287,17 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Cada nivel de iteracao multiplica o trabalho. Um `SUMX` dentro de outro `SUMX` pode fazer o Formula Engine engasgar de verdade.",
+            text: "O SQLBI publicou um artigo célebre sobre otimização de iteradores aninhados. O resumo é brutal: cada nível de iteração multiplica o trabalho. Um `SUMX` dentro de outro `SUMX` que itera 100 mil linhas vira 10 bilhões de cálculos. O Formula Engine engasga.",
           },
           {
             type: "paragraph",
-            text: "Padrao problematico.",
+            text: "Padrão problemático.",
           },
           {
             type: "code",
             language: "dax",
             code: [
-              "Total Esforco =",
+              "Total Esforço =",
               "SUMX(",
               "    Produtos,",
               "    SUMX(",
@@ -309,13 +309,13 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: 'Quase sempre da para reescrever como um unico `SUMX` sobre a tabela de fatos, deixando o storage engine, o famoso "VertiPaq", fazer o trabalho pesado.',
+            text: 'Quase sempre dá para reescrever como um único `SUMX` sobre a tabela de fatos, deixando o engine de armazenamento (storage engine, o famoso "VertiPaq") fazer o trabalho pesado.',
           },
           {
             type: "code",
             language: "dax",
             code: [
-              "Total Esforco =",
+              "Total Esforço =",
               "SUMX(",
               "    Vendas,",
               "    Vendas[Quantidade] * RELATED(Produtos[PrecoBase])",
@@ -324,7 +324,7 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Regra pratica: itere a tabela fato uma vez e puxe colunas das dimensoes com `RELATED`. Storage engine e rapido; formula engine e lento.",
+            text: "Regra prática: itere a tabela de fatos uma vez e puxe colunas das dimensões com `RELATED`. Storage engine é rápido, formula engine é lento. Empurra trabalho para o storage sempre que possível.",
           },
           {
             type: "heading",
@@ -332,11 +332,11 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Coluna calculada e processada no refresh, fica na RAM e ocupa espaco. Medida e calculada em query time, em cima do que o usuario pediu.",
+            text: "Coluna calculada é processada no refresh, fica na RAM, ocupa espaço. Medida é calculada em query time, em cima do que o usuário pediu.",
           },
           {
             type: "paragraph",
-            text: 'Regra: se o valor depende da selecao do usuario, e medida. Se e um atributo intrinseco da linha, como categoria do produto ou faixa etaria do cliente, pode ser coluna. Nao use coluna calculada para "cachear" totais.',
+            text: 'Regra: se o valor depende da seleção do usuário, é medida. Se é um atributo intrínseco da linha (categoria do produto, faixa etária do cliente), pode ser coluna. Não use coluna calculada para "cachear" totais — você vai pagar isso em tamanho de modelo e em refresh lento.',
           },
           {
             type: "heading",
@@ -344,11 +344,11 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "Em abril de 2026, a Microsoft liberou em preview as **DAX User-Defined Functions** no Power BI Desktop. A ideia e empacotar logica DAX reutilizavel dentro do proprio modelo.",
+            text: "Em abril de 2026, a Microsoft liberou em preview as DAX User-Defined Functions no Power BI Desktop. A SQLBI e a documentação oficial da Microsoft já têm material sobre.",
           },
           {
             type: "paragraph",
-            text: "Em vez de copiar e colar a mesma expressao em varias medidas, voce define uma funcao uma vez e usa em todo lugar.",
+            text: "A ideia: empacotar lógica DAX reutilizável dentro do próprio modelo. Em vez de copiar e colar a mesma expressão em 30 medidas, você define uma função uma vez e usa em todo lugar.",
           },
           {
             type: "code",
@@ -360,7 +360,7 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "E ai, em qualquer medida.",
+            text: "E aí, em qualquer medida.",
           },
           {
             type: "code",
@@ -369,31 +369,39 @@ export const articles: ArticleEntry[] = [
           },
           {
             type: "paragraph",
-            text: "O ganho aqui e clareza e reaproveitamento. Mas como a feature ainda esta em preview, performance e depuracao precisam ser testadas com cautela.",
+            text: "Por que isso é grande? Porque, até abril de 2026, a única forma de reaproveitar lógica era copiar fórmulas (ruim de manter) ou criar medidas intermediárias (poluem o modelo). UDFs resolvem isso com elegância de linguagem de programação de verdade.",
           },
           {
             type: "paragraph",
-            text: "Comece usando UDFs em utilitarios puros, como formatacao, calculos matematicos e transformacoes de string. Deixe medidas de negocio mais complexas como medidas tradicionais por enquanto.",
+            text: 'Os "gotchas" que o pessoal da SQLBI alerta: ainda é preview, performance precisa ser testada caso a caso (UDF não é mágica, ela ainda passa pelo Formula Engine), e a depuração é menos óbvia quando algo dá errado lá dentro.',
+          },
+          {
+            type: "paragraph",
+            text: "Recomendação prática: comece usando UDFs em utilitários puros (formatação, cálculos matemáticos, transformações de string). Deixe medidas de negócio complexas como medidas tradicionais por enquanto. Quando a feature sair de preview, expanda.",
           },
           {
             type: "heading",
-            text: "Resumo do que importa lembrar amanha de manha",
+            text: "Resumo do que importa lembrar amanhã de manhã",
           },
           {
             type: "list",
             items: [
               "Filter context vive em medidas, row context vive em iteradores e colunas calculadas. Quando precisar trocar, use `CALCULATE` ou um iterador.",
               "`CALCULATE` sobrescreve filtros e dispara context transition quando chamado dentro de row context.",
-              "`ALL` e faxina total, `ALLSELECTED` respeita o usuario. Use isso para porcentagem do total.",
-              "Time intelligence exige tabela de datas decente. `SAMEPERIODLASTYEAR` e `DATEADD` resolvem a maior parte dos comparativos.",
-              "Performance: `VAR` sempre, evite iteradores aninhados e prefira iterar a fato uma vez com `RELATED`.",
-              "Medida nao e coluna calculada. Nao use coluna para cachear total.",
-              "DAX UDFs, em preview desde abril de 2026, chegaram para resolver reaproveitamento de logica. Comece pelos utilitarios.",
+              "`ALL` é faxina total, `ALLSELECTED` respeita o usuário. Use isso para % do total.",
+              "Time intelligence exige tabela de datas decente. `SAMEPERIODLASTYEAR` e `DATEADD` resolvem 90% dos comparativos.",
+              "Performance: `VAR` sempre, evite iteradores aninhados, prefira iterar a fato uma vez com `RELATED`.",
+              "Medida ≠ coluna calculada. Não use coluna para cachear total.",
+              "DAX UDFs (abril/2026, preview) chegaram para resolver reaproveitamento de lógica. Comece pelos utilitários.",
             ],
           },
           {
             type: "paragraph",
-            text: 'DAX premia quem entende as regras e pune quem decora. E quando bater duvida, lembra: 80% dos erros de DAX sao erro de contexto. Volte para a pergunta basica - **"em que contexto eu estou nesse ponto da formula?"** - e a resposta aparece.',
+            text: 'DAX premia quem entende as regras e pune quem decora. Se você dedicar duas tardes pra brincar com esses conceitos no DAX Studio, vendo Storage Engine vs Formula Engine no profiler, sua vida em Power BI muda de patamar. Sério.',
+          },
+          {
+            type: "paragraph",
+            text: 'E quando bater dúvida, lembra: 80% dos erros de DAX são erro de contexto. Volte para a pergunta básica — **"em que contexto eu estou nesse ponto da fórmula?"** — e a resposta aparece.',
           },
         ],
       },
