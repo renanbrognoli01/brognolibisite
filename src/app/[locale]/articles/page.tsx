@@ -1,4 +1,5 @@
 import { GlassCard, PageHero, Section } from "@/components/ui";
+import { getArticlesForLocale } from "@/lib/articles-data";
 import { siteData } from "@/lib/site-data";
 import type { Locale } from "@/lib/i18n";
 
@@ -9,13 +10,47 @@ export default async function ArticlesPage({
 }) {
   const { locale } = await params;
   const dict = siteData[locale];
+  const articles = getArticlesForLocale(locale);
 
   return (
     <>
       <PageHero title={dict.articles.title} description={dict.articles.description} />
-      <Section title={dict.articles.placeholderTitle}>
-        <GlassCard title={dict.articles.placeholderTitle} description={dict.articles.placeholderBody} />
-      </Section>
+      {articles.length ? (
+        <Section
+          title={locale === "pt-br" ? "Artigos publicados" : "Published articles"}
+          description={
+            locale === "pt-br"
+              ? "Conteúdos autorais sobre Power BI, DAX, analytics e produtividade publicados no site."
+              : "Original content about Power BI, DAX, analytics, and productivity published on the site."
+          }
+        >
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {articles.map((article) => (
+              <GlassCard
+                key={article.slug}
+                title={article.title}
+                description={article.summary}
+                href={`/${locale}/articles/${article.slug}`}
+              >
+                <div className="space-y-3 text-sm text-white/60">
+                  <div className="flex flex-wrap gap-3">
+                    <span>{article.publishedAt}</span>
+                    <span className="text-white/20">•</span>
+                    <span>{article.readingTime}</span>
+                  </div>
+                  <div className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#f6b23c]">
+                    {article.category}
+                  </div>
+                </div>
+              </GlassCard>
+            ))}
+          </div>
+        </Section>
+      ) : (
+        <Section title={dict.articles.placeholderTitle}>
+          <GlassCard title={dict.articles.placeholderTitle} description={dict.articles.placeholderBody} />
+        </Section>
+      )}
     </>
   );
 }

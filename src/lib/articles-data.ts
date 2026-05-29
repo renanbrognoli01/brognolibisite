@@ -1,21 +1,49 @@
-export interface Article {
-  slug: string;
+import type { Locale } from "@/lib/i18n";
+
+export type ArticleSection = {
+  heading: string;
+  paragraphs?: string[];
+  bullets?: string[];
+};
+
+export type LocalizedArticleContent = {
   title: string;
   summary: string;
-  publishedAt: string;
+  eyebrow?: string;
+  author: string;
   category: string;
-  readingTime: number;
-  featured: boolean;
+  publishedAt: string;
+  readingTime: string;
+  intro: string[];
+  sections: ArticleSection[];
+  conclusion?: string[];
+};
+
+export type ArticleEntry = {
+  slug: string;
+  featured?: boolean;
+  locales: Record<Locale, LocalizedArticleContent>;
+};
+
+export const articles: ArticleEntry[] = [];
+
+export function getArticlesForLocale(locale: Locale) {
+  return articles.map((article) => ({
+    slug: article.slug,
+    featured: article.featured ?? false,
+    ...article.locales[locale],
+  }));
 }
 
-export const articles: Article[] = [
-  {
-    slug: "guia-completo-de-dax-calculate-filter-context-e-otimiza-o-de-performance",
-    title: "Guia Completo de DAX: CALCULATE, Filter Context e Otimização de Performance",
-    summary: "Guia Completo de DAX: CALCULATE, Filter Context e Otimização de Performance",
-    publishedAt: "2026-05-28",
-    category: "Power BI",
-    readingTime: 1,
-    featured: false,
-  },
-];
+export function getArticleBySlug(locale: Locale, slug: string) {
+  const article = articles.find((entry) => entry.slug === slug);
+  if (!article) {
+    return null;
+  }
+
+  return {
+    slug: article.slug,
+    featured: article.featured ?? false,
+    ...article.locales[locale],
+  };
+}
