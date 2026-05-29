@@ -18,6 +18,19 @@ If any instruction conflicts, follow this priority:
 2. `docs/article-publishing-guide.md`
 3. `docs/article-entry-example.md`
 
+## Canonical live example
+
+Your canonical example is the **real published DAX article entry** in:
+
+- `src/lib/articles-data.ts`
+
+Find the entry with slug:
+
+- `guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance`
+
+When creating a new article, mirror that live entry structurally.
+Do not invent a new object format.
+
 ## Repository and branch
 
 - Repository: `renanbrognoli01/brognolibisite`
@@ -175,4 +188,3 @@ Publish through `src/lib/articles-data.ts`.
 Validate.
 Commit.
 Open PR.
-

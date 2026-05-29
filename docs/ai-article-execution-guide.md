@@ -28,6 +28,19 @@ These files define the article system and must be treated as stable:
 - `src/app/[locale]/articles/page.tsx`
 - `src/app/[locale]/articles/[slug]/page.tsx`
 
+## Canonical live reference
+
+The canonical structural example is the **real published DAX article** already present in:
+
+- `src/lib/articles-data.ts`
+
+Find the entry with slug:
+
+- `guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance`
+
+Every new article must mirror that live entry structurally.
+Do not use an invented format.
+
 ### Stability rule
 
 For normal article publication:
@@ -127,6 +140,9 @@ Each article entry must follow this structure:
 { type: "code", code: string, language?: string }
 { type: "list", items: string[] }
 ```
+
+The live DAX article already demonstrates this model correctly.
+Use it as the reference implementation.
 
 ## Editorial mapping algorithm
 
@@ -366,4 +382,3 @@ Do not redesign.
 Do not improvise architecture.
 Do not leak workflow text.
 Do not degrade language quality.
-

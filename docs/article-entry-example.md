@@ -1,112 +1,73 @@
 # Article Entry Example
 
-This document shows the expected shape of a correct article entry inside:
+The canonical example is **not fictional**.
+
+The canonical example is the **real production article that is already published on the site**:
+
+- slug: `guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance`
+- source file: `src/lib/articles-data.ts`
+
+## Required rule
+
+When publishing a new article, inspect the **actual live article entry** above and mirror its structure.
+
+Do not invent your own structure.
+Do not simplify the object shape.
+Do not create alternative field names.
+
+## What must be copied from the real example
+
+The new article must follow the exact same object pattern as the live DAX article:
+
+- root object with:
+  - `slug`
+  - `featured`
+  - `locales`
+
+- locale objects with:
+  - `title`
+  - `summary`
+  - `eyebrow`
+  - `author`
+  - `category`
+  - `publishedAt`
+  - `readingTime`
+  - `body`
+
+- `body` as an ordered array of blocks using only:
+  - `paragraph`
+  - `heading`
+  - `code`
+  - `list`
+
+## Exact live example to inspect
+
+Open:
 
 - `src/lib/articles-data.ts`
 
-Use this as a structural reference.
+Find the entry with:
 
-## Canonical example
+- `slug: "guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance"`
 
-```ts
-{
-  slug: "guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance",
-  featured: true,
-  locales: {
-    "pt-br": {
-      title: "Guia Completo de DAX em 2026: CALCULATE, Filter Context e Performance Sem Mistério",
-      summary:
-        "Um guia direto sobre contexto, CALCULATE, ALL, time intelligence e performance em DAX para quem quer parar de decorar fórmula e começar a pensar em modelo.",
-      eyebrow: "Power BI e DAX",
-      author: "Renan Brognoli",
-      category: "Power BI",
-      publishedAt: "2026-05-29",
-      readingTime: "10 min",
-      body: [
-        {
-          type: "paragraph",
-          text: "Se você já abriu o Power BI..."
-        },
-        {
-          type: "heading",
-          text: "Por que DAX é a habilidade mais cara..."
-        },
-        {
-          type: "paragraph",
-          text: "DAX é, ao mesmo tempo..."
-        },
-        {
-          type: "code",
-          language: "dax",
-          code: "Vendas Eletrônicos =\\nCALCULATE(...)"
-        },
-        {
-          type: "list",
-          items: [
-            "Filter context vive em medidas...",
-            "`CALCULATE` sobrescreve filtros..."
-          ]
-        }
-      ]
-    },
-    en: {
-      title: "The Complete DAX Guide in 2026: CALCULATE, Filter Context, and Performance Without the Mystery",
-      summary:
-        "A practical guide to CALCULATE, context, ALL, time intelligence, and DAX performance for analysts who want to stop memorizing formulas and start reasoning about models.",
-      eyebrow: "Power BI and DAX",
-      author: "Renan Brognoli",
-      category: "Power BI",
-      publishedAt: "2026-05-29",
-      readingTime: "9 min",
-      body: [
-        {
-          type: "paragraph",
-          text: "If you've ever opened Power BI..."
-        },
-        {
-          type: "heading",
-          text: "Why DAX is the most expensive..."
-        },
-        {
-          type: "paragraph",
-          text: "DAX is simultaneously..."
-        },
-        {
-          type: "code",
-          language: "dax",
-          code: "Electronics Sales =\\nCALCULATE(...)"
-        },
-        {
-          type: "list",
-          items: [
-            "Filter context lives in measures...",
-            "`CALCULATE` overrides filters..."
-          ]
-        }
-      ]
-    }
-  }
-}
-```
+That object is the gold-standard reference.
 
-## What a good article entry looks like
+## What the real example demonstrates
 
-- The title is editorial, not operational.
-- The summary is clean and site-facing.
-- PT-BR contains proper accents and `ç`.
-- EN contains real English.
-- Code is stored in `code` blocks, not in raw markdown fences inside paragraphs.
-- Recap bullets are stored as `list` blocks when appropriate.
+The live article already shows the expected production quality:
 
-## What must never appear
+- real PT-BR with accents and `ç`
+- real EN content
+- editorial `summary`
+- clean `heading` blocks
+- proper DAX `code` blocks
+- recap `list` blocks
+- no Trello workflow residue
 
-Never publish entries containing:
+## Non-negotiable instruction
 
-- `Gerado: ...`
-- `Status: ...`
-- `Versão completa ... anexada`
-- `Abaixo: versão PT-BR para revisão rápida`
-- `Versão em inglês: ver anexo .md`
+If your new article does not look structurally equivalent to the live DAX article entry, the publication is wrong.
 
-Those are Trello workflow artifacts, not article content.
+Use the live DAX article as the model.
+Do not use a hypothetical example.
 
