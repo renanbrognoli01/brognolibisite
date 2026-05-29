@@ -1,8 +1,22 @@
 # OpenClaw Article Publishing Prompt
 
-You are publishing articles to the repository **`renanbrognoli01/brognolibisite`**.
+You are publishing one approved article to the repository **`renanbrognoli01/brognolibisite`**.
 
-Your job is to publish a Trello-approved article **without breaking the website, the Vercel build, the article listing, or the existing article system**.
+Your job is to publish the article **without breaking the website, the Vercel build, the article listing, the route structure, or the editorial quality bar**.
+
+## Mandatory documents
+
+Before doing any work, read these files:
+
+- `docs/ai-article-execution-guide.md`
+- `docs/article-publishing-guide.md`
+- `docs/article-entry-example.md`
+
+If any instruction conflicts, follow this priority:
+
+1. `docs/ai-article-execution-guide.md`
+2. `docs/article-publishing-guide.md`
+3. `docs/article-entry-example.md`
 
 ## Repository and branch
 
@@ -12,75 +26,42 @@ Your job is to publish a Trello-approved article **without breaking the website,
 Never publish directly to `main`.
 Never use `development`.
 
-## Current article system
+## Core publication rule
 
-The article architecture already exists and must be reused exactly as it is.
+For normal article publication, **only** `src/lib/articles-data.ts` should change.
 
-Important files:
+If your diff does not include `src/lib/articles-data.ts`, the article was not published correctly.
 
-- `src/lib/articles-data.ts`
+If your diff includes any of the following during normal publication, stop and review because the task is probably wrong:
+
 - `src/app/[locale]/articles/page.tsx`
 - `src/app/[locale]/articles/[slug]/page.tsx`
+- `package.json`
+- `package-lock.json`
 
-### Main rule
+## Trello source rules
 
-Publishing an article means:
+Approved article cards contain:
 
-1. read the approved Trello card
-2. extract the article correctly
-3. add exactly one new article entry to `src/lib/articles-data.ts`
-4. run the build
-5. commit to `Maria_Articles`
-6. open a PR to `main`
+1. card name
+2. card description
+3. markdown attachment
 
-If `src/lib/articles-data.ts` is not changed, the article was not published correctly.
+Use the **markdown attachment** as the canonical source.
+Use the card name only as a title cross-check.
+Do not use the Trello description as the main content source.
 
-## Trello parsing rules
-
-Approved cards in Trello contain two different sources:
-
-1. **card description**
-   - contains operational metadata
-   - contains a PT-BR preview
-   - is not the full clean publication source
-
-2. **markdown attachment**
-   - contains the full PT + EN article
-   - must be treated as the main content source
-
-### Ignore the following Trello description lines
-
-Do not publish lines like:
+Never publish workflow lines such as:
 
 - `Gerado: ...`
-- `PT: ... | EN: ...`
 - `Status: ...`
-- `Versao completa ... anexada`
-- `Abaixo: versao PT-BR para revisao rapida`
-- `Versao em ingles: ver anexo .md`
+- `Versão completa ... anexada`
+- `Abaixo: versão PT-BR para revisão rápida`
+- `Versão em inglês: ver anexo .md`
 
-Also ignore divider lines like:
+## Content model
 
-- `---`
-
-## What you must extract
-
-From the Trello card and attachment, extract:
-
-- `slug`
-- `title`
-- `summary`
-- `author`
-- `category`
-- `publishedAt`
-- `readingTime`
-- `featured`
-- full `pt-br` content
-- full `en` content
-
-## Required content model
-
-Each article entry in `src/lib/articles-data.ts` must follow the existing structure:
+Each article entry must match the existing `articles-data.ts` structure:
 
 - `slug`
 - `featured`
@@ -99,125 +80,99 @@ Each locale must contain:
 - `readingTime`
 - `body`
 
-## Editorial mapping rules
+### Allowed body block types
 
-### `title`
-Use the real editorial article title.
+- `{ type: "paragraph", text: string }`
+- `{ type: "heading", text: string }`
+- `{ type: "code", code: string, language?: string }`
+- `{ type: "list", items: string[] }`
 
-### `summary`
-Write a clean editorial summary.
-Do not copy operational text.
+## Conversion rules
 
-### `body`
-Convert the markdown article into ordered blocks:
+Convert markdown to `body` blocks as follows:
 
-- regular paragraphs become `{ type: "paragraph", text: ... }`
-- each major `##` heading becomes `{ type: "heading", text: ... }`
-- fenced code blocks become `{ type: "code", language: "dax", code: ... }`
-- bullet recap lists become `{ type: "list", items: [...] }`
+- prose paragraph -> `paragraph`
+- major `##` heading -> `heading`
+- fenced code block -> `code`
+- recap bullets -> `list`
 
-Do not keep raw markdown fences inside paragraph text.
+Do not leave raw triple-backtick fences inside paragraph text.
 
-## Internationalization rules
+## Locale rules
 
 Both locales are required:
 
 - `pt-br`
 - `en`
 
-Rules:
+### PT-BR requirements
 
-- `pt-br` must contain correct Portuguese
-- `en` must contain real English
-- never place Portuguese inside `en`
-- never leave one locale empty
+- proper Portuguese
+- valid accents
+- valid `ç`
+- no mojibake
 
-## Encoding rules
+### EN requirements
 
-All text must be UTF-8.
+- real English
+- no Portuguese leakage
+- no placeholders
 
-You must detect and fix broken text such as:
+## Hard failure conditions
 
-- `VÃ­deos`
-- `InstalaÃ§Ã£o`
-- `VocÃª`
-- `InformaÃ§Ãµes`
-- `MistÃ©rio`
+The publication is wrong if any of these is true:
 
-If broken encoding appears, fix it before commit.
+- `src/lib/articles-data.ts` did not change
+- `package.json` changed
+- `package-lock.json` changed
+- a manual route file was created
+- PT-BR contains operational notes
+- EN contains Portuguese
+- mojibake exists
+- article does not appear in `/articles`
 
-## Files you must not change
-
-Do not change:
-
-- `package.json`
-- `package-lock.json`
-- header
-- footer
-- Studio page
-- billing pages
-- login pages
-- download pages
-- release manifest
-- navigation
-- `src/app/[locale]/articles/page.tsx`
-- `src/app/[locale]/articles/[slug]/page.tsx`
-
-For normal article publication, only `src/lib/articles-data.ts` should change.
-
-## Forbidden actions
-
-Do not:
-
-- add dependencies
-- use MDX
-- use `next-mdx-remote`
-- use `gray-matter`
-- use Supabase for articles
-- create a manual route file for the article
-- redesign the article system
-
-## Validation checklist
+## Validation procedure
 
 Before commit:
 
-1. ensure branch is `Maria_Articles`
-2. change only `src/lib/articles-data.ts`
-3. confirm no dependency changes
-4. run:
+1. confirm branch is `Maria_Articles`
+2. confirm only intended files changed
+3. run:
 
 ```bash
 npm run build
 ```
 
-5. only continue if build passes
-6. validate:
+4. only continue if build passes
+5. validate:
    - `/pt-br/articles`
    - `/en/articles`
    - `/pt-br/articles/<slug>`
    - `/en/articles/<slug>`
-7. confirm:
-   - article appears in the article listing
-   - article page opens correctly
-   - PT-BR content is real article content
-   - EN content is real English
-   - no Trello operational notes were published
-
-## Hard failure conditions
-
-The publication is wrong if any of these happens:
-
-- `src/lib/articles-data.ts` was not changed
-- `package.json` changed
-- `package-lock.json` changed
-- a manual route file was created
-- PT-BR contains internal process notes
-- EN contains Portuguese
-- article does not appear in `/articles`
+6. confirm:
+   - article appears in listing
+   - article page opens
+   - PT-BR is clean
+   - EN is clean
+   - no Trello workflow text leaked
 
 ## Commit style
 
-Use commit messages such as:
+Use a direct message such as:
 
-- `Publish article: Guia Completo de DAX`
-- `Add article entry for guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance`
+- `Publish article: <title>`
+- `Add approved article from Trello`
+
+## Final rule
+
+Do not invent a new architecture.
+Do not redesign the page.
+Do not improvise.
+
+Extract from Trello.
+Transform into the existing `ArticleBlock[]` format.
+Publish through `src/lib/articles-data.ts`.
+Validate.
+Commit.
+Open PR.
+

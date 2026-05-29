@@ -1,8 +1,12 @@
 # Article Entry Example
 
-This is an example of a correct article entry for `src/lib/articles-data.ts`.
+This document shows the expected shape of a correct article entry inside:
 
-Use this example as a formatting reference.
+- `src/lib/articles-data.ts`
+
+Use this as a structural reference.
+
+## Canonical example
 
 ```ts
 {
@@ -10,9 +14,9 @@ Use this example as a formatting reference.
   featured: true,
   locales: {
     "pt-br": {
-      title: "Guia Completo de DAX em 2026: CALCULATE, Filter Context e Performance Sem Misterio",
+      title: "Guia Completo de DAX em 2026: CALCULATE, Filter Context e Performance Sem Mistério",
       summary:
-        "Um guia direto sobre contexto, CALCULATE, ALL, time intelligence e performance em DAX para quem quer parar de decorar formula e comecar a pensar em modelo.",
+        "Um guia direto sobre contexto, CALCULATE, ALL, time intelligence e performance em DAX para quem quer parar de decorar fórmula e começar a pensar em modelo.",
       eyebrow: "Power BI e DAX",
       author: "Renan Brognoli",
       category: "Power BI",
@@ -21,26 +25,26 @@ Use this example as a formatting reference.
       body: [
         {
           type: "paragraph",
-          text: "Se voce ja abriu o Power BI..."
+          text: "Se você já abriu o Power BI..."
         },
         {
           type: "heading",
-          text: "Por que DAX e a habilidade mais cara..."
+          text: "Por que DAX é a habilidade mais cara..."
         },
         {
           type: "paragraph",
-          text: "DAX e, ao mesmo tempo..."
+          text: "DAX é, ao mesmo tempo..."
         },
         {
           type: "code",
           language: "dax",
-          code: "Vendas Eletronicos =\\nCALCULATE(...)"
+          code: "Vendas Eletrônicos =\\nCALCULATE(...)"
         },
         {
           type: "list",
           items: [
             "Filter context vive em medidas...",
-            "CALCULATE sobrescreve filtros..."
+            "`CALCULATE` sobrescreve filtros..."
           ]
         }
       ]
@@ -76,7 +80,7 @@ Use this example as a formatting reference.
           type: "list",
           items: [
             "Filter context lives in measures...",
-            "CALCULATE overrides filters..."
+            "`CALCULATE` overrides filters..."
           ]
         }
       ]
@@ -85,9 +89,24 @@ Use this example as a formatting reference.
 }
 ```
 
-## Important notes
+## What a good article entry looks like
 
-- Do not publish operational notes such as `Generated on`, `Awaiting review`, or `See attached file`.
-- Do not put Portuguese inside `en`.
-- Do not keep fenced markdown code blocks inside paragraph text.
-- Use `body` blocks in order so the article reads naturally on the site.
+- The title is editorial, not operational.
+- The summary is clean and site-facing.
+- PT-BR contains proper accents and `ç`.
+- EN contains real English.
+- Code is stored in `code` blocks, not in raw markdown fences inside paragraphs.
+- Recap bullets are stored as `list` blocks when appropriate.
+
+## What must never appear
+
+Never publish entries containing:
+
+- `Gerado: ...`
+- `Status: ...`
+- `Versão completa ... anexada`
+- `Abaixo: versão PT-BR para revisão rápida`
+- `Versão em inglês: ver anexo .md`
+
+Those are Trello workflow artifacts, not article content.
+
