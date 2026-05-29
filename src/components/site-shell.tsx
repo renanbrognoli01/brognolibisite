@@ -2,36 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { getDictionaryLabel, locales, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 import { siteData } from "@/lib/site-data";
 import { SiteAccountEntry } from "@/components/site-account-entry";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 
 type SiteShellProps = {
   locale: Locale;
   children: ReactNode;
 };
-
-function LocaleSwitcher({ locale }: { locale: Locale }) {
-  return (
-    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] p-1 text-xs font-semibold text-white/70">
-      {locales.map((entry) => {
-        const active = entry === locale;
-
-        return (
-          <Link
-            key={entry}
-            href={entry === "pt-br" ? "/pt-br" : "/en"}
-            className={`rounded-full px-3 py-2 transition ${
-              active ? "bg-[#f6b23c] text-[#101114]" : "hover:bg-white/6"
-            }`}
-          >
-            {getDictionaryLabel(entry)}
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
 
 export function SiteShell({ locale, children }: SiteShellProps) {
   const dict = siteData[locale];
