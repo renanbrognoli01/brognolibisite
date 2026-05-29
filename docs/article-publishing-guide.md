@@ -51,16 +51,11 @@ If `src/lib/articles-data.ts` is not changed, the article was not published corr
 
 ## The real Trello card structure
 
-The approved Trello card is not a clean article payload by default.
-
-Observed structure from the approved card in **Brognoli BI Conteúdo** > **Articles Approved**:
+Approved cards in **Brognoli BI Conteudo** > **Articles Approved** contain:
 
 - card name = article title
-- card description (`desc`) contains:
-  - operational metadata
-  - a PT-BR preview
-  - extra notes like review status
-- card attachment = the full PT+EN markdown article
+- card description (`desc`) = operational metadata plus a PT-BR preview
+- markdown attachment = the full PT + EN article
 
 ### What to use as the content source
 
@@ -70,34 +65,16 @@ Do not use the top section of the Trello card description as article content.
 
 Ignore operational lines such as:
 
-- `📅 Gerado: ...`
-- `📊 PT: ... | EN: ...`
-- `🎯 Status: ...`
-- `📎 Versão completa ... anexada`
-- `👇 Abaixo: versão PT-BR para revisão rápida`
+- `Gerado: ...`
+- `PT: ... | EN: ...`
+- `Status: ...`
+- `Versao completa ... anexada`
+- `Abaixo: versao PT-BR para revisao rapida`
+- `Versao em ingles: ver anexo .md`
 
-Ignore divider markers like:
+Also ignore divider markers like:
 
 - `---`
-
-Ignore editorial notes such as:
-
-- `🇬🇧 Versão em inglês: ver anexo .md`
-
-## What must be extracted from Trello
-
-From the card and attachment, extract:
-
-- `slug`
-- `title`
-- `summary`
-- `author`
-- `category`
-- `publishedAt`
-- `readingTime`
-- `featured`
-- `pt-br` content
-- `en` content
 
 ## Current content model in `articles-data.ts`
 
@@ -118,31 +95,34 @@ Each locale contains:
 - `category`
 - `publishedAt`
 - `readingTime`
-- `intro`
-- `sections`
-- `conclusion` optional
+- `body`
 
-### Rules for field mapping
+### Body block types
 
-#### `title`
-Use the real article title, not the Trello card operational text.
+The `body` field is an ordered array of blocks. Each block is one of:
 
-#### `summary`
-Write a clean editorial summary. Never use operational text like `Generated on`, `Awaiting review`, or similar.
+- `{ type: "paragraph", text: string }`
+- `{ type: "heading", text: string }`
+- `{ type: "code", language?: string, code: string }`
+- `{ type: "list", items: string[] }`
 
-#### `intro`
-Use the opening paragraphs of the article.
+## Rules for field mapping
 
-#### `sections`
-Use every major `##` heading as a section heading.
+### `title`
+Use the real article title from the markdown attachment.
 
-Each section should contain:
-- `heading`
-- `paragraphs`
-- `bullets` only when the section clearly has bullet-style content
+### `summary`
+Write a clean editorial summary. Never use operational text.
 
-#### `conclusion`
-Use only when the article clearly ends with a summary/closing section.
+### `body`
+Convert the markdown article into ordered display blocks:
+
+- opening paragraphs become `paragraph`
+- each major `##` heading becomes `heading`
+- fenced code blocks become `code`
+- bullet recap lists become `list`
+
+Do not keep raw markdown fences inside paragraph text.
 
 ## Internationalization rules
 
@@ -167,7 +147,7 @@ You must detect and fix broken encoding such as:
 - `VÃ­deos`
 - `InstalaÃ§Ã£o`
 - `VocÃª`
-- `InformaÃ§Ãµes`
+- `Informações` rendered incorrectly
 - `MistÃ©rio`
 
 If broken encoding appears, fix it before commit.
@@ -227,5 +207,4 @@ The PR is wrong if any of these is true:
 - manual article route was created
 - PT-BR contains operational notes
 - EN contains Portuguese
-- sections are empty for a long article
-- article does not appear in `/articles`
+- the article does not appear in `/articles`

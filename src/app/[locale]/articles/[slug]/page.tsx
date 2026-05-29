@@ -1,8 +1,10 @@
+import { Fragment, type ReactNode } from "react";
 import { notFound } from "next/navigation";
 
-import { PageHero, Section } from "@/components/ui";
-import type { Locale } from "@/lib/i18n";
+import { Container, PageHero } from "@/components/ui";
+import type { ArticleBlock } from "@/lib/articles-data";
 import { getArticleBySlug, getArticlesForLocale } from "@/lib/articles-data";
+import type { Locale } from "@/lib/i18n";
 
 export async function generateStaticParams() {
   const params: Array<{ locale: Locale; slug: string }> = [];
@@ -14,6 +16,102 @@ export async function generateStaticParams() {
   }
 
   return params;
+}
+
+function renderInline(text: string) {
+  const tokens = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*)/g).filter(Boolean);
+
+  return tokens.map((token, index) => {
+    if (token.startsWith("`") && token.endsWith("`")) {
+      return (
+        <code
+          key={`${token}-${index}`}
+          className="rounded-md border border-white/10 bg-white/[0.06] px-2 py-1 font-mono text-[0.95em] text-[#f6b23c]"
+        >
+          {token.slice(1, -1)}
+        </code>
+      );
+    }
+
+    if (token.startsWith("**") && token.endsWith("**")) {
+      return (
+        <strong key={`${token}-${index}`} className="font-semibold text-white">
+          {token.slice(2, -2)}
+        </strong>
+      );
+    }
+
+    if (token.startsWith("*") && token.endsWith("*")) {
+      return (
+        <em key={`${token}-${index}`} className="italic text-white/88">
+          {token.slice(1, -1)}
+        </em>
+      );
+    }
+
+    return <Fragment key={`${token}-${index}`}>{token}</Fragment>;
+  });
+}
+
+function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
+  return (
+    <article className="space-y-8">
+      {blocks.map((block, index) => {
+        if (block.type === "heading") {
+          return (
+            <h2
+              key={`${block.text}-${index}`}
+              className="pt-6 text-3xl font-semibold tracking-tight text-white md:text-[2.1rem]"
+            >
+              {block.text}
+            </h2>
+          );
+        }
+
+        if (block.type === "code") {
+          return (
+            <div
+              key={`${block.language ?? "code"}-${index}`}
+              className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#0f1118] shadow-[0_24px_70px_rgba(0,0,0,0.32)]"
+            >
+              <div className="border-b border-white/10 bg-white/[0.03] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#f6b23c]">
+                {block.language ?? "Code"}
+              </div>
+              <pre className="overflow-x-auto px-5 py-5 font-mono text-sm leading-7 text-white/84">
+                <code>{block.code}</code>
+              </pre>
+            </div>
+          );
+        }
+
+        if (block.type === "list") {
+          return (
+            <ul
+              key={`list-${index}`}
+              className="space-y-4 rounded-[1.8rem] border border-white/10 bg-white/[0.03] p-6 text-base leading-8 text-white/78 shadow-[0_24px_70px_rgba(0,0,0,0.22)]"
+            >
+              {block.items.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[#f6b23c]" />
+                  <span>{renderInline(item)}</span>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+
+        return (
+          <p key={`${block.text}-${index}`} className="text-lg leading-9 text-white/78">
+            {renderInline(block.text)}
+          </p>
+        );
+      })}
+    </article>
+  );
+}
+
+function MetadataLine({ children }: { children: ReactNode }) {
+  return <span className="flex items-center gap-3">{children}</span>;
 }
 
 export default async function ArticlePage({
@@ -35,60 +133,55 @@ export default async function ArticlePage({
         title={article.title}
         description={article.summary}
       >
-        <div className="space-y-3 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 text-sm text-white/72 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-          <p className="font-semibold text-white">{article.author}</p>
-          <div className="flex flex-wrap gap-3">
-            <span>{article.publishedAt}</span>
-            <span className="text-white/28">•</span>
-            <span>{article.readingTime}</span>
-            <span className="text-white/28">•</span>
-            <span>{article.category}</span>
+        <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f6b23c]">
+              {locale === "pt-br" ? "Artigo publicado" : "Published article"}
+            </p>
+            <p className="text-2xl font-semibold text-white">{article.author}</p>
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-white/68">
+            <MetadataLine>
+              <span>{article.publishedAt}</span>
+            </MetadataLine>
+            <MetadataLine>
+              <span>{article.readingTime}</span>
+            </MetadataLine>
+            <MetadataLine>
+              <span>{article.category}</span>
+            </MetadataLine>
           </div>
         </div>
       </PageHero>
 
-      <Section title={article.title} description={article.summary}>
-        <article className="mx-auto max-w-4xl space-y-10 text-white/88">
-          <div className="space-y-6 text-lg leading-8 text-white/78">
-            {article.intro.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+      <section className="py-16">
+        <Container>
+          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
+            <div className="rounded-[2.4rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)] md:p-10">
+              <ArticleBody blocks={article.body} />
+            </div>
+            <aside className="space-y-5 lg:sticky lg:top-24">
+              <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.22)]">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#13766e]">
+                  {locale === "pt-br" ? "Leitura rapida" : "Quick read"}
+                </p>
+                <div className="mt-4 space-y-3 text-sm leading-7 text-white/72">
+                  <p>
+                    {locale === "pt-br"
+                      ? "Esse artigo foi formatado para leitura completa no site, com exemplos DAX destacados e resumos em blocos para consulta rapida."
+                      : "This article is formatted for long-form reading, with highlighted DAX examples and recap blocks for quick reference."}
+                  </p>
+                  <p>
+                    {locale === "pt-br"
+                      ? "Se voce estiver estudando no Power BI, vale abrir o DAX Studio em paralelo para testar os exemplos e observar o comportamento do engine."
+                      : "If you are studying inside Power BI, open DAX Studio alongside it to test the examples and observe engine behavior."}
+                  </p>
+                </div>
+              </div>
+            </aside>
           </div>
-
-          {article.sections.map((section) => (
-            <section key={section.heading} className="space-y-5">
-              <h2 className="text-3xl font-semibold tracking-tight text-white">{section.heading}</h2>
-              {section.paragraphs?.map((paragraph) => (
-                <p key={paragraph} className="text-base leading-8 text-white/78">
-                  {paragraph}
-                </p>
-              ))}
-              {section.bullets?.length ? (
-                <ul className="space-y-3 pl-5 text-base leading-8 text-white/78">
-                  {section.bullets.map((bullet) => (
-                    <li key={bullet} className="list-disc">
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </section>
-          ))}
-
-          {article.conclusion?.length ? (
-            <section className="space-y-5 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
-                {locale === "pt-br" ? "Conclusão" : "Conclusion"}
-              </h2>
-              {article.conclusion.map((paragraph) => (
-                <p key={paragraph} className="text-base leading-8 text-white/78">
-                  {paragraph}
-                </p>
-              ))}
-            </section>
-          ) : null}
-        </article>
-      </Section>
+        </Container>
+      </section>
     </>
   );
 }
