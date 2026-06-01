@@ -349,24 +349,89 @@ export const siteData: Record<Locale, SharedData> = {
       title: "Política de privacidade",
       sections: [
         {
-          title: "Coleta de informações",
+          title: "1. Quem somos",
           body: [
-            "Podemos coletar dados enviados voluntariamente por formulários de contato, cadastro, interesse comercial ou acesso a produtos.",
-            "Também podemos utilizar ferramentas de analytics e métricas para entender o uso do site e melhorar a experiência.",
+            "A Brognoli BI é a marca responsável pelo site brognolibi.com e pelo software BROGNOLI Studio, voltados a conteúdo, produtos digitais e ferramentas de produtividade para Power BI, Excel e analytics.",
+            "Esta política explica como tratamos dados pessoais quando você navega pelo site, cria uma conta, contrata um plano, utiliza o BROGNOLI Studio ou entra em contato conosco.",
+            "Última atualização: 1 de junho de 2026.",
           ],
         },
         {
-          title: "Uso das informações",
+          title: "2. Quais dados coletamos",
           body: [
-            "As informações são utilizadas para responder contatos, melhorar produtos, comunicar novidades e oferecer suporte.",
-            "Não vendemos dados pessoais. Qualquer compartilhamento com terceiros ocorre apenas quando necessário para operação do serviço, pagamento ou cumprimento legal.",
+            "Coletamos apenas os dados necessários para operação do site, da conta e do BROGNOLI Studio, como nome, e-mail, credenciais de acesso ou identificadores de login social quando você se autentica por provedores terceiros.",
+            "Também podemos tratar dados de assinatura, plano, status de trial, créditos, identificadores de transação e metadados de cobrança processados por provedores de pagamento.",
+            "Para segurança, sincronização e aplicação de regras de licenciamento, podemos registrar dados técnicos e operacionais como identificadores de dispositivo, sessões ativas, versão do aplicativo, preferências básicas e logs de uso necessários para suporte e estabilidade.",
+            "Além disso, tratamos dados enviados voluntariamente por formulários, contatos comerciais, suporte e comunicações realizadas com a Brognoli BI.",
           ],
         },
         {
-          title: "Segurança e direitos",
+          title: "3. Para que usamos seus dados",
           body: [
-            "Adotamos medidas razoáveis para proteger dados pessoais.",
-            "Você pode solicitar atualização, correção ou exclusão dos seus dados, quando aplicável, entrando em contato pelo e-mail informado no site.",
+            "Usamos seus dados para criar e manter sua conta, autenticar acessos, processar assinatura, liberar funcionalidades compatíveis com o seu plano e permitir o uso seguro do BROGNOLI Studio.",
+            "Também utilizamos esses dados para enviar comunicações operacionais, responder suporte, prevenir fraude, aplicar limites de licença por plano, manter logs técnicos mínimos e melhorar a estabilidade dos produtos e serviços.",
+            "Quando aplicável, podemos usar informações agregadas e não identificáveis para métricas internas, análises de uso e evolução de produto.",
+          ],
+        },
+        {
+          title: "4. Base legal (LGPD)",
+          body: [
+            "O tratamento dos seus dados pode ocorrer com base na execução de contrato, no cumprimento de obrigações legais, no exercício regular de direitos, no legítimo interesse para operação e segurança do serviço e, quando necessário, no seu consentimento.",
+            "Sempre buscamos usar a base legal mais adequada para cada contexto de uso, respeitando a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018).",
+          ],
+        },
+        {
+          title: "5. Quem tem acesso aos seus dados",
+          body: [
+            "Você tem acesso aos dados da sua própria conta e às informações disponibilizadas dentro do site e do BROGNOLI Studio conforme o seu perfil de uso.",
+            "A equipe da Brognoli BI pode acessar dados estritamente necessários para suporte, atendimento, prevenção a abuso, faturamento e manutenção operacional, sempre de forma limitada e conforme a necessidade.",
+            "Também utilizamos provedores de infraestrutura e serviços essenciais, como autenticação, banco de dados, pagamentos, e-mail e hospedagem. Esses parceiros tratam dados apenas para viabilizar a operação do serviço.",
+            "Não vendemos, alugamos nem monetizamos seus dados pessoais com terceiros.",
+          ],
+        },
+        {
+          title: "6. Por quanto tempo armazenamos",
+          body: [
+            "Mantemos seus dados enquanto sua conta estiver ativa ou enquanto forem necessários para prestar o serviço, cumprir obrigações legais, resolver disputas, executar contratos e resguardar direitos da Brognoli BI.",
+            "Dados relacionados a faturamento, cobrança e obrigações legais podem ser mantidos pelos prazos exigidos pela legislação aplicável, mesmo após o encerramento da conta.",
+            "Quando a exclusão for possível e não houver obrigação de retenção, os dados serão removidos ou anonimizados em prazo razoável.",
+          ],
+        },
+        {
+          title: "7. Seus direitos (LGPD, art. 18)",
+          body: [
+            "Você pode solicitar confirmação de tratamento, acesso, correção de dados incompletos ou desatualizados, anonimização, bloqueio, eliminação, portabilidade e informações sobre compartilhamento, quando aplicável.",
+            "Também pode revogar consentimentos concedidos e solicitar a exclusão da conta, observadas as limitações legais e operacionais aplicáveis a dados que precisem ser mantidos.",
+            "Para exercer seus direitos, entre em contato pelos canais indicados nesta política.",
+          ],
+        },
+        {
+          title: "8. Segurança",
+          body: [
+            "Adotamos medidas técnicas e administrativas razoáveis para proteger seus dados contra acesso não autorizado, perda, alteração, divulgação ou destruição indevida.",
+            "Isso inclui controles de acesso, autenticação, segregação de permissões, uso de provedores especializados e proteção de dados em trânsito e em infraestrutura compatível com padrões modernos de mercado.",
+            "Apesar disso, nenhum ambiente é totalmente imune a riscos, e por isso também dependemos do uso responsável de senhas, acessos e dispositivos por parte do usuário.",
+          ],
+        },
+        {
+          title: "9. Cookies e rastreamento",
+          body: [
+            "Podemos usar cookies e tecnologias semelhantes estritamente necessários para funcionamento do site, autenticação, preferências de idioma, continuidade de sessão e medição básica de uso.",
+            "Não utilizamos seus dados para vendê-los a terceiros nem adotamos, como regra, rastreamento comportamental invasivo para fins de comercialização externa.",
+          ],
+        },
+        {
+          title: "10. Alterações nesta política",
+          body: [
+            "Esta política pode ser atualizada periodicamente para refletir mudanças legais, operacionais, contratuais ou de produto.",
+            "Quando houver alterações relevantes, poderemos atualizar a data desta página e, quando apropriado, adotar medidas adicionais de comunicação.",
+          ],
+        },
+        {
+          title: "11. Contato e encarregado (DPO)",
+          body: [
+            "Para dúvidas, solicitações relacionadas a dados pessoais ou exercício de direitos previstos na LGPD, entre em contato pelo e-mail renan.brognoli@brognolibi.com.",
+            "Faremos o possível para responder em prazo razoável e conforme as exigências legais aplicáveis.",
           ],
         },
       ],
@@ -634,24 +699,89 @@ export const siteData: Record<Locale, SharedData> = {
       title: "Privacy policy",
       sections: [
         {
-          title: "Information we collect",
+          title: "1. Who we are",
           body: [
-            "We may collect information voluntarily submitted through contact forms, sign-up flows, product interest forms, or support requests.",
-            "We may also use analytics tools to understand how the website is used and improve the overall experience.",
+            "Brognoli BI is the brand responsible for the brognolibi.com website and the BROGNOLI Studio software, focused on content, digital products, and productivity tools for Power BI, Excel, and analytics.",
+            "This policy explains how we handle personal data when you browse the website, create an account, subscribe to a plan, use BROGNOLI Studio, or contact us.",
+            "Last updated: June 1, 2026.",
           ],
         },
         {
-          title: "How information is used",
+          title: "2. What data we collect",
           body: [
-            "Information is used to respond to contacts, improve products, communicate updates, and provide support.",
-            "We do not sell personal data. Any sharing with third parties is limited to what is necessary for operations, payments, or legal compliance.",
+            "We collect only the data needed to operate the website, the account, and BROGNOLI Studio, such as name, email address, login credentials, or third-party social login identifiers when you authenticate through external providers.",
+            "We may also process subscription data, plan information, trial status, credits, transaction identifiers, and billing metadata handled by payment providers.",
+            "For security, synchronization, and license enforcement, we may record technical and operational data such as device identifiers, active sessions, app version, basic preferences, and usage logs required for support and stability.",
+            "We also process information voluntarily submitted through forms, commercial inquiries, support requests, and communications sent to Brognoli BI.",
           ],
         },
         {
-          title: "Security and user rights",
+          title: "3. How we use your data",
           body: [
-            "Reasonable measures are used to protect personal information.",
-            "You may request updates, corrections, or deletion of your data where applicable by contacting the email listed on this website.",
+            "We use your data to create and maintain your account, authenticate access, process subscriptions, unlock features according to your plan, and enable the secure use of BROGNOLI Studio.",
+            "We also use data to send operational communications, provide support, prevent fraud, enforce plan-based licensing limits, keep minimum technical logs, and improve the stability of our products and services.",
+            "Where appropriate, we may use aggregated and non-identifiable information for internal metrics, usage analysis, and product improvement.",
+          ],
+        },
+        {
+          title: "4. Legal basis",
+          body: [
+            "Your data may be processed based on contract performance, compliance with legal obligations, legitimate interest related to service operation and security, the regular exercise of rights, and, where required, your consent.",
+            "We seek to rely on the most appropriate legal basis for each processing activity and to comply with the Brazilian General Data Protection Law (LGPD) and other applicable rules.",
+          ],
+        },
+        {
+          title: "5. Who can access your data",
+          body: [
+            "You may access your own account data and the information made available inside the website and BROGNOLI Studio according to your usage profile.",
+            "The Brognoli BI team may access data strictly necessary for support, customer service, abuse prevention, billing, and operational maintenance, always on a limited need-to-know basis.",
+            "We also rely on essential infrastructure providers, such as authentication, database, payment, email, and hosting services. These partners process data only to enable service operation.",
+            "We do not sell, rent, or monetize your personal data with third parties.",
+          ],
+        },
+        {
+          title: "6. How long we keep data",
+          body: [
+            "We keep your data while your account is active or for as long as necessary to provide the service, comply with legal obligations, resolve disputes, perform contracts, and protect Brognoli BI rights.",
+            "Billing, payment, and legal compliance records may be retained for the periods required by applicable law, even after account closure.",
+            "When deletion is possible and no retention obligation applies, data will be removed or anonymized within a reasonable period.",
+          ],
+        },
+        {
+          title: "7. Your rights",
+          body: [
+            "You may request confirmation of processing, access, correction of incomplete or outdated data, anonymization, blocking, deletion, portability, and information about data sharing, where applicable.",
+            "You may also revoke consent when consent is the applicable legal basis and request account deletion, subject to legal and operational limitations.",
+            "To exercise your rights, please contact us using the channels listed in this policy.",
+          ],
+        },
+        {
+          title: "8. Security",
+          body: [
+            "We adopt reasonable technical and administrative measures to protect your data against unauthorized access, loss, alteration, disclosure, or improper destruction.",
+            "This includes access controls, authentication, permission segregation, specialized providers, and protection of data in transit and within infrastructure aligned with modern market standards.",
+            "Even so, no environment is completely risk-free, which is why safe password, access, and device practices also depend on the user.",
+          ],
+        },
+        {
+          title: "9. Cookies and tracking",
+          body: [
+            "We may use cookies and similar technologies that are strictly necessary for website operation, authentication, language preferences, session continuity, and basic usage measurement.",
+            "We do not sell your data to third parties and, as a rule, we do not use invasive behavioral tracking for external commercialization purposes.",
+          ],
+        },
+        {
+          title: "10. Changes to this policy",
+          body: [
+            "This policy may be updated from time to time to reflect legal, operational, contractual, or product changes.",
+            "When relevant changes occur, we may update the date on this page and, where appropriate, adopt additional communication measures.",
+          ],
+        },
+        {
+          title: "11. Contact and data privacy requests",
+          body: [
+            "For questions, personal data requests, or the exercise of privacy rights, please contact renan.brognoli@brognolibi.com.",
+            "We will make reasonable efforts to respond within an appropriate timeframe and in accordance with applicable law.",
           ],
         },
       ],
