@@ -25,6 +25,345 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "power-bi-direct-lake-mode-microsoft-fabric",
+    locales: {
+      "pt-br": {
+        title: "Power BI Direct Lake Mode: O Segredo para Relatórios Ultra-Rápidos no Microsoft Fabric",
+        summary:
+          "Entenda como o Direct Lake combina a velocidade do Import Mode com dados quase em tempo real no Microsoft Fabric, e em quais cenários ele realmente vale a pena.",
+        eyebrow: "Power BI e Fabric",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-02",
+        readingTime: "6 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Seus relatórios do Power BI demoram para carregar? Você usa DirectQuery e sente que os visuais travam a cada filtro? Existe um modo de conexão que promete mudar isso — e ele já está disponível para quem usa o Microsoft Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "O **Direct Lake Mode** é o novo padrão de performance no ecossistema da Microsoft para Analytics. Neste artigo, você vai entender como ele funciona, quando faz sentido usá-lo e como ele se compara aos modos que você já conhece.",
+          },
+          {
+            type: "heading",
+            text: "Os três modos de conexão do Power BI",
+          },
+          {
+            type: "paragraph",
+            text: "Para entender o Direct Lake, primeiro precisamos revisitar o que já existe.",
+          },
+          { type: "heading", text: "Import Mode" },
+          {
+            type: "paragraph",
+            text: "O modo mais popular. Os dados são copiados para dentro do Power BI, compactados na memória pelo motor VertiPaq e consultados com altíssima velocidade. O problema? Os dados só são atualizados quando você agenda um refresh — e datasets muito grandes podem demorar horas para carregar.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use quando:** o dataset é de tamanho médio, os dados não precisam ser atualizados em tempo real e a velocidade de interação é prioridade.",
+          },
+          { type: "heading", text: "DirectQuery" },
+          {
+            type: "paragraph",
+            text: "Neste modo, o Power BI não armazena nada. Cada clique em um visual gera uma consulta direta na fonte de dados. Os dados estão sempre atualizados, mas a performance depende totalmente de quão rápido o banco de dados responde — e isso pode ser lento.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use quando:** os dados precisam estar sempre em tempo real ou o volume é grande demais para importar.",
+          },
+          { type: "heading", text: "Direct Lake Mode" },
+          {
+            type: "paragraph",
+            text: "Aqui está o protagonista. O Direct Lake foi criado para ser o melhor dos dois mundos: a velocidade do Import Mode com a atualização quase em tempo real do DirectQuery — sem duplicar dados.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use quando:** você opera dentro do Microsoft Fabric com tabelas Delta no OneLake e precisa de alta performance com dados sempre atualizados.",
+          },
+          {
+            type: "heading",
+            text: "Como o Direct Lake funciona na prática",
+          },
+          {
+            type: "paragraph",
+            text: "O Direct Lake não importa dados nem consulta a fonte original a cada clique. Em vez disso, ele conecta o modelo semântico do Power BI diretamente às **tabelas Delta armazenadas no OneLake** — o armazenamento unificado do Microsoft Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "O processo funciona assim:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Os dados ficam no OneLake**, armazenados em formato Parquet (eficiente para consultas colunares).",
+              "**Quando uma consulta é executada**, o motor VertiPaq carrega para a memória apenas as colunas necessárias — não o dataset inteiro.",
+              "**Quando os dados mudam na fonte**, o refresh do Direct Lake atualiza apenas os metadados. Isso leva segundos, não minutos ou horas.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "O resultado? Relatórios com tempo de resposta próximo ao do Import Mode, com dados que podem refletir mudanças em quase tempo real.",
+          },
+          {
+            type: "heading",
+            text: "Direct Lake on OneLake vs. Direct Lake on SQL",
+          },
+          {
+            type: "paragraph",
+            text: "Desde março de 2026, o modo **Direct Lake on OneLake** está em disponibilidade geral e é o recomendado pela Microsoft.",
+          },
+          {
+            type: "list",
+            items: [
+              "Melhor compatibilidade com a segurança do OneLake",
+              "Mais recursos de modelagem, incluindo colunas calculadas, que chegaram em abril de 2026",
+              "Desempenho de consulta superior",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Já o **Direct Lake on SQL** usa o endpoint de análise SQL do Fabric e permite fallback para DirectQuery — útil em cenários específicos de permissões e governança.",
+          },
+          {
+            type: "heading",
+            text: "Quando o Direct Lake pode cair para DirectQuery (e o que fazer)",
+          },
+          {
+            type: "paragraph",
+            text: "Um ponto importante: o Direct Lake pode recorrer ao modo DirectQuery automaticamente em algumas situações.",
+          },
+          {
+            type: "list",
+            items: [
+              "Consultas DAX muito complexas",
+              "Relacionamentos de alta cardinalidade",
+              "Limites de memória da capacidade do Fabric",
+              "Uso de views em vez de tabelas físicas",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Isso se chama **fallback** e pode causar queda perceptível de performance. Para evitá-lo:",
+          },
+          {
+            type: "list",
+            items: [
+              "Use **tabelas físicas** (não views) no Lakehouse",
+              "**Otimize as tabelas Delta** com V-Order, já habilitado por padrão no Fabric",
+              "**Dimensione corretamente a capacidade** do Fabric para o volume e concorrência esperados",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Comparativo rápido: Import vs. DirectQuery vs. Direct Lake",
+          },
+          {
+            type: "list",
+            items: [
+              "**Dados armazenados** — Import Mode: na memória do Power BI | DirectQuery: na fonte original | Direct Lake: no OneLake (Delta)",
+              "**Atualização** — Import Mode: agendada | DirectQuery: tempo real | Direct Lake: quase tempo real",
+              "**Performance** — Import Mode: alta | DirectQuery: variável | Direct Lake: alta",
+              "**Requer Fabric** — Import Mode: não | DirectQuery: não | Direct Lake: sim",
+              "**Ideal para** — Import Mode: datasets médios | DirectQuery: dados em tempo real | Direct Lake: grandes volumes no Fabric",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Vale a pena migrar para o Direct Lake?",
+          },
+          {
+            type: "paragraph",
+            text: "Se a sua empresa já usa o Microsoft Fabric — ou está planejando migrar — a resposta é quase sempre sim. O Direct Lake reduz o custo de atualização, elimina a duplicação de dados e entrega performance equivalente ao Import Mode mesmo em grandes volumes.",
+          },
+          {
+            type: "paragraph",
+            text: "Mas se você ainda opera fora do Fabric, o Import Mode continua sendo a melhor opção para a maioria dos cenários. E o DirectQuery segue sendo necessário quando os dados precisam ser absolutamente em tempo real e a fonte de dados suporta bem a carga de consultas.",
+          },
+          {
+            type: "paragraph",
+            text: "A boa notícia é que o Direct Lake não é uma substituição radical — é uma evolução natural para quem cresce com o ecossistema da Microsoft.",
+          },
+          { type: "heading", text: "Conclusão" },
+          {
+            type: "paragraph",
+            text: "O Direct Lake Mode representa uma mudança real na forma como o Power BI lida com dados em grande escala. Ao combinar a velocidade do VertiPaq com a flexibilidade do OneLake, a Microsoft resolveu um dos maiores trade-offs da plataforma: escolher entre performance e atualização.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você trabalha com Analytics em um ambiente Fabric, vale estudar essa modalidade com cuidado — e começar a planejar uma migração gradual das suas soluções mais críticas.",
+          },
+        ],
+      },
+      en: {
+        title: "Power BI Direct Lake Mode: The Secret to Ultra-Fast Reports in Microsoft Fabric",
+        summary:
+          "Learn how Direct Lake blends Import Mode speed with near real-time data in Microsoft Fabric, and where it actually makes sense in a modern Power BI architecture.",
+        eyebrow: "Power BI and Fabric",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-02",
+        readingTime: "6 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Are your Power BI reports taking too long to load? Do you use DirectQuery and find your visuals freezing with every filter? There's a connection mode that promises to change that — and it's already available for Microsoft Fabric users.",
+          },
+          {
+            type: "paragraph",
+            text: "**Direct Lake Mode** is the new performance standard in Microsoft's Analytics ecosystem. In this article, you'll understand how it works, when it makes sense to use it, and how it compares to the modes you already know.",
+          },
+          {
+            type: "heading",
+            text: "The Three Power BI Connection Modes",
+          },
+          {
+            type: "paragraph",
+            text: "To understand Direct Lake, we first need to revisit what already exists.",
+          },
+          { type: "heading", text: "Import Mode" },
+          {
+            type: "paragraph",
+            text: "The most popular mode. Data is copied into Power BI, compressed in memory by the VertiPaq engine, and queried at very high speed. The catch? Data is only updated when you schedule a refresh — and very large datasets can take hours to load.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use when:** the dataset is small to medium-sized, data doesn't need real-time updates, and interaction speed is the top priority.",
+          },
+          { type: "heading", text: "DirectQuery" },
+          {
+            type: "paragraph",
+            text: "In this mode, Power BI stores nothing. Every click on a visual generates a direct query against the data source. Data is always up to date, but performance depends entirely on how fast the database responds — and that can be slow.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use when:** data must always be in real time, or the volume is too large to import.",
+          },
+          { type: "heading", text: "Direct Lake Mode" },
+          {
+            type: "paragraph",
+            text: "Here's the star of the show. Direct Lake was designed to be the best of both worlds: the speed of Import Mode combined with the near real-time freshness of DirectQuery — without duplicating data.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use when:** you operate within Microsoft Fabric with Delta tables on OneLake and need high performance with always-current data.",
+          },
+          {
+            type: "heading",
+            text: "How Direct Lake Works in Practice",
+          },
+          {
+            type: "paragraph",
+            text: "Direct Lake neither imports data nor queries the original source on every click. Instead, it connects the Power BI semantic model directly to **Delta tables stored on OneLake** — Microsoft Fabric's unified storage layer.",
+          },
+          {
+            type: "paragraph",
+            text: "The process works like this:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Data lives on OneLake**, stored in Parquet format, which is efficient for columnar queries.",
+              "**When a query runs**, the VertiPaq engine loads only the columns needed into memory — not the entire dataset.",
+              "**When the data changes at the source**, the Direct Lake refresh updates only the metadata. This takes seconds, not minutes or hours.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The result? Report response times close to Import Mode, with data that can reflect changes in near real time.",
+          },
+          {
+            type: "heading",
+            text: "Direct Lake on OneLake vs. Direct Lake on SQL",
+          },
+          {
+            type: "paragraph",
+            text: "Since March 2026, **Direct Lake on OneLake** has been generally available and is Microsoft's recommended option.",
+          },
+          {
+            type: "list",
+            items: [
+              "Better compatibility with OneLake security",
+              "More modeling features, including calculated columns introduced in April 2026",
+              "Superior query performance",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "**Direct Lake on SQL** uses the Fabric SQL analytics endpoint and allows fallback to DirectQuery — useful in specific permission and governance scenarios.",
+          },
+          {
+            type: "heading",
+            text: "When Direct Lake Falls Back to DirectQuery (and What to Do About It)",
+          },
+          {
+            type: "paragraph",
+            text: "An important note: Direct Lake can automatically fall back to DirectQuery mode in some situations.",
+          },
+          {
+            type: "list",
+            items: [
+              "Highly complex DAX queries",
+              "High-cardinality relationships",
+              "Fabric capacity memory limits",
+              "Using views instead of physical tables",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "This is called **fallback**, and it can cause a noticeable drop in performance. To avoid it:",
+          },
+          {
+            type: "list",
+            items: [
+              "Use **physical tables** rather than views in the Lakehouse",
+              "**Optimize Delta tables** with V-Order, already enabled by default in Fabric",
+              "**Right-size Fabric capacity** for expected data volume and concurrency",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Quick Comparison: Import vs. DirectQuery vs. Direct Lake",
+          },
+          {
+            type: "list",
+            items: [
+              "**Data stored** — Import Mode: in Power BI memory | DirectQuery: at the original source | Direct Lake: in OneLake (Delta)",
+              "**Refresh** — Import Mode: scheduled | DirectQuery: real time | Direct Lake: near real time",
+              "**Performance** — Import Mode: high | DirectQuery: variable | Direct Lake: high",
+              "**Requires Fabric** — Import Mode: no | DirectQuery: no | Direct Lake: yes",
+              "**Best for** — Import Mode: medium datasets | DirectQuery: real-time data | Direct Lake: large volumes in Fabric",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Is It Worth Migrating to Direct Lake?",
+          },
+          {
+            type: "paragraph",
+            text: "If your organization already uses Microsoft Fabric — or is planning to migrate — the answer is almost always yes. Direct Lake reduces refresh costs, eliminates data duplication, and delivers Import Mode-equivalent performance even at large scale.",
+          },
+          {
+            type: "paragraph",
+            text: "But if you still operate outside of Fabric, Import Mode remains the best choice for most scenarios. And DirectQuery is still necessary when data must be absolutely real time and the data source handles query load well.",
+          },
+          {
+            type: "paragraph",
+            text: "The good news is that Direct Lake isn't a radical replacement — it's a natural evolution for teams growing within the Microsoft ecosystem.",
+          },
+          { type: "heading", text: "Conclusion" },
+          {
+            type: "paragraph",
+            text: "Direct Lake Mode represents a real shift in how Power BI handles data at scale. By combining the speed of VertiPaq with the flexibility of OneLake, Microsoft resolved one of the platform's biggest trade-offs: choosing between performance and freshness.",
+          },
+          {
+            type: "paragraph",
+            text: "If you work with Analytics in a Fabric environment, this mode is worth studying carefully — and it's time to start planning a gradual migration of your most critical solutions.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance",
     featured: true,
     locales: {
