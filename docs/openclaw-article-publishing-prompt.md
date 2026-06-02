@@ -1,6 +1,6 @@
 # OpenClaw Article Publishing Prompt
 
-You are publishing one approved article to the repository **`renanbrognoli01/brognolibisite`**.
+You are publishing one article from the website-publication Trello list to the repository **`renanbrognoli01/brognolibisite`**.
 
 Your job is to publish the article **without breaking the website, the Vercel build, the article listing, the route structure, or the editorial quality bar**.
 
@@ -54,7 +54,7 @@ If your diff includes any of the following during normal publication, stop and r
 
 ## Trello source rules
 
-Approved article cards contain:
+Cards in `Brognoli BI Conteúdo` > `🌐 Artigo: Publicar no Site` contain:
 
 1. card name
 2. card description
@@ -174,7 +174,7 @@ npm run build
 Use a direct message such as:
 
 - `Publish article: <title>`
-- `Add approved article from Trello`
+- `Add article from Trello publish-to-site list`
 
 ## Final rule
 

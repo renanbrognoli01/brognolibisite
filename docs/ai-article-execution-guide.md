@@ -6,7 +6,7 @@ Follow this document as the highest-priority operational guide for article publi
 
 ## Mission
 
-Your task is to take one approved Trello article and publish it to the website **without changing the site architecture, breaking the build, degrading the design, or introducing editorial corruption**.
+Your task is to take one Trello article from the website-publication list and publish it to the website **without changing the site architecture, breaking the build, degrading the design, or introducing editorial corruption**.
 
 You are not building a blog system.
 You are not redesigning article rendering.
@@ -53,12 +53,12 @@ If your diff changes the renderer or listing page during routine publication, th
 
 ## Trello source-of-truth rules
 
-Approved article cards live in:
+Website publication cards live in:
 
 - Board: `Brognoli BI Conteúdo`
-- List: `Articles Approved`
+- List: `🌐 Artigo: Publicar no Site`
 
-Each approved card contains multiple content layers:
+Each card in this list contains multiple content layers:
 
 1. **Card name**
    - editorial title preview
@@ -366,7 +366,7 @@ npm run build
 Use a direct commit message, for example:
 
 - `Publish article: Guia Completo de DAX`
-- `Add approved DAX article from Trello`
+- `Add DAX article from Trello publish-to-site list`
 
 ## Final operational rule
 

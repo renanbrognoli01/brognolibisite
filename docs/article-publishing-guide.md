@@ -40,7 +40,7 @@ Important files:
 
 Publishing an article means:
 
-1. read the approved Trello card
+1. read the Trello card from the publication-ready list
 2. extract the content correctly
 3. add one new entry to `src/lib/articles-data.ts`
 4. run `npm run build`
@@ -51,7 +51,7 @@ If `src/lib/articles-data.ts` is not changed, the article was not published corr
 
 ## The real Trello card structure
 
-Approved cards in **Brognoli BI Conteudo** > **Articles Approved** contain:
+Cards in **Brognoli BI Conteúdo** > **🌐 Artigo: Publicar no Site** contain:
 
 - card name = article title
 - card description (`desc`) = operational metadata plus a PT-BR preview
