@@ -1269,6 +1269,307 @@ export const articles: ArticleEntry[] = [
       },
     },
   },
+  {
+    slug: "copilot-funcao-nativa-no-excel",
+    locales: {
+      "pt-br": {
+        title: "=COPILOT(): A IA que Chegou Direto na Célula do Excel",
+        summary:
+          "Veja como a nova função =COPILOT() leva IA generativa direto para a célula do Excel, quais tarefas ela resolve melhor e o que muda para quem trabalha com dados no Microsoft 365.",
+        eyebrow: "Excel e IA",
+        author: "Renan Brognoli",
+        category: "Excel",
+        publishedAt: "2026-06-04",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Imagine digitar numa célula do Excel algo como `=COPILOT(\"Categorize esses dados de venda por região\", A2:A100)` e receber uma análise completa em segundos — sem fórmulas complexas, sem VBA, sem enrolação. Isso já é realidade.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft lançou a função `=COPILOT()` como fórmula nativa do Excel para usuários do Microsoft 365, e ela está mudando silenciosamente a forma como profissionais trabalham com dados no dia a dia.",
+          },
+          {
+            type: "heading",
+            text: "O que é a função =COPILOT()?",
+          },
+          {
+            type: "paragraph",
+            text: "É exatamente o que o nome sugere: o Copilot — assistente de IA da Microsoft — embutido diretamente dentro de uma célula da planilha. Diferente do painel lateral do Copilot, esta função funciona como qualquer outra fórmula: você escreve, pressiona Enter e recebe o resultado na célula.",
+          },
+          {
+            type: "paragraph",
+            text: "A sintaxe básica é:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(prompt, [contexto1], [prompt2], [contexto2], ...)",
+          },
+          {
+            type: "list",
+            items: [
+              "**prompt**: a instrução em linguagem natural, descrevendo o que você quer que a IA faça",
+              "**contexto**: o intervalo de células com os dados que a IA deve analisar",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Um exemplo prático:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(\"Analise o sentimento deste comentário de cliente\", B2)",
+          },
+          {
+            type: "paragraph",
+            text: "O resultado aparece diretamente na célula — e, como qualquer fórmula, se os dados de origem mudarem, o resultado é recalculado automaticamente.",
+          },
+          {
+            type: "heading",
+            text: "O que essa função consegue fazer?",
+          },
+          {
+            type: "paragraph",
+            text: "A `=COPILOT()` foi desenhada para tarefas que as fórmulas tradicionais não conseguem fazer com facilidade. Entre as principais:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Categorização de texto livre**: classifica comentários, respostas de formulários ou descrições em grupos",
+              "**Análise de sentimento**: diz se um feedback é positivo, negativo ou neutro",
+              "**Limpeza e padronização de dados**: corrige variações de escrita, formata endereços, padroniza nomes",
+              "**Extração de informações**: tira e-mails, telefones ou datas de textos não estruturados",
+              "**Resumos**: condensa parágrafos inteiros em uma linha",
+              "**Geração de listas**: cria sugestões, próximos passos ou variações com base em contexto",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "E mais: a função suporta **Dynamic Arrays**, ou seja, pode retornar múltiplos resultados de uma só vez, espalhando os dados automaticamente pelas células adjacentes.",
+          },
+          {
+            type: "heading",
+            text: "Isso substitui as fórmulas normais?",
+          },
+          {
+            type: "paragraph",
+            text: "Não — e a própria Microsoft deixa isso claro. A `=COPILOT()` é poderosa para tarefas **semânticas e generativas**, mas não é recomendada para cálculos numéricos que exigem precisão e reprodutibilidade. Para isso, as fórmulas clássicas como `SOMASE`, `PROCV` ou `CONT.SE` continuam sendo a escolha certa.",
+          },
+          {
+            type: "paragraph",
+            text: "Pense assim: fórmulas tradicionais são determinísticas — a mesma entrada sempre gera a mesma saída. O Copilot é um modelo de IA, o que significa que os resultados podem variar com o tempo à medida que o modelo é atualizado. Para análises qualitativas, categorização e interpretação de texto, ele é imbatível. Para cálculos contábeis, continue com as fórmulas de sempre.",
+          },
+          {
+            type: "heading",
+            text: "Como está disponível hoje?",
+          },
+          {
+            type: "paragraph",
+            text: "A função chegou em agosto de 2025 para usuários do **Canal Beta** do Microsoft 365 Insider, e desde então tem expandido gradualmente. Em maio de 2026, a Microsoft aprimorou ainda mais a função, adicionando a capacidade de **buscar informações na web** em tempo real dentro da própria célula.",
+          },
+          {
+            type: "paragraph",
+            text: "Para usar, você precisa de:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Licença Microsoft 365 Copilot** (plano comercial — não está disponível nos planos pessoal/família)",
+              "**Conta Microsoft Entra ID** (antes chamada Azure AD)",
+              "**Canal Beta ou Insider** do Excel",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Uma limitação importante: a função exige **conexão com a internet** e só acessa os dados que você fornece diretamente como contexto nos argumentos. Ela não tem visão de toda a sua planilha automaticamente — você precisa indicar os intervalos.",
+          },
+          {
+            type: "heading",
+            text: "Por que isso importa para quem trabalha com dados?",
+          },
+          {
+            type: "paragraph",
+            text: "Durante anos, a barreira para análise de dados no Excel foi justamente a parte técnica: saber qual fórmula usar, como combinar funções, quando recorrer a Power Query ou macros. O `=COPILOT()` começa a remover essa barreira.",
+          },
+          {
+            type: "paragraph",
+            text: "Profissionais que lidam com relatórios, bases de clientes, feedbacks de pesquisas ou qualquer dado textual ganham uma ferramenta que entende linguagem natural e entrega respostas diretamente no fluxo de trabalho deles — sem precisar sair do Excel, sem precisar aprender Python, sem precisar contratar um analista para cada análise exploratória.",
+          },
+          {
+            type: "paragraph",
+            text: "Para equipes que já usam Power BI e Excel no dia a dia, a integração com o ecossistema Microsoft 365 Copilot cria um fluxo contínuo: explorar no Excel com `=COPILOT()`, visualizar no Power BI, colaborar no Teams. A IA começa a ser não um produto separado, mas uma camada embutida nas ferramentas que você já usa.",
+          },
+          {
+            type: "heading",
+            text: "Conclusão",
+          },
+          {
+            type: "paragraph",
+            text: "A função `=COPILOT()` não é uma novidade que fica só no papel. Ela representa uma mudança real na forma como o Excel funciona — e sinaliza o caminho que a Microsoft está traçando para o futuro das ferramentas de produtividade: IA não como painel lateral, mas como parte do fluxo de trabalho.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você tem acesso ao plano comercial do Microsoft 365, vale começar a experimentar. E se ainda não tem, é um bom motivo para ficar de olho nos próximos meses — a tendência é que essa funcionalidade se expanda para mais planos com o tempo.",
+          },
+          {
+            type: "paragraph",
+            text: "O Excel nunca mais vai ser o mesmo.",
+          },
+        ],
+      },
+      en: {
+        title: "=COPILOT(): The AI That Landed Right Inside an Excel Cell",
+        summary:
+          "Understand how the new =COPILOT() function brings generative AI directly into Excel cells, which tasks it handles best, and why it matters for data work inside Microsoft 365.",
+        eyebrow: "Excel and AI",
+        author: "Renan Brognoli",
+        category: "Excel",
+        publishedAt: "2026-06-04",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Imagine typing something like `=COPILOT(\"Categorize this sales data by region\", A2:A100)` into an Excel cell and getting a complete analysis in seconds — no complex formulas, no VBA, no hassle. That's already a reality.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft launched the `=COPILOT()` function as a native Excel formula for Microsoft 365 users, and it's quietly changing the way professionals handle data every day.",
+          },
+          {
+            type: "heading",
+            text: "What Is the =COPILOT() Function?",
+          },
+          {
+            type: "paragraph",
+            text: "It's exactly what the name suggests: Copilot — Microsoft's AI assistant — embedded directly inside a spreadsheet cell. Unlike the Copilot side panel, this function works like any other formula: you type it, hit Enter, and the result appears in the cell.",
+          },
+          {
+            type: "paragraph",
+            text: "The basic syntax is:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(prompt, [context1], [prompt2], [context2], ...)",
+          },
+          {
+            type: "list",
+            items: [
+              "**prompt**: a natural language instruction describing what you want the AI to do",
+              "**context**: the cell range containing the data you want the AI to analyze",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "A practical example:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(\"Analyze the sentiment of this customer comment\", B2)",
+          },
+          {
+            type: "paragraph",
+            text: "The result appears directly in the cell — and, like any formula, if the source data changes, the result recalculates automatically.",
+          },
+          {
+            type: "heading",
+            text: "What Can This Function Do?",
+          },
+          {
+            type: "paragraph",
+            text: "`=COPILOT()` was designed for tasks that traditional formulas can't handle easily. Key use cases include:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Free-text categorization**: classifies comments, form responses, or descriptions into groups",
+              "**Sentiment analysis**: determines whether feedback is positive, negative, or neutral",
+              "**Data cleaning and standardization**: fixes spelling variations, formats addresses, standardizes names",
+              "**Information extraction**: pulls emails, phone numbers, or dates from unstructured text",
+              "**Summarization**: condenses entire paragraphs into a single line",
+              "**List generation**: creates suggestions, next steps, or variations based on context",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "On top of that, the function supports **Dynamic Arrays** — meaning it can return multiple results at once, automatically spilling data into adjacent cells.",
+          },
+          {
+            type: "heading",
+            text: "Does This Replace Regular Formulas?",
+          },
+          {
+            type: "paragraph",
+            text: "No — and Microsoft is clear about this. `=COPILOT()` is powerful for **semantic and generative tasks**, but it's not recommended for numerical calculations that require precision and reproducibility. For those, classic formulas like `SUMIF`, `VLOOKUP`, or `COUNTIF` are still the right choice.",
+          },
+          {
+            type: "paragraph",
+            text: "Think of it this way: traditional formulas are deterministic — the same input always produces the same output. Copilot is an AI model, which means results can vary over time as the model gets updated. For qualitative analysis, text categorization, and interpretation, it's unbeatable. For accounting calculations, stick with the formulas you already know.",
+          },
+          {
+            type: "heading",
+            text: "How Is It Available Today?",
+          },
+          {
+            type: "paragraph",
+            text: "The function rolled out in August 2025 for users on the **Microsoft 365 Insider Beta Channel**, and it has been gradually expanding ever since. In May 2026, Microsoft enhanced it further by adding the ability to **search the web in real time** directly from within the cell.",
+          },
+          {
+            type: "paragraph",
+            text: "To use it, you need:",
+          },
+          {
+            type: "list",
+            items: [
+              "A **Microsoft 365 Copilot license** (commercial plan — not available on personal/family plans)",
+              "A **Microsoft Entra ID account** (formerly Azure AD)",
+              "The **Beta or Insider Channel** version of Excel",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "One important limitation: the function requires an **active internet connection** and only accesses data you explicitly provide as context in the arguments. It doesn't automatically see your entire spreadsheet — you need to specify the ranges.",
+          },
+          {
+            type: "heading",
+            text: "Why Does This Matter for Data Professionals?",
+          },
+          {
+            type: "paragraph",
+            text: "For years, the barrier to data analysis in Excel has been the technical side: knowing which formula to use, how to combine functions, when to reach for Power Query or macros. `=COPILOT()` starts tearing down that barrier.",
+          },
+          {
+            type: "paragraph",
+            text: "Professionals who work with reports, customer databases, survey feedback, or any kind of text data gain a tool that understands natural language and delivers answers directly in their workflow — without leaving Excel, without learning Python, without hiring an analyst for every exploratory analysis.",
+          },
+          {
+            type: "paragraph",
+            text: "For teams already using Power BI and Excel daily, the integration with the Microsoft 365 Copilot ecosystem creates a seamless flow: explore in Excel with `=COPILOT()`, visualize in Power BI, collaborate in Teams. AI stops being a separate product and becomes a layer embedded in the tools you already use.",
+          },
+          {
+            type: "heading",
+            text: "Conclusion",
+          },
+          {
+            type: "paragraph",
+            text: "The `=COPILOT()` function isn't just a paper announcement. It represents a real shift in how Excel works — and signals the path Microsoft is charting for the future of productivity tools: AI not as a side panel, but as part of the workflow itself.",
+          },
+          {
+            type: "paragraph",
+            text: "If you have access to a commercial Microsoft 365 plan, it's worth starting to experiment. And if you don't yet, it's a good reason to keep watching the coming months — the expectation is that this feature will expand to more plans over time.",
+          },
+          {
+            type: "paragraph",
+            text: "Excel will never be the same.",
+          },
+        ],
+      },
+    },
+  },
 ];
 
 export function getArticlesForLocale(locale: Locale) {
