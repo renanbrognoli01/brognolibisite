@@ -9,11 +9,11 @@ export async function GET() {
   const download = getStudioDownloadInfo();
 
   return NextResponse.json({
-    version: download.version,
-    assetName: download.windowsUrl?.split("/").pop() ?? null,
-    downloadUrl: download.windowsUrl,
-    releasePageUrl: DEFAULT_RELEASE_PAGE_URL,
-    sha256: download.sha256,
-    minOs: download.minOs,
+    Version: download.version,
+    AssetName: download.windowsUrl?.split("/").pop() ?? null,
+    DownloadUrl: download.windowsUrl,
+    ReleasePageUrl: DEFAULT_RELEASE_PAGE_URL,
+    Sha256: download.sha256,
+    MinOs: download.minOs,
   });
 }
