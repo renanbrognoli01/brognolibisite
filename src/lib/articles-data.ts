@@ -25,6 +25,307 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "nova-experiencia-do-power-query-no-power-bi-desktop-preview",
+    locales: {
+      "pt-br": {
+        title: "Nova experiência do Power Query no Power BI Desktop (Preview)",
+        summary:
+          "Veja o que mudou na nova experiência do Power Query no Power BI Desktop, como ativar o preview e por que a atualização deixa o fluxo de conexão e preparação de dados mais simples.",
+        eyebrow: "Power Query e Power BI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-09",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "A Microsoft lançou, na atualização de maio de 2026 do Power BI Desktop, uma nova experiência do Power Query em preview. Não é uma mudança cosmética. É uma reformulação completa da forma como você conecta e prepara dados. E quem trabalha com Power BI no dia a dia vai sentir a diferença desde o primeiro clique.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você ainda não ativou o recurso, este artigo explica o que mudou, o que melhorou e como habilitar o preview na sua máquina.",
+          },
+          {
+            type: "heading",
+            text: "O que é o Power Query e por que isso importa?",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem está chegando agora: o Power Query é a ferramenta dentro do Power BI — e também do Excel — responsável por conectar, importar e transformar dados antes de eles chegarem ao seu relatório. É ali que você define de onde vêm os dados, como eles devem ser filtrados, combinados e organizados.",
+          },
+          {
+            type: "paragraph",
+            text: "Durante anos, a tela de \"Obter Dados\", ponto de entrada do Power Query, funcionou bem, mas ficou desatualizada. A interface acumulou conectores, botões e menus de uma forma que, para quem está começando, pode parecer intimidante. A nova experiência chega para resolver isso.",
+          },
+          {
+            type: "heading",
+            text: "O que mudou na prática",
+          },
+          {
+            type: "heading",
+            text: "1. Descoberta de fontes de dados muito mais rápida",
+          },
+          {
+            type: "paragraph",
+            text: "A nova tela de \"Obter Dados\" traz um painel de navegação lateral redesenhado. Em vez de uma lista interminável de ícones, agora você encontra caminhos mais diretos para localizar a fonte certa.",
+          },
+          {
+            type: "list",
+            items: [
+              "**Novo**: acesso ao catálogo completo de conectores disponíveis.",
+              "**Dados recentes**: reconecte rapidamente às fontes que você já usou.",
+              "**OneLake Catalog**: acesse diretamente os itens de dados do Microsoft Fabric para os quais você já tem permissão.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "2. Fluxo de conexão simplificado",
+          },
+          {
+            type: "paragraph",
+            text: "Antes, conectar-se a uma fonte de dados envolvia navegar por várias janelas separadas: escolher o conector, configurar a autenticação, selecionar o modo de conectividade e confirmar cada etapa em um diálogo diferente.",
+          },
+          {
+            type: "paragraph",
+            text: "Agora, tudo isso está unificado em um fluxo mais coeso. Configurações, autenticação e modo de conexão aparecem em sequência lógica, sem saltos entre telas. Você escolhe a fonte e avança diretamente para a prévia dos dados.",
+          },
+          {
+            type: "heading",
+            text: "3. Acessibilidade e modo escuro",
+          },
+          {
+            type: "list",
+            items: [
+              "**Navegação completa por teclado**: você pode percorrer toda a experiência sem usar o mouse.",
+              "**Modo escuro**: um alívio visual bem-vindo para quem passa horas na frente da tela.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "4. Atalhos diretos para tarefas comuns",
+          },
+          {
+            type: "list",
+            items: [
+              "**Tabela em branco**: ideal para digitar ou colar dados manualmente.",
+              "**Consulta em branco**: para quem escreve código M e precisa de uma query customizada do zero.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "5. Consistência entre produtos Microsoft",
+          },
+          {
+            type: "paragraph",
+            text: "Um dos objetivos declarados da Microsoft é unificar a experiência do Power Query entre Power BI Desktop, Microsoft Fabric e Excel. Quem usa os três começa a sentir que está em um ambiente familiar, independentemente de onde estiver trabalhando.",
+          },
+          {
+            type: "heading",
+            text: "Como ativar o preview",
+          },
+          {
+            type: "paragraph",
+            text: "O recurso ainda está em fase de testes, então ele não vem ativado por padrão. Para habilitar:",
+          },
+          {
+            type: "list",
+            items: [
+              "Abra o **Power BI Desktop**.",
+              "Vá em **Arquivo > Opções e configurações > Opções**.",
+              "No menu lateral, clique em **Recursos de visualização** (*Preview features*).",
+              "Marque a opção **\"Nova experiência do Power Query\"**.",
+              "Reinicie o Power BI Desktop.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Na próxima vez que você clicar em \"Obter Dados\", a nova interface já estará disponível.",
+          },
+          {
+            type: "heading",
+            text: "Vale testar agora?",
+          },
+          {
+            type: "paragraph",
+            text: "Sim, especialmente se você trabalha com Power BI de forma regular. A nova experiência ainda é um preview, então podem existir bugs pontuais, mas o ganho em organização e velocidade já é perceptível.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem ensina Power BI ou faz onboarding de analistas novos, a interface mais limpa também ajuda bastante: a curva de aprendizado fica menor.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft está pedindo feedback da comunidade sobre o recurso. Se você encontrar problemas ou tiver sugestões, vale participar do fórum da Microsoft Fabric Community.",
+          },
+          {
+            type: "heading",
+            text: "Conclusão",
+          },
+          {
+            type: "paragraph",
+            text: "A nova experiência do Power Query no Power BI Desktop é um passo concreto na direção certa. Interface mais moderna, fluxo de conexão simplificado, acessibilidade nativa e integração mais forte com o ecossistema Microsoft Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "Não é uma revolução no que o Power Query faz, mas é uma melhora real em como você chega lá.",
+          },
+          {
+            type: "paragraph",
+            text: "Atualização de maio de 2026 do Power BI Desktop. Recurso disponível como preview, sujeito a alterações antes do lançamento oficial.",
+          },
+        ],
+      },
+      en: {
+        title: "New Power Query Experience in Power BI Desktop (Preview)",
+        summary:
+          "Understand what changed in the new Power Query experience in Power BI Desktop, how to enable the preview, and why the update makes data connection and preparation faster and easier.",
+        eyebrow: "Power Query and Power BI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-09",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Microsoft released a new Power Query experience in preview with the May 2026 Power BI Desktop update. This isn't a cosmetic change. It's a full redesign of how you connect and prepare data, and anyone who works with Power BI regularly will feel the difference from the very first click.",
+          },
+          {
+            type: "paragraph",
+            text: "If you haven't enabled the feature yet, this article breaks down what changed, what improved, and how to turn on the preview on your machine.",
+          },
+          {
+            type: "heading",
+            text: "What Is Power Query and Why Does It Matter?",
+          },
+          {
+            type: "paragraph",
+            text: "For those just getting started, Power Query is the tool inside Power BI — and Excel as well — responsible for connecting, importing, and transforming data before it reaches your report. It's where you define where the data comes from, how it should be filtered, combined, and organized.",
+          },
+          {
+            type: "paragraph",
+            text: "For years, the \"Get Data\" screen — Power Query's entry point — worked well but felt dated. The interface accumulated connectors, buttons, and menus in a way that can feel intimidating for beginners. The new experience is here to fix that.",
+          },
+          {
+            type: "heading",
+            text: "What Changed in Practice",
+          },
+          {
+            type: "heading",
+            text: "1. Faster Data Source Discovery",
+          },
+          {
+            type: "paragraph",
+            text: "The new \"Get Data\" screen brings a redesigned left-hand navigation panel. Instead of an endless list of icons, you now get clearer paths to find the right source faster.",
+          },
+          {
+            type: "list",
+            items: [
+              "**New**: access the full catalog of available connectors.",
+              "**Recent data**: quickly reconnect to sources you've already used.",
+              "**OneLake Catalog**: directly access Microsoft Fabric data items you already have permission to use.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "2. Streamlined Connection Flow",
+          },
+          {
+            type: "paragraph",
+            text: "Previously, connecting to a data source meant moving through several separate windows: choosing the connector, configuring authentication, selecting connectivity mode, and confirming each step in a different dialog.",
+          },
+          {
+            type: "paragraph",
+            text: "Now everything is unified into a more cohesive flow. Settings, authentication, and connection mode appear in a logical sequence without jumping between dialogs. You choose a source and move straight to the data preview.",
+          },
+          {
+            type: "heading",
+            text: "3. Accessibility and Dark Mode",
+          },
+          {
+            type: "list",
+            items: [
+              "**Full keyboard navigation**: you can move through the entire experience without touching the mouse.",
+              "**Dark mode**: welcome visual relief for anyone spending long hours in front of a screen.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "4. Quick Shortcuts for Common Tasks",
+          },
+          {
+            type: "list",
+            items: [
+              "**Blank Table**: ideal for typing or pasting data manually.",
+              "**Blank Query**: for M code authors who need a custom query from scratch.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "5. Consistency Across Microsoft Products",
+          },
+          {
+            type: "paragraph",
+            text: "One of Microsoft's stated goals is to unify the Power Query experience across Power BI Desktop, Microsoft Fabric, and Excel. People who use all three start to feel at home regardless of where they are working.",
+          },
+          {
+            type: "heading",
+            text: "How to Enable the Preview",
+          },
+          {
+            type: "paragraph",
+            text: "The feature is still in testing, so it isn't enabled by default. To turn it on:",
+          },
+          {
+            type: "list",
+            items: [
+              "Open **Power BI Desktop**.",
+              "Go to **File > Options and settings > Options**.",
+              "In the side menu, click **Preview features**.",
+              "Check the **\"New Power Query experience\"** option.",
+              "Restart Power BI Desktop.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The next time you click \"Get Data\", the new interface will be available.",
+          },
+          {
+            type: "heading",
+            text: "Is It Worth Testing Now?",
+          },
+          {
+            type: "paragraph",
+            text: "Yes, especially if you use Power BI regularly. The new experience is still a preview, so there may be occasional bugs, but the gains in organization and speed are already noticeable.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone teaching Power BI or onboarding new analysts, the cleaner interface also helps a lot because it shortens the learning curve.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft is actively asking the community for feedback on the feature. If you find issues or have suggestions, it's worth participating in the Microsoft Fabric Community forum.",
+          },
+          {
+            type: "heading",
+            text: "Conclusion",
+          },
+          {
+            type: "paragraph",
+            text: "The new Power Query experience in Power BI Desktop is a concrete step in the right direction: a more modern interface, a simpler connection flow, built-in accessibility, and tighter integration with the Microsoft Fabric ecosystem.",
+          },
+          {
+            type: "paragraph",
+            text: "It isn't a revolution in what Power Query does, but it is a real improvement in how you get there.",
+          },
+          {
+            type: "paragraph",
+            text: "Power BI Desktop May 2026 update. Feature available as a preview and subject to change before the official release.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "power-bi-direct-lake-mode-microsoft-fabric",
     locales: {
       "pt-br": {
