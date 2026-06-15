@@ -26,7 +26,7 @@ function renderInline(text: string) {
       return (
         <code
           key={`${token}-${index}`}
-          className="rounded-md border border-white/10 bg-white/[0.06] px-2 py-1 font-mono text-[0.95em] text-[#f6b23c]"
+          className="rounded-md border border-white/10 bg-white/[0.06] px-2 py-1 font-mono text-[0.95em] text-[var(--brand-amber)]"
         >
           {token.slice(1, -1)}
         </code>
@@ -72,9 +72,9 @@ function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
           return (
             <div
               key={`${block.language ?? "code"}-${index}`}
-              className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#0f1118] shadow-[0_24px_70px_rgba(0,0,0,0.32)]"
+              className="overflow-hidden rounded-[1.6rem] border border-white/10 bg-[var(--surface-1)] shadow-[0_24px_70px_rgba(0,0,0,0.32)]"
             >
-              <div className="border-b border-white/10 bg-white/[0.03] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#f6b23c]">
+              <div className="border-b border-white/10 bg-white/[0.03] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-amber)]">
                 {block.language ?? "Code"}
               </div>
               <pre className="overflow-x-auto px-5 py-5 font-mono text-sm leading-7 text-white/84">
@@ -92,7 +92,7 @@ function ArticleBody({ blocks }: { blocks: ArticleBlock[] }) {
             >
               {block.items.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[#f6b23c]" />
+                  <span className="mt-3 h-2 w-2 shrink-0 rounded-full bg-[var(--brand-amber)]" />
                   <span>{renderInline(item)}</span>
                 </li>
               ))}
@@ -135,7 +135,7 @@ export default async function ArticlePage({
       >
         <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
           <div className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#f6b23c]">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--brand-amber)]">
               {locale === "pt-br" ? "Artigo publicado" : "Published article"}
             </p>
             <p className="text-2xl font-semibold text-white">{article.author}</p>
@@ -162,7 +162,7 @@ export default async function ArticlePage({
             </div>
             <aside className="space-y-5 lg:sticky lg:top-24">
               <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_24px_70px_rgba(0,0,0,0.22)]">
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#13766e]">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[var(--brand-cyan)]">
                   {locale === "pt-br" ? "Leitura rápida" : "Quick read"}
                 </p>
                 <div className="mt-4 space-y-3 text-sm leading-7 text-white/72">

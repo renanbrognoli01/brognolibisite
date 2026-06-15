@@ -30,7 +30,7 @@ export function PageHero({
         <div className="grid gap-12 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-6">
             {eyebrow ? (
-              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#f6b23c]">
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[var(--brand-amber)]">
                 {eyebrow}
               </p>
             ) : null}
@@ -52,7 +52,7 @@ export function Section({ eyebrow, title, description, children }: SectionProps)
       <Container>
         <div className="mb-8 max-w-3xl space-y-4">
           {eyebrow ? (
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#13766e]">{eyebrow}</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--brand-cyan)]">{eyebrow}</p>
           ) : null}
           <h2 className="text-3xl font-semibold tracking-tight text-white">{title}</h2>
           {description ? <p className="text-base leading-7 text-white/70">{description}</p> : null}
@@ -97,8 +97,8 @@ export function HeroPortrait({
   src?: string;
 }) {
   return (
-    <div className="relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#0f1118] via-[#141722] to-[#12141d] shadow-[0_40px_120px_rgba(0,0,0,0.32)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(246,178,60,0.22),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(19,118,110,0.22),_transparent_30%)]" />
+    <div className="relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[var(--surface-1)] via-[var(--surface-3)] to-[var(--surface-4)] shadow-[0_40px_120px_rgba(0,0,0,0.32)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,204,0,0.16),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(0,178,169,0.24),_transparent_30%)]" />
       <Image
         src={src}
         alt="Renan Brognoli"
@@ -114,7 +114,7 @@ export function PrimaryButton({ href, children }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-full bg-[#f6b23c] px-6 py-3 text-sm font-semibold text-[#151618] transition hover:scale-[1.02]"
+      className="inline-flex items-center justify-center rounded-full bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0f1d2a] transition hover:scale-[1.02]"
     >
       {children}
     </Link>

@@ -195,7 +195,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
     <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
       <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
         <div className="space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#f6b23c]">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--brand-amber)]">
             {dict.eyebrow}
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-white">{dict.title}</h1>
@@ -208,7 +208,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             onClick={() => setMode("login")}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               mode === "login"
-                ? "bg-[#f6b23c] text-[#12141a]"
+                ? "bg-[var(--brand-amber)] text-[#0F1D2A]"
                 : "border border-white/10 bg-white/[0.04] text-white/80"
             }`}
           >
@@ -219,7 +219,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             onClick={() => setMode("signup")}
             className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
               mode === "signup"
-                ? "bg-[#f6b23c] text-[#12141a]"
+                ? "bg-[var(--brand-amber)] text-[#0F1D2A]"
                 : "border border-white/10 bg-white/[0.04] text-white/80"
             }`}
           >
@@ -234,7 +234,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               <input
                 value={fullName}
                 onChange={(event) => setFullName(event.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-[#0d1017] px-4 py-3 text-white outline-none transition focus:border-[#f6b23c]/60"
+                className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
                 placeholder={dict.fullName}
               />
             </label>
@@ -246,7 +246,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-2xl border border-white/10 bg-[#0d1017] px-4 py-3 text-white outline-none transition focus:border-[#f6b23c]/60"
+              className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
               placeholder="you@example.com"
             />
           </label>
@@ -257,7 +257,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-2xl border border-white/10 bg-[#0d1017] px-4 py-3 text-white outline-none transition focus:border-[#f6b23c]/60"
+              className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
               placeholder="********"
             />
           </label>
@@ -267,26 +267,26 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               type="button"
               onClick={() => void handleForgotPassword()}
               disabled={loading || envMissing}
-              className="text-left text-sm font-medium text-[#f6b23c] transition hover:text-[#ffd089] disabled:cursor-not-allowed disabled:opacity-70"
+              className="text-left text-sm font-medium text-[var(--brand-amber)] transition hover:text-[#FFE066] disabled:cursor-not-allowed disabled:opacity-70"
             >
               {dict.forgotPassword}
             </button>
           ) : null}
 
           {envMissing ? (
-            <div className="rounded-2xl border border-[#f37070]/30 bg-[#f37070]/10 px-4 py-3 text-sm text-[#ffd2d2]">
+            <div className="rounded-2xl border border-[color:rgba(243,112,112,0.3)] bg-[color:rgba(243,112,112,0.1)] px-4 py-3 text-sm text-[var(--danger-soft)]">
               {dict.missingEnv}
             </div>
           ) : null}
 
           {error ? (
-            <div className="rounded-2xl border border-[#f37070]/30 bg-[#f37070]/10 px-4 py-3 text-sm text-[#ffd2d2]">
+            <div className="rounded-2xl border border-[color:rgba(243,112,112,0.3)] bg-[color:rgba(243,112,112,0.1)] px-4 py-3 text-sm text-[var(--danger-soft)]">
               {error}
             </div>
           ) : null}
 
           {message ? (
-            <div className="rounded-2xl border border-[#13766e]/30 bg-[#13766e]/10 px-4 py-3 text-sm text-[#d4fff9]">
+            <div className="rounded-2xl border border-[color:rgba(0,178,169,0.3)] bg-[color:rgba(0,178,169,0.1)] px-4 py-3 text-sm text-[var(--success-soft)]">
               {message}
             </div>
           ) : null}
@@ -294,7 +294,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
           <button
             type="submit"
             disabled={loading || envMissing}
-            className="w-full rounded-full bg-[#f6b23c] px-6 py-3 text-sm font-semibold text-[#12141a] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+            className="w-full rounded-full bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0F1D2A] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
           >
             {mode === "login" ? dict.submitLogin : dict.submitSignup}
           </button>
@@ -326,7 +326,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             setError(null);
             setMessage(null);
           }}
-          className="mt-6 text-sm font-medium text-[#f6b23c] transition hover:text-[#ffd089]"
+          className="mt-6 text-sm font-medium text-[var(--brand-amber)] transition hover:text-[#FFE066]"
         >
           {mode === "login" ? dict.switchToSignup : dict.switchToLogin}
         </button>
@@ -337,12 +337,12 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         <p className="mt-4 text-sm leading-7 text-white/72">{dict.supportBody}</p>
         <a
           href={`mailto:${supportEmail}`}
-          className="mt-6 inline-flex rounded-full border border-[#f6b23c]/30 bg-[#f6b23c]/10 px-4 py-3 text-sm font-semibold text-[#f6b23c] transition hover:bg-[#f6b23c]/16"
+          className="mt-6 inline-flex rounded-full border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)] px-4 py-3 text-sm font-semibold text-[var(--brand-amber)] transition hover:bg-[color:rgba(255,204,0,0.16)]"
         >
           {supportEmail}
         </a>
 
-        <div className="mt-8 space-y-4 rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
+        <div className="mt-8 space-y-4 rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
             <h3 className="text-lg font-semibold text-white">
             {locale === "pt-br" ? "O que você vai encontrar aqui" : "What you will find here"}
           </h3>

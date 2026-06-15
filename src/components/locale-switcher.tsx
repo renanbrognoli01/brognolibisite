@@ -37,7 +37,7 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
             key={entry}
             href={buildLocaleHref(pathname, locale, entry)}
             className={`rounded-full px-3 py-2 transition ${
-              active ? "bg-[#f6b23c] text-[#101114]" : "hover:bg-white/6"
+              active ? "bg-[var(--brand-amber)] text-[#0F1D2A]" : "hover:bg-white/6"
             }`}
           >
             {getDictionaryLabel(entry)}

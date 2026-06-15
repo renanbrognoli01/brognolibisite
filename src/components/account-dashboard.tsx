@@ -632,7 +632,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
         <div className="mt-8">
           <Link
             href={`/${locale}/login`}
-            className="inline-flex rounded-full bg-[#f6b23c] px-6 py-3 text-sm font-semibold text-[#12141a]"
+            className="inline-flex rounded-full bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0F1D2A]"
           >
             {dict.login}
           </Link>
@@ -645,56 +645,56 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
     <div className="space-y-8">
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#f6b23c]">{dict.eyebrow}</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--brand-amber)]">{dict.eyebrow}</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">{dict.title}</h1>
           <p className="mt-4 text-base leading-7 text-white/72">{dict.description}</p>
 
           {error ? (
-            <div className="mt-6 rounded-2xl border border-[#f37070]/30 bg-[#f37070]/10 px-4 py-3 text-sm text-[#ffd2d2]">
+            <div className="mt-6 rounded-2xl border border-[color:rgba(243,112,112,0.3)] bg-[color:rgba(243,112,112,0.1)] px-4 py-3 text-sm text-[var(--danger-soft)]">
               {error}
             </div>
           ) : null}
 
           {message ? (
-            <div className="mt-6 rounded-2xl border border-[#13766e]/30 bg-[#13766e]/10 px-4 py-3 text-sm text-[#d4fff9]">
+            <div className="mt-6 rounded-2xl border border-[color:rgba(0,178,169,0.3)] bg-[color:rgba(0,178,169,0.1)] px-4 py-3 text-sm text-[var(--success-soft)]">
               {message}
             </div>
           ) : null}
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">Email</p>
               <p className="mt-3 text-lg font-semibold text-white">{account.email}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.status}</p>
               <p className="mt-3 text-lg font-semibold text-white">{account.subscriptionStatus ?? dict.noSubscription}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.plan}</p>
               <p className="mt-3 text-lg font-semibold text-white">{account.planName ?? dict.noSubscription}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.nextBilling}</p>
               <p className="mt-3 text-lg font-semibold text-white">{formatDate(account.nextBillingAt)}</p>
               {account.cancelAtPeriodEnd ? (
-                <p className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-[#f6b23c]">
+                <p className="mt-2 text-xs font-medium uppercase tracking-[0.16em] text-[var(--brand-amber)]">
                   {dict.cancellationScheduled}
                 </p>
               ) : null}
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5 sm:col-span-2">
+            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5 sm:col-span-2">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.currentPrice}</p>
               <p className="mt-3 text-lg font-semibold text-white">{account.currentPriceLabel ?? dict.noPrice}</p>
             </div>
           </div>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-[#f6b23c]/20 bg-[#f6b23c]/10 p-5">
+            <div className="rounded-[1.5rem] border border-[color:rgba(255,204,0,0.2)] bg-[color:rgba(255,204,0,0.1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/55">{dict.planCredits}</p>
               <p className="mt-3 text-3xl font-semibold text-white">{account.planCredits}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-[#13766e]/24 bg-[#13766e]/12 p-5">
+            <div className="rounded-[1.5rem] border border-[color:rgba(0,178,169,0.24)] bg-[color:rgba(0,178,169,0.12)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/55">{dict.extraCredits}</p>
               <p className="mt-3 text-3xl font-semibold text-white">{account.extraCredits}</p>
             </div>
@@ -711,8 +711,8 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
               </div>
               <div className="grid gap-4">
                 {account.planName ? (
-                  <div className="rounded-[1.5rem] border border-[#f6b23c]/30 bg-[#f6b23c]/10 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#f6b23c]">
+                  <div className="rounded-[1.5rem] border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)] p-4">
+                    <p className="text-xs uppercase tracking-[0.18em] text-[var(--brand-amber)]">
                       {dict.currentPlanAction}
                     </p>
                     <div className="mt-3 flex items-center justify-between gap-4">
@@ -720,7 +720,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
                         <p className="text-lg font-semibold text-white">{account.planName}</p>
                         <p className="mt-1 text-sm text-white/68">{account.currentPriceLabel ?? "-"}</p>
                       </div>
-                      <span className="rounded-full border border-[#f6b23c]/30 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#f6b23c]">
+                      <span className="rounded-full border border-[color:rgba(255,204,0,0.3)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-amber)]">
                         {account.subscriptionStatus ?? "active"}
                       </span>
                     </div>
@@ -731,7 +731,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
                     key={plan.code}
                     className={`rounded-[1.5rem] border p-4 ${
                       plan.highlight
-                        ? "border-[#f6b23c]/30 bg-[#f6b23c]/10"
+                        ? "border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)]"
                         : "border-white/10 bg-white/[0.04]"
                     }`}
                   >
@@ -741,7 +741,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
                           <p className="text-lg font-semibold text-white">{plan.name}</p>
                           <p className="mt-1 text-sm text-white/72">{plan.price}</p>
                         </div>
-                        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#f6b23c]">
+                        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--brand-amber)]">
                           {plan.credits}
                         </span>
                       </div>
@@ -758,7 +758,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
                         }
                         className={`w-full rounded-full px-5 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-70 ${
                           plan.highlight
-                            ? "bg-[#f6b23c] text-[#12141a] hover:scale-[1.01]"
+                            ? "bg-[var(--brand-amber)] text-[#0F1D2A] hover:scale-[1.01]"
                             : "border border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]"
                         }`}
                       >
@@ -823,7 +823,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
                   type="button"
                   disabled={resumeLoading}
                   onClick={() => void handleResumeSubscription()}
-                  className="rounded-full border border-[#13766e]/30 bg-[#13766e]/10 px-5 py-3 text-center text-sm font-semibold text-[#d4fff9] transition hover:bg-[#13766e]/16 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="rounded-full border border-[color:rgba(0,178,169,0.3)] bg-[color:rgba(0,178,169,0.1)] px-5 py-3 text-center text-sm font-semibold text-[var(--success-soft)] transition hover:bg-[color:rgba(0,178,169,0.16)] disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {resumeLoading ? dict.processing : dict.resumeSubscription}
                 </button>
@@ -832,7 +832,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
                   type="button"
                   disabled={cancelLoading}
                   onClick={() => void handleCancelSubscription()}
-                  className="rounded-full border border-[#f37070]/30 bg-[#f37070]/10 px-5 py-3 text-center text-sm font-semibold text-[#ffd2d2] transition hover:bg-[#f37070]/16 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="rounded-full border border-[color:rgba(243,112,112,0.3)] bg-[color:rgba(243,112,112,0.1)] px-5 py-3 text-center text-sm font-semibold text-[var(--danger-soft)] transition hover:bg-[color:rgba(243,112,112,0.16)] disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {cancelLoading ? dict.processing : dict.cancelSubscription}
                 </button>
@@ -840,11 +840,11 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             ) : null}
           </div>
 
-          <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[#0d1017] p-5">
+          <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
             <p className="text-sm leading-7 text-white/72">{dict.billingPortalSoon}</p>
             <a
               href={`mailto:${supportEmail}`}
-              className="mt-4 inline-flex rounded-full border border-[#f6b23c]/30 bg-[#f6b23c]/10 px-4 py-3 text-sm font-semibold text-[#f6b23c] transition hover:bg-[#f6b23c]/16"
+              className="mt-4 inline-flex rounded-full border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)] px-4 py-3 text-sm font-semibold text-[var(--brand-amber)] transition hover:bg-[color:rgba(255,204,0,0.16)]"
             >
               {supportEmail}
             </a>
@@ -873,7 +873,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
         <p className="mt-4 max-w-3xl text-sm leading-7 text-white/72">{dict.supportBody}</p>
         <a
           href={`mailto:${supportEmail}`}
-          className="mt-6 inline-flex rounded-full border border-[#f6b23c]/30 bg-[#f6b23c]/10 px-4 py-3 text-sm font-semibold text-[#f6b23c] transition hover:bg-[#f6b23c]/16"
+          className="mt-6 inline-flex rounded-full border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)] px-4 py-3 text-sm font-semibold text-[var(--brand-amber)] transition hover:bg-[color:rgba(255,204,0,0.16)]"
         >
           {supportEmail}
         </a>
