@@ -62,7 +62,7 @@ export default async function AboutPage({
               key={`${item.year}-${item.title}`}
               className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6"
             >
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#f6b23c]">{item.year}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-amber)]">{item.year}</p>
               <h3 className="mt-3 text-xl font-semibold text-white">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-white/72">{item.description}</p>
             </div>

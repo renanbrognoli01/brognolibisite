@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 function SuccessBadge() {
   return (
-    <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[#f6b23c]/14 text-[#f6b23c]">
+    <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[color:rgba(255,204,0,0.14)] text-[var(--brand-amber)]">
       <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2">
         <path d="M12 3l7 4v5c0 4.5-2.8 7.7-7 9-4.2-1.3-7-4.5-7-9V7l7-4Z" />
         <path d="m8.5 12 2.2 2.2 4.8-4.8" />

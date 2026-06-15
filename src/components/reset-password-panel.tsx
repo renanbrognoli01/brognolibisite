@@ -127,7 +127,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
       <p className="mt-4 text-base leading-7 text-white/72">{dict.description}</p>
 
       {initializing ? (
-        <div className="mt-8 rounded-2xl border border-white/10 bg-[#0d1017] px-4 py-3 text-sm text-white/72">
+        <div className="mt-8 rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-sm text-white/72">
           {dict.preparing}
         </div>
       ) : null}
@@ -139,7 +139,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="w-full rounded-2xl border border-white/10 bg-[#0d1017] px-4 py-3 text-white outline-none transition focus:border-[#f6b23c]/60"
+            className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
             placeholder="********"
           />
         </label>
@@ -150,19 +150,19 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
             type="password"
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
-            className="w-full rounded-2xl border border-white/10 bg-[#0d1017] px-4 py-3 text-white outline-none transition focus:border-[#f6b23c]/60"
+            className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
             placeholder="********"
           />
         </label>
 
         {error ? (
-          <div className="rounded-2xl border border-[#f37070]/30 bg-[#f37070]/10 px-4 py-3 text-sm text-[#ffd2d2]">
+          <div className="rounded-2xl border border-[color:rgba(243,112,112,0.3)] bg-[color:rgba(243,112,112,0.1)] px-4 py-3 text-sm text-[var(--danger-soft)]">
             {error}
           </div>
         ) : null}
 
         {message ? (
-          <div className="rounded-2xl border border-[#13766e]/30 bg-[#13766e]/10 px-4 py-3 text-sm text-[#d4fff9]">
+          <div className="rounded-2xl border border-[color:rgba(0,178,169,0.3)] bg-[color:rgba(0,178,169,0.1)] px-4 py-3 text-sm text-[var(--success-soft)]">
             {message}
           </div>
         ) : null}
@@ -170,7 +170,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
         <button
           type="submit"
           disabled={loading || initializing || !!error}
-          className="w-full rounded-full bg-[#f6b23c] px-6 py-3 text-sm font-semibold text-[#12141a] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+          className="w-full rounded-full bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0F1D2A] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {dict.submit}
         </button>
@@ -178,7 +178,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
 
       <Link
         href={`/${locale}/login`}
-        className="mt-6 inline-flex text-sm font-medium text-[#f6b23c] transition hover:text-[#ffd089]"
+        className="mt-6 inline-flex text-sm font-medium text-[var(--brand-amber)] transition hover:text-[#FFE066]"
       >
         {dict.backToLogin}
       </Link>

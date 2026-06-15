@@ -21,13 +21,13 @@ export default async function ContactPage({
           >
             <a
               href={`mailto:${dict.contact.email}`}
-              className="whitespace-nowrap text-[0.78rem] font-semibold tracking-[-0.01em] text-[#f6b23c] sm:text-[0.82rem]"
+              className="whitespace-nowrap text-[0.78rem] font-semibold tracking-[-0.01em] text-[var(--brand-amber)] sm:text-[0.82rem]"
             >
               {dict.contact.email}
             </a>
           </GlassCard>
           <GlassCard title="LinkedIn" description="Renan Brognoli">
-            <a href={dict.contact.linkedin} target="_blank" rel="noreferrer" className="text-sm font-semibold text-[#f6b23c]">
+            <a href={dict.contact.linkedin} target="_blank" rel="noreferrer" className="text-sm font-semibold text-[var(--brand-amber)]">
               {locale === "pt-br" ? "Abrir perfil" : "Open profile"}
             </a>
           </GlassCard>
@@ -39,7 +39,7 @@ export default async function ContactPage({
               href="https://www.youtube.com/@renanbrognolibr"
               target="_blank"
               rel="noreferrer"
-              className="text-sm font-semibold text-[#f6b23c]"
+              className="text-sm font-semibold text-[var(--brand-amber)]"
             >
               {locale === "pt-br" ? "Abrir canal" : "Open channel"}
             </a>
@@ -52,7 +52,7 @@ export default async function ContactPage({
               href="https://www.youtube.com/@renanbrognoliint"
               target="_blank"
               rel="noreferrer"
-              className="text-sm font-semibold text-[#f6b23c]"
+              className="text-sm font-semibold text-[var(--brand-amber)]"
             >
               {locale === "pt-br" ? "Abrir canal" : "Open channel"}
             </a>

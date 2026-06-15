@@ -195,9 +195,9 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
       <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
         <div className="grid gap-10 lg:grid-cols-[0.84fr_1.16fr]">
           <div className="space-y-6">
-            <div className="rounded-[2rem] border border-white/10 bg-[#10141b] p-5">
+            <div className="rounded-[2rem] border border-white/10 bg-[var(--surface-2)] p-5">
               <div className={`rounded-[1.9rem] bg-gradient-to-br ${selected.accent} p-[1px]`}>
-                <div className="rounded-[1.85rem] bg-[#0d1118] p-5">
+                <div className="rounded-[1.85rem] bg-[var(--surface-1)] p-5">
                   <div className="flex items-center justify-between gap-4">
                     <div className="relative h-14 w-14 overflow-hidden rounded-[1rem] bg-white">
                       <Image
@@ -215,7 +215,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                     </div>
                   </div>
 
-                  <div className="relative mx-auto mt-5 w-full max-w-[21rem] overflow-hidden rounded-[2.7rem] border border-white/10 bg-[#05070c] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
+                  <div className="relative mx-auto mt-5 w-full max-w-[21rem] overflow-hidden rounded-[2.7rem] border border-white/10 bg-[#061521] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
                     <div className="absolute left-1/2 top-2 z-10 h-1.5 w-16 -translate-x-1/2 rounded-full bg-white/12" />
                     <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem]">
                       <Image
@@ -244,7 +244,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-5">
+            <div className="rounded-[1.6rem] border border-white/10 bg-[var(--surface-2)] p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">
                 {isPt ? "Ideal para" : "Ideal for"}
               </p>
@@ -262,7 +262,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                     link.pending
                       ? "border border-white/10 bg-white/[0.03] text-white/48"
                       : link.primary
-                        ? "bg-white text-[#151618] hover:scale-[1.02]"
+                        ? "bg-[var(--brand-amber)] text-[#0F1D2A] hover:scale-[1.02]"
                         : "border border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]"
                   }`}
                 >
@@ -285,7 +285,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               {selected.highlights.map((item) => (
                 <div
                   key={item}
-                  className="rounded-[1.4rem] border border-white/10 bg-[#10141b] p-4"
+                  className="rounded-[1.4rem] border border-white/10 bg-[var(--surface-2)] p-4"
                 >
                   <div className="mb-3 h-2 w-12 rounded-full bg-white/12" />
                   <p className="text-sm leading-7 text-white/76">{item}</p>
@@ -294,7 +294,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
             </div>
 
             <div className="grid gap-5 xl:grid-cols-2">
-              <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-6">
+              <div className="rounded-[1.6rem] border border-white/10 bg-[var(--surface-2)] p-6">
                 <h4 className="text-lg font-semibold text-white">{selected.patientTitle}</h4>
                 <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-7 text-white/74 marker:text-white/40">
                   {selected.patientBullets.map((bullet) => (
@@ -302,7 +302,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                   ))}
                 </ul>
               </div>
-              <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-6">
+              <div className="rounded-[1.6rem] border border-white/10 bg-[var(--surface-2)] p-6">
                 <h4 className="text-lg font-semibold text-white">{selected.therapistTitle}</h4>
                 <ul className="mt-4 list-disc space-y-3 pl-5 text-sm leading-7 text-white/74 marker:text-white/40">
                   {selected.therapistBullets.map((bullet) => (
@@ -312,7 +312,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               </div>
             </div>
 
-            <div className="rounded-[1.6rem] border border-white/10 bg-[#10141b] p-6">
+            <div className="rounded-[1.6rem] border border-white/10 bg-[var(--surface-2)] p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">
                 {isPt ? "Privacidade e cuidado com dados" : "Privacy and data care"}
               </p>
@@ -321,7 +321,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8cc8ff]">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-cyan)]">
                   {isPt ? "Prova visual" : "Product preview"}
                 </p>
                 <h4 className="text-2xl font-semibold text-white">

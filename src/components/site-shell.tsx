@@ -16,9 +16,9 @@ export function SiteShell({ locale, children }: SiteShellProps) {
   const dict = siteData[locale];
 
   return (
-    <div className="min-h-screen bg-[#090b11] text-white">
-      <div className="absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top_left,_rgba(246,178,60,0.2),_transparent_40%),radial-gradient(circle_at_top_right,_rgba(19,118,110,0.16),_transparent_35%)] pointer-events-none" />
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090b11]/85 backdrop-blur-xl">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top_left,_rgba(15,76,129,0.28),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(0,178,169,0.16),_transparent_36%),linear-gradient(180deg,_rgba(7,21,33,0),_rgba(7,21,33,0.82))]" />
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[color:rgba(7,21,33,0.88)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
           <Link href={locale === "pt-br" ? "/pt-br" : "/en"} className="flex items-center gap-4">
             <div className="relative h-16 w-16 shrink-0">
@@ -40,7 +40,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-white/72 transition hover:text-white"
+                className="text-sm font-medium text-white/72 transition hover:text-[var(--brand-amber)]"
               >
                 {item.label}
               </Link>
@@ -56,7 +56,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
 
       <main className="relative z-10">{children}</main>
 
-      <footer className="border-t border-white/10 bg-[#090b11]">
+      <footer className="border-t border-white/10 bg-[var(--background)]">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 md:grid-cols-[1.2fr_1fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-3">

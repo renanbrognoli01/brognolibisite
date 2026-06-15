@@ -503,7 +503,7 @@ export default async function StudioPage({
               </h2>
 
               <div className="grid gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:items-start">
-                <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#0d1017] md:min-h-[520px]">
+                <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[var(--surface-1)] md:min-h-[520px]">
                   <Image
                     src="/media/aviso-studio.png"
                     alt={installNotice.title}
@@ -526,7 +526,7 @@ export default async function StudioPage({
                         key={step}
                         className={`rounded-[1.25rem] border p-5 text-sm leading-8 md:text-base ${
                           index === 2
-                            ? "border-[#f6b23c]/20 bg-[#f6b23c]/10 text-white/82"
+                            ? "border-[color:rgba(255,204,0,0.2)] bg-[color:rgba(255,204,0,0.1)] text-white/82"
                             : "border-white/10 bg-white/[0.03] text-white/78"
                         }`}
                       >
@@ -651,19 +651,19 @@ export default async function StudioPage({
                   key={plan.name}
                   className={`rounded-[2rem] border p-6 ${
                     plan.highlight
-                      ? "border-[#f6b23c]/40 bg-[#f6b23c]/10 shadow-[0_20px_60px_rgba(246,178,60,0.08)]"
+                      ? "border-[color:rgba(255,204,0,0.4)] bg-[color:rgba(255,204,0,0.1)] shadow-[0_20px_60px_rgba(255,204,0,0.08)]"
                       : "border-white/10 bg-white/[0.03]"
                   }`}
                 >
                   <div className="space-y-4">
                     {plan.highlight ? (
-                      <span className="inline-flex rounded-full bg-[#f6b23c] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#111318]">
+                      <span className="inline-flex rounded-full bg-[var(--brand-amber)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F1D2A]">
                         {isPt ? "Mais popular" : "Most popular"}
                       </span>
                     ) : null}
                     <h4 className="text-2xl font-semibold text-white">{plan.name}</h4>
                     <p className="text-3xl font-semibold text-white">{plan.price}</p>
-                    <p className="text-sm font-medium text-[#f6b23c]">{plan.credits}</p>
+                    <p className="text-sm font-medium text-[var(--brand-amber)]">{plan.credits}</p>
                     <p className="min-h-20 text-sm leading-7 text-white/72">{plan.note}</p>
                   </div>
                 </div>
@@ -693,7 +693,7 @@ export default async function StudioPage({
               {creditPacks.map((pack) => (
                 <div
                   key={pack.name}
-                  className="rounded-[1.75rem] border border-white/10 bg-[#0d1017] p-6"
+                  className="rounded-[1.75rem] border border-white/10 bg-[var(--surface-1)] p-6"
                 >
                   <div className="space-y-4">
                     <h4 className="text-2xl font-semibold text-white">{pack.name}</h4>
@@ -712,7 +712,7 @@ export default async function StudioPage({
         title={copy.finalTitle}
         description={copy.finalDescription}
       >
-        <div className="rounded-[2rem] border border-[#f6b23c]/20 bg-[linear-gradient(135deg,rgba(246,178,60,0.14),rgba(246,178,60,0.04),rgba(255,255,255,0.02))] p-8">
+        <div className="rounded-[2rem] border border-[color:rgba(255,204,0,0.2)] bg-[linear-gradient(135deg,rgba(255,204,0,0.14),rgba(255,204,0,0.04),rgba(255,255,255,0.02))] p-8">
           <div className="space-y-6">
             <p className="max-w-3xl text-sm leading-7 text-white/78">{copy.finalBody}</p>
             <div className="flex flex-wrap gap-4">

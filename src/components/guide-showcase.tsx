@@ -230,12 +230,12 @@ export function GuideShowcase({
   const isPt = locale === "pt-br";
   const accentClass =
     selectedEntry.category === "excel"
-      ? "border-[#13766e]/35 bg-[#13766e]/10 text-[#8ce0d9]"
-      : "border-[#f6b23c]/35 bg-[#f6b23c]/10 text-[#f6b23c]";
+      ? "border-[color:rgba(0,178,169,0.35)] bg-[color:rgba(0,178,169,0.1)] text-[#8AF4EA]"
+      : "border-[color:rgba(255,204,0,0.35)] bg-[color:rgba(255,204,0,0.1)] text-[var(--brand-amber)]";
   const accentButtonClass =
     selectedEntry.category === "excel"
-      ? "bg-[#13766e] text-white"
-      : "bg-[#f6b23c] text-[#151618]";
+      ? "bg-[var(--brand-cyan)] text-[#071521]"
+      : "bg-[var(--brand-amber)] text-[#0F1D2A]";
 
   return (
     <div className="space-y-8">
@@ -246,8 +246,8 @@ export function GuideShowcase({
             id={group.accent === "excel" ? "excel" : "powerbi"}
             className={`rounded-[2rem] border p-6 ${
               group.accent === "excel"
-                ? "border-[#13766e]/35 bg-[#13766e]/10"
-                : "border-[#f6b23c]/30 bg-[#f6b23c]/10"
+                ? "border-[color:rgba(0,178,169,0.35)] bg-[color:rgba(0,178,169,0.1)]"
+                : "border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)]"
             }`}
           >
             <h2 className="text-2xl font-semibold text-white">{group.title}</h2>
@@ -271,7 +271,7 @@ export function GuideShowcase({
                     className={`rounded-[1.4rem] border px-4 py-4 text-left transition ${
                       active
                         ? "border-white/25 bg-white/10 shadow-[0_18px_50px_rgba(0,0,0,0.18)]"
-                        : "border-white/10 bg-[#11151d]/75 hover:border-white/20 hover:bg-white/[0.05]"
+                        : "border-white/10 bg-[color:rgba(16,37,60,0.75)] hover:border-white/20 hover:bg-white/[0.05]"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-4">
@@ -286,8 +286,8 @@ export function GuideShowcase({
                       <span
                         className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] ${
                           group.accent === "excel"
-                            ? "border-[#13766e]/40 text-[#8ce0d9]"
-                            : "border-[#f6b23c]/40 text-[#f6b23c]"
+                            ? "border-[color:rgba(0,178,169,0.4)] text-[#8AF4EA]"
+                            : "border-[color:rgba(255,204,0,0.4)] text-[var(--brand-amber)]"
                         }`}
                       >
                         {group.accent === "excel" ? "Excel" : "Power BI"}
@@ -325,7 +325,7 @@ export function GuideShowcase({
               {selectedDetails.highlights.map((item) => (
                 <div
                   key={item}
-                  className="rounded-[1.4rem] border border-white/10 bg-[#0f131a] p-4"
+                  className="rounded-[1.4rem] border border-white/10 bg-[var(--surface-2)] p-4"
                 >
                   <p className="text-sm leading-7 text-white/78">{item}</p>
                 </div>
@@ -333,7 +333,7 @@ export function GuideShowcase({
             </div>
           </div>
 
-          <div className="space-y-4 rounded-[1.8rem] border border-white/10 bg-[#0f131a] p-6">
+          <div className="space-y-4 rounded-[1.8rem] border border-white/10 bg-[var(--surface-2)] p-6">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/40">
                 {isPt ? "Para quem é" : "Ideal for"}

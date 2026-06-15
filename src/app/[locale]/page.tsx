@@ -15,7 +15,7 @@ import { siteData } from "@/lib/site-data";
 function InsightIcon({ type }: { type: "spark" | "bars" | "shield" | "palette" }) {
   if (type === "spark") {
     return (
-      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#f6b23c]" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[var(--brand-amber)]" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" />
       </svg>
     );
@@ -23,7 +23,7 @@ function InsightIcon({ type }: { type: "spark" | "bars" | "shield" | "palette" }
 
   if (type === "bars") {
     return (
-      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#f6b23c]" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[var(--brand-amber)]" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M5 19V11" />
         <path d="M12 19V7" />
         <path d="M19 19V4" />
@@ -33,7 +33,7 @@ function InsightIcon({ type }: { type: "spark" | "bars" | "shield" | "palette" }
 
   if (type === "shield") {
     return (
-      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#f6b23c]" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-[var(--brand-amber)]" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M12 3l7 3v6c0 4.5-2.8 7.7-7 9-4.2-1.3-7-4.5-7-9V6l7-3Z" />
         <path d="m9 12 2 2 4-4" />
       </svg>
@@ -41,7 +41,7 @@ function InsightIcon({ type }: { type: "spark" | "bars" | "shield" | "palette" }
   }
 
   return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#f6b23c]" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <svg viewBox="0 0 24 24" className="h-6 w-6 text-[var(--brand-amber)]" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M4 6h16" />
       <path d="M4 12h16" />
       <path d="M4 18h16" />
@@ -244,16 +244,16 @@ export default async function HomePage({
                 key={item.title}
                 className="rounded-[1.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-5"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f6b23c]/12">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[color:rgba(255,204,0,0.12)]">
                   <InsightIcon type={item.icon} />
                 </div>
                 <h3 className="mt-5 text-lg font-semibold text-white">{item.title}</h3>
                 <p className="mt-2 text-sm leading-7 text-white/72">{item.description}</p>
                 <div className="mt-5 flex items-end gap-2">
-                  <span className="h-6 w-3 rounded-full bg-[#13766e]/50" />
-                  <span className="h-9 w-3 rounded-full bg-[#13766e]/70" />
-                  <span className="h-12 w-3 rounded-full bg-[#f6b23c]/80" />
-                  <span className="h-8 w-3 rounded-full bg-[#13766e]/60" />
+                  <span className="h-6 w-3 rounded-full bg-[color:rgba(0,178,169,0.5)]" />
+                  <span className="h-9 w-3 rounded-full bg-[color:rgba(0,178,169,0.7)]" />
+                  <span className="h-12 w-3 rounded-full bg-[color:rgba(255,204,0,0.8)]" />
+                  <span className="h-8 w-3 rounded-full bg-[color:rgba(0,178,169,0.6)]" />
                 </div>
               </div>
             ))}
