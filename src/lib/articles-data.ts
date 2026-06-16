@@ -25,6 +25,321 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "dax-user-defined-functions-power-bi",
+    locales: {
+      "pt-br": {
+        title: "DAX mudou de vez: o que são as User-Defined Functions e por que você vai querer usar",
+        summary:
+          "Entenda como as User-Defined Functions tornam o DAX mais reutilizável, organizado e pronto para modelos semânticos colaborativos no Power BI.",
+        eyebrow: "Power BI e DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-16",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Se você trabalha com Power BI há algum tempo, sabe que DAX tem uma característica irritante: você escreve a mesma lógica umas dez vezes, em medidas diferentes, e reza para não ter cometido nenhum erro em pelo menos nove delas.",
+          },
+          {
+            type: "paragraph",
+            text: "Com a atualização de junho de 2026, a Microsoft finalizou a disponibilidade geral das User-Defined Functions (UDFs) no DAX. Esse recurso estava em preview desde setembro de 2025 e agora chegou com tudo: suporte no Power BI Desktop, no serviço web e integração com ferramentas como SSMS e Git.",
+          },
+          {
+            type: "paragraph",
+            text: "A promessa é simples. Você define uma função uma vez. Usa ela em qualquer lugar do modelo.",
+          },
+          {
+            type: "heading",
+            text: "O problema que as UDFs resolvem",
+          },
+          {
+            type: "paragraph",
+            text: "Imagine que você precisa calcular o valor com imposto em vários lugares do seu modelo semântico. A lógica é sempre a mesma: valor multiplicado por uma alíquota. Até aí, tudo bem.",
+          },
+          {
+            type: "paragraph",
+            text: "O problema começa quando a alíquota muda. Você vai precisar atualizar cada medida, cada coluna calculada, cada cálculo visual que usava essa fórmula. Se tiver sorte, lembra de todos. Se não tiver, o relatório vai apresentar números inconsistentes.",
+          },
+          {
+            type: "paragraph",
+            text: "As UDFs encerram essa história. Você centraliza a lógica em um único lugar. Quando a regra muda, muda em um ponto só.",
+          },
+          {
+            type: "heading",
+            text: "Como funciona na prática",
+          },
+          {
+            type: "paragraph",
+            text: "A sintaxe introduz uma nova palavra-chave: `FUNCTION`. O formato básico é esse:",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    FUNCTION NomeDaFuncao = ( parametro : TIPO ) => expressão",
+          },
+          {
+            type: "paragraph",
+            text: "Um exemplo concreto: uma função que adiciona imposto a um valor.",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    /// AddTax recebe um valor e retorna o total com imposto\n    /// @param {NUMERIC} amount - Valor sem imposto\n    /// @param {NUMERIC} [taxRate] - Alíquota opcional, padrão 10%\n    /// @returns Valor total com imposto aplicado\n    FUNCTION AddTax = \n        ( amount : NUMERIC, taxRate : NUMERIC = 0.1 ) =>\n            amount * ( 1 + taxRate )\n\nEVALUATE\n{ AddTax ( 100 ) }\n-- Retorna 110",
+          },
+          {
+            type: "paragraph",
+            text: "Note o parâmetro `taxRate` com valor padrão. Isso é um dos recursos novos do GA: parâmetros opcionais. Você pode chamar `AddTax(100)` e a função assume 10% automaticamente, ou passar `AddTax(100, 0.15)` quando precisar de 15%.",
+          },
+          {
+            type: "heading",
+            text: "Onde você pode usar as UDFs",
+          },
+          {
+            type: "paragraph",
+            text: "Uma vez salva no modelo, a função fica disponível como qualquer outra função DAX nativa. Você pode usá-la em:",
+          },
+          {
+            type: "list",
+            items: [
+              "Medidas",
+              "Colunas calculadas",
+              "Cálculos visuais",
+              "Outras funções definidas pelo usuário",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Essa última possibilidade é interessante. Você pode compor funções. Uma função de margem bruta pode chamar internamente uma função de custo ajustado. O modelo fica modular.",
+          },
+          {
+            type: "heading",
+            text: "Onde criar e editar as funções",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft disponibilizou três caminhos para trabalhar com UDFs:",
+          },
+          {
+            type: "paragraph",
+            text: "**DAX Query View:** É onde você define, testa e salva funções no modelo. Tem botão de \"Update model with changes\" para salvar de vez. O IntelliSense já reconhece as funções definidas.",
+          },
+          {
+            type: "paragraph",
+            text: "**TMDL View:** Para quem prefere trabalhar com arquivos de definição. As UDFs ficam salvas como arquivos TMDL e podem ser versionadas via Git. Ótimo para times que trabalham colaborativamente no mesmo modelo.",
+          },
+          {
+            type: "paragraph",
+            text: "**Model Explorer:** Você encontra as funções criadas em um nó dedicado chamado \"Functions\". Dá para criar, editar e acompanhar dependências por lá.",
+          },
+          {
+            type: "heading",
+            text: "A conexão com o Copilot",
+          },
+          {
+            type: "paragraph",
+            text: "Um detalhe que a Microsoft enfatizou bastante: UDFs são objetos de primeira classe no modelo semântico. Elas têm assinatura tipada, descrição e parâmetros documentados.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso significa que ferramentas de IA, como o Copilot, conseguem descobrir e invocar essas funções com muito mais precisão do que tentando inferir lógica DAX de medidas genéricas. Em vez de o Copilot tentar adivinhar como calcular sua margem, você expõe explicitamente uma função `CalcularMargem` com documentação clara.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem está investindo em automação e IA dentro do Power BI, isso muda bastante o jogo.",
+          },
+          {
+            type: "heading",
+            text: "Requisitos técnicos",
+          },
+          {
+            type: "paragraph",
+            text: "Antes de sair criando funções, um aviso: as UDFs exigem nível de compatibilidade de banco de dados 1702 ou superior. Modelos mais antigos podem precisar de atualização.",
+          },
+          {
+            type: "paragraph",
+            text: "No Power BI Desktop de junho de 2026 em diante, o recurso vem habilitado por padrão. No SSMS, o suporte começa a partir da versão 22.5.",
+          },
+          {
+            type: "heading",
+            text: "Vale a pena adotar agora?",
+          },
+          {
+            type: "paragraph",
+            text: "Para modelos novos, a resposta é direta: sim. Comece usando UDFs para qualquer lógica que se repete. Margem, impostos, conversão de moeda, regras comerciais. Tudo que você escreveria mais de uma vez vira candidato a função.",
+          },
+          {
+            type: "paragraph",
+            text: "Para modelos legados, o processo é mais gradual. Não compensa refatorar tudo de uma vez. Mas à medida que você precisar ajustar cálculos existentes, vale centralizar a lógica em funções.",
+          },
+          {
+            type: "paragraph",
+            text: "O DAX sempre teve poder. Agora tem organização.",
+          },
+          {
+            type: "paragraph",
+            text: "*Fontes: Microsoft Power BI June 2026 Feature Summary, documentação oficial Microsoft Learn (DAX User-Defined Functions Best Practices), Microsoft Fabric Community.*",
+          },
+        ],
+      },
+      en: {
+        title: "DAX just changed for good: what are User-Defined Functions and why you'll want to use them",
+        summary:
+          "Learn how User-Defined Functions make DAX more reusable, organized, and ready for collaborative semantic models in Power BI.",
+        eyebrow: "Power BI and DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-16",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "If you've been working with Power BI for a while, you know DAX has one particularly annoying trait: you write the same logic ten times across different measures and pray you didn't make a mistake in at least nine of them.",
+          },
+          {
+            type: "paragraph",
+            text: "With the June 2026 update, Microsoft finalized the general availability of User-Defined Functions (UDFs) in DAX. The feature had been in preview since September 2025 and now ships complete: support in Power BI Desktop, the web service, and integration with tools like SSMS and Git.",
+          },
+          {
+            type: "paragraph",
+            text: "The promise is straightforward. You define a function once. You use it anywhere in the model.",
+          },
+          {
+            type: "heading",
+            text: "The problem UDFs solve",
+          },
+          {
+            type: "paragraph",
+            text: "Imagine you need to calculate a tax-inclusive value in several places across your semantic model. The logic is always the same: a value multiplied by a rate. Simple enough.",
+          },
+          {
+            type: "paragraph",
+            text: "The problem starts when the rate changes. You'll need to update every measure, every calculated column, every visual calculation that used that formula. If you're lucky, you remember them all. If not, your report will show inconsistent numbers.",
+          },
+          {
+            type: "paragraph",
+            text: "UDFs put an end to that story. You centralize the logic in one place. When the rule changes, it changes in one spot.",
+          },
+          {
+            type: "heading",
+            text: "How it works in practice",
+          },
+          {
+            type: "paragraph",
+            text: "The syntax introduces a new keyword: `FUNCTION`. The basic structure looks like this:",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    FUNCTION FunctionName = ( parameter : TYPE ) => expression",
+          },
+          {
+            type: "paragraph",
+            text: "A concrete example: a function that adds tax to a value.",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    /// AddTax takes an amount and returns the total including tax\n    /// @param {NUMERIC} amount - Pre-tax value\n    /// @param {NUMERIC} [taxRate] - Optional tax rate, defaults to 10%\n    /// @returns Total value with tax applied\n    FUNCTION AddTax = \n        ( amount : NUMERIC, taxRate : NUMERIC = 0.1 ) =>\n            amount * ( 1 + taxRate )\n\nEVALUATE\n{ AddTax ( 100 ) }\n-- Returns 110",
+          },
+          {
+            type: "paragraph",
+            text: "Notice the `taxRate` parameter with a default value. Optional parameters are one of the new features that shipped with GA. You can call `AddTax(100)` and the function assumes 10% automatically, or pass `AddTax(100, 0.15)` when you need 15%.",
+          },
+          {
+            type: "heading",
+            text: "Where you can use UDFs",
+          },
+          {
+            type: "paragraph",
+            text: "Once saved to the model, the function behaves like any native DAX function. You can use it in:",
+          },
+          {
+            type: "list",
+            items: [
+              "Measures",
+              "Calculated columns",
+              "Visual calculations",
+              "Other user-defined functions",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "That last one is worth noting. You can compose functions. A gross margin function can internally call an adjusted cost function. The model becomes modular.",
+          },
+          {
+            type: "heading",
+            text: "Where to create and edit functions",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft made three paths available for working with UDFs:",
+          },
+          {
+            type: "paragraph",
+            text: "**DAX Query View:** Where you define, test, and save functions to the model. There's an \"Update model with changes\" button to commit them permanently. IntelliSense already recognizes defined functions as you type.",
+          },
+          {
+            type: "paragraph",
+            text: "**TMDL View:** For those who prefer working with definition files. UDFs are saved as TMDL files and can be versioned through Git. Great for teams collaborating on the same model.",
+          },
+          {
+            type: "paragraph",
+            text: "**Model Explorer:** Functions show up under a dedicated \"Functions\" node. You can create, edit, and track dependencies from there.",
+          },
+          {
+            type: "heading",
+            text: "The Copilot connection",
+          },
+          {
+            type: "paragraph",
+            text: "One detail Microsoft emphasized heavily: UDFs are first-class objects in the semantic model. They have typed signatures, descriptions, and documented parameters.",
+          },
+          {
+            type: "paragraph",
+            text: "That means AI tools like Copilot can discover and invoke these functions with much greater precision than by trying to infer logic from generic measures. Instead of Copilot guessing how to calculate your margin, you explicitly expose a `CalculateMargin` function with clear documentation.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone investing in automation and AI within Power BI, this changes things considerably.",
+          },
+          {
+            type: "heading",
+            text: "Technical requirements",
+          },
+          {
+            type: "paragraph",
+            text: "Before you start creating functions, a heads-up: UDFs require a database compatibility level of 1702 or higher. Older models may need updating.",
+          },
+          {
+            type: "paragraph",
+            text: "In Power BI Desktop from the June 2026 release onward, the feature is enabled by default. In SSMS, support starts from version 22.5.",
+          },
+          {
+            type: "heading",
+            text: "Is it worth adopting now?",
+          },
+          {
+            type: "paragraph",
+            text: "For new models, the answer is straightforward: yes. Start using UDFs for any logic that repeats. Margins, taxes, currency conversion, business rules. Anything you'd write more than once is a candidate for a function.",
+          },
+          {
+            type: "paragraph",
+            text: "For legacy models, the process is more gradual. It's not worth refactoring everything at once. But as you need to adjust existing calculations, it's worth centralizing that logic into functions.",
+          },
+          {
+            type: "paragraph",
+            text: "DAX always had power. Now it has organization too.",
+          },
+          {
+            type: "paragraph",
+            text: "*Sources: Microsoft Power BI June 2026 Feature Summary, official Microsoft Learn documentation (DAX User-Defined Functions Best Practices), Microsoft Fabric Community.*",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "nova-experiencia-do-power-query-no-power-bi-desktop-preview",
     locales: {
       "pt-br": {
