@@ -25,6 +25,961 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "dax-user-defined-functions-power-bi",
+    locales: {
+      "pt-br": {
+        title: "DAX mudou de vez: o que são as User-Defined Functions e por que você vai querer usar",
+        summary:
+          "Entenda como as User-Defined Functions tornam o DAX mais reutilizável, organizado e pronto para modelos semânticos colaborativos no Power BI.",
+        eyebrow: "Power BI e DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-16",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Se você trabalha com Power BI há algum tempo, sabe que DAX tem uma característica irritante: você escreve a mesma lógica umas dez vezes, em medidas diferentes, e reza para não ter cometido nenhum erro em pelo menos nove delas.",
+          },
+          {
+            type: "paragraph",
+            text: "Com a atualização de junho de 2026, a Microsoft finalizou a disponibilidade geral das User-Defined Functions (UDFs) no DAX. Esse recurso estava em preview desde setembro de 2025 e agora chegou com tudo: suporte no Power BI Desktop, no serviço web e integração com ferramentas como SSMS e Git.",
+          },
+          {
+            type: "paragraph",
+            text: "A promessa é simples. Você define uma função uma vez. Usa ela em qualquer lugar do modelo.",
+          },
+          {
+            type: "heading",
+            text: "O problema que as UDFs resolvem",
+          },
+          {
+            type: "paragraph",
+            text: "Imagine que você precisa calcular o valor com imposto em vários lugares do seu modelo semântico. A lógica é sempre a mesma: valor multiplicado por uma alíquota. Até aí, tudo bem.",
+          },
+          {
+            type: "paragraph",
+            text: "O problema começa quando a alíquota muda. Você vai precisar atualizar cada medida, cada coluna calculada, cada cálculo visual que usava essa fórmula. Se tiver sorte, lembra de todos. Se não tiver, o relatório vai apresentar números inconsistentes.",
+          },
+          {
+            type: "paragraph",
+            text: "As UDFs encerram essa história. Você centraliza a lógica em um único lugar. Quando a regra muda, muda em um ponto só.",
+          },
+          {
+            type: "heading",
+            text: "Como funciona na prática",
+          },
+          {
+            type: "paragraph",
+            text: "A sintaxe introduz uma nova palavra-chave: `FUNCTION`. O formato básico é esse:",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    FUNCTION NomeDaFuncao = ( parametro : TIPO ) => expressão",
+          },
+          {
+            type: "paragraph",
+            text: "Um exemplo concreto: uma função que adiciona imposto a um valor.",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    /// AddTax recebe um valor e retorna o total com imposto\n    /// @param {NUMERIC} amount - Valor sem imposto\n    /// @param {NUMERIC} [taxRate] - Alíquota opcional, padrão 10%\n    /// @returns Valor total com imposto aplicado\n    FUNCTION AddTax = \n        ( amount : NUMERIC, taxRate : NUMERIC = 0.1 ) =>\n            amount * ( 1 + taxRate )\n\nEVALUATE\n{ AddTax ( 100 ) }\n-- Retorna 110",
+          },
+          {
+            type: "paragraph",
+            text: "Note o parâmetro `taxRate` com valor padrão. Isso é um dos recursos novos do GA: parâmetros opcionais. Você pode chamar `AddTax(100)` e a função assume 10% automaticamente, ou passar `AddTax(100, 0.15)` quando precisar de 15%.",
+          },
+          {
+            type: "heading",
+            text: "Onde você pode usar as UDFs",
+          },
+          {
+            type: "paragraph",
+            text: "Uma vez salva no modelo, a função fica disponível como qualquer outra função DAX nativa. Você pode usá-la em:",
+          },
+          {
+            type: "list",
+            items: [
+              "Medidas",
+              "Colunas calculadas",
+              "Cálculos visuais",
+              "Outras funções definidas pelo usuário",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Essa última possibilidade é interessante. Você pode compor funções. Uma função de margem bruta pode chamar internamente uma função de custo ajustado. O modelo fica modular.",
+          },
+          {
+            type: "heading",
+            text: "Onde criar e editar as funções",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft disponibilizou três caminhos para trabalhar com UDFs:",
+          },
+          {
+            type: "paragraph",
+            text: "**DAX Query View:** É onde você define, testa e salva funções no modelo. Tem botão de \"Update model with changes\" para salvar de vez. O IntelliSense já reconhece as funções definidas.",
+          },
+          {
+            type: "paragraph",
+            text: "**TMDL View:** Para quem prefere trabalhar com arquivos de definição. As UDFs ficam salvas como arquivos TMDL e podem ser versionadas via Git. Ótimo para times que trabalham colaborativamente no mesmo modelo.",
+          },
+          {
+            type: "paragraph",
+            text: "**Model Explorer:** Você encontra as funções criadas em um nó dedicado chamado \"Functions\". Dá para criar, editar e acompanhar dependências por lá.",
+          },
+          {
+            type: "heading",
+            text: "A conexão com o Copilot",
+          },
+          {
+            type: "paragraph",
+            text: "Um detalhe que a Microsoft enfatizou bastante: UDFs são objetos de primeira classe no modelo semântico. Elas têm assinatura tipada, descrição e parâmetros documentados.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso significa que ferramentas de IA, como o Copilot, conseguem descobrir e invocar essas funções com muito mais precisão do que tentando inferir lógica DAX de medidas genéricas. Em vez de o Copilot tentar adivinhar como calcular sua margem, você expõe explicitamente uma função `CalcularMargem` com documentação clara.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem está investindo em automação e IA dentro do Power BI, isso muda bastante o jogo.",
+          },
+          {
+            type: "heading",
+            text: "Requisitos técnicos",
+          },
+          {
+            type: "paragraph",
+            text: "Antes de sair criando funções, um aviso: as UDFs exigem nível de compatibilidade de banco de dados 1702 ou superior. Modelos mais antigos podem precisar de atualização.",
+          },
+          {
+            type: "paragraph",
+            text: "No Power BI Desktop de junho de 2026 em diante, o recurso vem habilitado por padrão. No SSMS, o suporte começa a partir da versão 22.5.",
+          },
+          {
+            type: "heading",
+            text: "Vale a pena adotar agora?",
+          },
+          {
+            type: "paragraph",
+            text: "Para modelos novos, a resposta é direta: sim. Comece usando UDFs para qualquer lógica que se repete. Margem, impostos, conversão de moeda, regras comerciais. Tudo que você escreveria mais de uma vez vira candidato a função.",
+          },
+          {
+            type: "paragraph",
+            text: "Para modelos legados, o processo é mais gradual. Não compensa refatorar tudo de uma vez. Mas à medida que você precisar ajustar cálculos existentes, vale centralizar a lógica em funções.",
+          },
+          {
+            type: "paragraph",
+            text: "O DAX sempre teve poder. Agora tem organização.",
+          },
+          {
+            type: "paragraph",
+            text: "*Fontes: Microsoft Power BI June 2026 Feature Summary, documentação oficial Microsoft Learn (DAX User-Defined Functions Best Practices), Microsoft Fabric Community.*",
+          },
+        ],
+      },
+      en: {
+        title: "DAX just changed for good: what are User-Defined Functions and why you'll want to use them",
+        summary:
+          "Learn how User-Defined Functions make DAX more reusable, organized, and ready for collaborative semantic models in Power BI.",
+        eyebrow: "Power BI and DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-16",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "If you've been working with Power BI for a while, you know DAX has one particularly annoying trait: you write the same logic ten times across different measures and pray you didn't make a mistake in at least nine of them.",
+          },
+          {
+            type: "paragraph",
+            text: "With the June 2026 update, Microsoft finalized the general availability of User-Defined Functions (UDFs) in DAX. The feature had been in preview since September 2025 and now ships complete: support in Power BI Desktop, the web service, and integration with tools like SSMS and Git.",
+          },
+          {
+            type: "paragraph",
+            text: "The promise is straightforward. You define a function once. You use it anywhere in the model.",
+          },
+          {
+            type: "heading",
+            text: "The problem UDFs solve",
+          },
+          {
+            type: "paragraph",
+            text: "Imagine you need to calculate a tax-inclusive value in several places across your semantic model. The logic is always the same: a value multiplied by a rate. Simple enough.",
+          },
+          {
+            type: "paragraph",
+            text: "The problem starts when the rate changes. You'll need to update every measure, every calculated column, every visual calculation that used that formula. If you're lucky, you remember them all. If not, your report will show inconsistent numbers.",
+          },
+          {
+            type: "paragraph",
+            text: "UDFs put an end to that story. You centralize the logic in one place. When the rule changes, it changes in one spot.",
+          },
+          {
+            type: "heading",
+            text: "How it works in practice",
+          },
+          {
+            type: "paragraph",
+            text: "The syntax introduces a new keyword: `FUNCTION`. The basic structure looks like this:",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    FUNCTION FunctionName = ( parameter : TYPE ) => expression",
+          },
+          {
+            type: "paragraph",
+            text: "A concrete example: a function that adds tax to a value.",
+          },
+          {
+            type: "code",
+            language: "dax",
+            code: "DEFINE\n    /// AddTax takes an amount and returns the total including tax\n    /// @param {NUMERIC} amount - Pre-tax value\n    /// @param {NUMERIC} [taxRate] - Optional tax rate, defaults to 10%\n    /// @returns Total value with tax applied\n    FUNCTION AddTax = \n        ( amount : NUMERIC, taxRate : NUMERIC = 0.1 ) =>\n            amount * ( 1 + taxRate )\n\nEVALUATE\n{ AddTax ( 100 ) }\n-- Returns 110",
+          },
+          {
+            type: "paragraph",
+            text: "Notice the `taxRate` parameter with a default value. Optional parameters are one of the new features that shipped with GA. You can call `AddTax(100)` and the function assumes 10% automatically, or pass `AddTax(100, 0.15)` when you need 15%.",
+          },
+          {
+            type: "heading",
+            text: "Where you can use UDFs",
+          },
+          {
+            type: "paragraph",
+            text: "Once saved to the model, the function behaves like any native DAX function. You can use it in:",
+          },
+          {
+            type: "list",
+            items: [
+              "Measures",
+              "Calculated columns",
+              "Visual calculations",
+              "Other user-defined functions",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "That last one is worth noting. You can compose functions. A gross margin function can internally call an adjusted cost function. The model becomes modular.",
+          },
+          {
+            type: "heading",
+            text: "Where to create and edit functions",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft made three paths available for working with UDFs:",
+          },
+          {
+            type: "paragraph",
+            text: "**DAX Query View:** Where you define, test, and save functions to the model. There's an \"Update model with changes\" button to commit them permanently. IntelliSense already recognizes defined functions as you type.",
+          },
+          {
+            type: "paragraph",
+            text: "**TMDL View:** For those who prefer working with definition files. UDFs are saved as TMDL files and can be versioned through Git. Great for teams collaborating on the same model.",
+          },
+          {
+            type: "paragraph",
+            text: "**Model Explorer:** Functions show up under a dedicated \"Functions\" node. You can create, edit, and track dependencies from there.",
+          },
+          {
+            type: "heading",
+            text: "The Copilot connection",
+          },
+          {
+            type: "paragraph",
+            text: "One detail Microsoft emphasized heavily: UDFs are first-class objects in the semantic model. They have typed signatures, descriptions, and documented parameters.",
+          },
+          {
+            type: "paragraph",
+            text: "That means AI tools like Copilot can discover and invoke these functions with much greater precision than by trying to infer logic from generic measures. Instead of Copilot guessing how to calculate your margin, you explicitly expose a `CalculateMargin` function with clear documentation.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone investing in automation and AI within Power BI, this changes things considerably.",
+          },
+          {
+            type: "heading",
+            text: "Technical requirements",
+          },
+          {
+            type: "paragraph",
+            text: "Before you start creating functions, a heads-up: UDFs require a database compatibility level of 1702 or higher. Older models may need updating.",
+          },
+          {
+            type: "paragraph",
+            text: "In Power BI Desktop from the June 2026 release onward, the feature is enabled by default. In SSMS, support starts from version 22.5.",
+          },
+          {
+            type: "heading",
+            text: "Is it worth adopting now?",
+          },
+          {
+            type: "paragraph",
+            text: "For new models, the answer is straightforward: yes. Start using UDFs for any logic that repeats. Margins, taxes, currency conversion, business rules. Anything you'd write more than once is a candidate for a function.",
+          },
+          {
+            type: "paragraph",
+            text: "For legacy models, the process is more gradual. It's not worth refactoring everything at once. But as you need to adjust existing calculations, it's worth centralizing that logic into functions.",
+          },
+          {
+            type: "paragraph",
+            text: "DAX always had power. Now it has organization too.",
+          },
+          {
+            type: "paragraph",
+            text: "*Sources: Microsoft Power BI June 2026 Feature Summary, official Microsoft Learn documentation (DAX User-Defined Functions Best Practices), Microsoft Fabric Community.*",
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: "nova-experiencia-do-power-query-no-power-bi-desktop-preview",
+    locales: {
+      "pt-br": {
+        title: "Nova experiência do Power Query no Power BI Desktop (Preview)",
+        summary:
+          "Veja o que mudou na nova experiência do Power Query no Power BI Desktop, como ativar o preview e por que a atualização deixa o fluxo de conexão e preparação de dados mais simples.",
+        eyebrow: "Power Query e Power BI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-09",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "A Microsoft lançou, na atualização de maio de 2026 do Power BI Desktop, uma nova experiência do Power Query em preview. Não é uma mudança cosmética. É uma reformulação completa da forma como você conecta e prepara dados. E quem trabalha com Power BI no dia a dia vai sentir a diferença desde o primeiro clique.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você ainda não ativou o recurso, este artigo explica o que mudou, o que melhorou e como habilitar o preview na sua máquina.",
+          },
+          {
+            type: "heading",
+            text: "O que é o Power Query e por que isso importa?",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem está chegando agora: o Power Query é a ferramenta dentro do Power BI — e também do Excel — responsável por conectar, importar e transformar dados antes de eles chegarem ao seu relatório. É ali que você define de onde vêm os dados, como eles devem ser filtrados, combinados e organizados.",
+          },
+          {
+            type: "paragraph",
+            text: "Durante anos, a tela de \"Obter Dados\", ponto de entrada do Power Query, funcionou bem, mas ficou desatualizada. A interface acumulou conectores, botões e menus de uma forma que, para quem está começando, pode parecer intimidante. A nova experiência chega para resolver isso.",
+          },
+          {
+            type: "heading",
+            text: "O que mudou na prática",
+          },
+          {
+            type: "heading",
+            text: "1. Descoberta de fontes de dados muito mais rápida",
+          },
+          {
+            type: "paragraph",
+            text: "A nova tela de \"Obter Dados\" traz um painel de navegação lateral redesenhado. Em vez de uma lista interminável de ícones, agora você encontra caminhos mais diretos para localizar a fonte certa.",
+          },
+          {
+            type: "list",
+            items: [
+              "**Novo**: acesso ao catálogo completo de conectores disponíveis.",
+              "**Dados recentes**: reconecte rapidamente às fontes que você já usou.",
+              "**OneLake Catalog**: acesse diretamente os itens de dados do Microsoft Fabric para os quais você já tem permissão.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "2. Fluxo de conexão simplificado",
+          },
+          {
+            type: "paragraph",
+            text: "Antes, conectar-se a uma fonte de dados envolvia navegar por várias janelas separadas: escolher o conector, configurar a autenticação, selecionar o modo de conectividade e confirmar cada etapa em um diálogo diferente.",
+          },
+          {
+            type: "paragraph",
+            text: "Agora, tudo isso está unificado em um fluxo mais coeso. Configurações, autenticação e modo de conexão aparecem em sequência lógica, sem saltos entre telas. Você escolhe a fonte e avança diretamente para a prévia dos dados.",
+          },
+          {
+            type: "heading",
+            text: "3. Acessibilidade e modo escuro",
+          },
+          {
+            type: "list",
+            items: [
+              "**Navegação completa por teclado**: você pode percorrer toda a experiência sem usar o mouse.",
+              "**Modo escuro**: um alívio visual bem-vindo para quem passa horas na frente da tela.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "4. Atalhos diretos para tarefas comuns",
+          },
+          {
+            type: "list",
+            items: [
+              "**Tabela em branco**: ideal para digitar ou colar dados manualmente.",
+              "**Consulta em branco**: para quem escreve código M e precisa de uma query customizada do zero.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "5. Consistência entre produtos Microsoft",
+          },
+          {
+            type: "paragraph",
+            text: "Um dos objetivos declarados da Microsoft é unificar a experiência do Power Query entre Power BI Desktop, Microsoft Fabric e Excel. Quem usa os três começa a sentir que está em um ambiente familiar, independentemente de onde estiver trabalhando.",
+          },
+          {
+            type: "heading",
+            text: "Como ativar o preview",
+          },
+          {
+            type: "paragraph",
+            text: "O recurso ainda está em fase de testes, então ele não vem ativado por padrão. Para habilitar:",
+          },
+          {
+            type: "list",
+            items: [
+              "Abra o **Power BI Desktop**.",
+              "Vá em **Arquivo > Opções e configurações > Opções**.",
+              "No menu lateral, clique em **Recursos de visualização** (*Preview features*).",
+              "Marque a opção **\"Nova experiência do Power Query\"**.",
+              "Reinicie o Power BI Desktop.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Na próxima vez que você clicar em \"Obter Dados\", a nova interface já estará disponível.",
+          },
+          {
+            type: "heading",
+            text: "Vale testar agora?",
+          },
+          {
+            type: "paragraph",
+            text: "Sim, especialmente se você trabalha com Power BI de forma regular. A nova experiência ainda é um preview, então podem existir bugs pontuais, mas o ganho em organização e velocidade já é perceptível.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem ensina Power BI ou faz onboarding de analistas novos, a interface mais limpa também ajuda bastante: a curva de aprendizado fica menor.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft está pedindo feedback da comunidade sobre o recurso. Se você encontrar problemas ou tiver sugestões, vale participar do fórum da Microsoft Fabric Community.",
+          },
+          {
+            type: "heading",
+            text: "Conclusão",
+          },
+          {
+            type: "paragraph",
+            text: "A nova experiência do Power Query no Power BI Desktop é um passo concreto na direção certa. Interface mais moderna, fluxo de conexão simplificado, acessibilidade nativa e integração mais forte com o ecossistema Microsoft Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "Não é uma revolução no que o Power Query faz, mas é uma melhora real em como você chega lá.",
+          },
+          {
+            type: "paragraph",
+            text: "Atualização de maio de 2026 do Power BI Desktop. Recurso disponível como preview, sujeito a alterações antes do lançamento oficial.",
+          },
+        ],
+      },
+      en: {
+        title: "New Power Query Experience in Power BI Desktop (Preview)",
+        summary:
+          "Understand what changed in the new Power Query experience in Power BI Desktop, how to enable the preview, and why the update makes data connection and preparation faster and easier.",
+        eyebrow: "Power Query and Power BI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-09",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Microsoft released a new Power Query experience in preview with the May 2026 Power BI Desktop update. This isn't a cosmetic change. It's a full redesign of how you connect and prepare data, and anyone who works with Power BI regularly will feel the difference from the very first click.",
+          },
+          {
+            type: "paragraph",
+            text: "If you haven't enabled the feature yet, this article breaks down what changed, what improved, and how to turn on the preview on your machine.",
+          },
+          {
+            type: "heading",
+            text: "What Is Power Query and Why Does It Matter?",
+          },
+          {
+            type: "paragraph",
+            text: "For those just getting started, Power Query is the tool inside Power BI — and Excel as well — responsible for connecting, importing, and transforming data before it reaches your report. It's where you define where the data comes from, how it should be filtered, combined, and organized.",
+          },
+          {
+            type: "paragraph",
+            text: "For years, the \"Get Data\" screen — Power Query's entry point — worked well but felt dated. The interface accumulated connectors, buttons, and menus in a way that can feel intimidating for beginners. The new experience is here to fix that.",
+          },
+          {
+            type: "heading",
+            text: "What Changed in Practice",
+          },
+          {
+            type: "heading",
+            text: "1. Faster Data Source Discovery",
+          },
+          {
+            type: "paragraph",
+            text: "The new \"Get Data\" screen brings a redesigned left-hand navigation panel. Instead of an endless list of icons, you now get clearer paths to find the right source faster.",
+          },
+          {
+            type: "list",
+            items: [
+              "**New**: access the full catalog of available connectors.",
+              "**Recent data**: quickly reconnect to sources you've already used.",
+              "**OneLake Catalog**: directly access Microsoft Fabric data items you already have permission to use.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "2. Streamlined Connection Flow",
+          },
+          {
+            type: "paragraph",
+            text: "Previously, connecting to a data source meant moving through several separate windows: choosing the connector, configuring authentication, selecting connectivity mode, and confirming each step in a different dialog.",
+          },
+          {
+            type: "paragraph",
+            text: "Now everything is unified into a more cohesive flow. Settings, authentication, and connection mode appear in a logical sequence without jumping between dialogs. You choose a source and move straight to the data preview.",
+          },
+          {
+            type: "heading",
+            text: "3. Accessibility and Dark Mode",
+          },
+          {
+            type: "list",
+            items: [
+              "**Full keyboard navigation**: you can move through the entire experience without touching the mouse.",
+              "**Dark mode**: welcome visual relief for anyone spending long hours in front of a screen.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "4. Quick Shortcuts for Common Tasks",
+          },
+          {
+            type: "list",
+            items: [
+              "**Blank Table**: ideal for typing or pasting data manually.",
+              "**Blank Query**: for M code authors who need a custom query from scratch.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "5. Consistency Across Microsoft Products",
+          },
+          {
+            type: "paragraph",
+            text: "One of Microsoft's stated goals is to unify the Power Query experience across Power BI Desktop, Microsoft Fabric, and Excel. People who use all three start to feel at home regardless of where they are working.",
+          },
+          {
+            type: "heading",
+            text: "How to Enable the Preview",
+          },
+          {
+            type: "paragraph",
+            text: "The feature is still in testing, so it isn't enabled by default. To turn it on:",
+          },
+          {
+            type: "list",
+            items: [
+              "Open **Power BI Desktop**.",
+              "Go to **File > Options and settings > Options**.",
+              "In the side menu, click **Preview features**.",
+              "Check the **\"New Power Query experience\"** option.",
+              "Restart Power BI Desktop.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The next time you click \"Get Data\", the new interface will be available.",
+          },
+          {
+            type: "heading",
+            text: "Is It Worth Testing Now?",
+          },
+          {
+            type: "paragraph",
+            text: "Yes, especially if you use Power BI regularly. The new experience is still a preview, so there may be occasional bugs, but the gains in organization and speed are already noticeable.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone teaching Power BI or onboarding new analysts, the cleaner interface also helps a lot because it shortens the learning curve.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft is actively asking the community for feedback on the feature. If you find issues or have suggestions, it's worth participating in the Microsoft Fabric Community forum.",
+          },
+          {
+            type: "heading",
+            text: "Conclusion",
+          },
+          {
+            type: "paragraph",
+            text: "The new Power Query experience in Power BI Desktop is a concrete step in the right direction: a more modern interface, a simpler connection flow, built-in accessibility, and tighter integration with the Microsoft Fabric ecosystem.",
+          },
+          {
+            type: "paragraph",
+            text: "It isn't a revolution in what Power Query does, but it is a real improvement in how you get there.",
+          },
+          {
+            type: "paragraph",
+            text: "Power BI Desktop May 2026 update. Feature available as a preview and subject to change before the official release.",
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: "power-bi-direct-lake-mode-microsoft-fabric",
+    locales: {
+      "pt-br": {
+        title: "Power BI Direct Lake Mode: O Segredo para Relatórios Ultra-Rápidos no Microsoft Fabric",
+        summary:
+          "Entenda como o Direct Lake combina a velocidade do Import Mode com dados quase em tempo real no Microsoft Fabric, e em quais cenários ele realmente vale a pena.",
+        eyebrow: "Power BI e Fabric",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-02",
+        readingTime: "6 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Seus relatórios do Power BI demoram para carregar? Você usa DirectQuery e sente que os visuais travam a cada filtro? Existe um modo de conexão que promete mudar isso — e ele já está disponível para quem usa o Microsoft Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "O **Direct Lake Mode** é o novo padrão de performance no ecossistema da Microsoft para Analytics. Neste artigo, você vai entender como ele funciona, quando faz sentido usá-lo e como ele se compara aos modos que você já conhece.",
+          },
+          {
+            type: "heading",
+            text: "Os três modos de conexão do Power BI",
+          },
+          {
+            type: "paragraph",
+            text: "Para entender o Direct Lake, primeiro precisamos revisitar o que já existe.",
+          },
+          { type: "heading", text: "Import Mode" },
+          {
+            type: "paragraph",
+            text: "O modo mais popular. Os dados são copiados para dentro do Power BI, compactados na memória pelo motor VertiPaq e consultados com altíssima velocidade. O problema? Os dados só são atualizados quando você agenda um refresh — e datasets muito grandes podem demorar horas para carregar.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use quando:** o dataset é de tamanho médio, os dados não precisam ser atualizados em tempo real e a velocidade de interação é prioridade.",
+          },
+          { type: "heading", text: "DirectQuery" },
+          {
+            type: "paragraph",
+            text: "Neste modo, o Power BI não armazena nada. Cada clique em um visual gera uma consulta direta na fonte de dados. Os dados estão sempre atualizados, mas a performance depende totalmente de quão rápido o banco de dados responde — e isso pode ser lento.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use quando:** os dados precisam estar sempre em tempo real ou o volume é grande demais para importar.",
+          },
+          { type: "heading", text: "Direct Lake Mode" },
+          {
+            type: "paragraph",
+            text: "Aqui está o protagonista. O Direct Lake foi criado para ser o melhor dos dois mundos: a velocidade do Import Mode com a atualização quase em tempo real do DirectQuery — sem duplicar dados.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use quando:** você opera dentro do Microsoft Fabric com tabelas Delta no OneLake e precisa de alta performance com dados sempre atualizados.",
+          },
+          {
+            type: "heading",
+            text: "Como o Direct Lake funciona na prática",
+          },
+          {
+            type: "paragraph",
+            text: "O Direct Lake não importa dados nem consulta a fonte original a cada clique. Em vez disso, ele conecta o modelo semântico do Power BI diretamente às **tabelas Delta armazenadas no OneLake** — o armazenamento unificado do Microsoft Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "O processo funciona assim:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Os dados ficam no OneLake**, armazenados em formato Parquet (eficiente para consultas colunares).",
+              "**Quando uma consulta é executada**, o motor VertiPaq carrega para a memória apenas as colunas necessárias — não o dataset inteiro.",
+              "**Quando os dados mudam na fonte**, o refresh do Direct Lake atualiza apenas os metadados. Isso leva segundos, não minutos ou horas.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "O resultado? Relatórios com tempo de resposta próximo ao do Import Mode, com dados que podem refletir mudanças em quase tempo real.",
+          },
+          {
+            type: "heading",
+            text: "Direct Lake on OneLake vs. Direct Lake on SQL",
+          },
+          {
+            type: "paragraph",
+            text: "Desde março de 2026, o modo **Direct Lake on OneLake** está em disponibilidade geral e é o recomendado pela Microsoft.",
+          },
+          {
+            type: "list",
+            items: [
+              "Melhor compatibilidade com a segurança do OneLake",
+              "Mais recursos de modelagem, incluindo colunas calculadas, que chegaram em abril de 2026",
+              "Desempenho de consulta superior",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Já o **Direct Lake on SQL** usa o endpoint de análise SQL do Fabric e permite fallback para DirectQuery — útil em cenários específicos de permissões e governança.",
+          },
+          {
+            type: "heading",
+            text: "Quando o Direct Lake pode cair para DirectQuery (e o que fazer)",
+          },
+          {
+            type: "paragraph",
+            text: "Um ponto importante: o Direct Lake pode recorrer ao modo DirectQuery automaticamente em algumas situações.",
+          },
+          {
+            type: "list",
+            items: [
+              "Consultas DAX muito complexas",
+              "Relacionamentos de alta cardinalidade",
+              "Limites de memória da capacidade do Fabric",
+              "Uso de views em vez de tabelas físicas",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Isso se chama **fallback** e pode causar queda perceptível de performance. Para evitá-lo:",
+          },
+          {
+            type: "list",
+            items: [
+              "Use **tabelas físicas** (não views) no Lakehouse",
+              "**Otimize as tabelas Delta** com V-Order, já habilitado por padrão no Fabric",
+              "**Dimensione corretamente a capacidade** do Fabric para o volume e concorrência esperados",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Comparativo rápido: Import vs. DirectQuery vs. Direct Lake",
+          },
+          {
+            type: "list",
+            items: [
+              "**Dados armazenados** — Import Mode: na memória do Power BI | DirectQuery: na fonte original | Direct Lake: no OneLake (Delta)",
+              "**Atualização** — Import Mode: agendada | DirectQuery: tempo real | Direct Lake: quase tempo real",
+              "**Performance** — Import Mode: alta | DirectQuery: variável | Direct Lake: alta",
+              "**Requer Fabric** — Import Mode: não | DirectQuery: não | Direct Lake: sim",
+              "**Ideal para** — Import Mode: datasets médios | DirectQuery: dados em tempo real | Direct Lake: grandes volumes no Fabric",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Vale a pena migrar para o Direct Lake?",
+          },
+          {
+            type: "paragraph",
+            text: "Se a sua empresa já usa o Microsoft Fabric — ou está planejando migrar — a resposta é quase sempre sim. O Direct Lake reduz o custo de atualização, elimina a duplicação de dados e entrega performance equivalente ao Import Mode mesmo em grandes volumes.",
+          },
+          {
+            type: "paragraph",
+            text: "Mas se você ainda opera fora do Fabric, o Import Mode continua sendo a melhor opção para a maioria dos cenários. E o DirectQuery segue sendo necessário quando os dados precisam ser absolutamente em tempo real e a fonte de dados suporta bem a carga de consultas.",
+          },
+          {
+            type: "paragraph",
+            text: "A boa notícia é que o Direct Lake não é uma substituição radical — é uma evolução natural para quem cresce com o ecossistema da Microsoft.",
+          },
+          { type: "heading", text: "Conclusão" },
+          {
+            type: "paragraph",
+            text: "O Direct Lake Mode representa uma mudança real na forma como o Power BI lida com dados em grande escala. Ao combinar a velocidade do VertiPaq com a flexibilidade do OneLake, a Microsoft resolveu um dos maiores trade-offs da plataforma: escolher entre performance e atualização.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você trabalha com Analytics em um ambiente Fabric, vale estudar essa modalidade com cuidado — e começar a planejar uma migração gradual das suas soluções mais críticas.",
+          },
+        ],
+      },
+      en: {
+        title: "Power BI Direct Lake Mode: The Secret to Ultra-Fast Reports in Microsoft Fabric",
+        summary:
+          "Learn how Direct Lake blends Import Mode speed with near real-time data in Microsoft Fabric, and where it actually makes sense in a modern Power BI architecture.",
+        eyebrow: "Power BI and Fabric",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-02",
+        readingTime: "6 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Are your Power BI reports taking too long to load? Do you use DirectQuery and find your visuals freezing with every filter? There's a connection mode that promises to change that — and it's already available for Microsoft Fabric users.",
+          },
+          {
+            type: "paragraph",
+            text: "**Direct Lake Mode** is the new performance standard in Microsoft's Analytics ecosystem. In this article, you'll understand how it works, when it makes sense to use it, and how it compares to the modes you already know.",
+          },
+          {
+            type: "heading",
+            text: "The Three Power BI Connection Modes",
+          },
+          {
+            type: "paragraph",
+            text: "To understand Direct Lake, we first need to revisit what already exists.",
+          },
+          { type: "heading", text: "Import Mode" },
+          {
+            type: "paragraph",
+            text: "The most popular mode. Data is copied into Power BI, compressed in memory by the VertiPaq engine, and queried at very high speed. The catch? Data is only updated when you schedule a refresh — and very large datasets can take hours to load.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use when:** the dataset is small to medium-sized, data doesn't need real-time updates, and interaction speed is the top priority.",
+          },
+          { type: "heading", text: "DirectQuery" },
+          {
+            type: "paragraph",
+            text: "In this mode, Power BI stores nothing. Every click on a visual generates a direct query against the data source. Data is always up to date, but performance depends entirely on how fast the database responds — and that can be slow.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use when:** data must always be in real time, or the volume is too large to import.",
+          },
+          { type: "heading", text: "Direct Lake Mode" },
+          {
+            type: "paragraph",
+            text: "Here's the star of the show. Direct Lake was designed to be the best of both worlds: the speed of Import Mode combined with the near real-time freshness of DirectQuery — without duplicating data.",
+          },
+          {
+            type: "paragraph",
+            text: "**Use when:** you operate within Microsoft Fabric with Delta tables on OneLake and need high performance with always-current data.",
+          },
+          {
+            type: "heading",
+            text: "How Direct Lake Works in Practice",
+          },
+          {
+            type: "paragraph",
+            text: "Direct Lake neither imports data nor queries the original source on every click. Instead, it connects the Power BI semantic model directly to **Delta tables stored on OneLake** — Microsoft Fabric's unified storage layer.",
+          },
+          {
+            type: "paragraph",
+            text: "The process works like this:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Data lives on OneLake**, stored in Parquet format, which is efficient for columnar queries.",
+              "**When a query runs**, the VertiPaq engine loads only the columns needed into memory — not the entire dataset.",
+              "**When the data changes at the source**, the Direct Lake refresh updates only the metadata. This takes seconds, not minutes or hours.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The result? Report response times close to Import Mode, with data that can reflect changes in near real time.",
+          },
+          {
+            type: "heading",
+            text: "Direct Lake on OneLake vs. Direct Lake on SQL",
+          },
+          {
+            type: "paragraph",
+            text: "Since March 2026, **Direct Lake on OneLake** has been generally available and is Microsoft's recommended option.",
+          },
+          {
+            type: "list",
+            items: [
+              "Better compatibility with OneLake security",
+              "More modeling features, including calculated columns introduced in April 2026",
+              "Superior query performance",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "**Direct Lake on SQL** uses the Fabric SQL analytics endpoint and allows fallback to DirectQuery — useful in specific permission and governance scenarios.",
+          },
+          {
+            type: "heading",
+            text: "When Direct Lake Falls Back to DirectQuery (and What to Do About It)",
+          },
+          {
+            type: "paragraph",
+            text: "An important note: Direct Lake can automatically fall back to DirectQuery mode in some situations.",
+          },
+          {
+            type: "list",
+            items: [
+              "Highly complex DAX queries",
+              "High-cardinality relationships",
+              "Fabric capacity memory limits",
+              "Using views instead of physical tables",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "This is called **fallback**, and it can cause a noticeable drop in performance. To avoid it:",
+          },
+          {
+            type: "list",
+            items: [
+              "Use **physical tables** rather than views in the Lakehouse",
+              "**Optimize Delta tables** with V-Order, already enabled by default in Fabric",
+              "**Right-size Fabric capacity** for expected data volume and concurrency",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Quick Comparison: Import vs. DirectQuery vs. Direct Lake",
+          },
+          {
+            type: "list",
+            items: [
+              "**Data stored** — Import Mode: in Power BI memory | DirectQuery: at the original source | Direct Lake: in OneLake (Delta)",
+              "**Refresh** — Import Mode: scheduled | DirectQuery: real time | Direct Lake: near real time",
+              "**Performance** — Import Mode: high | DirectQuery: variable | Direct Lake: high",
+              "**Requires Fabric** — Import Mode: no | DirectQuery: no | Direct Lake: yes",
+              "**Best for** — Import Mode: medium datasets | DirectQuery: real-time data | Direct Lake: large volumes in Fabric",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Is It Worth Migrating to Direct Lake?",
+          },
+          {
+            type: "paragraph",
+            text: "If your organization already uses Microsoft Fabric — or is planning to migrate — the answer is almost always yes. Direct Lake reduces refresh costs, eliminates data duplication, and delivers Import Mode-equivalent performance even at large scale.",
+          },
+          {
+            type: "paragraph",
+            text: "But if you still operate outside of Fabric, Import Mode remains the best choice for most scenarios. And DirectQuery is still necessary when data must be absolutely real time and the data source handles query load well.",
+          },
+          {
+            type: "paragraph",
+            text: "The good news is that Direct Lake isn't a radical replacement — it's a natural evolution for teams growing within the Microsoft ecosystem.",
+          },
+          { type: "heading", text: "Conclusion" },
+          {
+            type: "paragraph",
+            text: "Direct Lake Mode represents a real shift in how Power BI handles data at scale. By combining the speed of VertiPaq with the flexibility of OneLake, Microsoft resolved one of the platform's biggest trade-offs: choosing between performance and freshness.",
+          },
+          {
+            type: "paragraph",
+            text: "If you work with Analytics in a Fabric environment, this mode is worth studying carefully — and it's time to start planning a gradual migration of your most critical solutions.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance",
     featured: true,
     locales: {
@@ -926,6 +1881,307 @@ export const articles: ArticleEntry[] = [
           {"type": "paragraph", "text": "If you're an analyst, engineer, or BI manager, ignoring this shift in 2026 isn't an option anymore — it's technical debt collecting interest. The good news is you can start small, without disruption, and the path is much less scary than headlines make it seem."},
           {"type": "paragraph", "text": "Start with a POC. Grab an F2. Migrate one report. Feel it. Then decide."},
           {"type": "paragraph", "text": "And when in doubt, remember: the data lives in OneLake, consumption becomes capacity, and Power BI is still where the story turns into visuals. The rest is detail (important, but detail)."},
+        ],
+      },
+    },
+  },
+  {
+    slug: "copilot-funcao-nativa-no-excel",
+    locales: {
+      "pt-br": {
+        title: "=COPILOT(): A IA que Chegou Direto na Célula do Excel",
+        summary:
+          "Veja como a nova função =COPILOT() leva IA generativa direto para a célula do Excel, quais tarefas ela resolve melhor e o que muda para quem trabalha com dados no Microsoft 365.",
+        eyebrow: "Excel e IA",
+        author: "Renan Brognoli",
+        category: "Excel",
+        publishedAt: "2026-06-04",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Imagine digitar numa célula do Excel algo como `=COPILOT(\"Categorize esses dados de venda por região\", A2:A100)` e receber uma análise completa em segundos — sem fórmulas complexas, sem VBA, sem enrolação. Isso já é realidade.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft lançou a função `=COPILOT()` como fórmula nativa do Excel para usuários do Microsoft 365, e ela está mudando silenciosamente a forma como profissionais trabalham com dados no dia a dia.",
+          },
+          {
+            type: "heading",
+            text: "O que é a função =COPILOT()?",
+          },
+          {
+            type: "paragraph",
+            text: "É exatamente o que o nome sugere: o Copilot — assistente de IA da Microsoft — embutido diretamente dentro de uma célula da planilha. Diferente do painel lateral do Copilot, esta função funciona como qualquer outra fórmula: você escreve, pressiona Enter e recebe o resultado na célula.",
+          },
+          {
+            type: "paragraph",
+            text: "A sintaxe básica é:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(prompt, [contexto1], [prompt2], [contexto2], ...)",
+          },
+          {
+            type: "list",
+            items: [
+              "**prompt**: a instrução em linguagem natural, descrevendo o que você quer que a IA faça",
+              "**contexto**: o intervalo de células com os dados que a IA deve analisar",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Um exemplo prático:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(\"Analise o sentimento deste comentário de cliente\", B2)",
+          },
+          {
+            type: "paragraph",
+            text: "O resultado aparece diretamente na célula — e, como qualquer fórmula, se os dados de origem mudarem, o resultado é recalculado automaticamente.",
+          },
+          {
+            type: "heading",
+            text: "O que essa função consegue fazer?",
+          },
+          {
+            type: "paragraph",
+            text: "A `=COPILOT()` foi desenhada para tarefas que as fórmulas tradicionais não conseguem fazer com facilidade. Entre as principais:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Categorização de texto livre**: classifica comentários, respostas de formulários ou descrições em grupos",
+              "**Análise de sentimento**: diz se um feedback é positivo, negativo ou neutro",
+              "**Limpeza e padronização de dados**: corrige variações de escrita, formata endereços, padroniza nomes",
+              "**Extração de informações**: tira e-mails, telefones ou datas de textos não estruturados",
+              "**Resumos**: condensa parágrafos inteiros em uma linha",
+              "**Geração de listas**: cria sugestões, próximos passos ou variações com base em contexto",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "E mais: a função suporta **Dynamic Arrays**, ou seja, pode retornar múltiplos resultados de uma só vez, espalhando os dados automaticamente pelas células adjacentes.",
+          },
+          {
+            type: "heading",
+            text: "Isso substitui as fórmulas normais?",
+          },
+          {
+            type: "paragraph",
+            text: "Não — e a própria Microsoft deixa isso claro. A `=COPILOT()` é poderosa para tarefas **semânticas e generativas**, mas não é recomendada para cálculos numéricos que exigem precisão e reprodutibilidade. Para isso, as fórmulas clássicas como `SOMASE`, `PROCV` ou `CONT.SE` continuam sendo a escolha certa.",
+          },
+          {
+            type: "paragraph",
+            text: "Pense assim: fórmulas tradicionais são determinísticas — a mesma entrada sempre gera a mesma saída. O Copilot é um modelo de IA, o que significa que os resultados podem variar com o tempo à medida que o modelo é atualizado. Para análises qualitativas, categorização e interpretação de texto, ele é imbatível. Para cálculos contábeis, continue com as fórmulas de sempre.",
+          },
+          {
+            type: "heading",
+            text: "Como está disponível hoje?",
+          },
+          {
+            type: "paragraph",
+            text: "A função chegou em agosto de 2025 para usuários do **Canal Beta** do Microsoft 365 Insider, e desde então tem expandido gradualmente. Em maio de 2026, a Microsoft aprimorou ainda mais a função, adicionando a capacidade de **buscar informações na web** em tempo real dentro da própria célula.",
+          },
+          {
+            type: "paragraph",
+            text: "Para usar, você precisa de:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Licença Microsoft 365 Copilot** (plano comercial — não está disponível nos planos pessoal/família)",
+              "**Conta Microsoft Entra ID** (antes chamada Azure AD)",
+              "**Canal Beta ou Insider** do Excel",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Uma limitação importante: a função exige **conexão com a internet** e só acessa os dados que você fornece diretamente como contexto nos argumentos. Ela não tem visão de toda a sua planilha automaticamente — você precisa indicar os intervalos.",
+          },
+          {
+            type: "heading",
+            text: "Por que isso importa para quem trabalha com dados?",
+          },
+          {
+            type: "paragraph",
+            text: "Durante anos, a barreira para análise de dados no Excel foi justamente a parte técnica: saber qual fórmula usar, como combinar funções, quando recorrer a Power Query ou macros. O `=COPILOT()` começa a remover essa barreira.",
+          },
+          {
+            type: "paragraph",
+            text: "Profissionais que lidam com relatórios, bases de clientes, feedbacks de pesquisas ou qualquer dado textual ganham uma ferramenta que entende linguagem natural e entrega respostas diretamente no fluxo de trabalho deles — sem precisar sair do Excel, sem precisar aprender Python, sem precisar contratar um analista para cada análise exploratória.",
+          },
+          {
+            type: "paragraph",
+            text: "Para equipes que já usam Power BI e Excel no dia a dia, a integração com o ecossistema Microsoft 365 Copilot cria um fluxo contínuo: explorar no Excel com `=COPILOT()`, visualizar no Power BI, colaborar no Teams. A IA começa a ser não um produto separado, mas uma camada embutida nas ferramentas que você já usa.",
+          },
+          {
+            type: "heading",
+            text: "Conclusão",
+          },
+          {
+            type: "paragraph",
+            text: "A função `=COPILOT()` não é uma novidade que fica só no papel. Ela representa uma mudança real na forma como o Excel funciona — e sinaliza o caminho que a Microsoft está traçando para o futuro das ferramentas de produtividade: IA não como painel lateral, mas como parte do fluxo de trabalho.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você tem acesso ao plano comercial do Microsoft 365, vale começar a experimentar. E se ainda não tem, é um bom motivo para ficar de olho nos próximos meses — a tendência é que essa funcionalidade se expanda para mais planos com o tempo.",
+          },
+          {
+            type: "paragraph",
+            text: "O Excel nunca mais vai ser o mesmo.",
+          },
+        ],
+      },
+      en: {
+        title: "=COPILOT(): The AI That Landed Right Inside an Excel Cell",
+        summary:
+          "Understand how the new =COPILOT() function brings generative AI directly into Excel cells, which tasks it handles best, and why it matters for data work inside Microsoft 365.",
+        eyebrow: "Excel and AI",
+        author: "Renan Brognoli",
+        category: "Excel",
+        publishedAt: "2026-06-04",
+        readingTime: "5 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Imagine typing something like `=COPILOT(\"Categorize this sales data by region\", A2:A100)` into an Excel cell and getting a complete analysis in seconds — no complex formulas, no VBA, no hassle. That's already a reality.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft launched the `=COPILOT()` function as a native Excel formula for Microsoft 365 users, and it's quietly changing the way professionals handle data every day.",
+          },
+          {
+            type: "heading",
+            text: "What Is the =COPILOT() Function?",
+          },
+          {
+            type: "paragraph",
+            text: "It's exactly what the name suggests: Copilot — Microsoft's AI assistant — embedded directly inside a spreadsheet cell. Unlike the Copilot side panel, this function works like any other formula: you type it, hit Enter, and the result appears in the cell.",
+          },
+          {
+            type: "paragraph",
+            text: "The basic syntax is:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(prompt, [context1], [prompt2], [context2], ...)",
+          },
+          {
+            type: "list",
+            items: [
+              "**prompt**: a natural language instruction describing what you want the AI to do",
+              "**context**: the cell range containing the data you want the AI to analyze",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "A practical example:",
+          },
+          {
+            type: "code",
+            language: "text",
+            code: "=COPILOT(\"Analyze the sentiment of this customer comment\", B2)",
+          },
+          {
+            type: "paragraph",
+            text: "The result appears directly in the cell — and, like any formula, if the source data changes, the result recalculates automatically.",
+          },
+          {
+            type: "heading",
+            text: "What Can This Function Do?",
+          },
+          {
+            type: "paragraph",
+            text: "`=COPILOT()` was designed for tasks that traditional formulas can't handle easily. Key use cases include:",
+          },
+          {
+            type: "list",
+            items: [
+              "**Free-text categorization**: classifies comments, form responses, or descriptions into groups",
+              "**Sentiment analysis**: determines whether feedback is positive, negative, or neutral",
+              "**Data cleaning and standardization**: fixes spelling variations, formats addresses, standardizes names",
+              "**Information extraction**: pulls emails, phone numbers, or dates from unstructured text",
+              "**Summarization**: condenses entire paragraphs into a single line",
+              "**List generation**: creates suggestions, next steps, or variations based on context",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "On top of that, the function supports **Dynamic Arrays** — meaning it can return multiple results at once, automatically spilling data into adjacent cells.",
+          },
+          {
+            type: "heading",
+            text: "Does This Replace Regular Formulas?",
+          },
+          {
+            type: "paragraph",
+            text: "No — and Microsoft is clear about this. `=COPILOT()` is powerful for **semantic and generative tasks**, but it's not recommended for numerical calculations that require precision and reproducibility. For those, classic formulas like `SUMIF`, `VLOOKUP`, or `COUNTIF` are still the right choice.",
+          },
+          {
+            type: "paragraph",
+            text: "Think of it this way: traditional formulas are deterministic — the same input always produces the same output. Copilot is an AI model, which means results can vary over time as the model gets updated. For qualitative analysis, text categorization, and interpretation, it's unbeatable. For accounting calculations, stick with the formulas you already know.",
+          },
+          {
+            type: "heading",
+            text: "How Is It Available Today?",
+          },
+          {
+            type: "paragraph",
+            text: "The function rolled out in August 2025 for users on the **Microsoft 365 Insider Beta Channel**, and it has been gradually expanding ever since. In May 2026, Microsoft enhanced it further by adding the ability to **search the web in real time** directly from within the cell.",
+          },
+          {
+            type: "paragraph",
+            text: "To use it, you need:",
+          },
+          {
+            type: "list",
+            items: [
+              "A **Microsoft 365 Copilot license** (commercial plan — not available on personal/family plans)",
+              "A **Microsoft Entra ID account** (formerly Azure AD)",
+              "The **Beta or Insider Channel** version of Excel",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "One important limitation: the function requires an **active internet connection** and only accesses data you explicitly provide as context in the arguments. It doesn't automatically see your entire spreadsheet — you need to specify the ranges.",
+          },
+          {
+            type: "heading",
+            text: "Why Does This Matter for Data Professionals?",
+          },
+          {
+            type: "paragraph",
+            text: "For years, the barrier to data analysis in Excel has been the technical side: knowing which formula to use, how to combine functions, when to reach for Power Query or macros. `=COPILOT()` starts tearing down that barrier.",
+          },
+          {
+            type: "paragraph",
+            text: "Professionals who work with reports, customer databases, survey feedback, or any kind of text data gain a tool that understands natural language and delivers answers directly in their workflow — without leaving Excel, without learning Python, without hiring an analyst for every exploratory analysis.",
+          },
+          {
+            type: "paragraph",
+            text: "For teams already using Power BI and Excel daily, the integration with the Microsoft 365 Copilot ecosystem creates a seamless flow: explore in Excel with `=COPILOT()`, visualize in Power BI, collaborate in Teams. AI stops being a separate product and becomes a layer embedded in the tools you already use.",
+          },
+          {
+            type: "heading",
+            text: "Conclusion",
+          },
+          {
+            type: "paragraph",
+            text: "The `=COPILOT()` function isn't just a paper announcement. It represents a real shift in how Excel works — and signals the path Microsoft is charting for the future of productivity tools: AI not as a side panel, but as part of the workflow itself.",
+          },
+          {
+            type: "paragraph",
+            text: "If you have access to a commercial Microsoft 365 plan, it's worth starting to experiment. And if you don't yet, it's a good reason to keep watching the coming months — the expectation is that this feature will expand to more plans over time.",
+          },
+          {
+            type: "paragraph",
+            text: "Excel will never be the same.",
+          },
         ],
       },
     },
