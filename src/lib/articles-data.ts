@@ -980,6 +980,215 @@ export const articles: ArticleEntry[] = [
     },
   },
   {
+    slug: "microsoft-fabric-data-warehouse-gpu-acceleration",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Microsoft Fabric ficou até 7x mais rápido com GPU no Data Warehouse",
+        summary:
+          "Entenda como a aceleração por GPU no Fabric Data Warehouse promete consultas até 7x mais rápidas, por que o CoddSpeed importa e o que muda para equipes de analytics.",
+        eyebrow: "Microsoft Fabric",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-06-23",
+        readingTime: "4 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Durante anos, melhorar a performance de um data warehouse era sinônimo de gastar mais: mais servidores, mais memória, mais dinheiro. A Microsoft acaba de virar essa lógica de cabeça para baixo no Microsoft Build 2026, anunciando aceleração por GPU no Fabric Data Warehouse, com ganhos de até 7 vezes na velocidade de consultas, sem reescrever uma linha de SQL.",
+          },
+          {
+            type: "paragraph",
+            text: "O early access preview está previsto para julho de 2026. Mas já dá para entender o que está em jogo.",
+          },
+          { type: "heading", text: "O que é o CoddSpeed" },
+          {
+            type: "paragraph",
+            text: "A tecnologia por trás da aceleração tem um nome: CoddSpeed. Não se trata de um ajuste pontual no sistema, mas de um motor de execução de queries desenvolvido ao longo de vários anos pela Microsoft Research, derivado de um protótipo chamado TQP (Tensor Query Processor).",
+          },
+          {
+            type: "paragraph",
+            text: 'O trabalho técnico foi tão sólido que o paper "CoddSpeed: Hardware Accelerated Query Processing in Microsoft Fabric" ganhou o prêmio de Best Industry Paper no ACM SIGMOD 2026, a conferência mais importante de bancos de dados no mundo acadêmico.',
+          },
+          {
+            type: "paragraph",
+            text: "A arquitetura do CoddSpeed é construída em torno de algo chamado Coprocessor Abstraction Layer (CAL), uma camada de abstração que permite ao sistema distribuir partes das queries para diferentes tipos de hardware, GPUs, FPGAs ou ASICs, de forma automática. Se uma query não for elegível para GPU, o sistema cai de volta para CPU sem travar, sem erro, sem interrupção.",
+          },
+          { type: "heading", text: "Os números dos benchmarks" },
+          {
+            type: "paragraph",
+            text: "A Microsoft divulgou benchmarks internos realizados em maio de 2026, com até 64 usuários simultâneos consultando o Data Warehouse. Os resultados:",
+          },
+          {
+            type: "list",
+            items: [
+              "**1 usuário simultâneo:** 3x mais rápido que concorrentes CPU-based",
+              "**16 usuários simultâneos:** 6x mais rápido",
+              "**64 usuários simultâneos:** até 7x mais rápido",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "O padrão aqui é interessante. A aceleração não é linear: ela cresce conforme a concorrência aumenta. GPUs são projetadas para paralelismo massivo, então quanto mais usuários disputam recursos ao mesmo tempo, mais o hardware joga a favor.",
+          },
+          {
+            type: "paragraph",
+            text: 'Nos benchmarks técnicos com TPC-H SF=100 num único NVIDIA A100, o CoddSpeed registrou 7,9x de speedup em consultas "warm" e 4,7x em consultas "cold". Com 8 GPUs H100 num único nó e dataset de 1 TB (TPC-H SF=1000), o speedup chegou a 27,1x em relação à execução em CPU.',
+          },
+          {
+            type: "paragraph",
+            text: "Para ter uma referência: o CoddSpeed foi medido como aproximadamente 2x mais rápido que o HeavyDB, que já é considerado um dos processadores de query em GPU mais rápidos disponíveis.",
+          },
+          { type: "heading", text: "Como ativar" },
+          {
+            type: "paragraph",
+            text: "A parte mais surpreendente da novidade não é o número, é a simplicidade de adoção. Não há migração de dados. Não há reescrita de queries. Não há provisionamento de infraestrutura especial.",
+          },
+          {
+            type: "paragraph",
+            text: "A aceleração por GPU é habilitada por um toggle nas configurações do workspace. A partir daí, o otimizador de queries do Fabric decide automaticamente quais partes de cada consulta vão para GPU e quais ficam na CPU. O usuário final não precisa saber nem perceber que está acontecendo.",
+          },
+          {
+            type: "paragraph",
+            text: "Todos os SQL Analytics Endpoints e Data Warehouses dentro do workspace afetado recebem a aceleração automaticamente.",
+          },
+          { type: "heading", text: "Por que isso importa agora" },
+          {
+            type: "paragraph",
+            text: "O timing não é coincidência. Analytics corporativo está mudando de perfil. Antes, o data warehouse servia principalmente relatórios batch, consultas pesadas rodando de madrugada, painéis atualizados uma vez por dia. Isso tolerava latência.",
+          },
+          {
+            type: "paragraph",
+            text: "A nova demanda vem de sistemas de IA, agentes autônomos e aplicações que consultam dados em tempo real para tomar decisões. Essas cargas de trabalho exigem velocidade de resposta que CPUs, por melhor que sejam, têm dificuldade de entregar quando a concorrência aumenta.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft está posicionando o Fabric Data Warehouse não mais como um repositório de dados para relatórios, mas como uma camada de execução ativa para IA, agentes e sistemas que raciocinam continuamente sobre dados. GPU é a peça que viabiliza isso em escala.",
+          },
+          { type: "heading", text: "O que muda para quem usa Fabric hoje" },
+          {
+            type: "paragraph",
+            text: "Se você já trabalha com Microsoft Fabric, a principal mensagem é: não precisa fazer nada diferente para se beneficiar da mudança quando o preview estiver disponível. Suas queries SQL existentes vão rodar igual a antes. Só que mais rápido.",
+          },
+          {
+            type: "paragraph",
+            text: "Para equipes que sofrem com dashboards lentos em horários de pico, relatórios que travam quando muitos usuários acessam ao mesmo tempo, ou modelos semânticos que demoram demais para processar consultas complexas, esse anúncio é diretamente relevante.",
+          },
+          {
+            type: "paragraph",
+            text: "O preview começa em julho. Vale acompanhar.",
+          },
+          {
+            type: "paragraph",
+            text: "**Fontes:** Microsoft Fabric Blog (Build 2026), Microsoft Research (CoddSpeed paper), ACM SIGMOD 2026, benchmarks internos Microsoft (maio/2026).",
+          },
+        ],
+      },
+      en: {
+        title:
+          "Microsoft Fabric Data Warehouse is now up to 7x faster with GPU acceleration",
+        summary:
+          "Learn how GPU acceleration in Fabric Data Warehouse promises queries up to 7x faster, why CoddSpeed matters, and what changes for analytics teams.",
+        eyebrow: "Microsoft Fabric",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-06-23",
+        readingTime: "4 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "For years, improving data warehouse performance meant spending more: more servers, more memory, more money. Microsoft just turned that logic upside down at Microsoft Build 2026, announcing GPU acceleration for the Fabric Data Warehouse, with query speed gains of up to 7x, and without rewriting a single line of SQL.",
+          },
+          {
+            type: "paragraph",
+            text: "The early access preview is scheduled for July 2026. Here's what's actually happening under the hood.",
+          },
+          { type: "heading", text: "Meet CoddSpeed" },
+          {
+            type: "paragraph",
+            text: "The technology powering the acceleration has a name: CoddSpeed. This isn't a minor tweak to the system. It's a query execution engine developed over several years by Microsoft Research, derived from a prototype called TQP (Tensor Query Processor).",
+          },
+          {
+            type: "paragraph",
+            text: 'The technical work behind it was solid enough to earn the Best Industry Paper award at ACM SIGMOD 2026, the most prestigious database conference in academia. The paper is titled "CoddSpeed: Hardware Accelerated Query Processing in Microsoft Fabric."',
+          },
+          {
+            type: "paragraph",
+            text: "CoddSpeed is built around something called the Coprocessor Abstraction Layer (CAL), a hardware-agnostic API that allows the system to automatically route query fragments to different types of hardware accelerators: GPUs, FPGAs, or ASICs. If a query isn't eligible for GPU processing, the system falls back to CPU seamlessly, with no errors and no interruptions.",
+          },
+          { type: "heading", text: "The benchmark numbers" },
+          {
+            type: "paragraph",
+            text: "Microsoft published internal benchmarks conducted in May 2026, testing up to 64 simultaneous users querying the Data Warehouse. The results:",
+          },
+          {
+            type: "list",
+            items: [
+              "**1 concurrent user:** 3x faster than CPU-based competitors",
+              "**16 concurrent users:** 6x faster",
+              "**64 concurrent users:** up to 7x faster",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The pattern here is worth noting. The acceleration isn't linear: it compounds as concurrency increases. GPUs are designed for massive parallelism, so the more users competing for resources simultaneously, the more the hardware works in your favor.",
+          },
+          {
+            type: "paragraph",
+            text: "On TPC-H SF=100 benchmarks with a single NVIDIA A100 GPU, CoddSpeed recorded a 7.9x warm speedup and 4.7x cold speedup. With 8x H100 GPUs on a single node at TPC-H SF=1000 (1 TB dataset), the speedup reached 27.1x compared to CPU execution.",
+          },
+          {
+            type: "paragraph",
+            text: "For context: CoddSpeed was measured as approximately 2x faster than HeavyDB, already considered one of the fastest GPU query processors available.",
+          },
+          { type: "heading", text: "How to enable it" },
+          {
+            type: "paragraph",
+            text: "The most surprising part of this announcement isn't the numbers. It's how simple adoption is. No data migration. No query rewrites. No special infrastructure provisioning.",
+          },
+          {
+            type: "paragraph",
+            text: "GPU acceleration is enabled through a single toggle in workspace settings. From there, Fabric's query optimizer automatically decides which parts of each query go to the GPU and which stay on the CPU. End users don't need to know or even notice it's happening.",
+          },
+          {
+            type: "paragraph",
+            text: "All SQL Analytics Endpoints and Data Warehouses within the affected workspace receive the acceleration automatically.",
+          },
+          { type: "heading", text: "Why this matters right now" },
+          {
+            type: "paragraph",
+            text: "The timing isn't coincidental. Corporate analytics is changing. Historically, the data warehouse served primarily batch reporting: heavy queries running overnight, dashboards updated once a day. Latency was tolerable.",
+          },
+          {
+            type: "paragraph",
+            text: "The new demand comes from AI systems, autonomous agents, and applications that query data in real time to make decisions. These workloads require response speeds that CPUs, no matter how good, struggle to deliver as concurrency scales up.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft is repositioning the Fabric Data Warehouse from a reporting repository into an active execution layer for AI, agents, and systems that continuously reason over data. GPU is the piece that makes this viable at scale.",
+          },
+          { type: "heading", text: "What changes for current Fabric users" },
+          {
+            type: "paragraph",
+            text: "If you already work with Microsoft Fabric, the main takeaway is simple: you don't need to do anything differently to benefit from this when the preview becomes available. Your existing SQL queries will run exactly as before. Just faster.",
+          },
+          {
+            type: "paragraph",
+            text: "For teams dealing with slow dashboards during peak hours, reports that lock up when too many users connect simultaneously, or semantic models that take too long to process complex queries, this announcement is directly relevant.",
+          },
+          {
+            type: "paragraph",
+            text: "The preview starts in July. Worth keeping an eye on.",
+          },
+          {
+            type: "paragraph",
+            text: "**Sources:** Microsoft Fabric Blog (Build 2026), Microsoft Research (CoddSpeed paper), ACM SIGMOD 2026, Microsoft internal benchmarks (May 2026).",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "guia-completo-de-dax-calculate-filter-context-e-otimizacao-de-performance",
     featured: true,
     locales: {
