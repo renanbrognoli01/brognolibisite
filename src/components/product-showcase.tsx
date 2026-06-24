@@ -81,7 +81,11 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       ],
       links: [
         { label: "Apple Store", href: "#", pending: true },
-        { label: "Play Store", href: "#", pending: true, primary: true },
+        {
+          label: "Play Store",
+          href: "https://play.google.com/store/apps/details?id=com.rpdapp.app&pcampaignid=web_share",
+          primary: true,
+        },
       ],
       screenshots: [
         { src: "/media/calmia 1.png", title: "Tela principal do Calmia" },
@@ -135,7 +139,11 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       ],
       links: [
         { label: "Apple Store", href: "#", pending: true },
-        { label: "Play Store", href: "#", pending: true, primary: true },
+        {
+          label: "Play Store",
+          href: "https://play.google.com/store/apps/details?id=com.rpdapp.app&pcampaignid=web_share",
+          primary: true,
+        },
       ],
       screenshots: [
         { src: "/media/calmia 1.png", title: "Calmia home screen" },
