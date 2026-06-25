@@ -25,6 +25,262 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "copilot-web-modeling-agent-skills-power-bi-junho-2026",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "O Copilot chegou ao Web Modeling do Power BI, e agora a IA cria DAX por você",
+        summary:
+          "A atualização de junho de 2026 trouxe o Copilot para dentro do modelo semântico do Power BI e as Agent Skills para desenvolvimento autônomo. Entenda o que mudou de verdade.",
+        eyebrow: "Power BI e DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-25",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Por anos, a parte chata de trabalhar com Power BI não era fazer os relatórios. Era a modelagem semântica: renomear tabelas, criar relacionamentos, ajustar medidas DAX que deveriam ser simples mas viravam uma tarde inteira de depuração. Pois bem, a Microsoft resolveu colocar o Copilot justamente nessa parte.",
+          },
+          {
+            type: "paragraph",
+            text: "A atualização de junho de 2026 trouxe duas funcionalidades que mudam a lógica de como analistas e desenvolvedores trabalham com o Power BI: o Copilot no Web Modeling e as Agent Skills. As duas estão em Public Preview, mas já dá para entender o que está acontecendo.",
+          },
+          {
+            type: "heading",
+            text: "O que o Copilot faz dentro do modelo semântico",
+          },
+          {
+            type: "paragraph",
+            text: "A ideia é simples: você abre o modelo semântico no serviço do Power BI, entra no modo de edição e chama o Copilot pela faixa de opções. A partir daí, você digita o que quer em linguagem natural.",
+          },
+          {
+            type: "paragraph",
+            text: "\"Crie uma medida de margem de lucro.\" \"Renomeie as tabelas para seguir o padrão fato e dimensão.\" \"Identifique relacionamentos que possam estar com problema.\"",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot analisa o esquema, aponta inconsistências e aplica as mudanças diretamente. Antes de fazer qualquer coisa na primeira sessão, ele pede permissão, e cria um ponto de restauração automático para você poder desfazer tudo se algo sair errado.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso não é pouca coisa. Quem já ficou 30 minutos tentando entender por que uma medida retorna BLANK quando deveria retornar zero vai entender o valor disso.",
+          },
+          {
+            type: "list",
+            items: [
+              "Análise do modelo com recomendações de boas práticas",
+              "Renomeação de tabelas e colunas",
+              "Criação e modificação de relacionamentos",
+              "Geração de medidas DAX com base em descrições textuais (totais, crescimentos, agregações)",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "O limite de input do Copilot subiu de 500 para 10.000 caracteres, então você pode dar contexto de negócio detalhado ao invés de prompts genéricos.",
+          },
+          {
+            type: "heading",
+            text: "Agent Skills: a IA que constrói do zero",
+          },
+          {
+            type: "paragraph",
+            text: "As Agent Skills são uma camada acima do Copilot. Anunciadas no Microsoft Build 2026, elas propõem algo mais ambicioso: um agente de IA que gerencia o ciclo completo de desenvolvimento analítico, dos dados brutos até o relatório publicado, com base em uma descrição em linguagem natural ou até uma captura de tela.",
+          },
+          {
+            type: "paragraph",
+            text: "Funciona assim: você descreve o que precisa. O agente cria o modelo semântico (schema em estrela, medidas DAX, configurações para IA), constrói o relatório, formata e publica. Sem você ter clicado em uma única tabela.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft faz questão de separar as duas coisas: o Copilot no Web Modeling auxilia o usuário humano que está editando um modelo existente. As Agent Skills são para desenvolvimento autônomo, onde o agente toma a frente do processo.",
+          },
+          {
+            type: "paragraph",
+            text: "Para times que têm demanda alta de relatórios operacionais repetitivos, a combinação das duas pode significar uma redução grande no tempo de entrega.",
+          },
+          {
+            type: "heading",
+            text: "DAX User-Defined Functions: agora com disponibilidade geral",
+          },
+          {
+            type: "paragraph",
+            text: "Enquanto o Copilot e as Agent Skills pegam os holofotes, o lançamento das DAX User-Defined Functions (UDFs) em disponibilidade geral merece atenção.",
+          },
+          {
+            type: "paragraph",
+            text: "UDFs permitem que você defina uma função de cálculo complexa uma vez e a reutilize em medidas, colunas calculadas e cálculos visuais. Isso resolve um problema antigo no Power BI: duplicação de lógica de cálculo espalhada pelo modelo, o que dificulta manutenção e aumenta chance de inconsistência.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você tem uma fórmula de margem de contribuição ou de meta vs. realizado que aparece em dez medidas diferentes, agora dá para centralizar tudo numa função e chamar ela onde precisar.",
+          },
+          {
+            type: "heading",
+            text: "O modelo semântico como centro de tudo",
+          },
+          {
+            type: "paragraph",
+            text: "O que a Microsoft está construindo, peça a peça, é uma arquitetura onde o modelo semântico é a camada de inteligência de negócio confiável que alimenta tanto relatórios humanos quanto agentes de IA.",
+          },
+          {
+            type: "paragraph",
+            text: "A atualização de junho reforça isso com a experiência \"Prep data for AI\", que avalia a qualidade do modelo semântico especificamente para respostas de IA serem mais precisas. Há também o Outbound Access Control (OAP) no Fabric, que permite ao administrador do workspace restringir quais fontes de dados os modelos e relatórios podem conectar.",
+          },
+          {
+            type: "paragraph",
+            text: "A ideia é clara: quanto melhor o modelo, mais confiável é o que a IA produz a partir dele.",
+          },
+          {
+            type: "heading",
+            text: "O que isso significa na prática",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem é analista ou desenvolvedor de Power BI, o cenário está mudando. Não no sentido de \"a IA vai te substituir\", mas no sentido de que as tarefas repetitivas e mecânicas da modelagem estão sendo absorvidas pela IA.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso quer dizer que o diferencial profissional vai cada vez mais para o entendimento do negócio, para saber qual pergunta fazer ao modelo, qual medida tem sentido semântico real, qual relatório efetivamente ajuda uma decisão. A parte técnica de \"escrever DAX correto\" vai virar commodity.",
+          },
+          {
+            type: "paragraph",
+            text: "Quem entende bem os conceitos por trás, como star schema, granularidade, contexto de filtro no DAX, vai usar o Copilot como um multiplicador de produtividade. Quem sempre copiou fórmula do Stack Overflow sem entender vai continuar copiando, só que de um jeito mais sofisticado.",
+          },
+          {
+            type: "paragraph",
+            text: "As funcionalidades estão em Preview. Para habilitar, você precisa de licença Microsoft 365 Copilot e capacidade no Fabric. A documentação oficial está em learn.microsoft.com/en-us/power-bi/transform-model/copilot-web-modeling.",
+          },
+        ],
+      },
+      en: {
+        title: "Copilot is now inside Power BI Web Modeling, and it creates DAX for you",
+        summary:
+          "The June 2026 update brought Copilot into the Power BI semantic model and Agent Skills for autonomous development. Here is what actually changed.",
+        eyebrow: "Power BI and DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-25",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "For years, the tedious part of working with Power BI wasn't building reports. It was semantic modeling: renaming tables, setting up relationships, debugging DAX measures that should have been straightforward but ended up eating an entire afternoon. Microsoft decided to put Copilot right there, in the middle of that pain.",
+          },
+          {
+            type: "paragraph",
+            text: "The June 2026 update brought two features that change how analysts and developers actually work with Power BI: Copilot in Web Modeling and Agent Skills. Both are in Public Preview, but the direction is already clear.",
+          },
+          {
+            type: "heading",
+            text: "What Copilot does inside the semantic model",
+          },
+          {
+            type: "paragraph",
+            text: "The concept is straightforward: you open a semantic model in the Power BI service, switch to editing mode, and call Copilot from the ribbon. From there, you type what you need in plain language.",
+          },
+          {
+            type: "paragraph",
+            text: "\"Create a profit margin measure.\" \"Rename the tables to follow fact and dimension naming conventions.\" \"Check if there are any relationships that might be broken.\"",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot analyzes the schema, flags inconsistencies, and applies the changes directly. Before doing anything in your first session, it asks for permission and creates an automatic restore point so you can roll back if something goes sideways.",
+          },
+          {
+            type: "paragraph",
+            text: "That's not a small thing. Anyone who has spent 30 minutes figuring out why a measure returns BLANK instead of zero will appreciate the value here.",
+          },
+          {
+            type: "list",
+            items: [
+              "Model analysis with best-practice recommendations",
+              "Table and column renaming",
+              "Relationship creation and modification",
+              "DAX measure generation from text descriptions (totals, growth metrics, aggregations)",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The Copilot input limit jumped from 500 to 10,000 characters, so you can provide real business context instead of vague one-liners.",
+          },
+          {
+            type: "heading",
+            text: "Agent Skills: AI that builds from scratch",
+          },
+          {
+            type: "paragraph",
+            text: "Agent Skills sit a level above Copilot. Announced at Microsoft Build 2026, they aim at something more ambitious: an AI agent that manages the full analytics development cycle, from raw data to published report, driven by a natural language description or even a screenshot.",
+          },
+          {
+            type: "paragraph",
+            text: "Here's how it works: you describe what you need. The agent creates the semantic model (star schema, DAX measures, AI-ready configurations), builds the report, formats it, and publishes it. Without you clicking on a single table.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft is deliberate about distinguishing the two: Copilot in Web Modeling assists the human editing an existing model. Agent Skills are for autonomous development, where the agent takes the lead on the entire process.",
+          },
+          {
+            type: "paragraph",
+            text: "For teams with high volumes of repetitive operational reports, combining both could mean a significant drop in delivery time.",
+          },
+          {
+            type: "heading",
+            text: "DAX User-Defined Functions: now generally available",
+          },
+          {
+            type: "paragraph",
+            text: "While Copilot and Agent Skills grab the spotlight, the DAX User-Defined Functions (UDFs) reaching general availability deserves attention.",
+          },
+          {
+            type: "paragraph",
+            text: "UDFs let you define a complex calculation once and reuse it across measures, calculated columns, and visual calculations. This addresses a long-standing pain in Power BI: duplicated calculation logic scattered across the model, making maintenance harder and inconsistency more likely.",
+          },
+          {
+            type: "paragraph",
+            text: "If you have a contribution margin or budget-vs-actual formula copied across ten different measures, you can now centralize it in one function and call it wherever needed.",
+          },
+          {
+            type: "heading",
+            text: "The semantic model as the center of everything",
+          },
+          {
+            type: "paragraph",
+            text: "What Microsoft is building, piece by piece, is an architecture where the semantic model is the trusted business intelligence layer that feeds both human-made reports and AI agents.",
+          },
+          {
+            type: "paragraph",
+            text: "The June update reinforces this with the \"Prep data for AI\" experience, which evaluates semantic model quality specifically so AI-generated answers are more accurate. There is also the Outbound Access Control (OAP) in Fabric, which lets workspace administrators restrict which data sources models and reports can connect to.",
+          },
+          {
+            type: "paragraph",
+            text: "The logic is clear: the better the model, the more reliable everything the AI produces from it.",
+          },
+          {
+            type: "heading",
+            text: "What this means in practice",
+          },
+          {
+            type: "paragraph",
+            text: "For Power BI analysts and developers, the landscape is shifting. Not in the sense of \"AI will replace you,\" but in the sense that repetitive and mechanical modeling tasks are being absorbed by AI.",
+          },
+          {
+            type: "paragraph",
+            text: "That means the professional edge will increasingly come from business understanding: knowing which question to ask the model, which measure has real semantic meaning, which report actually helps a decision get made. The technical side of \"writing correct DAX\" is becoming a commodity.",
+          },
+          {
+            type: "paragraph",
+            text: "Those who understand the underlying concepts, like star schemas, granularity, and DAX filter context, will use Copilot as a productivity multiplier. Those who always copied formulas from Stack Overflow without understanding them will keep copying, just in a more sophisticated way.",
+          },
+          {
+            type: "paragraph",
+            text: "The features are in Preview. To enable them, you need a Microsoft 365 Copilot license and Fabric capacity. Official documentation is at learn.microsoft.com/en-us/power-bi/transform-model/copilot-web-modeling.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "dax-user-defined-functions-power-bi",
     locales: {
       "pt-br": {
