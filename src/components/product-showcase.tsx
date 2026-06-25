@@ -80,7 +80,10 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         "Suporte a m?ltiplos idiomas.",
       ],
       links: [
-        { label: "Apple Store", href: "#", pending: true },
+        {
+          label: "Apple Store",
+          href: "https://apps.apple.com/us/app/calmia-assistente-de-terapia/id6781356385",
+        },
         {
           label: "Play Store",
           href: "https://play.google.com/store/apps/details?id=com.rpdapp.app&pcampaignid=web_share",
@@ -138,7 +141,10 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         "Multiple language support.",
       ],
       links: [
-        { label: "Apple Store", href: "#", pending: true },
+        {
+          label: "Apple Store",
+          href: "https://apps.apple.com/us/app/calmia-assistente-de-terapia/id6781356385",
+        },
         {
           label: "Play Store",
           href: "https://play.google.com/store/apps/details?id=com.rpdapp.app&pcampaignid=web_share",
