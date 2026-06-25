@@ -10,6 +10,7 @@ type Locale = "pt-br" | "en";
 type ProductLink = {
   label: string;
   href: string;
+  store?: "apple" | "google";
   pending?: boolean;
   primary?: boolean;
 };
@@ -38,64 +39,133 @@ type ProductDetails = {
   logo: string;
 };
 
+function AppleStoreIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-current">
+      <path d="M16.67 12.46a4.74 4.74 0 0 1 2.26-3.98 5.1 5.1 0 0 0-4.02-2.18c-1.71-.18-3.33 1-4.2 1-.9 0-2.24-.98-3.69-.95A5.31 5.31 0 0 0 2.5 9.12c-1.94 3.36-.49 8.3 1.38 11.01.91 1.33 2 2.83 3.43 2.78 1.38-.05 1.9-.89 3.56-.89 1.66 0 2.13.89 3.59.86 1.49-.03 2.43-1.34 3.33-2.68 1.05-1.53 1.48-3.01 1.5-3.09-.03-.01-2.89-1.11-2.92-4.65ZM13.79 4.42A4.65 4.65 0 0 0 14.89 1a4.72 4.72 0 0 0-3.07 1.6 4.43 4.43 0 0 0-1.13 3.31 3.9 3.9 0 0 0 3.1-1.49Z" />
+    </svg>
+  );
+}
+
+function GooglePlayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+      <path fill="#34A853" d="M3.62 2.26 13.9 12 3.62 21.74A2.1 2.1 0 0 1 3 20.19V3.81c0-.57.23-1.1.62-1.55Z" />
+      <path fill="#4285F4" d="M16.52 14.49 6.16 24l10.36-5.7 3.45-1.9-3.45-1.91Z" transform="translate(-0.5 -2.26)" />
+      <path fill="#FBBC04" d="m19.97 10.09-3.45-1.9L13.9 12l2.62 2.17 3.45-1.91c1.38-.76 1.38-1.42 0-2.17Z" />
+      <path fill="#EA4335" d="M6.16 0 16.52 9.51 13.9 12 3.62 2.26c.62-.6 1.58-.7 2.54-.26Z" transform="translate(-0.5)" />
+    </svg>
+  );
+}
+
+function StoreBadge({ link, isPt }: { link: ProductLink; isPt: boolean }) {
+  const overline =
+    link.store === "google"
+      ? isPt
+        ? "Disponível no"
+        : "Get it on"
+      : isPt
+        ? "Baixe na"
+        : "Download on the";
+
+  const Icon = link.store === "google" ? GooglePlayIcon : AppleStoreIcon;
+
+  return (
+    <a
+      href={link.href}
+      target={link.pending ? undefined : "_blank"}
+      rel={link.pending ? undefined : "noreferrer"}
+      className={`flex min-w-[11.5rem] items-center gap-3 rounded-[1.2rem] border px-4 py-3 transition ${
+        link.pending
+          ? "border-white/10 bg-white/[0.03] text-white/48"
+          : link.primary
+            ? "border-[var(--brand-amber)]/40 bg-[var(--brand-amber)] text-[#0F1D2A] hover:scale-[1.02] hover:shadow-[0_14px_30px_rgba(255,204,0,0.16)]"
+            : "border-white/12 bg-white/[0.04] text-white hover:bg-white/[0.08] hover:border-white/20"
+      }`}
+    >
+      <div
+        className={`flex h-10 w-10 items-center justify-center rounded-[0.9rem] ${
+          link.primary ? "bg-black/10" : "bg-white/10"
+        }`}
+      >
+        <Icon />
+      </div>
+      <div className="min-w-0">
+        <p
+          className={`text-[0.62rem] uppercase tracking-[0.18em] ${
+            link.primary ? "text-[#0F1D2A]/72" : "text-white/52"
+          }`}
+        >
+          {overline}
+        </p>
+        <p className="text-sm font-semibold leading-tight">
+          {link.pending ? `${link.label} ${isPt ? "(em breve)" : "(soon)"}` : link.label}
+        </p>
+      </div>
+    </a>
+  );
+}
+
 const productsByLocale: Record<Locale, ProductDetails[]> = {
   "pt-br": [
     {
       id: "calmia",
       name: "Calmia",
       tagline:
-        "Um app de terapia pensado para transformar registros emocionais em acompanhamento pr?tico, seguro e cont?nuo.",
+        "Um app de terapia pensado para transformar registros emocionais em acompanhamento prático, seguro e contínuo.",
       summary:
-        "O Calmia ? um aplicativo mobile criado para apoiar a Terapia Cognitivo-Comportamental. Ele ajuda pacientes a registrarem pensamentos autom?ticos de forma estruturada e permite que terapeutas acompanhem melhor a evolu??o entre as sess?es.",
+        "O Calmia é um aplicativo mobile criado para apoiar a Terapia Cognitivo-Comportamental. Ele ajuda pacientes a registrarem pensamentos automáticos de forma estruturada e permite que terapeutas acompanhem melhor a evolução entre as sessões.",
       accent: "from-[#93c5fd] via-[#7c8cff] to-[#6d5dfc]",
       metrics: [
-        { value: "CBT", label: "base terap?utica" },
-        { value: "PDF", label: "exporta??o rapida" },
+        { value: "CBT", label: "base terapêutica" },
+        { value: "PDF", label: "exportação rápida" },
         { value: "1:1", label: "paciente e terapeuta" },
       ],
       idealFor:
         "Ideal para pacientes que querem registrar o que sentem no dia a dia e para terapeutas que desejam enriquecer o acompanhamento com dados reais, organizados e compartilhados com consentimento.",
       patientTitle: "Para pacientes",
       patientBullets: [
-        "Registro guiado passo a passo de situa??es, emo??es, pensamentos, evid?ncias e alternativas.",
-        "Hist?rico completo para acompanhar evolu??o e padr?es emocionais.",
-        "Exportacao em PDF para levar aos atendimentos ou arquivar progresso.",
+        "Registro guiado passo a passo de situações, emoções, pensamentos, evidências e alternativas.",
+        "Histórico completo para acompanhar evolução e padrões emocionais.",
+        "Exportação em PDF para levar aos atendimentos ou arquivar progresso.",
         "Bloqueio por biometria para proteger registros pessoais.",
       ],
       therapistTitle: "Para terapeutas",
       therapistBullets: [
         "Acesso aos registros compartilhados pelos pacientes de forma segura.",
-        "Mais contexto entre as sess?es, com informa??es do cotidiano real.",
-        "C?digo de vincula??o para conectar paciente e terapeuta com clareza.",
-        "Vis?o mais rica da evolu??o terap?utica ao longo do tempo.",
+        "Mais contexto entre as sessões, com informações do cotidiano real.",
+        "Código de vinculação para conectar paciente e terapeuta com clareza.",
+        "Visão mais rica da evolução terapêutica ao longo do tempo.",
       ],
       privacy:
-        "Privacidade vem primeiro. O Calmia foi pensado para dados sens?veis, com autentica??o segura, armazenamento local, compartilhamento opcional e alinhamento com a LGPD.",
+        "Privacidade vem primeiro. O Calmia foi pensado para dados sensíveis, com autenticação segura, armazenamento local, compartilhamento opcional e alinhamento com a LGPD.",
       highlights: [
         "Registro de pensamentos disfuncionais em formato estruturado.",
-        "Hist?rico e an?lise para acompanhar evolu??o emocional.",
+        "Histórico e análise para acompanhar evolução emocional.",
         "Compartilhamento opcional com o terapeuta.",
-        "Exportacao em PDF para consultas e acompanhamento.",
-        "Biometria e seguran?a para proteger dados pessoais.",
-        "Suporte a m?ltiplos idiomas.",
+        "Exportação em PDF para consultas e acompanhamento.",
+        "Biometria e segurança para proteger dados pessoais.",
+        "Suporte a múltiplos idiomas.",
       ],
       links: [
         {
           label: "Apple Store",
           href: "https://apps.apple.com/us/app/calmia-assistente-de-terapia/id6781356385",
+          store: "apple",
         },
         {
           label: "Play Store",
           href: "https://play.google.com/store/apps/details?id=com.rpdapp.app&pcampaignid=web_share",
+          store: "google",
           primary: true,
         },
       ],
       screenshots: [
         { src: "/media/calmia 1.png", title: "Tela principal do Calmia" },
         { src: "/media/calmia 2.png", title: "Fluxo de registro guiado" },
-        { src: "/media/calmia 3.png", title: "Hist?rico e acompanhamento" },
+        { src: "/media/calmia 3.png", title: "Histórico e acompanhamento" },
         { src: "/media/calmia 4.png", title: "Detalhes do registro" },
-        { src: "/media/calmia 5.png", title: "Experi?ncia do aplicativo" },
+        { src: "/media/calmia 5.png", title: "Experiência do aplicativo" },
       ],
       logo: "/media/calmia logo.jpeg",
     },
@@ -105,7 +175,7 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
       id: "calmia",
       name: "Calmia",
       tagline:
-        "A therapy app designed to turn emotional records into practical, secure, and cont?nuous follow-up.",
+        "A therapy app designed to turn emotional records into practical, secure, and continuous follow-up.",
       summary:
         "Calmia is a mobile application designed to support Cognitive Behavioral Therapy. It helps patients record automatic thoughts in a structured way and gives therapists better visibility between sessions.",
       accent: "from-[#93c5fd] via-[#7c8cff] to-[#6d5dfc]",
@@ -144,10 +214,12 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         {
           label: "Apple Store",
           href: "https://apps.apple.com/us/app/calmia-assistente-de-terapia/id6781356385",
+          store: "apple",
         },
         {
           label: "Play Store",
           href: "https://play.google.com/store/apps/details?id=com.rpdapp.app&pcampaignid=web_share",
+          store: "google",
           primary: true,
         },
       ],
@@ -267,23 +339,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
 
             <div className="flex flex-wrap gap-3">
               {selected.links.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.pending ? undefined : "_blank"}
-                  rel={link.pending ? undefined : "noreferrer"}
-                  className={`rounded-full px-5 py-3 text-sm font-semibold transition ${
-                    link.pending
-                      ? "border border-white/10 bg-white/[0.03] text-white/48"
-                      : link.primary
-                        ? "bg-[var(--brand-amber)] text-[#0F1D2A] hover:scale-[1.02]"
-                        : "border border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.08]"
-                  }`}
-                >
-                  {link.pending
-                    ? `${link.label} ${isPt ? "(em breve)" : "(soon)"}`
-                    : link.label}
-                </a>
+                <StoreBadge key={link.label} link={link} isPt={isPt} />
               ))}
             </div>
           </div>
