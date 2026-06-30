@@ -25,6 +25,338 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "copilot-in-web-modeling-power-bi-preview",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Copilot no Power BI agora modela por você: entenda o que muda na prática",
+        summary:
+          "O Copilot in web modeling chegou ao Power BI em preview e promete editar modelos semânticos em linguagem natural, sem abrir o Desktop. Entenda o que ele faz, quem pode usar e qual é o maior obstáculo.",
+        eyebrow: "Power BI e IA",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-30",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "A Microsoft colocou o Copilot em mais um lugar no Power BI. Desta vez, dentro da modelagem semântica pelo navegador, em versão preview. O recurso promete deixar analistas e desenvolvedores fazerem alterações no modelo de dados usando linguagem natural, sem precisar abrir o Power BI Desktop nem escrever uma linha de DAX na mão.",
+          },
+          {
+            type: "paragraph",
+            text: "Vale a pena entender o que isso significa de verdade antes de criar expectativas demais.",
+          },
+          {
+            type: "heading",
+            text: "O que é o Copilot in web modeling",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot in web modeling é um assistente de IA integrado à experiência de modelo semântico do serviço do Power BI. Em termos simples: você abre o seu modelo semântico no Power BI Service, entra no modo de edição e clica em \"Copilot\" na faixa de opções. A partir daí, começa a conversar com ele.",
+          },
+          {
+            type: "paragraph",
+            text: "Você pode pedir coisas como \"cria uma medida de crescimento ano a ano para a coluna de receita\" ou \"renomeia todas as colunas da tabela fct_vendas para português\" e o Copilot executa, ou pelo menos tenta.",
+          },
+          {
+            type: "paragraph",
+            text: "O processo funciona assim:",
+          },
+          {
+            type: "list",
+            items: [
+              "Você abre o modelo semântico na visualização de modelo no Power BI Service.",
+              "Muda do modo de visualização para o modo de edição.",
+              "Seleciona Copilot na faixa de opções.",
+              "Digita o que quer fazer.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Antes de agir pela primeira vez, o Copilot pede permissão explícita para revisar e alterar o modelo. Essa aprovação vale para toda a sessão. E ele cria um ponto de restauração automático no início de cada sessão, o que facilita desfazer qualquer coisa que não saiu como esperado.",
+          },
+          {
+            type: "heading",
+            text: "O que ele consegue fazer",
+          },
+          {
+            type: "paragraph",
+            text: "As capacidades do recurso se dividem em três blocos:",
+          },
+          {
+            type: "heading",
+            text: "Análise e recomendações",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot pode revisar a estrutura do seu modelo e apontar problemas. Nomes de colunas inconsistentes, relacionamentos mal definidos, tabelas sem descrição. Pensa nele como um revisor que leu o modelo inteiro e te entregou uma lista de melhorias.",
+          },
+          {
+            type: "heading",
+            text: "Edição do modelo",
+          },
+          {
+            type: "paragraph",
+            text: "Aqui está o ponto mais prático. Usando linguagem natural, você consegue criar tabelas, colunas, medidas e relacionamentos. Também dá para gerar medidas DAX (totais, métricas de crescimento, agregações) e criar regras de RLS para restringir o acesso a dados por perfil de usuário.",
+          },
+          {
+            type: "heading",
+            text: "Descoberta e organização",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot sugere descrições para tabelas, colunas e medidas, propõe estruturas de pastas de exibição e indica quais campos técnicos devem ser ocultados dos autores de relatórios. Quem já trabalhou num modelo semântico mal documentado sabe o quanto isso faz diferença para quem usa o relatório na outra ponta.",
+          },
+          {
+            type: "heading",
+            text: "O que ele não faz (ainda)",
+          },
+          {
+            type: "list",
+            items: [
+              "O recurso está em preview, o que significa que pode mudar, quebrar ou não funcionar como o esperado em situações específicas.",
+              "Usar o Copilot para configurar preparar dados para IA dentro do próprio modelo ainda não é suportado.",
+              "As alterações respeitam as permissões existentes. Se você não tem acesso de escrita no modelo semântico, o Copilot não consegue editar nada.",
+              "Funciona melhor em modelos bem estruturados. Modelo bagunçado com nomes crípticos vai gerar respostas ruins. IA não faz milagre.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Quem pode usar",
+          },
+          {
+            type: "paragraph",
+            text: "Aqui vem a parte que vai frustrar muita gente: o Copilot in web modeling exige capacidade Microsoft Fabric F64 ou superior, o que inclui licenças Power BI Premium P1 (ou equivalente). Não funciona com Power BI Pro comum.",
+          },
+          {
+            type: "paragraph",
+            text: "O F64 é um SKU de capacidade compartilhada. Pense nele como o aluguel de uma fatia de processamento da Microsoft. Custa bastante mais do que uma licença Pro individual, então esse recurso, por enquanto, é para empresas com infraestrutura mais robusta.",
+          },
+          {
+            type: "paragraph",
+            text: "Além disso, as configurações de administrador do Fabric precisam permitir o uso do Copilot e dos recursos baseados no Azure OpenAI. Sem isso habilitado no tenant, nada funciona.",
+          },
+          {
+            type: "heading",
+            text: "Por que isso importa para desenvolvedores de Power BI",
+          },
+          {
+            type: "paragraph",
+            text: "Historicamente, qualquer mudança estrutural no modelo semântico exigia o Power BI Desktop. Abrir o arquivo .pbix, fazer a alteração, publicar de volta. Isso não é o fim do mundo, mas adiciona fricção desnecessária quando o modelo já está publicado e alguém precisa de um ajuste rápido.",
+          },
+          {
+            type: "paragraph",
+            text: "A possibilidade de fazer edições diretamente pelo navegador, com a ajuda de IA para gerar DAX ou criar RLS, reduz esse ciclo. Para analistas que trabalham em modelos compartilhados e não têm acesso fácil ao Desktop, é uma mudança prática.",
+          },
+          {
+            type: "paragraph",
+            text: "Também é um sinal do caminho que a Microsoft está trilhando. O Power BI está progressivamente se tornando uma ferramenta baseada no Fabric, e a modelagem web é parte dessa transição. Quem ainda trabalha em fluxos 100% baseados no Desktop vai precisar se adaptar.",
+          },
+          {
+            type: "heading",
+            text: "Prepare o modelo antes de usar o Copilot",
+          },
+          {
+            type: "paragraph",
+            text: "Um detalhe que a documentação da Microsoft reforça: o Copilot performa muito melhor em modelos bem preparados. Isso significa:",
+          },
+          {
+            type: "list",
+            items: [
+              "Descrições claras em tabelas e colunas.",
+              "Nomes que façam sentido para o negócio, não abreviações técnicas internas.",
+              "Relacionamentos definidos corretamente.",
+              "Medidas-chave já criadas e documentadas.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Modelo sem essa base vai gerar recomendações genéricas e medidas DAX duvidosas. O Copilot usa o contexto do modelo para entender o que você tem. Se esse contexto é ruim, a saída também será.",
+          },
+          {
+            type: "heading",
+            text: "Conclusão",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot in web modeling do Power BI é um recurso genuinamente útil para quem tem a infraestrutura necessária para rodá-lo. A proposta de editar modelos semânticos em linguagem natural, sem sair do navegador, faz sentido e resolve um problema real.",
+          },
+          {
+            type: "paragraph",
+            text: "O problema é o requisito de licença. F64 deixa o recurso fora do alcance da maioria das empresas que usam Power BI no Brasil, onde Pro e Premium Per User ainda são a realidade mais comum. Quem tem acesso vai aproveitar. Quem não tem, vai acompanhar de longe por um bom tempo.",
+          },
+          {
+            type: "paragraph",
+            text: "Por enquanto, o mais inteligente é preparar seus modelos semânticos corretamente agora. Quando o acesso chegar, você vai estar pronto para aproveitar.",
+          },
+        ],
+      },
+      en: {
+        title: "Copilot in Power BI now models for you: what actually changes",
+        summary:
+          "Copilot in web modeling arrived in Power BI as a preview, promising to edit semantic models in natural language without opening Desktop. Here is what it does, who can use it, and what the real obstacle is.",
+        eyebrow: "Power BI and AI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-06-30",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Microsoft has placed Copilot in yet another corner of Power BI. This time, it's inside the web-based semantic modeling experience, currently in preview. The feature promises to let analysts and developers make changes to the data model using natural language, without having to open Power BI Desktop or write a single line of DAX by hand.",
+          },
+          {
+            type: "paragraph",
+            text: "It's worth understanding what that actually means before getting your hopes up.",
+          },
+          {
+            type: "heading",
+            text: "What Copilot in web modeling is",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot in web modeling is an AI-powered assistant integrated into the Power BI service's semantic model experience. In plain terms: you open your semantic model in the Power BI Service, switch to editing mode, and click \"Copilot\" in the ribbon. From there, you start talking to it.",
+          },
+          {
+            type: "paragraph",
+            text: "You can ask things like \"create a year-over-year growth measure for the revenue column\" or \"rename all columns in the fct_sales table to follow business naming conventions\" and Copilot executes, or at least tries.",
+          },
+          {
+            type: "paragraph",
+            text: "The process works like this:",
+          },
+          {
+            type: "list",
+            items: [
+              "Open the semantic model in Model view in the Power BI Service.",
+              "Switch from Viewing mode to Editing mode.",
+              "Select Copilot from the ribbon.",
+              "Type what you want to do.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Before acting for the first time, Copilot asks for explicit permission to review and modify the model. This approval covers the entire session. And it creates an automatic restore checkpoint at the start of each session, making it easy to roll back anything that didn't go as planned.",
+          },
+          {
+            type: "heading",
+            text: "What it can do",
+          },
+          {
+            type: "paragraph",
+            text: "The feature's capabilities fall into three categories:",
+          },
+          {
+            type: "heading",
+            text: "Analysis and recommendations",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot can review your model's structure and flag issues. Inconsistent column names, poorly defined relationships, undescribed tables. Think of it as a reviewer who read the entire model and handed you a prioritized list of improvements.",
+          },
+          {
+            type: "heading",
+            text: "Model editing",
+          },
+          {
+            type: "paragraph",
+            text: "This is the most practical part. Using natural language, you can create tables, columns, measures, and relationships. You can also generate DAX measures (totals, growth metrics, aggregations) and create RLS rules to restrict data access by user profile.",
+          },
+          {
+            type: "heading",
+            text: "Discoverability and organization",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot suggests descriptions for tables, columns, and measures, proposes display folder structures, and recommends which technical fields should be hidden from report authors. Anyone who has inherited a poorly documented semantic model knows how much this matters.",
+          },
+          {
+            type: "heading",
+            text: "What it doesn't do (yet)",
+          },
+          {
+            type: "list",
+            items: [
+              "The feature is in preview, meaning it can change, break, or underperform in specific situations.",
+              "Using Copilot to configure prepare data for AI settings within the model is not yet supported.",
+              "Changes respect existing permissions. If you don't have write access to the semantic model, Copilot won't be able to edit anything on your behalf.",
+              "It works best on well-structured models. A messy model with cryptic names will generate poor responses. AI doesn't perform miracles.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Who can use it",
+          },
+          {
+            type: "paragraph",
+            text: "Here's the part that will frustrate a lot of people: Copilot in web modeling requires Microsoft Fabric F64 capacity or higher, which includes Power BI Premium P1 licenses or equivalent. It does not work with a standard Power BI Pro license.",
+          },
+          {
+            type: "paragraph",
+            text: "F64 is a shared capacity SKU. Think of it as renting a slice of Microsoft's processing infrastructure. It costs significantly more than an individual Pro license, so this feature, for now, is for organizations with a more robust infrastructure in place.",
+          },
+          {
+            type: "paragraph",
+            text: "On top of that, the Fabric admin settings must allow the use of Copilot and Azure OpenAI-powered features. Without that enabled at the tenant level, nothing works.",
+          },
+          {
+            type: "heading",
+            text: "Why this matters for Power BI developers",
+          },
+          {
+            type: "paragraph",
+            text: "Historically, any structural change to a semantic model required Power BI Desktop. Open the .pbix file, make the change, publish it back. That's not the end of the world, but it adds unnecessary friction when the model is already published and someone just needs a quick adjustment.",
+          },
+          {
+            type: "paragraph",
+            text: "The ability to make edits directly in the browser, with AI assistance for generating DAX or creating RLS rules, reduces that cycle. For analysts who work on shared models and don't have easy access to Desktop, that's a real, practical improvement.",
+          },
+          {
+            type: "paragraph",
+            text: "It's also a signal of the direction Microsoft is heading. Power BI is progressively becoming a Fabric-first tool, and web modeling is part of that transition. Anyone still working on 100% Desktop-based workflows will need to adapt.",
+          },
+          {
+            type: "heading",
+            text: "Prepare your model before using Copilot",
+          },
+          {
+            type: "paragraph",
+            text: "One detail the Microsoft documentation emphasizes: Copilot performs significantly better on well-prepared models. That means:",
+          },
+          {
+            type: "list",
+            items: [
+              "Clear descriptions on tables and columns.",
+              "Names that make sense to the business, not internal technical abbreviations.",
+              "Correctly defined relationships.",
+              "Key measures already created and documented.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "A model without that foundation will generate generic recommendations and questionable DAX measures. Copilot uses the model's context to understand what you have. If that context is poor, the output will be too.",
+          },
+          {
+            type: "heading",
+            text: "Wrapping up",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot in web modeling for Power BI is a genuinely useful feature for organizations that have the infrastructure to run it. The idea of editing semantic models in natural language, directly in the browser, makes sense and solves a real problem.",
+          },
+          {
+            type: "paragraph",
+            text: "The issue is the licensing requirement. F64 puts the feature out of reach for most small and mid-sized businesses that rely on Power BI Pro or Premium Per User. Those who have access will benefit. Those who don't will be watching from the sidelines for a while.",
+          },
+          {
+            type: "paragraph",
+            text: "For now, the smartest move is to get your semantic models properly structured. When access eventually comes, you'll be ready to make the most of it.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "copilot-web-modeling-agent-skills-power-bi-junho-2026",
     featured: false,
     locales: {
