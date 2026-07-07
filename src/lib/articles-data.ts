@@ -2983,6 +2983,252 @@ export const articles: ArticleEntry[] = [
       },
     },
   },
+  {
+    slug: "power-bi-desktop-bridge-o-que-e-e-o-que-muda-na-automacao",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Power BI Desktop Bridge: o que é e o que muda na sua automação",
+        summary:
+          "O Power BI Desktop Bridge chegou em preview em junho de 2026 e abre um canal local e seguro para que aplicativos, scripts e agentes de IA se comuniquem diretamente com o Power BI Desktop. Entenda como funciona e por que isso muda o jogo da automação.",
+        eyebrow: "Power BI e Automação",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-07-07",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Desde junho de 2026, o Power BI Desktop tem um novo recurso em preview que passou despercebido pela maioria dos analistas. Chama-se Power BI Desktop Bridge, e ele abre algo que o ecossistema do Power BI nunca teve de forma nativa: um canal direto, seguro e local para que aplicativos externos, scripts e agentes de IA se comuniquem com o Desktop enquanto ele está aberto na sua máquina.",
+          },
+          {
+            type: "paragraph",
+            text: "Parece técnico demais? É. Mas as consequências práticas são bem concretas.",
+          },
+          {
+            type: "heading",
+            text: "O que é, afinal",
+          },
+          {
+            type: "paragraph",
+            text: "O Desktop Bridge é um servidor local que roda dentro do próprio processo do Power BI Desktop. Ele expõe um endpoint de named pipe, um mecanismo de comunicação entre processos (IPC) que opera exclusivamente na mesma máquina. Nada sai pela rede. Nenhuma porta de rede exposta. Nenhum acesso remoto.",
+          },
+          {
+            type: "paragraph",
+            text: "Cada janela aberta do Power BI Desktop cria seu próprio canal, identificado pelo ID do processo. Se você tiver três arquivos abertos ao mesmo tempo, cada um tem seu bridge independente, e o cliente que se conectar precisa escolher com qual instância quer falar.",
+          },
+          {
+            type: "paragraph",
+            text: "O protocolo de comunicação é JSON-RPC 2.0, com framing por Content-Length. Isso significa que qualquer linguagem que saiba construir um JSON e enviar por um named pipe consegue se integrar ao bridge. PowerShell, Python, Node.js, o que você preferir.",
+          },
+          {
+            type: "heading",
+            text: "Para que serve na prática",
+          },
+          {
+            type: "paragraph",
+            text: "O bridge expõe um conjunto de APIs que, na versão atual de preview, cobrem quatro operações principais.",
+          },
+          {
+            type: "paragraph",
+            text: "Descoberta de capacidades: o método bridge.manifest retorna a lista completa de APIs suportadas pela versão instalada do Desktop. Como o bridge pode mudar entre versões, chamar esse método antes de qualquer outra coisa é o caminho certo para evitar o erro -32601 MethodNotFound.",
+          },
+          {
+            type: "paragraph",
+            text: "Estado do relatório: com application.state.get/v1 dá para saber qual arquivo está aberto e se há alterações não salvas. Útil para scripts que precisam garantir que o ambiente está num estado estável antes de agir.",
+          },
+          {
+            type: "paragraph",
+            text: "Captura de screenshot: o report.snapshot.capture/v1 tira uma captura da página atual do relatório em PNG, com resolução configurável. Esse é um dos métodos mais poderosos do bridge, porque permite que um agente de IA veja visualmente como ficou uma alteração antes de decidir o próximo passo.",
+          },
+          {
+            type: "paragraph",
+            text: "Recarregamento de arquivo: o file.reload/v1 instrui o Desktop a reler o arquivo PBIP ou PBIR do disco. Ou seja: um script faz alterações nos arquivos do projeto, chama esse método, e o Desktop recarrega tudo sem que o analista precise fechar e abrir de novo.",
+          },
+          {
+            type: "heading",
+            text: "Por que isso importa para quem trabalha com IA",
+          },
+          {
+            type: "paragraph",
+            text: "Essas quatro operações, juntas, formam um loop de desenvolvimento que antes era impossível de automatizar de forma confiável: editar, recarregar, capturar screenshot, validar, corrigir.",
+          },
+          {
+            type: "paragraph",
+            text: "Agentes de IA que desenvolvem relatórios no Power BI agora podem verificar o resultado visual de cada alteração sem depender de simulações ou de imagens estáticas de referência. O agente aplica uma mudança nos arquivos do projeto, recarrega o Desktop via bridge, captura o screenshot e decide se o resultado está correto. Se não estiver, ajusta e repete. Tudo isso sem intervenção humana.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso não é cenário futurista. O Microsoft Build 2026 apresentou o Agent Skills for Power BI em preview, que usa exatamente esse tipo de loop para construir e refinar modelos semânticos e relatórios por meio de descrições em linguagem natural. O Desktop Bridge é uma das peças de infraestrutura que viabiliza esse fluxo.",
+          },
+          {
+            type: "heading",
+            text: "Como habilitar",
+          },
+          {
+            type: "paragraph",
+            text: "O bridge já vem ativado por padrão nas versões de junho de 2026 em diante. Para confirmar ou desativar, o caminho é: Arquivo > Opções e Configurações > Opções > Funcionalidades de Preview > Habilitar acesso de ferramentas externas ao Power BI Desktop por meio de APIs locais seguras.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você usa versões anteriores, o recurso não está disponível.",
+          },
+          {
+            type: "heading",
+            text: "Qual é a relação com as ferramentas externas que já existem",
+          },
+          {
+            type: "paragraph",
+            text: "O DAX Studio, o Tabular Editor e outras ferramentas externas se conectam ao Analysis Services local que o Power BI Desktop expõe. Essa conexão é para o modelo semântico, o motor de dados por trás do relatório.",
+          },
+          {
+            type: "paragraph",
+            text: "O Desktop Bridge é outra coisa. Ele não fala com o Analysis Services. Ele fala com o próprio processo do Desktop, permitindo controlar o comportamento do aplicativo: recarregar arquivo, capturar tela, consultar estado. É uma camada de controle de UI e ciclo de vida, não de modelo de dados.",
+          },
+          {
+            type: "paragraph",
+            text: "As duas abordagens são complementares. Um agente sofisticado pode usar o Analysis Services para consultar e modificar o modelo e o Desktop Bridge para verificar visualmente o resultado.",
+          },
+          {
+            type: "heading",
+            text: "O que esperar daqui pra frente",
+          },
+          {
+            type: "paragraph",
+            text: "O bridge está em preview, o que significa que a API pode mudar antes da disponibilidade geral. A Microsoft já sinalizou que o conjunto de métodos pode crescer. As candidatas naturais para as próximas versões são operações de navegação entre páginas, controle de filtros e slicers e exportação de dados.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem desenvolve ferramentas para o ecossistema Power BI, o momento de começar a experimentar é agora. A Microsoft claramente está construindo a infraestrutura para um mundo onde agentes de IA participam ativamente do desenvolvimento de relatórios, e o Desktop Bridge é a fundação local dessa arquitetura.",
+          },
+          {
+            type: "paragraph",
+            text: "Quem entender como isso funciona antes da disponibilidade geral vai sair na frente quando os recursos chegarem ao estado estável.",
+          },
+        ],
+      },
+      en: {
+        title: "Power BI Desktop Bridge: what it is and what it changes for automation",
+        summary:
+          "The Power BI Desktop Bridge shipped in preview in June 2026 and opens a secure, local channel for external apps, scripts, and AI agents to communicate directly with Power BI Desktop. Here's how it works and why it changes the automation game.",
+        eyebrow: "Power BI and Automation",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-07-07",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Since June 2026, Power BI Desktop has shipped a new preview feature that most analysts have barely noticed. It's called the Power BI Desktop Bridge, and it opens something the Power BI ecosystem never had natively: a direct, secure, local channel for external applications, scripts, and AI agents to communicate with Desktop while it's running on your machine.",
+          },
+          {
+            type: "paragraph",
+            text: "Sounds too technical? It is. But the practical consequences are concrete.",
+          },
+          {
+            type: "heading",
+            text: "What it actually is",
+          },
+          {
+            type: "paragraph",
+            text: "The Desktop Bridge is a local server running inside the Power BI Desktop process itself. It exposes a named pipe endpoint, an inter-process communication (IPC) mechanism that operates exclusively on the same machine. Nothing goes over the network. No exposed network ports. No remote access.",
+          },
+          {
+            type: "paragraph",
+            text: "Each open Power BI Desktop window creates its own channel, identified by its process ID. If you have three files open at the same time, each one has an independent bridge, and the connecting client must choose which instance to talk to.",
+          },
+          {
+            type: "paragraph",
+            text: "The communication protocol is JSON-RPC 2.0 with Content-Length framing. That means any language capable of building a JSON payload and sending it through a named pipe can integrate with the bridge — PowerShell, Python, Node.js, whatever you prefer.",
+          },
+          {
+            type: "heading",
+            text: "What it does in practice",
+          },
+          {
+            type: "paragraph",
+            text: "The bridge exposes a set of APIs that, in the current preview version, cover four main operations.",
+          },
+          {
+            type: "paragraph",
+            text: "Capability discovery: the bridge.manifest method returns the full list of APIs supported by the installed version of Desktop. Since the bridge can change between versions, calling this method before anything else is the right move to avoid the -32601 MethodNotFound error.",
+          },
+          {
+            type: "paragraph",
+            text: "Report state: with application.state.get/v1 you can check which file is open and whether there are unsaved changes. Useful for scripts that need to verify the environment is in a stable state before acting.",
+          },
+          {
+            type: "paragraph",
+            text: "Screenshot capture: the report.snapshot.capture/v1 takes a PNG screenshot of the current report page at a configurable resolution. This is one of the bridge's most powerful methods, because it lets an AI agent visually inspect the result of a change before deciding what to do next.",
+          },
+          {
+            type: "paragraph",
+            text: "File reload: the file.reload/v1 instructs Desktop to re-read the PBIP or PBIR project file from disk. Meaning: a script makes changes to the project files, calls this method, and Desktop reloads everything without the analyst needing to close and reopen it manually.",
+          },
+          {
+            type: "heading",
+            text: "Why this matters for anyone working with AI",
+          },
+          {
+            type: "paragraph",
+            text: "These four operations together form a development loop that was previously impossible to reliably automate: edit, reload, capture screenshot, validate, correct.",
+          },
+          {
+            type: "paragraph",
+            text: "AI agents that develop Power BI reports can now verify the visual result of each change without relying on simulations or static reference images. The agent applies a change to the project files, reloads Desktop via the bridge, captures the screenshot, and decides whether the result looks right. If it doesn't, it adjusts and repeats. All without human intervention.",
+          },
+          {
+            type: "paragraph",
+            text: "This isn't a futuristic scenario. Microsoft Build 2026 introduced Agent Skills for Power BI in preview, which uses exactly this kind of loop to build and refine semantic models and reports through natural language descriptions. The Desktop Bridge is one of the infrastructure pieces that makes this workflow possible.",
+          },
+          {
+            type: "heading",
+            text: "How to enable it",
+          },
+          {
+            type: "paragraph",
+            text: "The bridge ships enabled by default on June 2026 and later versions. To verify or toggle it: File > Options and Settings > Options > Preview Features > Enable external tool access to Power BI Desktop through secure local APIs.",
+          },
+          {
+            type: "paragraph",
+            text: "If you're on an earlier version, the feature isn't available.",
+          },
+          {
+            type: "heading",
+            text: "How it relates to existing external tools",
+          },
+          {
+            type: "paragraph",
+            text: "DAX Studio, Tabular Editor, and other external tools connect to the local Analysis Services instance that Power BI Desktop exposes. That connection targets the semantic model, the data engine behind the report.",
+          },
+          {
+            type: "paragraph",
+            text: "The Desktop Bridge is a different thing. It doesn't talk to Analysis Services. It talks to the Desktop process itself, allowing control over application behavior: reload the file, capture the screen, query state. It's a UI and lifecycle control layer, not a data model layer.",
+          },
+          {
+            type: "paragraph",
+            text: "The two approaches are complementary. A sophisticated agent can use Analysis Services to query and modify the model, and the Desktop Bridge to visually verify the result.",
+          },
+          {
+            type: "heading",
+            text: "What to expect going forward",
+          },
+          {
+            type: "paragraph",
+            text: "The bridge is in preview, which means the API can change before general availability. Microsoft has already signaled that the method set will grow. Natural candidates for future versions include page navigation operations, filter and slicer control, and data export.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone building tools for the Power BI ecosystem, the time to start experimenting is now. Microsoft is clearly building the infrastructure for a world where AI agents actively participate in report development, and the Desktop Bridge is the local foundation of that architecture.",
+          },
+          {
+            type: "paragraph",
+            text: "Those who understand how this works before general availability will have a head start when the features reach stable status.",
+          },
+        ],
+      },
+    },
+  },
 ];
 
 export function getArticlesForLocale(locale: Locale) {
