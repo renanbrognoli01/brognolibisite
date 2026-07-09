@@ -466,7 +466,7 @@ export default async function StudioPage({
                     {download.version ?? "1.0.0"}
                   </p>
                   <p className="mt-2 text-sm leading-7 text-white/66">
-                    {download.sha256 ? copy.versionHintReady : copy.versionHintPending}
+                    {download.windowsUrl ? copy.versionHintReady : copy.versionHintPending}
                   </p>
                 </div>
               </div>

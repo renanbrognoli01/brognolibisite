@@ -1,18 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import type { Locale } from "@/lib/i18n";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
+
+const authNextStorageKey = "brognolibi-auth-next";
 
 type AuthCallbackPanelProps = {
   locale: Locale;
 };
 
 export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [completed, setCompleted] = useState(false);
@@ -42,11 +43,26 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
   useEffect(() => {
     let mounted = true;
 
+    function resolveNextPath() {
+      const queryNext = searchParams.get("next");
+      const storedNext =
+        typeof window !== "undefined"
+          ? window.sessionStorage.getItem(authNextStorageKey)
+          : null;
+      const candidate = queryNext || storedNext || `/${locale}/account`;
+
+      if (!candidate.startsWith("/") || candidate.startsWith("//")) {
+        return `/${locale}/account`;
+      }
+
+      return candidate;
+    }
+
     async function finishOAuth() {
       try {
         const supabase = getSupabaseBrowserClient();
         const code = searchParams.get("code");
-        const next = searchParams.get("next") || `/${locale}/account`;
+        const next = resolveNextPath();
 
         if (!code) {
           throw new Error(dict.missingCode);
@@ -61,9 +77,12 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
           return;
         }
 
+        if (typeof window !== "undefined") {
+          window.sessionStorage.removeItem(authNextStorageKey);
+        }
+
         setCompleted(true);
-        router.replace(next);
-        router.refresh();
+        window.location.replace(next);
       } catch (caughtError) {
         if (!mounted) {
           return;
@@ -78,7 +97,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
     return () => {
       mounted = false;
     };
-  }, [dict.missingCode, locale, router, searchParams]);
+  }, [dict.missingCode, locale, searchParams]);
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-3xl items-center px-6 py-16">
