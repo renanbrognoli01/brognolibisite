@@ -25,6 +25,306 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "fabric-data-agent-api-publica",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "A API pública do Fabric Data Agent e o que isso muda para quem trabalha com BI",
+        summary:
+          "A Microsoft liberou a API pública do Fabric Data Agent, permitindo criar, configurar e publicar agentes de dados sem encostar no portal do Fabric. Entenda o que mudou, o que são service principals nesse contexto e por que isso importa para automações com Power BI.",
+        eyebrow: "Microsoft Fabric e IA",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-07-14",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Durante anos, automatizar coisas no Microsoft Fabric exigiu abrir o portal, clicar em dezenas de menus e torcer para a interface não mudar na próxima semana. A Microsoft acabou de mudar isso, pelo menos para os Data Agents.",
+          },
+          {
+            type: "paragraph",
+            text: "A API pública do Fabric Data Agent chegou. E com ela, a possibilidade de criar, configurar e publicar agentes de dados sem precisar encostar no portal do Fabric.",
+          },
+          {
+            type: "heading",
+            text: "O que é o Fabric Data Agent, afinal",
+          },
+          {
+            type: "paragraph",
+            text: "Antes de falar da API, vale recapitular o que é esse negócio de Data Agent.",
+          },
+          {
+            type: "paragraph",
+            text: "Um Fabric Data Agent é um recurso alimentado por IA que permite fazer perguntas sobre dados armazenados no OneLake em linguagem natural. Sem SQL. Sem DAX. Sem KQL. Você pergunta qual produto vendeu mais em março e o agente gera e executa a consulta automaticamente, devolvendo a resposta.",
+          },
+          {
+            type: "paragraph",
+            text: "Ele funciona conectado a fontes de dados como modelos semânticos do Power BI, lakehouses, warehouses e bancos de dados KQL. Até aí, nada de novo. A novidade está em como você gerencia e distribui esses agentes.",
+          },
+          {
+            type: "heading",
+            text: "O que muda com a API pública",
+          },
+          {
+            type: "paragraph",
+            text: "Antes dessa atualização, criar e configurar um Data Agent era uma tarefa manual, feita dentro do portal do Fabric ou por meio do SDK, mas restrita a notebooks do próprio Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "Com a API pública, o SDK do Fabric Data Agent passa a rodar na mesma superfície REST que você já usa para gerenciar workspaces e outros itens do Fabric. Isso significa que o gerenciamento do ciclo de vida de um agente, criar, configurar, atualizar e publicar, pode ser feito de qualquer lugar:",
+          },
+          {
+            type: "list",
+            items: [
+              "Ambientes de desenvolvimento local",
+              "Pipelines de CI/CD",
+              "Portais internos",
+              "Azure Functions",
+              "Contêineres",
+              "Qualquer serviço de backend que consiga fazer uma chamada REST",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "A lógica de separação é importante de entender. A API cuida do plano de gerenciamento: você usa ela para construir e publicar o agente. Depois de publicado, o agente é consumido por meio do endpoint MCP (Model Context Protocol), que é o protocolo padrão para conectar agentes de IA a fontes de dados e ferramentas.",
+          },
+          {
+            type: "heading",
+            text: "Service principals: o detalhe que importa para operações",
+          },
+          {
+            type: "paragraph",
+            text: "Um ponto que não pode passar em branco: os Fabric Data Agents agora suportam service principals.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso quer dizer que você pode autenticar e executar agentes usando identidades de aplicativo, sem depender de credenciais de usuário. Para quem monta pipelines automatizados, isso é a diferença entre uma solução que funciona de madrugada sem intervenção humana e uma que quebra toda vez que alguém troca de senha.",
+          },
+          {
+            type: "paragraph",
+            text: "Para empresas que precisam de automações escaláveis com controle de acesso granular, essa mudança é relevante.",
+          },
+          {
+            type: "heading",
+            text: "A conexão com o Copilot Studio e o ecossistema MCP",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot Studio, em sua versão mais recente, passou a suportar servidores MCP. Isso cria uma ponte direta entre os Fabric Data Agents e os agentes que você constrói no Copilot Studio.",
+          },
+          {
+            type: "paragraph",
+            text: "Na prática: você publica um Data Agent no Fabric, ele fica disponível via endpoint MCP, e o Copilot Studio consegue consumi-lo como uma fonte de dados ou ferramenta dentro de um fluxo de trabalho. Sem precisar replicar a lógica de acesso a dados em outro lugar.",
+          },
+          {
+            type: "paragraph",
+            text: "A mesma lógica vale para integrações com o Microsoft 365 Copilot. Agentes de dados publicados no Fabric já aparecem disponíveis para uso no Teams, na web e no app desktop do M365.",
+          },
+          {
+            type: "heading",
+            text: "Deployment pipelines e o fluxo de dev para produção",
+          },
+          {
+            type: "paragraph",
+            text: "Outro recurso que ganhou relevância com essa atualização: os deployment pipelines do Fabric agora funcionam com Data Agents.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso significa que você consegue promover um agente do ambiente de desenvolvimento para staging, testar, validar o comportamento com dados reais de homologação, e só depois publicar para produção. O mesmo fluxo que equipes de dados já usam para modelos semânticos e dataflows.",
+          },
+          {
+            type: "paragraph",
+            text: "Para equipes que precisam de rastreabilidade e controle de mudanças, essa é uma peça que faltava.",
+          },
+          {
+            type: "heading",
+            text: "Permissões mais simples para modelos semânticos do Power BI",
+          },
+          {
+            type: "paragraph",
+            text: "Uma mudança prática que vai facilitar a vida de analistas: para conectar um Data Agent a um modelo semântico do Power BI, o usuário precisa apenas da permissão de leitura no modelo.",
+          },
+          {
+            type: "paragraph",
+            text: "Antes, acessar um modelo semântico por meio de agentes ou do Copilot no Power BI exigia acesso total ao workspace ou permissão de Build. Isso complicava a governança em ambientes com muitos usuários e modelos compartilhados.",
+          },
+          {
+            type: "paragraph",
+            text: "Com a permissão de leitura sendo suficiente, fica mais simples distribuir acesso a experiências conversacionais sobre os dados sem abrir brechas de segurança desnecessárias.",
+          },
+          {
+            type: "heading",
+            text: "Por que isso importa para analistas e desenvolvedores de BI",
+          },
+          {
+            type: "paragraph",
+            text: "A abertura da API pública do Fabric Data Agent não é apenas uma feature nova na lista de novidades da Microsoft. Ela muda a forma como equipes de dados podem pensar a distribuição e manutenção de agentes conversacionais sobre dados.",
+          },
+          {
+            type: "paragraph",
+            text: "Até pouco tempo atrás, criar um agente de dados que funcionasse de forma automatizada, com controle de versão, deploy em múltiplos ambientes e autenticação via service principal, era algo que exigia gambiarras ou soluções customizadas. Agora é parte nativa da plataforma.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem trabalha com Power BI e Microsoft Fabric no dia a dia, vale a pena olhar para isso não como uma curiosidade técnica, mas como uma mudança de postura. A Microsoft está apostando que o futuro do acesso a dados corporativos passa por agentes de IA. E está construindo a infraestrutura para que esses agentes sejam gerenciados com o mesmo rigor de qualquer outro artefato de dados.",
+          },
+          {
+            type: "paragraph",
+            text: "O SDK está disponível no PyPI como fabric-data-agent-sdk. A documentação completa está no Microsoft Learn. Se você já tem workspaces no Fabric com capacidade que suporta Data Agents, pode começar agora.",
+          },
+        ],
+      },
+      en: {
+        title: "The Fabric Data Agent Public API and What It Actually Changes for BI Professionals",
+        summary:
+          "Microsoft released the Fabric Data Agent public API, enabling teams to create, configure, and publish data agents without touching the Fabric portal. Here is what changed, what service principals mean in this context, and why it matters for Power BI automation.",
+        eyebrow: "Microsoft Fabric and AI",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-07-14",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "For years, automating things inside Microsoft Fabric meant opening the portal, clicking through dozens of menus, and hoping the interface hadn't changed since last week. Microsoft just changed that, at least for Data Agents.",
+          },
+          {
+            type: "paragraph",
+            text: "The Fabric Data Agent public API is here. And with it, the ability to create, configure, and publish data agents without ever touching the Fabric portal.",
+          },
+          {
+            type: "heading",
+            text: "What Is a Fabric Data Agent, Anyway",
+          },
+          {
+            type: "paragraph",
+            text: "Before diving into the API, a quick recap of what a Data Agent actually is.",
+          },
+          {
+            type: "paragraph",
+            text: "A Fabric Data Agent is an AI-powered feature that lets you ask questions about data stored in OneLake using natural language. No SQL. No DAX. No KQL. You ask which product sold the most in March and the agent generates and runs the query automatically, returning the answer.",
+          },
+          {
+            type: "paragraph",
+            text: "It connects to data sources like Power BI semantic models, lakehouses, warehouses, and KQL databases. None of that is new. What changed is how you manage and deploy these agents.",
+          },
+          {
+            type: "heading",
+            text: "What the Public API Actually Changes",
+          },
+          {
+            type: "paragraph",
+            text: "Before this update, creating and configuring a Data Agent was a manual task. You did it inside the Fabric portal or through the SDK, but only from within Fabric notebooks.",
+          },
+          {
+            type: "paragraph",
+            text: "With the public API, the Fabric Data Agent SDK now runs on the same REST surface you already use to manage workspaces and other Fabric items. That means the entire lifecycle of an agent, creating, configuring, updating, and publishing, can happen from anywhere:",
+          },
+          {
+            type: "list",
+            items: [
+              "Local development environments",
+              "CI/CD pipelines",
+              "Internal portals",
+              "Azure Functions",
+              "Containers",
+              "Any backend service that can make a REST call",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "The separation between management and runtime is worth understanding. The API handles the management plane: you use it to build and publish the agent. Once published, the agent is consumed through the MCP (Model Context Protocol) endpoint, which is the standard protocol for connecting AI agents to data sources and tools.",
+          },
+          {
+            type: "heading",
+            text: "Service Principals: The Detail That Matters for Operations",
+          },
+          {
+            type: "paragraph",
+            text: "One thing that should not be overlooked: Fabric Data Agents now support service principals.",
+          },
+          {
+            type: "paragraph",
+            text: "That means you can authenticate and execute agents using app identities, without relying on user credentials. For anyone building automated pipelines, this is the difference between a solution that keeps running at 3 AM without human intervention and one that breaks every time someone changes their password.",
+          },
+          {
+            type: "paragraph",
+            text: "For organizations that need scalable automation with granular access control, this is a meaningful change.",
+          },
+          {
+            type: "heading",
+            text: "The Connection to Copilot Studio and the MCP Ecosystem",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot Studio, in its latest version, now supports MCP servers. That creates a direct bridge between Fabric Data Agents and the agents you build inside Copilot Studio.",
+          },
+          {
+            type: "paragraph",
+            text: "In practice: you publish a Data Agent in Fabric, it becomes available via its MCP endpoint, and Copilot Studio can consume it as a data source or tool inside a workflow. No need to duplicate data access logic somewhere else.",
+          },
+          {
+            type: "paragraph",
+            text: "The same applies to Microsoft 365 Copilot integrations. Published Fabric data agents show up as available tools in Teams, on the web, and in the M365 desktop app.",
+          },
+          {
+            type: "heading",
+            text: "Deployment Pipelines and the Dev-to-Production Flow",
+          },
+          {
+            type: "paragraph",
+            text: "Another feature that became more relevant with this update: Fabric deployment pipelines now work with Data Agents.",
+          },
+          {
+            type: "paragraph",
+            text: "That means you can promote an agent from a development environment to staging, test it, validate behavior against real pre-production data, and only then push to production. The same flow data teams already use for semantic models and dataflows.",
+          },
+          {
+            type: "paragraph",
+            text: "For teams that need traceability and change control, this was a missing piece.",
+          },
+          {
+            type: "heading",
+            text: "Simpler Permissions for Power BI Semantic Models",
+          },
+          {
+            type: "paragraph",
+            text: "A practical change that will make life easier for analysts: to connect a Data Agent to a Power BI semantic model, a user now only needs read permission on the model.",
+          },
+          {
+            type: "paragraph",
+            text: "Previously, accessing a semantic model through agents or Power BI Copilot required full workspace access or Build permission. That made governance complicated in environments with many users and shared models.",
+          },
+          {
+            type: "paragraph",
+            text: "With read permission being enough, it becomes simpler to distribute access to conversational data experiences without creating unnecessary security gaps.",
+          },
+          {
+            type: "heading",
+            text: "Why This Matters for BI Analysts and Developers",
+          },
+          {
+            type: "paragraph",
+            text: "The opening of the Fabric Data Agent public API is not just another item on Microsoft's feature list. It changes how data teams can think about deploying and maintaining conversational agents over their data.",
+          },
+          {
+            type: "paragraph",
+            text: "Until recently, building a data agent that worked in a fully automated way, with version control, multi-environment deployment, and service principal authentication, required workarounds or custom solutions. Now it is native to the platform.",
+          },
+          {
+            type: "paragraph",
+            text: "For people working with Power BI and Microsoft Fabric day to day, this is worth treating not as a technical curiosity but as a shift in posture. Microsoft is betting that the future of corporate data access runs through AI agents. And it is building the infrastructure to manage those agents with the same rigor applied to any other data artifact.",
+          },
+          {
+            type: "paragraph",
+            text: "The SDK is available on PyPI as fabric-data-agent-sdk. Full documentation is on Microsoft Learn. If you already have Fabric workspaces with capacity that supports Data Agents, you can start today.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "copilot-in-web-modeling-power-bi-preview",
     featured: false,
     locales: {
