@@ -309,7 +309,7 @@ export const siteData: Record<Locale, SharedData> = {
     products: {
       title: "Meus outros produtos",
       description:
-        "Conheça outros projetos do ecossistema Brognoli, combinando tecnologia, bem-estar e soluções digitais.",
+        "Conheça outros projetos do ecossistema Brognoli, combinando tecnologia, interação, bem-estar e soluções digitais.",
       items: [
         {
           name: "Calmia",
@@ -326,6 +326,18 @@ export const siteData: Record<Locale, SharedData> = {
             { label: "Apple Store", href: "#", pending: true },
             { label: "Play Store", href: "#", pending: true },
           ],
+        },
+        {
+          name: "Brognoli Flow",
+          summary:
+            "Plataforma de apresentações interativas para criar enquetes, quizzes, nuvens de palavras e formulários com resultados em tempo real.",
+          details: [
+            "13 tipos de pergunta e visualização",
+            "Participação por QR code, link ou código de acesso",
+            "Resultados atualizados ao vivo",
+            "Exportação completa em Excel e PDF",
+          ],
+          links: [{ label: "Acessar Brognoli Flow", href: "https://brognoliflow.com/" }],
         },
       ],
     },
@@ -659,7 +671,7 @@ export const siteData: Record<Locale, SharedData> = {
     products: {
       title: "Other products",
       description:
-        "Discover other solutions from the Brognoli ecosystem, combining technology, digital products, and well-being.",
+        "Discover other solutions from the Brognoli ecosystem, combining technology, interaction, digital products, and well-being.",
       items: [
         {
           name: "Calmia",
@@ -676,6 +688,18 @@ export const siteData: Record<Locale, SharedData> = {
             { label: "Apple Store", href: "#", pending: true },
             { label: "Play Store", href: "#", pending: true },
           ],
+        },
+        {
+          name: "Brognoli Flow",
+          summary:
+            "An interactive presentation platform for creating polls, quizzes, word clouds, and forms with real-time results.",
+          details: [
+            "13 question and visualization formats",
+            "Participation through a QR code, link, or access code",
+            "Results updated live",
+            "Complete Excel and PDF exports",
+          ],
+          links: [{ label: "Open Brognoli Flow", href: "https://brognoliflow.com/" }],
         },
       ],
     },

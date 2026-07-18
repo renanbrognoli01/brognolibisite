@@ -10,7 +10,7 @@ type Locale = "pt-br" | "en";
 type ProductLink = {
   label: string;
   href: string;
-  store?: "apple" | "google";
+  store?: "apple" | "google" | "web";
   pending?: boolean;
   primary?: boolean;
 };
@@ -37,6 +37,9 @@ type ProductDetails = {
   links: ProductLink[];
   screenshots: { src: string; title: string }[];
   logo: string;
+  logoFit?: "cover" | "contain";
+  platformLabel: string;
+  previewKind: "mobile" | "live-poll";
 };
 
 function AppleStoreIcon() {
@@ -58,9 +61,79 @@ function GooglePlayIcon() {
   );
 }
 
+function WebIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.5 12h17M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z" />
+    </svg>
+  );
+}
+
+function LivePollPreview({ isPt }: { isPt: boolean }) {
+  const answers = [
+    { label: isPt ? "Muito alta" : "Very high", value: 62, color: "bg-[#ffcc00]" },
+    { label: isPt ? "Boa" : "Good", value: 28, color: "bg-[#00b2a9]" },
+    { label: isPt ? "Baixa" : "Low", value: 10, color: "bg-[#3d7ab8]" },
+  ];
+
+  return (
+    <div className="mt-5 overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#071927] shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
+      <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-4 py-3">
+        <div className="flex gap-1.5" aria-hidden="true">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ffcc00]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#00b2a9]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#3d7ab8]" />
+        </div>
+        <span className="text-[0.62rem] font-semibold tracking-[0.16em] text-white/42">
+          brognoliflow.com
+        </span>
+      </div>
+      <div className="space-y-5 p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#54d992]/30 bg-[#54d992]/10 px-3 py-1 text-[0.65rem] font-semibold tracking-[0.16em] text-[#8aefb7]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#54d992]" />
+            {isPt ? "AO VIVO" : "LIVE"}
+          </span>
+          <span className="text-xs text-white/42">184 {isPt ? "respostas" : "responses"}</span>
+        </div>
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-white/38">
+            {isPt ? "Enquete interativa" : "Interactive poll"}
+          </p>
+          <h4 className="mt-2 text-xl font-semibold leading-7 text-white">
+            {isPt ? "Como está sua energia hoje?" : "How is your energy today?"}
+          </h4>
+        </div>
+        <div className="space-y-4">
+          {answers.map((answer) => (
+            <div key={answer.label} className="space-y-2">
+              <div className="flex justify-between text-xs text-white/68">
+                <span>{answer.label}</span>
+                <span>{answer.value}%</span>
+              </div>
+              <div className="h-2.5 overflow-hidden rounded-full bg-white/8">
+                <div className={`h-full rounded-full ${answer.color}`} style={{ width: `${answer.value}%` }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center justify-between rounded-[1rem] border border-white/10 bg-white/[0.04] px-4 py-3 text-xs text-white/52">
+          <span>{isPt ? "Código de acesso" : "Access code"}</span>
+          <strong className="tracking-[0.22em] text-white">FLOW24</strong>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function StoreBadge({ link, isPt }: { link: ProductLink; isPt: boolean }) {
   const overline =
-    link.store === "google"
+    link.store === "web"
+      ? isPt
+        ? "Conheça o produto"
+        : "Explore the product"
+      : link.store === "google"
       ? isPt
         ? "Disponível no"
         : "Get it on"
@@ -68,7 +141,8 @@ function StoreBadge({ link, isPt }: { link: ProductLink; isPt: boolean }) {
         ? "Baixe na"
         : "Download on the";
 
-  const Icon = link.store === "google" ? GooglePlayIcon : AppleStoreIcon;
+  const Icon =
+    link.store === "google" ? GooglePlayIcon : link.store === "web" ? WebIcon : AppleStoreIcon;
 
   return (
     <a
@@ -168,6 +242,61 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         { src: "/media/calmia 5.png", title: "Experiência do aplicativo" },
       ],
       logo: "/media/calmia logo.jpeg",
+      platformLabel: "App mobile",
+      previewKind: "mobile",
+    },
+    {
+      id: "brognoli-flow",
+      name: "Brognoli Flow",
+      tagline:
+        "Transforme sua plateia em participação ao vivo com enquetes, quizzes, nuvens de palavras e formulários interativos.",
+      summary:
+        "O Brognoli Flow é uma plataforma web para criar apresentações interativas e acompanhar as respostas da plateia em tempo real. Os participantes entram pelo celular usando um QR code, link ou código de acesso, sem precisar instalar nada.",
+      accent: "from-[#ffcc00] via-[#00b2a9] to-[#3d7ab8]",
+      metrics: [
+        { value: "13", label: "tipos de pergunta" },
+        { value: "LIVE", label: "resultados ao vivo" },
+        { value: "3", label: "idiomas" },
+      ],
+      idealFor:
+        "Ideal para eventos, treinamentos, aulas, workshops, reuniões e apresentações em que o público precisa deixar de ser apenas espectador e participar de verdade.",
+      patientTitle: "Para apresentadores e equipes",
+      patientBullets: [
+        "Criação de apresentações com perguntas e visualizações diferentes.",
+        "Controle do ritmo pelo apresentador ou participação no modo autoguiado.",
+        "Resultados atualizados no telão enquanto as respostas chegam.",
+        "Exportação dos resultados em Excel ou PDF após o evento.",
+      ],
+      therapistTitle: "Para participantes",
+      therapistBullets: [
+        "Entrada rápida pelo navegador usando QR code, link ou código.",
+        "Nenhum aplicativo precisa ser instalado no celular.",
+        "Experiência simples para responder enquetes, quizzes e formulários.",
+        "Participação em português, inglês ou espanhol.",
+      ],
+      privacy:
+        "O acesso dos criadores é protegido por autenticação e as apresentações ficam vinculadas à conta responsável. O produto também conta com controles de acesso e políticas específicas para proteger apresentações, respostas e arquivos enviados.",
+      highlights: [
+        "Respostas exibidas em tempo real, sem recarregar a apresentação.",
+        "13 formatos, incluindo barras, pizza, nuvem de palavras, escala, ranking, Q&A e formulário.",
+        "Participação instantânea por QR code, link ou código de acesso.",
+        "Exportação completa dos resultados em Excel e PDF.",
+        "Interface em português, inglês e espanhol, com temas claro e escuro.",
+        "Estrutura preparada para centenas de participantes simultâneos.",
+      ],
+      links: [
+        {
+          label: "Acessar Brognoli Flow",
+          href: "https://brognoliflow.com/",
+          store: "web",
+          primary: true,
+        },
+      ],
+      screenshots: [],
+      logo: "/media/brognoli-flow-logo.png",
+      logoFit: "contain",
+      platformLabel: "Plataforma web",
+      previewKind: "live-poll",
     },
   ],
   en: [
@@ -231,6 +360,61 @@ const productsByLocale: Record<Locale, ProductDetails[]> = {
         { src: "/media/calmia 5.png", title: "App experience" },
       ],
       logo: "/media/calmia logo.jpeg",
+      platformLabel: "Mobile app",
+      previewKind: "mobile",
+    },
+    {
+      id: "brognoli-flow",
+      name: "Brognoli Flow",
+      tagline:
+        "Turn your audience into live participation with interactive polls, quizzes, word clouds, and forms.",
+      summary:
+        "Brognoli Flow is a web platform for creating interactive presentations and following audience responses in real time. Participants join from their phones with a QR code, link, or access code, with nothing to install.",
+      accent: "from-[#ffcc00] via-[#00b2a9] to-[#3d7ab8]",
+      metrics: [
+        { value: "13", label: "question types" },
+        { value: "LIVE", label: "live results" },
+        { value: "3", label: "languages" },
+      ],
+      idealFor:
+        "Ideal for events, training sessions, classes, workshops, meetings, and presentations where the audience should become an active part of the experience.",
+      patientTitle: "For presenters and teams",
+      patientBullets: [
+        "Build presentations with different question and visualization formats.",
+        "Control the pace as a presenter or let participants answer independently.",
+        "Show results on the big screen as responses arrive.",
+        "Export results to Excel or PDF after the event.",
+      ],
+      therapistTitle: "For participants",
+      therapistBullets: [
+        "Join quickly from a browser using a QR code, link, or access code.",
+        "No mobile application needs to be installed.",
+        "A simple experience for answering polls, quizzes, and forms.",
+        "Participate in Portuguese, English, or Spanish.",
+      ],
+      privacy:
+        "Creator access is protected by authentication, and presentations remain tied to their responsible account. The product also uses access controls and dedicated policies to protect presentations, responses, and uploaded files.",
+      highlights: [
+        "Responses appear in real time without refreshing the presentation.",
+        "13 formats, including bars, pie, word cloud, scale, ranking, Q&A, and forms.",
+        "Instant participation through a QR code, link, or access code.",
+        "Complete result exports to Excel and PDF.",
+        "Portuguese, English, and Spanish interfaces with light and dark themes.",
+        "An architecture prepared for hundreds of simultaneous participants.",
+      ],
+      links: [
+        {
+          label: "Open Brognoli Flow",
+          href: "https://brognoliflow.com/",
+          store: "web",
+          primary: true,
+        },
+      ],
+      screenshots: [],
+      logo: "/media/brognoli-flow-logo.png",
+      logoFit: "contain",
+      platformLabel: "Web platform",
+      previewKind: "live-poll",
     },
   ],
 };
@@ -255,6 +439,7 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
               key={product.id}
               type="button"
               onClick={() => setSelectedId(product.id)}
+              aria-pressed={active}
               className={`rounded-[1.8rem] border p-5 text-left transition ${
                 active
                   ? "border-white/25 bg-white/[0.08] shadow-[0_24px_70px_rgba(0,0,0,0.2)]"
@@ -263,7 +448,12 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
             >
               <div className="flex items-center gap-4">
                 <div className="relative h-16 w-16 overflow-hidden rounded-[1.15rem] border border-white/10 bg-white">
-                  <Image src={product.logo} alt={product.name} fill className="object-cover" />
+                  <Image
+                    src={product.logo}
+                    alt={product.name}
+                    fill
+                    className={product.logoFit === "contain" ? "object-contain p-1" : "object-cover"}
+                  />
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">
@@ -290,28 +480,32 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
                         src={selected.logo}
                         alt={selected.name}
                         fill
-                        className="object-cover"
+                        className={selected.logoFit === "contain" ? "object-contain p-1" : "object-cover"}
                       />
                     </div>
                     <div className="text-right">
                       <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-white/42">
-                        {isPt ? "App mobile" : "Mobile app"}
+                        {selected.platformLabel}
                       </p>
                       <h3 className="mt-1 text-lg font-semibold text-white">{selected.name}</h3>
                     </div>
                   </div>
 
-                  <div className="relative mx-auto mt-5 w-full max-w-[21rem] overflow-hidden rounded-[2.7rem] border border-white/10 bg-[#061521] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
-                    <div className="absolute left-1/2 top-2 z-10 h-1.5 w-16 -translate-x-1/2 rounded-full bg-white/12" />
-                    <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem]">
-                      <Image
-                        src={selected.screenshots[0]?.src ?? selected.logo}
-                        alt={selected.screenshots[0]?.title ?? selected.name}
-                        fill
-                        className="object-contain bg-white"
-                      />
+                  {selected.previewKind === "live-poll" ? (
+                    <LivePollPreview isPt={isPt} />
+                  ) : (
+                    <div className="relative mx-auto mt-5 w-full max-w-[21rem] overflow-hidden rounded-[2.7rem] border border-white/10 bg-[#061521] p-2 shadow-[0_28px_60px_rgba(0,0,0,0.36)]">
+                      <div className="absolute left-1/2 top-2 z-10 h-1.5 w-16 -translate-x-1/2 rounded-full bg-white/12" />
+                      <div className="relative aspect-[9/19] overflow-hidden rounded-[2rem]">
+                        <Image
+                          src={selected.screenshots[0]?.src ?? selected.logo}
+                          alt={selected.screenshots[0]?.title ?? selected.name}
+                          fill
+                          className="object-contain bg-white"
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="mt-5 grid grid-cols-3 gap-3">
                     {selected.metrics.map((metric) => (
@@ -384,24 +578,26 @@ export function ProductShowcase({ locale }: { locale: Locale }) {
 
             <div className="rounded-[1.6rem] border border-white/10 bg-[var(--surface-2)] p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/42">
-                {isPt ? "Privacidade e cuidado com dados" : "Privacy and data care"}
+                {isPt ? "Privacidade e segurança" : "Privacy and security"}
               </p>
               <p className="mt-3 text-sm leading-7 text-white/76">{selected.privacy}</p>
             </div>
 
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-cyan)]">
-                  {isPt ? "Prova visual" : "Product preview"}
-                </p>
-                <h4 className="text-2xl font-semibold text-white">
-                  {isPt
-                    ? "Veja o produto em uso nas telas do app"
-                    : "See the product through real app screens"}
-                </h4>
+            {selected.screenshots.length > 0 ? (
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--brand-cyan)]">
+                    {isPt ? "Prova visual" : "Product preview"}
+                  </p>
+                  <h4 className="text-2xl font-semibold text-white">
+                    {isPt
+                      ? "Veja o produto em uso nas telas do app"
+                      : "See the product through real app screens"}
+                  </h4>
+                </div>
+                <ScreenshotGallery items={selected.screenshots} />
               </div>
-              <ScreenshotGallery items={selected.screenshots} />
-            </div>
+            ) : null}
           </div>
         </div>
       </div>
