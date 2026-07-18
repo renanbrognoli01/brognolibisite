@@ -30,7 +30,7 @@ export default async function ProductsPage({
       </PageHero>
 
       <Section
-        eyebrow={isPt ? "Portifolio" : "Portfolio"}
+        eyebrow={isPt ? "Portfólio" : "Portfolio"}
         title={isPt ? "Escolha um produto para ver os detalhes" : "Choose a product to view details"}
         description={
           isPt
@@ -42,12 +42,12 @@ export default async function ProductsPage({
       </Section>
 
       <Section
-        eyebrow={isPt ? "Proximos passos" : "Next steps"}
-        title={isPt ? "Mais produtos vao entrar aqui em breve" : "More products will be added here soon"}
+        eyebrow={isPt ? "Ecossistema" : "Ecosystem"}
+        title={isPt ? "Um portfólio que continua crescendo" : "A portfolio that keeps growing"}
         description={
           isPt
-            ? "Esta estrutura já está pronta para receber novos apps, plataformas, ebooks e produtos digitais do Grupo Brognoli."
-            : "This structure is already prepared to receive new apps, platforms, ebooks, and digital products from the Brognoli ecosystem."
+            ? "Calmia e Brognoli Flow já mostram a diversidade do ecossistema, que continuará recebendo novos apps, plataformas, ebooks e produtos digitais."
+            : "Calmia and Brognoli Flow already show the range of the ecosystem, which will continue to welcome new apps, platforms, ebooks, and digital products."
         }
       >
         <div className="grid gap-6 md:grid-cols-3">
@@ -68,7 +68,7 @@ export default async function ProductsPage({
             }
           />
           <GlassCard
-            title={isPt ? "Conteudo digital" : "Digital content"}
+            title={isPt ? "Conteúdo digital" : "Digital content"}
             description={
               isPt
                 ? "Guias, ebooks e materiais criados para aprendizado prático."
