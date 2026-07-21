@@ -25,6 +25,304 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "power-bi-junho-2026-novidades-que-importam",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Power BI junho de 2026: o que mudou e o que realmente importa para o seu trabalho",
+        summary:
+          "A atualização de junho de 2026 do Power BI trouxe mudanças reais no fluxo de trabalho: Copilot dentro do modelo semântico, agentes de IA criando relatórios do zero, Date Picker para slicers e vários recursos saindo de Preview para GA. Entenda o que vale atenção.",
+        eyebrow: "Power BI e IA",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-07-21",
+        readingTime: "10 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "A Microsoft lançou em 9 de junho de 2026 mais uma atualização mensal do Power BI. E desta vez, diferente de muitos meses em que as novidades se resumem a ajustes cosméticos, junho trouxe mudanças que vão mexer de verdade no fluxo de trabalho de quem desenvolve e de quem consome relatórios.",
+          },
+          {
+            type: "paragraph",
+            text: "O destaque vai para a inteligência artificial, mas não do jeito genérico de sempre. As novidades de IA desta atualização têm função clara e aplicação prática. Além disso, vários recursos que estavam em Preview finalmente chegaram a Disponibilidade Geral (GA), o que significa que você pode usar em produção sem se preocupar com comportamentos instáveis.",
+          },
+          {
+            type: "heading",
+            text: "Copilot em Web Modeling: IA dentro do modelo semântico",
+          },
+          {
+            type: "paragraph",
+            text: "Até agora, o Copilot no Power BI era, na prática, uma ferramenta para quem consome relatórios. Você perguntava algo, ele tentava responder com um visual. Útil em alguns casos, decepcionante em outros.",
+          },
+          {
+            type: "paragraph",
+            text: "Com o Copilot em Web Modeling, o cenário muda de lado. Agora a IA trabalha junto com quem constrói o modelo semântico, não apenas com quem usa o resultado final.",
+          },
+          {
+            type: "paragraph",
+            text: "Na prática, você pode apontar para uma medida que está dando resultado errado e perguntar o que há de errado. Pode pedir para o Copilot identificar relacionamentos desnecessários ou medidas redundantes. Pode fazer perguntas sobre a estrutura do modelo em linguagem natural e receber uma explicação compreensível.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem mantém modelos com centenas de medidas e tabelas complexas, isso pode reduzir bastante o tempo de debugging e de documentação. Ainda está em Preview, então não espere perfeição, mas a direção é clara.",
+          },
+          {
+            type: "heading",
+            text: "AI-Powered Reporting Skills: agentes criando relatórios do zero",
+          },
+          {
+            type: "paragraph",
+            text: "Esta é a novidade que mais vai polarizar opiniões. As AI-Powered Reporting Skills permitem que agentes de IA conduzam todo o fluxo de criação de um relatório: planejamento, design, construção dos visuais, validação e publicação, tudo via prompts em linguagem natural.",
+          },
+          {
+            type: "paragraph",
+            text: "A ideia é que você descreva o que precisa e o agente entrega o relatório pronto.",
+          },
+          {
+            type: "paragraph",
+            text: "Para perfis não técnicos que precisam criar relatórios simples, isso tem valor real. Para desenvolvedores experientes, a utilidade depende muito de quanto controle você ainda tem sobre o resultado. Em Preview, o ceticismo é justificado. Mas se a Microsoft conseguir afinar isso, o impacto no volume de trabalho operacional de criação de relatórios vai ser considerável.",
+          },
+          {
+            type: "heading",
+            text: "Fabric Apps para Semantic Models: o modelo como ativo reutilizável",
+          },
+          {
+            type: "paragraph",
+            text: "Essa é a novidade mais estratégica do mês, ainda que seja a que menos gera barulho nas redes.",
+          },
+          {
+            type: "paragraph",
+            text: "Fabric Apps para Semantic Models permite criar aplicações completas diretamente a partir de um modelo semântico existente, usando linguagem natural. A governança, as métricas e as permissões já definidas no modelo ficam intactas. O que muda é que agora qualquer pessoa com acesso consegue criar uma aplicação funcional em cima disso sem precisar mexer no código.",
+          },
+          {
+            type: "paragraph",
+            text: "O time de engenharia constrói e mantém o modelo semântico com rigor técnico. O time de negócios, a partir desse modelo, cria as aplicações que precisa sem depender de demanda de TI para cada ajuste. Isso, se funcionar bem, resolve uma fricção antiga entre as áreas.",
+          },
+          {
+            type: "heading",
+            text: "Date Picker para Slicers: pequeno, mas salva muito relatório",
+          },
+          {
+            type: "paragraph",
+            text: "Entre as novidades de reporting, o Date Picker para Slicers merece atenção especial porque resolve um problema frequente: filtros de data que ficam desatualizados e exigem manutenção manual.",
+          },
+          {
+            type: "paragraph",
+            text: "Com o Date Picker, você define uma data relativa padrão que avança automaticamente conforme os dados são atualizados. O usuário do relatório ainda pode ajustar para uma data específica quando precisar, mas o padrão já chega certo.",
+          },
+          {
+            type: "paragraph",
+            text: "Para relatórios mensais, trimestrais ou de janelas móveis, isso elimina uma tarefa de manutenção que consome tempo e gera erros silenciosos.",
+          },
+          {
+            type: "heading",
+            text: "O que chegou a GA: use sem medo",
+          },
+          {
+            type: "paragraph",
+            text: "Vários recursos que estavam em Preview ganharam Disponibilidade Geral nesta atualização. Isso significa que a Microsoft considerou a funcionalidade estável o suficiente para uso em produção.",
+          },
+          {
+            type: "list",
+            items: [
+              "Shape Map: útil para mapas geográficos com regiões customizadas, como estados brasileiros ou territórios de vendas.",
+              "Auto-expand para Matrix: elimina a necessidade de expandir hierarquias manualmente toda vez que o relatório carrega.",
+              "Melhorias de eixo em gráficos de barras e colunas: remoção de padding e correção do comportamento ao ativar rótulos de dados.",
+              "Card visual com hover state: defina um estilo diferente quando o usuário passa o cursor sobre o card.",
+              "Formatação condicional de largura de colunas em Matrix e Table: colunas com largura fixa que variam por condição.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Tooltip em formato de frase: contexto sem DAX",
+          },
+          {
+            type: "paragraph",
+            text: "A opção de tooltip em formato de frase estava em Preview e ganhou GA nesta atualização. Em vez de mostrar uma lista de campos com valores, você escreve uma frase que referencia os campos diretamente.",
+          },
+          {
+            type: "paragraph",
+            text: "O resultado é um tooltip que parece escrito por um humano, não gerado por uma tabela. Útil para dashboards onde o público não é técnico e precisa de contexto, não de dados brutos.",
+          },
+          {
+            type: "heading",
+            text: "Scatter Chart com auto-fit de marcadores",
+          },
+          {
+            type: "paragraph",
+            text: "Quem trabalha com gráficos de dispersão conhece o problema: bolhas ou marcadores posicionados perto das bordas aparecem cortados. A solução sempre foi ajustar o intervalo do eixo manualmente ou criar medidas dinâmicas.",
+          },
+          {
+            type: "paragraph",
+            text: "O Auto-fit Markers cuida disso automaticamente. O Power BI ajusta o espaço do gráfico para garantir que todos os marcadores apareçam por completo. Simples, discreto e a maioria das pessoas nunca vai nem perceber que estava com problema antes.",
+          },
+          {
+            type: "heading",
+            text: "O que fazer agora",
+          },
+          {
+            type: "paragraph",
+            text: "Se você usa Power BI regularmente, junho de 2026 vale uma atualização de versão. O Date Picker para Slicers e as melhorias de eixo já justificam isso por si sós.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem está construindo modelos semânticos, o Copilot em Web Modeling merece um teste mesmo estando em Preview. A ferramenta ainda vai errar, mas é a primeira vez que a IA entra de forma útil no lado técnico da modelagem.",
+          },
+          {
+            type: "paragraph",
+            text: "E para gestores de dados e arquitetos de soluções, Fabric Apps para Semantic Models é o recurso para acompanhar de perto nos próximos meses. Se a promessa se confirmar, ela muda a conversa sobre como as áreas de negócio consomem dados sem depender do time técnico para cada entrega.",
+          },
+        ],
+      },
+      en: {
+        title: "Power BI June 2026: what changed and what actually matters for your work",
+        summary:
+          "The June 2026 Power BI update brings real workflow changes: Copilot inside the semantic model, AI agents building reports from scratch, Date Picker for slicers, and several features graduating from Preview to GA. Here is what deserves your attention.",
+        eyebrow: "Power BI and AI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-07-21",
+        readingTime: "10 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Microsoft released the June 2026 Power BI monthly update on June 9th. Unlike many months where the highlights amount to cosmetic tweaks, this update brings changes that will genuinely affect how both developers and report consumers work day to day.",
+          },
+          {
+            type: "paragraph",
+            text: "AI is the headline, but not in the vague, buzzword-heavy way you might expect. The AI features in this update have a clear purpose and practical application. Several capabilities that had been in Preview also reached General Availability, meaning you can safely use them in production without worrying about unpredictable behavior.",
+          },
+          {
+            type: "heading",
+            text: "Copilot in Web Modeling: AI inside the semantic model",
+          },
+          {
+            type: "paragraph",
+            text: "Until now, Copilot in Power BI was effectively a tool for report consumers. You asked something, it tried to answer with a visual. Useful in some cases, disappointing in others.",
+          },
+          {
+            type: "paragraph",
+            text: "With Copilot in Web Modeling, the dynamic shifts. Now the AI works alongside whoever is building the semantic model, not just whoever uses the end result.",
+          },
+          {
+            type: "paragraph",
+            text: "In practice, you can point to a measure that is returning incorrect results and ask what is wrong. You can ask Copilot to identify unnecessary relationships or redundant measures. You can ask questions about the model structure in plain language and get a comprehensible explanation back.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone maintaining models with hundreds of measures and complex table relationships, this could meaningfully cut down debugging and documentation time. It is still in Preview, so do not expect perfection, but the direction is clear.",
+          },
+          {
+            type: "heading",
+            text: "AI-Powered Reporting Skills: agents building reports from scratch",
+          },
+          {
+            type: "paragraph",
+            text: "This is the feature that will divide opinions the most. AI-Powered Reporting Skills allow AI agents to handle the entire report creation workflow: planning, design, visual layout, validation, and publication, all through natural language prompts.",
+          },
+          {
+            type: "paragraph",
+            text: "The idea is you describe what you need and the agent delivers a finished report.",
+          },
+          {
+            type: "paragraph",
+            text: "For non-technical profiles who need to create simple reports, there is real value here. For experienced developers, the usefulness depends heavily on how much control you retain over the output. In Preview, healthy skepticism is warranted. But if Microsoft manages to refine this, the impact on the volume of routine report-building work could be substantial.",
+          },
+          {
+            type: "heading",
+            text: "Fabric Apps for Semantic Models: the model as a reusable asset",
+          },
+          {
+            type: "paragraph",
+            text: "This is the most strategically significant feature of the month, even if it is generating the least noise on social media.",
+          },
+          {
+            type: "paragraph",
+            text: "Fabric Apps for Semantic Models allows you to build complete applications directly from an existing semantic model using natural language. The governance, metrics, and permissions already defined in the model remain intact. What changes is that anyone with access can now create a functional application on top of that model without touching the underlying code.",
+          },
+          {
+            type: "paragraph",
+            text: "The engineering team builds and maintains the semantic model with technical rigor. The business team, working from that same model, creates the applications they need without filing a ticket to IT for every change. If it works as advertised, it resolves a long-standing friction between technical and business teams.",
+          },
+          {
+            type: "heading",
+            text: "Date Picker for Slicers: small feature, big time saver",
+          },
+          {
+            type: "paragraph",
+            text: "Among the reporting updates, the Date Picker for Slicers deserves special attention because it fixes a common problem: date filters that go stale and require manual maintenance.",
+          },
+          {
+            type: "paragraph",
+            text: "With the Date Picker, you set a relative default date that automatically rolls forward as the data refreshes. Report users can still switch to a specific date when needed, but the default is always current.",
+          },
+          {
+            type: "paragraph",
+            text: "For monthly, quarterly, or rolling-window reports, this eliminates a maintenance task that wastes time and introduces silent errors.",
+          },
+          {
+            type: "heading",
+            text: "What reached GA: safe to use in production",
+          },
+          {
+            type: "paragraph",
+            text: "Several features that had been in Preview reached General Availability with this update, indicating Microsoft considers them stable enough for production use.",
+          },
+          {
+            type: "list",
+            items: [
+              "Shape Map: useful for geographic maps with custom regions such as state-level breakdowns or custom sales territories.",
+              "Auto-expand for Matrix: removes the need to manually expand hierarchies every time a report loads.",
+              "Axis improvements for bar and column charts: removes padding between the axis and bars, and fixes the axis range issue when enabling data labels.",
+              "Card visual hover state: define a different image or style when the user hovers over the card.",
+              "Conditional formatting of fixed column widths in Matrix and Table: addresses a long-standing complaint from anyone working with dense information tables.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "Sentence-format tooltips: context without DAX",
+          },
+          {
+            type: "paragraph",
+            text: "The sentence-format tooltip option was in Preview and reached GA with this update. Instead of displaying a list of fields with their values, you write a sentence that directly references those fields.",
+          },
+          {
+            type: "paragraph",
+            text: "The result is a tooltip that reads as if a person wrote it, not something generated by a table dump. Useful for dashboards where the audience is not technical and needs context, not raw data.",
+          },
+          {
+            type: "heading",
+            text: "Scatter Chart auto-fit markers",
+          },
+          {
+            type: "paragraph",
+            text: "Anyone who works with scatter charts knows the problem: bubbles or markers positioned near the edges appear clipped. The fix has always been to manually adjust the axis range or build dynamic measures.",
+          },
+          {
+            type: "paragraph",
+            text: "Auto-fit Markers handles this automatically. Power BI adjusts the chart area to ensure every marker appears fully visible. Simple, unobtrusive, and most people will never even notice they had the problem before.",
+          },
+          {
+            type: "heading",
+            text: "What to do now",
+          },
+          {
+            type: "paragraph",
+            text: "If you use Power BI regularly, the June 2026 update is worth installing. The Date Picker for Slicers and the axis improvements alone justify it.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone building semantic models, Copilot in Web Modeling is worth testing even in Preview. It will still make mistakes, but this is the first time AI has entered the technical side of modeling in a genuinely useful way.",
+          },
+          {
+            type: "paragraph",
+            text: "And for data managers and solution architects, Fabric Apps for Semantic Models is the feature to watch closely over the coming months. If the promise holds, it fundamentally changes how business teams consume data without depending on the technical team for every deliverable.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "fabric-data-agent-api-publica",
     featured: false,
     locales: {
