@@ -25,6 +25,268 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "conversational-analytics-microsoft-fabric",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Conversational analytics no Microsoft Fabric: o que muda para quem trabalha com dados",
+        summary:
+          "O Microsoft Fabric lançou o Fabric IQ e os Data Agents em julho de 2026, transformando a forma como analistas e gestores interagem com dados. Entenda o que mudou, o que o Q&A clássico do Power BI tem a ver com isso e o que você precisa fazer antes de dezembro.",
+        eyebrow: "Microsoft Fabric e IA",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-08-04",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Você já perdeu uma tarde inteira esperando que um analista montasse um relatório para responder uma pergunta simples? Pois o Microsoft Fabric está mudando exatamente isso, e a atualização de julho de 2026 deixou claro que a empresa não está mais apenas testando a ideia.",
+          },
+          {
+            type: "heading",
+            text: "O que é analytics conversacional, afinal",
+          },
+          {
+            type: "paragraph",
+            text: "Analytics conversacional é a capacidade de fazer perguntas sobre dados em linguagem natural e receber respostas imediatas, sem precisar escrever SQL, DAX ou qualquer outra linguagem de consulta. Em vez de abrir um painel e tentar decifrar o que os números dizem, você simplesmente pergunta: 'Qual produto teve a maior queda de margem no segundo trimestre?' e a ferramenta responde.",
+          },
+          {
+            type: "paragraph",
+            text: "No Microsoft Fabric, essa funcionalidade ganhou um nome e uma arquitetura própria: o Fabric IQ.",
+          },
+          {
+            type: "heading",
+            text: "O que é o Fabric IQ",
+          },
+          {
+            type: "paragraph",
+            text: "O Fabric IQ é a camada de inteligência semântica do Fabric. Ele funciona como um intermediário entre os dados brutos armazenados no OneLake e as perguntas feitas por usuários, analistas ou agentes de IA. Seu trabalho é traduzir contexto de negócio, glossário, hierarquias e métricas, de forma que qualquer sistema de IA consiga entender o que 'receita líquida' ou 'ticket médio' significa para aquela empresa específica.",
+          },
+          {
+            type: "paragraph",
+            text: "A base do Fabric IQ são os modelos semânticos do Power BI. Ou seja, se você já tem um modelo bem construído no Power BI com medidas DAX documentadas e tabelas bem nomeadas, o Fabric IQ usa esse trabalho como ponto de partida. Ele não ignora o que foi feito antes: ele amplia.",
+          },
+          {
+            type: "paragraph",
+            text: "Além dos modelos semânticos, o Fabric IQ usa ontologia (ainda em preview), que é basicamente um mapa de como os conceitos de negócio se relacionam entre si. Pense num dicionário corporativo que a IA consegue ler e usar para dar respostas mais precisas.",
+          },
+          {
+            type: "heading",
+            text: "Os Fabric Data Agents",
+          },
+          {
+            type: "paragraph",
+            text: "Para colocar tudo isso em prática, o Fabric oferece os Data Agents: agentes configuráveis que respondem perguntas sobre os dados da empresa de forma governada e segura, sem dar escrita, só leitura. Eles usam os modelos de linguagem da Azure OpenAI por baixo dos panos e se conectam diretamente aos dados no OneLake.",
+          },
+          {
+            type: "paragraph",
+            text: "Na prática, um gestor pode abrir o Microsoft 365 Copilot, digitar 'Como estão as vendas da região Sul comparado ao mês passado?' e receber uma resposta gerada a partir dos dados reais da empresa. Sem abrir o Power BI. Sem esperar que um analista monte um relatório.",
+          },
+          {
+            type: "paragraph",
+            text: "Isso é o que a Microsoft chama de 'democratização dos dados' e, embora o termo já tenha cansado de tão usado, o mecanismo técnico desta vez é mais sólido do que as tentativas anteriores.",
+          },
+          {
+            type: "heading",
+            text: "O Q&A clássico do Power BI vai morrer",
+          },
+          {
+            type: "paragraph",
+            text: "Um detalhe que passou batido por muita gente: a Microsoft anunciou que o Q&A clássico do Power BI, aquele campo de busca por linguagem natural que existe nos relatórios há anos, será descontinuado em dezembro de 2026. O substituto é o Copilot para Power BI, que usa modelos de linguagem modernos e tem integração nativa com o Fabric IQ.",
+          },
+          {
+            type: "paragraph",
+            text: "Para quem usa o Q&A hoje, isso significa que vale começar a testar o Copilot agora. A experiência é diferente, mais rica, e a curva de aprendizado é pequena. Mas deixar para migrar às vésperas da descontinuação é pedir para ter problema.",
+          },
+          {
+            type: "heading",
+            text: "O que muda para o analista de dados",
+          },
+          {
+            type: "paragraph",
+            text: "A pergunta que todo analista está fazendo, com razão, é: meu trabalho some?",
+          },
+          {
+            type: "paragraph",
+            text: "A resposta honesta é: não some, mas muda bastante.",
+          },
+          {
+            type: "paragraph",
+            text: "Com o Fabric IQ e os Data Agents, usuários de negócio ganham autonomia para fazer perguntas diretas aos dados. O analista deixa de ser o único ponto de contato entre a empresa e os números. Isso é bom para o negócio e, no médio prazo, é bom para o analista também, porque libera tempo para trabalho de maior valor.",
+          },
+          {
+            type: "paragraph",
+            text: "O que não muda, e talvez fique ainda mais importante, é a qualidade do modelo semântico. O Fabric IQ é tão bom quanto o modelo por trás dele. Se as medidas DAX estão mal nomeadas, se não há descrições, se a modelagem está bagunçada, a IA vai errar ou dar respostas vagas. O analista que sabe construir um modelo bem estruturado vai ser a pessoa que garante que a IA fala a verdade.",
+          },
+          {
+            type: "paragraph",
+            text: "Além disso, alguém precisa revisar se o que a IA está respondendo faz sentido. Modelos de linguagem cometem erros, especialmente com métricas complexas ou dados com muitas exceções. O olho crítico do analista, que conhece o negócio de perto, continua sendo insubstituível nessa etapa.",
+          },
+          {
+            type: "paragraph",
+            text: "A mudança prática é esta: menos tempo construindo relatórios sob demanda, mais tempo garantindo que a fundação está sólida e que as respostas automáticas são confiáveis.",
+          },
+          {
+            type: "heading",
+            text: "Como a Microsoft está integrando tudo isso",
+          },
+          {
+            type: "paragraph",
+            text: "O Fabric IQ não vive sozinho. Ele faz parte de uma família de camadas de inteligência que a Microsoft batizou de Microsoft IQ, que inclui Work IQ (dados de trabalho como e-mails e reuniões), Foundry IQ (dados de aplicações) e Web IQ (dados externos). A ideia é que o Copilot consiga cruzar informações de todas essas fontes em uma única resposta contextualizada.",
+          },
+          {
+            type: "paragraph",
+            text: "Na teoria, isso significa que um agente pode responder: 'Por que as vendas caíram em junho?' cruzando dados de CRM, reuniões do Teams, e-mails de feedback de clientes e o modelo semântico do Power BI ao mesmo tempo. É ambicioso. Se vai funcionar bem na prática em larga escala, o tempo vai mostrar.",
+          },
+          {
+            type: "heading",
+            text: "Vale a pena se preparar agora?",
+          },
+          {
+            type: "paragraph",
+            text: "Sim, e a preparação é mais simples do que parece. O ponto de partida é o modelo semântico do Power BI. Se ele já existe e está bem estruturado, metade do trabalho está feita. O Fabric IQ usa isso como base.",
+          },
+          {
+            type: "paragraph",
+            text: "O passo seguinte é habilitar o Copilot no tenant do Fabric e explorar os Data Agents. A Microsoft disponibilizou documentação detalhada e a curva de entrada é razoável para quem já trabalha com o ecossistema.",
+          },
+          {
+            type: "paragraph",
+            text: "O que não faz sentido é esperar. O analytics conversacional no Microsoft Fabric não é mais protótipo de conferência. É funcionalidade em produção, com roadmap definido e uma descontinuação de recurso antigo no calendário. Quem se mover agora vai chegar à virada de 2027 com vantagem real.",
+          },
+        ],
+      },
+      en: {
+        title: "Conversational analytics in Microsoft Fabric: what changes for data professionals",
+        summary:
+          "Microsoft Fabric launched Fabric IQ and Data Agents in July 2026, transforming how analysts and managers interact with data. Understand what changed, what the classic Power BI Q&A has to do with it, and what you need to do before December.",
+        eyebrow: "Microsoft Fabric and AI",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-08-04",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Have you ever lost an entire afternoon waiting for an analyst to build a report just to answer one simple question? Microsoft Fabric is changing exactly that, and the July 2026 update made it clear the company is no longer just testing the idea.",
+          },
+          {
+            type: "heading",
+            text: "What conversational analytics actually means",
+          },
+          {
+            type: "paragraph",
+            text: "Conversational analytics is the ability to ask questions about data in plain language and get immediate answers, without writing SQL, DAX, or any query language. Instead of opening a dashboard and trying to decode what the numbers say, you simply ask: 'Which product had the biggest margin drop in Q2?' and the tool responds.",
+          },
+          {
+            type: "paragraph",
+            text: "In Microsoft Fabric, this capability got its own name and architecture: Fabric IQ.",
+          },
+          {
+            type: "heading",
+            text: "What is Fabric IQ",
+          },
+          {
+            type: "paragraph",
+            text: "Fabric IQ is the semantic intelligence layer of Fabric. It acts as a bridge between the raw data stored in OneLake and the questions asked by users, analysts, or AI agents. Its job is to translate business context, glossary, hierarchies, and metrics so that any AI system can understand what 'net revenue' or 'average ticket' means for that specific company.",
+          },
+          {
+            type: "paragraph",
+            text: "The foundation of Fabric IQ is Power BI semantic models. If you already have a well-built model in Power BI with documented DAX measures and properly named tables, Fabric IQ uses that work as a starting point. It does not ignore what was built before: it extends it.",
+          },
+          {
+            type: "paragraph",
+            text: "On top of semantic models, Fabric IQ uses ontology (still in preview), which is essentially a map of how business concepts relate to each other. Think of a corporate dictionary that AI can read and use to deliver more accurate answers.",
+          },
+          {
+            type: "heading",
+            text: "The Fabric Data Agents",
+          },
+          {
+            type: "paragraph",
+            text: "To put all of this into practice, Fabric offers Data Agents: configurable agents that answer questions about company data in a governed and secure way, with read-only access. They use Azure OpenAI language models under the hood and connect directly to data in OneLake.",
+          },
+          {
+            type: "paragraph",
+            text: "In practice, a manager can open Microsoft 365 Copilot, type 'How are sales in the Southern region compared to last month?' and receive an answer generated from the company's actual data. No need to open Power BI. No need to wait for an analyst to build a report.",
+          },
+          {
+            type: "paragraph",
+            text: "This is what Microsoft calls 'data democratization' and, while the phrase has been overused to exhaustion, the technical mechanism this time is more solid than previous attempts.",
+          },
+          {
+            type: "heading",
+            text: "The classic Power BI Q&A is going away",
+          },
+          {
+            type: "paragraph",
+            text: "One detail that slipped past many people: Microsoft announced that the classic Q&A feature in Power BI, the natural language search field that has existed in reports for years, will be discontinued in December 2026. The replacement is Copilot for Power BI, which uses modern language models and has native integration with Fabric IQ.",
+          },
+          {
+            type: "paragraph",
+            text: "For anyone using Q&A today, this means it is worth starting to test Copilot now. The experience is different, richer, and the learning curve is small. But waiting until the deadline to migrate is asking for trouble.",
+          },
+          {
+            type: "heading",
+            text: "What changes for the data analyst",
+          },
+          {
+            type: "paragraph",
+            text: "The question every analyst is asking, reasonably, is: does my job disappear?",
+          },
+          {
+            type: "paragraph",
+            text: "The honest answer is: it does not disappear, but it changes quite a bit.",
+          },
+          {
+            type: "paragraph",
+            text: "With Fabric IQ and Data Agents, business users gain autonomy to ask direct questions about data. The analyst is no longer the sole point of contact between the company and its numbers. That is good for the business and, in the medium term, good for the analyst too, because it frees up time for higher-value work.",
+          },
+          {
+            type: "paragraph",
+            text: "What does not change, and may become even more important, is the quality of the semantic model. Fabric IQ is only as good as the model behind it. If DAX measures are poorly named, if there are no descriptions, if the data modeling is a mess, the AI will make mistakes or give vague answers. The analyst who knows how to build a well-structured model will be the person who ensures the AI tells the truth.",
+          },
+          {
+            type: "paragraph",
+            text: "Someone also needs to review whether what the AI is answering actually makes sense. Language models make mistakes, especially with complex metrics or data with many exceptions. The critical eye of an analyst who knows the business closely is still irreplaceable at this stage.",
+          },
+          {
+            type: "paragraph",
+            text: "The practical change is this: less time building on-demand reports, more time making sure the foundation is solid and that the automated answers are trustworthy.",
+          },
+          {
+            type: "heading",
+            text: "How Microsoft is integrating all of this",
+          },
+          {
+            type: "paragraph",
+            text: "Fabric IQ does not operate in isolation. It is part of a family of intelligence layers that Microsoft branded as Microsoft IQ, which includes Work IQ (work data such as emails and meetings), Foundry IQ (application data), and Web IQ (external data). The idea is that Copilot can cross-reference information from all these sources in a single contextualized response.",
+          },
+          {
+            type: "paragraph",
+            text: "In theory, this means an agent could answer: 'Why did sales drop in June?' by combining CRM data, Teams meeting notes, customer feedback emails, and the Power BI semantic model all at once. It is ambitious. Whether it will work well at scale in the real world, time will tell.",
+          },
+          {
+            type: "heading",
+            text: "Is it worth preparing now?",
+          },
+          {
+            type: "paragraph",
+            text: "Yes, and the preparation is simpler than it sounds. The starting point is the Power BI semantic model. If it already exists and is well structured, half the work is done. Fabric IQ uses it as a base.",
+          },
+          {
+            type: "paragraph",
+            text: "The next step is enabling Copilot in the Fabric tenant and exploring Data Agents. Microsoft has provided detailed documentation and the entry curve is manageable for anyone already working within the ecosystem.",
+          },
+          {
+            type: "paragraph",
+            text: "What does not make sense is waiting. Conversational analytics in Microsoft Fabric is no longer a conference prototype. It is a production feature, with a defined roadmap and a legacy feature deprecation already on the calendar. Those who move now will reach 2027 with a real advantage.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "power-bi-junho-2026-novidades-que-importam",
     featured: false,
     locales: {
