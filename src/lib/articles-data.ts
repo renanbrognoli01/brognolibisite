@@ -4089,6 +4089,284 @@ export const articles: ArticleEntry[] = [
       },
     },
   },
+{
+    slug: "fim-do-importador-legado-de-excel-csv-no-power-bi",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "O fim do importador legado de Excel e CSV no Power BI: o que muda a partir de 31 de agosto de 2026",
+        summary:
+          "A Microsoft está encerrando o suporte ao importador legado de Excel e CSV no Power BI Service. A partir de 31 de agosto de 2026, relatórios que dependem desse fluxo antigo simplesmente param de abrir. Veja quem é afetado, como migrar e o que fazer agora.",
+        eyebrow: "Power BI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-08-11",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Se você ainda usa aquele fluxo antigo de subir um arquivo Excel ou CSV direto pelo navegador no Power BI Service, este artigo é um alerta. A Microsoft está encerrando o suporte ao importador legado, e o prazo final é 31 de agosto de 2026.",
+          },
+          {
+            type: "paragraph",
+            text: "Não é uma mudança sutil. A partir dessa data, relatórios que dependem de modelos semânticos criados pelo fluxo legado simplesmente param de abrir. Nada de dados desatualizados, nada de aviso amigável. Erro na tela.",
+          },
+          {
+            type: "heading",
+            text: "O que é o importador legado?",
+          },
+          {
+            type: "paragraph",
+            text: "Quando o Power BI Service ainda era jovem, a Microsoft oferecia uma forma bem simples de trabalhar com dados: você entrava na página 'Criar', fazia upload de um arquivo Excel ou CSV direto pelo navegador, e o Power BI gerava um modelo semântico na hora. Sem precisar do Power BI Desktop, sem configurar gateway, sem nada complicado.",
+          },
+          {
+            type: "paragraph",
+            text: "Essa facilidade teve um preço. Os modelos criados assim eram limitados: não davam para editar no navegador, não tinham opção de atualização agendada, e não podiam ser baixados de volta. Para quem precisava de um relatório rápido e estático, funcionava. Para quem precisava de dados vivos, era uma armadilha.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft decidiu descontinuar esse fluxo. E fez isso em etapas.",
+          },
+          {
+            type: "heading",
+            text: "As datas que você precisa saber",
+          },
+          {
+            type: "paragraph",
+            text: "A depreciação aconteceu em três fases:",
+          },
+          {
+            type: "list",
+            items: [
+              "31 de maio de 2026: a criação de novos modelos semânticos pelo fluxo legado foi bloqueada. Ninguém mais consegue iniciar esse caminho.",
+              "31 de julho de 2026: os modelos semânticos existentes pararam de atualizar. Os relatórios ainda abriam, mas os dados ficaram congelados naquele momento. Qualquer coisa criada depois desse ponto simplesmente não aparecia.",
+              "31 de agosto de 2026: data final. Os modelos legados deixam de existir para consulta. Relatórios vinculados a eles retornam erro e não abrem mais.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Se você chegou até aqui depois de 31 de agosto, o estrago já pode ter acontecido. Mas ainda dá para resolver.",
+          },
+          {
+            type: "heading",
+            text: "Quem é afetado?",
+          },
+          {
+            type: "paragraph",
+            text: "A boa notícia é que a mudança não atinge todo mundo. Ela afeta especificamente quem criou modelos semânticos fazendo upload direto de Excel ou CSV pela interface web do Power BI Service e tem relatórios vinculados a esses modelos.",
+          },
+          {
+            type: "paragraph",
+            text: "Se você criou seus modelos pelo Power BI Desktop e publicou no Service, está tranquilo. Se você usa os conectores de Excel e CSV dentro do Desktop e trabalha com arquivos no OneDrive ou SharePoint, também não há problema.",
+          },
+          {
+            type: "paragraph",
+            text: "O jeito mais rápido de identificar modelos legados é checar no Power BI Service se eles têm as opções de editar no navegador, baixar o arquivo ou configurar atualização agendada. Se nenhuma dessas opções aparecer, é legado.",
+          },
+          {
+            type: "paragraph",
+            text: "Administradores de tenant podem usar a API REST do Power BI para examinar a propriedade ContentProviderType dos datasets e identificar todos os modelos legados de uma vez.",
+          },
+          {
+            type: "heading",
+            text: "Como migrar",
+          },
+          {
+            type: "paragraph",
+            text: "A migração não é complicada, mas exige atenção para não perder nada.",
+          },
+          {
+            type: "paragraph",
+            text: "Passo 1: abra o Power BI Desktop. Use a opção 'Obter Dados' para conectar ao mesmo arquivo Excel ou CSV que alimentava o modelo legado. O Desktop vai criar um modelo semântico novo, moderno, com todas as opções disponíveis.",
+          },
+          {
+            type: "paragraph",
+            text: "Passo 2: publique no Power BI Service. Depois de configurar as transformações e validar os dados, publique o modelo no workspace correto.",
+          },
+          {
+            type: "paragraph",
+            text: "Passo 3: reconectando os relatórios. Os relatórios antigos precisam ser apontados para o novo modelo semântico. No Power BI Service, há a opção de reatribuir a fonte de dados de um relatório existente, evitando a necessidade de recriar tudo do zero.",
+          },
+          {
+            type: "paragraph",
+            text: "Se o arquivo Excel ou CSV estiver armazenado no OneDrive for Work ou SharePoint, o Power BI consegue sincronizar automaticamente qualquer alteração dentro de cerca de uma hora, sem precisar configurar gateway.",
+          },
+          {
+            type: "paragraph",
+            text: "Para organizações que querem ir além, mover os dados para o OneLake do Microsoft Fabric é uma opção que elimina duplicação e centraliza tudo em um único lugar.",
+          },
+          {
+            type: "heading",
+            text: "Por que a Microsoft fez isso?",
+          },
+          {
+            type: "paragraph",
+            text: "O fluxo legado era tecnicamente inferior ao que a plataforma evoluiu para suportar. Manter dois sistemas paralelos, um moderno e um antigo, gera custo de manutenção, inconsistências de comportamento e confusão para o usuário.",
+          },
+          {
+            type: "paragraph",
+            text: "A descontinuação força uma padronização que, no final, beneficia quem migra: modelos modernos têm refresh agendado, são editáveis, podem ser baixados e integram melhor com todo o ecossistema do Power BI e do Fabric.",
+          },
+          {
+            type: "paragraph",
+            text: "É o tipo de mudança que dói na hora, mas que a longo prazo faz sentido.",
+          },
+          {
+            type: "heading",
+            text: "O que fazer agora",
+          },
+          {
+            type: "paragraph",
+            text: "Se você ainda não mapeou seus modelos legados, esse é o primeiro passo. Use o Power BI Service para verificar workspace por workspace, ou use a API REST para uma visão completa do tenant.",
+          },
+          {
+            type: "paragraph",
+            text: "Depois, priorize os relatórios mais usados. Comece a migração por eles, valide os dados, e só então avance para os de menor uso.",
+          },
+          {
+            type: "paragraph",
+            text: "Não deixe para a última hora. O prazo final é 31 de agosto, e um relatório quebrado no dia seguinte é exatamente o tipo de problema que ninguém quer explicar para o gestor numa segunda de manhã.",
+          },
+        ],
+      },
+      en: {
+        title: "The end of the legacy Excel and CSV importer in Power BI: what changes after August 31, 2026",
+        summary:
+          "Microsoft is shutting down support for the legacy Excel and CSV importer in Power BI Service. After August 31, 2026, reports that depend on this old flow will simply stop opening. See who is affected, how to migrate, and what to do now.",
+        eyebrow: "Power BI",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-08-11",
+        readingTime: "8 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "If you are still using the old flow of uploading an Excel or CSV file directly through the browser in Power BI Service, this article is a warning. Microsoft is shutting down support for the legacy importer, and the final deadline is August 31, 2026.",
+          },
+          {
+            type: "paragraph",
+            text: "This is not a subtle change. After that date, reports that depend on semantic models created through the legacy flow will simply stop opening. No stale data warning, no friendly message. Just an error on the screen.",
+          },
+          {
+            type: "heading",
+            text: "What is the legacy importer?",
+          },
+          {
+            type: "paragraph",
+            text: "Back when Power BI Service was still young, Microsoft offered a straightforward way to work with data: you went to the 'Create' page, uploaded an Excel or CSV file directly through the browser, and Power BI generated a semantic model on the spot. No Power BI Desktop needed, no gateway configuration, nothing complicated.",
+          },
+          {
+            type: "paragraph",
+            text: "That convenience came with a cost. Models created this way were limited: you could not edit them in the browser, there was no scheduled refresh option, and you could not download them back. For anyone who needed a quick, static report, it worked. For anyone who needed live data, it was a trap.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft decided to deprecate this flow, and did so in stages.",
+          },
+          {
+            type: "heading",
+            text: "The dates you need to know",
+          },
+          {
+            type: "paragraph",
+            text: "The deprecation happened in three phases:",
+          },
+          {
+            type: "list",
+            items: [
+              "May 31, 2026: Creating new semantic models through the legacy flow was blocked. No one can start down that path anymore.",
+              "July 31, 2026: Existing semantic models stopped refreshing. Reports still opened, but the data froze at that point in time. Anything updated in the source file after that date simply would not show up.",
+              "August 31, 2026: The final deadline. Legacy semantic models are no longer available for querying. Reports linked to them return an error and will not open.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "If you are reading this after August 31, the damage may already have happened. But it can still be fixed.",
+          },
+          {
+            type: "heading",
+            text: "Who is affected?",
+          },
+          {
+            type: "paragraph",
+            text: "The good news is that this change does not affect everyone. It specifically impacts users who created semantic models by uploading Excel or CSV files directly through the Power BI Service web interface and have reports connected to those models.",
+          },
+          {
+            type: "paragraph",
+            text: "If you built your models in Power BI Desktop and published them to the Service, you are fine. If you use the Excel and CSV connectors inside Desktop and work with files on OneDrive or SharePoint, there is nothing to worry about either.",
+          },
+          {
+            type: "paragraph",
+            text: "The quickest way to identify legacy models is to check in Power BI Service whether they have the options to edit in the browser, download the file, or configure scheduled refresh. If none of those options appear, it is a legacy model.",
+          },
+          {
+            type: "paragraph",
+            text: "Tenant administrators can use the Power BI REST API to examine the ContentProviderType property of datasets and identify all legacy models across the organization at once.",
+          },
+          {
+            type: "heading",
+            text: "How to migrate",
+          },
+          {
+            type: "paragraph",
+            text: "The migration is not complicated, but it requires attention so nothing gets lost.",
+          },
+          {
+            type: "paragraph",
+            text: "Step 1: open Power BI Desktop. Use the 'Get Data' option to connect to the same Excel or CSV file that was feeding the legacy model. Desktop will create a new, modern semantic model with all available options.",
+          },
+          {
+            type: "paragraph",
+            text: "Step 2: publish to Power BI Service. After configuring transformations and validating the data, publish the model to the correct workspace.",
+          },
+          {
+            type: "paragraph",
+            text: "Step 3: rebind the reports. Old reports need to be pointed at the new semantic model. In Power BI Service, there is an option to reassign the data source of an existing report, which avoids the need to rebuild everything from scratch.",
+          },
+          {
+            type: "paragraph",
+            text: "If the Excel or CSV file is stored in OneDrive for Work or SharePoint, Power BI can automatically sync any changes within about an hour, with no gateway configuration required.",
+          },
+          {
+            type: "paragraph",
+            text: "For organizations looking to go further, moving data to Microsoft Fabric's OneLake is an option that eliminates duplication and centralizes everything in one place.",
+          },
+          {
+            type: "heading",
+            text: "Why did Microsoft do this?",
+          },
+          {
+            type: "paragraph",
+            text: "The legacy flow was technically inferior to what the platform has evolved to support. Maintaining two parallel systems, one modern and one old, generates maintenance costs, behavioral inconsistencies, and confusion for users.",
+          },
+          {
+            type: "paragraph",
+            text: "The deprecation forces a standardization that, in the end, benefits everyone who migrates: modern models support scheduled refresh, are editable, can be downloaded, and integrate better with the full Power BI and Fabric ecosystem.",
+          },
+          {
+            type: "paragraph",
+            text: "It is the kind of change that stings in the short term but makes sense over time.",
+          },
+          {
+            type: "heading",
+            text: "What to do now",
+          },
+          {
+            type: "paragraph",
+            text: "If you have not yet mapped your legacy models, that is the first step. Use Power BI Service to check workspace by workspace, or use the REST API for a complete tenant-wide view.",
+          },
+          {
+            type: "paragraph",
+            text: "Then prioritize the most-used reports. Start the migration with those, validate the data, and only then move on to lower-traffic ones.",
+          },
+          {
+            type: "paragraph",
+            text: "Do not wait until the last minute. The final deadline is August 31, and a broken report on the morning after is exactly the kind of problem nobody wants to explain to their manager on a Monday morning.",
+          },
+        ],
+      },
+    },
+  },
 ];
 
 export function getArticlesForLocale(locale: Locale) {
