@@ -3,7 +3,7 @@ import { GlassCard, PageHero, Section } from "@/components/ui";
 import type { Locale } from "@/lib/i18n";
 import { getPublishedMaterials } from "@/lib/materials";
 
-export const revalidate = 300;
+export const revalidate = 1800;
 
 export default async function MaterialsPage({
   params,
@@ -51,8 +51,8 @@ export default async function MaterialsPage({
         title={isPt ? "Materiais disponíveis" : "Available materials"}
         description={
           isPt
-            ? "Pesquise por título, assunto ou formato. Quando houver um vídeo relacionado, você também poderá assisti-lo diretamente pelo card."
-            : "Search by title, topic, or format. When a related video is available, you can also watch it directly from the card."
+            ? "Pesquise por título, categoria ou formato e faça o download diretamente pelo card."
+            : "Search by title, category, or format and download the file directly from its card."
         }
       >
         <MaterialsCatalog locale={locale} result={result} />
@@ -77,11 +77,11 @@ export default async function MaterialsPage({
             }
           />
           <GlassCard
-            title={isPt ? "Ligação com os vídeos" : "Connected to the videos"}
+            title={isPt ? "Catálogo sempre atualizado" : "Always up to date"}
             description={
               isPt
-                ? "Use o link do vídeo para rever a explicação antes ou depois do download."
-                : "Use the video link to revisit the explanation before or after downloading."
+                ? "Novos arquivos aparecem automaticamente após o upload, sem cadastro duplicado."
+                : "New files appear automatically after upload, with no duplicate registration."
             }
           />
           <GlassCard
