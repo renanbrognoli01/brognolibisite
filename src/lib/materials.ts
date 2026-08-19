@@ -14,7 +14,7 @@ export type MaterialItem = {
 
 export type MaterialsResult = {
   items: MaterialItem[];
-  status: "ready" | "not-configured" | "unavailable";
+  status: "ready" | "unavailable";
 };
 
 const typeCategories: Record<string, string> = {
@@ -128,10 +128,6 @@ const getCachedMaterials = unstable_cache(listMaterialsFromBlob, ["vercel-blob-m
 });
 
 export async function getPublishedMaterials(): Promise<MaterialsResult> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
-    return { items: [], status: "not-configured" };
-  }
-
   try {
     const items = await getCachedMaterials();
 

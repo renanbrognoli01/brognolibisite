@@ -16,9 +16,10 @@ Supabase nem outro painel: terminou o upload, o material entra no catálogo.
    **Development** do projeto.
 8. Conclua a criação.
 
-A Vercel adicionará automaticamente a variável `BLOB_READ_WRITE_TOKEN` ao
-projeto. Faça um novo deploy após a criação para que a aplicação receba a
-variável pela primeira vez.
+A Vercel conecta projetos novos por OIDC. Nesse modelo, ela adiciona
+`BLOB_STORE_ID` e entrega credenciais temporárias automaticamente às Functions;
+não é necessário criar nem copiar `BLOB_READ_WRITE_TOKEN`. Faça um novo deploy
+após a criação para que a aplicação receba a conexão pela primeira vez.
 
 Use esse armazenamento somente para materiais públicos. Qualquer pessoa que
 possua a URL poderá baixar o arquivo.
