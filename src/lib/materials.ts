@@ -1,18 +1,14 @@
-export type MaterialLanguage = "pt-br" | "en" | "both";
+import { list, type ListBlobResultBlob } from "@vercel/blob";
+import { unstable_cache } from "next/cache";
 
 export type MaterialItem = {
   id: string;
-  slug: string;
   title: string;
-  description: string;
   category: string;
-  language: MaterialLanguage;
   fileName: string;
   fileType: string;
   fileSizeBytes: number | null;
   downloadUrl: string;
-  videoUrl: string | null;
-  thumbnailUrl: string | null;
   publishedAt: string;
 };
 
@@ -21,108 +17,123 @@ export type MaterialsResult = {
   status: "ready" | "not-configured" | "unavailable";
 };
 
-type MaterialRow = {
-  id?: unknown;
-  slug?: unknown;
-  title?: unknown;
-  description?: unknown;
-  category?: unknown;
-  language?: unknown;
-  file_name?: unknown;
-  file_type?: unknown;
-  file_size_bytes?: unknown;
-  download_url?: unknown;
-  video_url?: unknown;
-  thumbnail_url?: unknown;
-  published_at?: unknown;
+const typeCategories: Record<string, string> = {
+  pbix: "Power BI",
+  pbip: "Power BI",
+  pbit: "Power BI",
+  dax: "DAX",
+  xls: "Excel",
+  xlsx: "Excel",
+  xlsm: "Excel",
+  csv: "Excel",
+  pdf: "PDF",
+  json: "JSON",
+  zip: "Arquivos",
 };
 
-function optionalString(value: unknown): string | null {
-  return typeof value === "string" && value.trim() ? value.trim() : null;
-}
-
-function externalUrl(value: unknown): string | null {
-  const candidate = optionalString(value);
-
-  if (!candidate) {
-    return null;
-  }
-
+function safeDecode(value: string) {
   try {
-    const url = new URL(candidate);
-    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : null;
+    return decodeURIComponent(value);
   } catch {
-    return null;
+    return value;
   }
 }
 
-function mapMaterial(row: MaterialRow): MaterialItem | null {
-  const id = optionalString(row.id);
-  const slug = optionalString(row.slug);
-  const title = optionalString(row.title);
-  const downloadUrl = externalUrl(row.download_url);
-  const publishedAt = optionalString(row.published_at);
+function humanize(value: string) {
+  const normalized = safeDecode(value)
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-  if (!id || !slug || !title || !downloadUrl || !publishedAt) {
+  if (!normalized) {
+    return "Material";
+  }
+
+  return normalized
+    .split(" ")
+    .map((word, index) => {
+      const lower = word.toLocaleLowerCase();
+
+      if (["bi", "dax", "sql", "etl", "api", "pbix", "pbip", "pbit"].includes(lower)) {
+        return lower.toUpperCase();
+      }
+
+      if (
+        index > 0 &&
+        ["de", "da", "do", "das", "dos", "e", "em", "para", "com", "of", "the", "and", "to", "for"].includes(lower)
+      ) {
+        return lower;
+      }
+
+      return word.length > 1 && word === word.toUpperCase()
+        ? word
+        : `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
+    })
+    .join(" ");
+}
+
+function materialFromBlob(blob: ListBlobResultBlob): MaterialItem | null {
+  const pathname = safeDecode(blob.pathname).replace(/^\/+/, "");
+  const segments = pathname.split("/").filter(Boolean);
+  const fileName = segments.at(-1);
+
+  if (!fileName || fileName.startsWith(".") || fileName.toLocaleLowerCase() === "robots.txt") {
     return null;
   }
 
-  const language = row.language === "en" || row.language === "both" ? row.language : "pt-br";
-  const size =
-    typeof row.file_size_bytes === "number" && Number.isFinite(row.file_size_bytes)
-      ? row.file_size_bytes
-      : null;
+  const extensionMatch = fileName.match(/\.([^.]+)$/);
+  const extension = extensionMatch?.[1]?.toLocaleLowerCase() ?? "arquivo";
+  const nameWithoutExtension = extensionMatch
+    ? fileName.slice(0, -extensionMatch[0].length)
+    : fileName;
+  const folder = segments.length > 1 ? segments[0] : null;
+  const category = folder ? humanize(folder) : (typeCategories[extension] ?? "Materiais");
 
   return {
-    id,
-    slug,
-    title,
-    description: optionalString(row.description) ?? "",
-    category: optionalString(row.category) ?? "Geral",
-    language,
-    fileName: optionalString(row.file_name) ?? title,
-    fileType: optionalString(row.file_type) ?? "Arquivo",
-    fileSizeBytes: size,
-    downloadUrl,
-    videoUrl: externalUrl(row.video_url),
-    thumbnailUrl: externalUrl(row.thumbnail_url),
-    publishedAt,
+    id: blob.url,
+    title: humanize(nameWithoutExtension),
+    category,
+    fileName,
+    fileType: extension.toUpperCase(),
+    fileSizeBytes: blob.size,
+    downloadUrl: blob.downloadUrl,
+    publishedAt: new Date(blob.uploadedAt).toISOString(),
   };
 }
 
-export async function getPublishedMaterials(): Promise<MaterialsResult> {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
-  const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim();
+async function listMaterialsFromBlob() {
+  const blobs: ListBlobResultBlob[] = [];
+  let cursor: string | undefined;
+  let hasMore = true;
 
-  if (!supabaseUrl || !publishableKey) {
+  while (hasMore) {
+    const result = await list({
+      cursor,
+      limit: 1000,
+    });
+
+    blobs.push(...result.blobs);
+    cursor = result.cursor;
+    hasMore = result.hasMore;
+  }
+
+  return blobs
+    .map(materialFromBlob)
+    .filter((item): item is MaterialItem => item !== null)
+    .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
+}
+
+const getCachedMaterials = unstable_cache(listMaterialsFromBlob, ["vercel-blob-materials"], {
+  revalidate: 1800,
+});
+
+export async function getPublishedMaterials(): Promise<MaterialsResult> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
     return { items: [], status: "not-configured" };
   }
 
-  const endpoint = new URL(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/materials`);
-  endpoint.searchParams.set(
-    "select",
-    "id,slug,title,description,category,language,file_name,file_type,file_size_bytes,download_url,video_url,thumbnail_url,published_at",
-  );
-  endpoint.searchParams.set("is_published", "eq.true");
-  endpoint.searchParams.set("order", "published_at.desc");
-
   try {
-    const response = await fetch(endpoint.toString(), {
-      headers: {
-        apikey: publishableKey,
-        Authorization: `Bearer ${publishableKey}`,
-      },
-      next: { revalidate: 300 },
-    });
-
-    if (!response.ok) {
-      return { items: [], status: "unavailable" };
-    }
-
-    const rows = (await response.json()) as MaterialRow[];
-    const items = rows
-      .map(mapMaterial)
-      .filter((item): item is MaterialItem => item !== null);
+    const items = await getCachedMaterials();
 
     return { items, status: "ready" };
   } catch {

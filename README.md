@@ -51,7 +51,8 @@ This keeps the website professional and simple now, while preserving the option 
 
 ## Downloadable materials
 
-The public materials catalog uses the existing Supabase project for metadata and
-accepts direct download URLs from Vercel Blob, Supabase Storage, or another file
-provider. See [docs/materials-publishing-guide.md](docs/materials-publishing-guide.md)
-for the one-time setup and publishing workflow.
+The public materials catalog lists every file from the Vercel Blob store
+connected to the site. Uploading a file is enough for it to appear automatically;
+no database record or new deploy is required. See
+[docs/materials-publishing-guide.md](docs/materials-publishing-guide.md) for the
+one-time setup and upload workflow.

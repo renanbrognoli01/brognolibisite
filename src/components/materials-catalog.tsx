@@ -34,30 +34,10 @@ function formatDate(value: string, locale: Locale) {
   }).format(date);
 }
 
-function languageLabel(language: MaterialItem["language"], locale: Locale) {
-  if (language === "both") {
-    return locale === "pt-br" ? "PT-BR e EN" : "PT-BR and EN";
-  }
-
-  if (language === "en") {
-    return locale === "pt-br" ? "Inglês" : "English";
-  }
-
-  return locale === "pt-br" ? "Português" : "Portuguese";
-}
-
 function DownloadIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8">
       <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function PlayIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-4 w-4 fill-current">
-      <path d="M8.5 6.2v11.6a1 1 0 0 0 1.53.85l8.3-5.8a1 1 0 0 0 0-1.7l-8.3-5.8a1 1 0 0 0-1.53.85Z" />
     </svg>
   );
 }
@@ -70,27 +50,15 @@ function MaterialCard({ item, locale }: { item: MaterialItem; locale: Locale }) 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.035] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.055]">
       <div className="relative aspect-[16/8.8] overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_top_right,_rgba(0,178,169,0.28),_transparent_42%),linear-gradient(135deg,_#0d2940,_#071521)]">
-        {item.thumbnailUrl ? (
-          <div
-            role="img"
-            aria-label={item.title}
-            className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-[1.03]"
-            style={{ backgroundImage: `url(${JSON.stringify(item.thumbnailUrl).slice(1, -1)})` }}
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-[1.5rem] border border-white/12 bg-white/[0.06] text-3xl font-semibold text-[var(--brand-amber)]">
-              {item.fileType.slice(0, 3).toUpperCase()}
-            </div>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex h-20 w-20 items-center justify-center rounded-[1.5rem] border border-white/12 bg-white/[0.06] text-3xl font-semibold text-[var(--brand-amber)] transition duration-500 group-hover:scale-[1.05]">
+            {item.fileType.slice(0, 3).toUpperCase()}
           </div>
-        )}
+        </div>
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#071521] to-transparent" />
         <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center gap-2">
           <span className="rounded-full border border-white/12 bg-[#071521]/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/75 backdrop-blur">
             {item.category}
-          </span>
-          <span className="rounded-full border border-white/12 bg-[#071521]/85 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-white/55 backdrop-blur">
-            {languageLabel(item.language, locale)}
           </span>
         </div>
       </div>
@@ -102,9 +70,6 @@ function MaterialCard({ item, locale }: { item: MaterialItem; locale: Locale }) 
           {date ? <span>• {date}</span> : null}
         </div>
         <h3 className="mt-3 text-xl font-semibold leading-7 text-white">{item.title}</h3>
-        {item.description ? (
-          <p className="mt-3 text-sm leading-7 text-white/66">{item.description}</p>
-        ) : null}
 
         <div className="mt-auto flex flex-wrap gap-3 pt-6">
           <a
@@ -116,17 +81,6 @@ function MaterialCard({ item, locale }: { item: MaterialItem; locale: Locale }) 
             <DownloadIcon />
             {isPt ? "Baixar material" : "Download material"}
           </a>
-          {item.videoUrl ? (
-            <a
-              href={item.videoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:border-white/24 hover:bg-white/[0.08]"
-            >
-              <PlayIcon />
-              {isPt ? "Assistir ao vídeo" : "Watch video"}
-            </a>
-          ) : null}
         </div>
       </div>
     </article>
@@ -156,7 +110,7 @@ export function MaterialsCatalog({
       const matchesCategory = category === "all" || item.category === category;
       const matchesQuery =
         !normalizedQuery ||
-        [item.title, item.description, item.category, item.fileType]
+        [item.title, item.fileName, item.category, item.fileType]
           .join(" ")
           .toLocaleLowerCase(locale)
           .includes(normalizedQuery);
