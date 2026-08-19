@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { CopyMaterialLink } from "@/components/copy-material-link";
 import type { MaterialItem, MaterialsResult } from "@/lib/materials";
 
 type Locale = "pt-br" | "en";
@@ -46,6 +48,7 @@ function MaterialCard({ item, locale }: { item: MaterialItem; locale: Locale }) 
   const isPt = locale === "pt-br";
   const size = formatBytes(item.fileSizeBytes, locale);
   const date = formatDate(item.publishedAt, locale);
+  const materialHref = `/${locale}/materials/${item.slug}`;
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/[0.035] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.055]">
@@ -69,7 +72,11 @@ function MaterialCard({ item, locale }: { item: MaterialItem; locale: Locale }) 
           {size ? <span>• {size}</span> : null}
           {date ? <span>• {date}</span> : null}
         </div>
-        <h3 className="mt-3 text-xl font-semibold leading-7 text-white">{item.title}</h3>
+        <h3 className="mt-3 text-xl font-semibold leading-7 text-white">
+          <Link href={materialHref} className="transition hover:text-[var(--brand-amber)]">
+            {item.title}
+          </Link>
+        </h3>
 
         <div className="mt-auto flex flex-wrap gap-3 pt-6">
           <a
@@ -81,6 +88,7 @@ function MaterialCard({ item, locale }: { item: MaterialItem; locale: Locale }) 
             <DownloadIcon />
             {isPt ? "Baixar material" : "Download material"}
           </a>
+          <CopyMaterialLink href={materialHref} locale={locale} />
         </div>
       </div>
     </article>
