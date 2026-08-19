@@ -1,8 +1,10 @@
 import { list, type ListBlobResultBlob } from "@vercel/blob";
+import { createHash } from "node:crypto";
 import { unstable_cache } from "next/cache";
 
 export type MaterialItem = {
   id: string;
+  slug: string;
   title: string;
   category: string;
   fileName: string;
@@ -72,6 +74,23 @@ function humanize(value: string) {
     .join(" ");
 }
 
+function slugify(value: string) {
+  return safeDecode(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
+function createMaterialSlug(pathname: string, nameWithoutExtension: string) {
+  const readable = slugify(nameWithoutExtension) || "material";
+  const fingerprint = createHash("sha256").update(pathname).digest("hex").slice(0, 8);
+
+  return `${readable}-${fingerprint}`;
+}
+
 function materialFromBlob(blob: ListBlobResultBlob): MaterialItem | null {
   const pathname = safeDecode(blob.pathname).replace(/^\/+/, "");
   const segments = pathname.split("/").filter(Boolean);
@@ -91,6 +110,7 @@ function materialFromBlob(blob: ListBlobResultBlob): MaterialItem | null {
 
   return {
     id: blob.url,
+    slug: createMaterialSlug(pathname, nameWithoutExtension),
     title: humanize(nameWithoutExtension),
     category,
     fileName,

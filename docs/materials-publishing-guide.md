@@ -35,6 +35,10 @@ Pronto. Em até trinta minutos ele aparecerá automaticamente na página de
 materiais. Não é necessário copiar URL, abrir o Supabase, fazer commit ou gerar
 outro deploy.
 
+Cada card terá uma página própria e um botão **Copiar link**. O endereço copiado
+usa o domínio `brognolibi.com` e pode ser colocado na descrição do vídeo para
+levar o visitante diretamente ao material correto.
+
 ## Como o card é montado
 
 O site usa os dados do próprio arquivo:
@@ -64,6 +68,10 @@ catálogo mais organizado, use nomes como:
 - `Fabric/notebook-lakehouse.ipynb`
 
 Prefira nomes descritivos com hífens e mantenha a extensão original.
+
+O link permanente é calculado a partir do caminho do arquivo. Depois de divulgar
+um link, não renomeie nem mova o arquivo no Blob Store, pois isso criará um novo
+endereço para o material.
 
 ## Remover ou substituir
 
