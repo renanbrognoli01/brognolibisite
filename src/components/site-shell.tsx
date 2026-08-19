@@ -26,6 +26,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
                 src="/media/LogoDesktop.png"
                 alt="Brognoli BI"
                 fill
+                sizes="64px"
                 className="object-contain"
                 priority
               />
@@ -35,12 +36,12 @@ export function SiteShell({ locale, children }: SiteShellProps) {
             </p>
           </Link>
 
-          <nav className="hidden items-center gap-5 lg:flex">
+          <nav className="hidden items-center gap-3 lg:flex xl:gap-5">
             {dict.nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-white/72 transition hover:text-[var(--brand-amber)]"
+                className="text-[0.78rem] font-medium text-white/72 transition hover:text-[var(--brand-amber)] xl:text-sm"
               >
                 {item.label}
               </Link>
@@ -61,7 +62,13 @@ export function SiteShell({ locale, children }: SiteShellProps) {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="relative h-14 w-14 shrink-0">
-                <Image src="/media/LogoDesktop.png" alt="Brognoli BI" fill className="object-contain" />
+                <Image
+                  src="/media/LogoDesktop.png"
+                  alt="Brognoli BI"
+                  fill
+                  sizes="56px"
+                  className="object-contain"
+                />
               </div>
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-white/45">Brognoli BI</p>
