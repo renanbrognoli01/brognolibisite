@@ -25,6 +25,312 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "copilot-no-excel-com-dados-do-power-bi-julho-2026",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Copilot no Excel com dados do Power BI: o que mudou e como usar agora",
+        summary:
+          "A atualização de julho de 2026 trouxe o Power BI grounding e conectores sincronizados ao Copilot no Excel. Entenda o que mudou, como conectar um relatório e o que o modelo semântico precisa ter para funcionar direito.",
+        eyebrow: "Power BI e DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-08-25",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Durante anos, o fluxo era sempre o mesmo: você abria o Power BI, criava o visual, exportava para Excel, ajustava a planilha e finalmente mandava para o gestor. Um processo que consumia tempo e criava aquela clássica situação do \"esses dados estão desatualizados já\".",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft acaba de mudar esse ciclo. Com a atualização de julho de 2026, o Copilot no Excel ganhou suporte a Power BI grounding, além de conectores sincronizados disponíveis para todos. Na prática, você analisa dados governados do Power BI diretamente no Excel, usando linguagem natural, sem precisar exportar nada.",
+          },
+          {
+            type: "paragraph",
+            text: "Parece simples. E é. Mas tem alguns detalhes importantes que definem se a coisa vai funcionar bem ou virar uma dor de cabeça.",
+          },
+          {
+            type: "heading",
+            text: "O que é Power BI grounding no contexto do Copilot",
+          },
+          {
+            type: "paragraph",
+            text: "\"Grounding\" é o processo de dar contexto real ao modelo de linguagem do Copilot. Sem ele, a IA responde com base no seu conhecimento geral. Com ele, responde com base nos seus dados.",
+          },
+          {
+            type: "paragraph",
+            text: "No caso do Excel, o Copilot agora consegue importar um snapshot dos dados de um relatório do Power BI e usar esse conteúdo como base para responder perguntas, gerar tabelas, criar gráficos e produzir resumos. Tudo isso dentro do Excel, em linguagem natural.",
+          },
+          {
+            type: "paragraph",
+            text: "Importante: não é uma conexão ao vivo. O Copilot importa um instantâneo único do relatório. Se os dados mudaram desde a última importação, você precisa adicionar o relatório novamente ao painel do Copilot para pegar a versão atualizada.",
+          },
+          {
+            type: "heading",
+            text: "Como conectar um relatório do Power BI ao Copilot no Excel",
+          },
+          {
+            type: "paragraph",
+            text: "O processo é direto:",
+          },
+          {
+            type: "list",
+            items: [
+              "Abra o Excel e acesse o painel do Copilot.",
+              "No campo de prompt, clique no ícone \"+\" para adicionar conteúdo.",
+              "Selecione \"Adicionar conteúdo de trabalho\" e depois \"Outro\".",
+              "Uma lista dos seus relatórios do Power BI acessados recentemente vai aparecer.",
+              "Selecione o relatório desejado e confirme.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "A partir daí, o Copilot usa esse relatório como base para responder suas perguntas. Você pode pedir análises, comparações, resumos em tópicos, tabelas dinâmicas prontas para editar. A resposta é rastreável: o Copilot indica de onde veio cada dado.",
+          },
+          {
+            type: "paragraph",
+            text: "Outra rota, se você preferir começar pelo Power BI: abra o serviço, localize o modelo semântico, clique nas opções e escolha \"Analisar no Excel\". O Power BI gera e baixa um arquivo Excel já conectado ao modelo.",
+          },
+          {
+            type: "heading",
+            text: "Conectores sincronizados: o outro lado da atualização",
+          },
+          {
+            type: "paragraph",
+            text: "Além do Power BI grounding, a atualização de julho trouxe os Synced Copilot Connectors como recurso disponível para todos. Eles funcionam de forma diferente: em vez de dados de relatórios, você traz para o Excel conteúdo organizacional, como tickets de suporte, registros de CRM, itens de trabalho e documentos corporativos.",
+          },
+          {
+            type: "paragraph",
+            text: "Esse conteúdo entra direto no grid do Excel. Depois disso, o Copilot analisa tudo com linguagem natural. É a diferença entre ter um relatório estático e ter a capacidade de cruzar dados de fontes completamente diferentes dentro de uma única planilha.",
+          },
+          {
+            type: "heading",
+            text: "O que o modelo semântico precisa ter para funcionar direito",
+          },
+          {
+            type: "paragraph",
+            text: "Aqui mora a pegadinha. O Copilot é tão bom quanto o modelo que ele consulta. Um modelo desorganizado retorna respostas imprecisas ou se recusa a responder.",
+          },
+          {
+            type: "paragraph",
+            text: "Medidas bem definidas. O Copilot depende dos metadados do modelo para gerar respostas. Se as medidas estão lá, nomeadas e com descrições claras, a IA sabe o que usar. Se não estão, ela tenta adivinhar e geralmente erra.",
+          },
+          {
+            type: "paragraph",
+            text: "Nomes de tabelas e colunas legíveis. \"fct_vnd_v2_final_REAL\" não ajuda ninguém. \"Vendas\" sim.",
+          },
+          {
+            type: "paragraph",
+            text: "Row-Level Security configurado antes de ativar o Copilot. Se você tem dados sensíveis, a RLS precisa estar no lugar. O Copilot respeita as permissões do modelo, mas só se elas existirem.",
+          },
+          {
+            type: "paragraph",
+            text: "Modelo simplificado. Relações desnecessárias e tabelas que ninguém usa atrapalham o Copilot tanto quanto atrapalham qualquer analista.",
+          },
+          {
+            type: "heading",
+            text: "Licença e capacidade: o que você precisa ter",
+          },
+          {
+            type: "paragraph",
+            text: "O Copilot no Excel com Power BI grounding exige:",
+          },
+          {
+            type: "list",
+            items: [
+              "Licença Microsoft 365 com Copilot habilitado.",
+              "Workspace do Power BI em capacidade Fabric F64+ ou Power BI Premium.",
+              "O Copilot precisa estar habilitado no tenant pelo administrador.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Power BI Pro sozinho não habilita o painel do Copilot com essas funcionalidades avançadas. Esse ponto costuma pegar as equipes de surpresa na hora de implantar.",
+          },
+          {
+            type: "heading",
+            text: "Um aviso sobre o Power BI Q&A",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft anunciou que vai aposentar o recurso Power BI Q&A em dezembro de 2026. Isso inclui visuais de Q&A, tiles de dashboard e experiências embarcadas. A migração recomendada é exatamente para o Copilot. Quem depende do Q&A hoje precisa planejar essa transição com antecedência.",
+          },
+          {
+            type: "heading",
+            text: "Por que isso importa para quem trabalha com dados",
+          },
+          {
+            type: "paragraph",
+            text: "A proposta não é substituir o Power BI. O relatório continua lá, governado, com as medidas corretas e a segurança configurada. O que muda é a camada de consumo.",
+          },
+          {
+            type: "paragraph",
+            text: "Um analista que vive no Excel agora pode consultar dados do modelo semântico sem depender do desenvolvedor de BI para criar cada visual ou exportar cada tabela. Ele faz a pergunta em linguagem natural, o Copilot busca no relatório e entrega a resposta diretamente na planilha.",
+          },
+          {
+            type: "paragraph",
+            text: "Para equipes que ainda brigam com o eterno \"quem tem a versão mais recente da planilha\", essa integração é uma resposta concreta. Os dados vêm do modelo. O modelo tem um dono. O dono cuida da qualidade. O consumidor analisa no ambiente que prefere.",
+          },
+          {
+            type: "paragraph",
+            text: "Não é mágica, é arquitetura funcionando do jeito que deveria funcionar há muito tempo.",
+          },
+        ],
+      },
+      en: {
+        title: "Copilot in Excel with Power BI Data: What Changed and How to Use It Now",
+        summary:
+          "The July 2026 update brought Power BI grounding and synced connectors to Copilot in Excel. Understand what changed, how to connect a report, and what your semantic model needs to work properly.",
+        eyebrow: "Power BI and DAX",
+        author: "Renan Brognoli",
+        category: "Power BI",
+        publishedAt: "2026-08-25",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "For years, the workflow was always the same: open Power BI, build the visual, export to Excel, adjust the spreadsheet, and finally send it to the manager. A process that ate up time and created the classic \"these numbers are already outdated\" situation.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft just changed that cycle. With the July 2026 update, Copilot in Excel gained Power BI grounding support, alongside synced connectors now available for everyone. In practice, you analyze governed Power BI data directly in Excel using natural language, without exporting anything.",
+          },
+          {
+            type: "paragraph",
+            text: "It sounds simple. And it is. But there are a few important details that determine whether things work smoothly or turn into a headache.",
+          },
+          {
+            type: "heading",
+            text: "What Power BI Grounding Means in the Copilot Context",
+          },
+          {
+            type: "paragraph",
+            text: "\"Grounding\" is the process of giving the Copilot language model real-world context. Without it, the AI answers based on general knowledge. With it, it answers based on your data.",
+          },
+          {
+            type: "paragraph",
+            text: "In Excel, Copilot can now import a snapshot of a Power BI report's data and use that content as the foundation for answering questions, generating tables, creating charts, and producing summaries. All of this inside Excel, in plain language.",
+          },
+          {
+            type: "paragraph",
+            text: "One important note: it is not a live connection. Copilot imports a one-time snapshot of the report. If the data has changed since the last import, you need to add the report again to the Copilot panel to get the updated version.",
+          },
+          {
+            type: "heading",
+            text: "How to Connect a Power BI Report to Copilot in Excel",
+          },
+          {
+            type: "paragraph",
+            text: "The process is straightforward:",
+          },
+          {
+            type: "list",
+            items: [
+              "Open Excel and access the Copilot panel.",
+              "In the prompt field, click the \"+\" icon to add content.",
+              "Select \"Add work content\" and then \"Other.\"",
+              "A list of your recently accessed Power BI reports will appear.",
+              "Select the desired report and confirm.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "From there, Copilot uses that report as the basis for answering your questions. You can ask for analyses, comparisons, bullet-point summaries, or editable pivot tables ready to work with. Responses are traceable: Copilot indicates where each piece of data came from.",
+          },
+          {
+            type: "paragraph",
+            text: "Another route, if you prefer to start in Power BI: open the service, find the semantic model, click the options menu, and choose \"Analyze in Excel.\" Power BI generates and downloads an Excel file already connected to the model.",
+          },
+          {
+            type: "heading",
+            text: "Synced Connectors: The Other Side of the Update",
+          },
+          {
+            type: "paragraph",
+            text: "Beyond Power BI grounding, the July update made Synced Copilot Connectors generally available for everyone. These work differently: instead of report data, they bring organizational content directly into Excel, such as support tickets, CRM records, work items, and corporate documents.",
+          },
+          {
+            type: "paragraph",
+            text: "That content lands straight in the Excel grid. From there, Copilot analyzes everything in natural language. The difference is between having a static report and having the ability to cross-reference data from completely different sources inside a single spreadsheet.",
+          },
+          {
+            type: "heading",
+            text: "What the Semantic Model Needs to Work Properly",
+          },
+          {
+            type: "paragraph",
+            text: "This is where the catch lives. Copilot is only as good as the model it queries. A disorganized model returns inaccurate answers or refuses to respond at all.",
+          },
+          {
+            type: "paragraph",
+            text: "Well-defined measures. Copilot relies on model metadata to generate responses. If measures are there, named properly and with clear descriptions, the AI knows what to use. If they are not, it guesses, and it usually gets it wrong.",
+          },
+          {
+            type: "paragraph",
+            text: "Readable table and column names. \"fct_vnd_v2_final_REAL\" helps no one. \"Sales\" does.",
+          },
+          {
+            type: "paragraph",
+            text: "Row-Level Security configured before enabling Copilot. If you have sensitive data, RLS needs to be in place. Copilot respects model permissions, but only if they exist.",
+          },
+          {
+            type: "paragraph",
+            text: "A simplified model. Unnecessary relationships and unused tables slow down Copilot just as much as they slow down any analyst.",
+          },
+          {
+            type: "heading",
+            text: "Licensing and Capacity: What You Need",
+          },
+          {
+            type: "paragraph",
+            text: "Copilot in Excel with Power BI grounding requires:",
+          },
+          {
+            type: "list",
+            items: [
+              "A Microsoft 365 license with Copilot enabled.",
+              "A Power BI workspace on Fabric F64+ capacity or Power BI Premium.",
+              "Copilot enabled at the tenant level by your administrator.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Power BI Pro alone does not enable the Copilot panel for these advanced features. This point tends to catch teams off guard when it is time to deploy.",
+          },
+          {
+            type: "heading",
+            text: "A Note on Power BI Q&A",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft announced that it will retire the Power BI Q&A feature in December 2026. This includes Q&A visuals, dashboard tiles, and embedded experiences. The recommended migration path is precisely to Copilot. Anyone relying on Q&A today needs to plan that transition ahead of time.",
+          },
+          {
+            type: "heading",
+            text: "Why This Matters for People Who Work with Data",
+          },
+          {
+            type: "paragraph",
+            text: "The point is not to replace Power BI. The report stays there, governed, with the right measures and security in place. What changes is the consumption layer.",
+          },
+          {
+            type: "paragraph",
+            text: "An analyst who lives in Excel can now query data from the semantic model without depending on the BI developer to build every visual or export every table. Ask the question in plain language, Copilot searches the report, and the answer lands directly in the spreadsheet.",
+          },
+          {
+            type: "paragraph",
+            text: "For teams still fighting over \"who has the latest version of the file,\" this integration is a concrete answer. The data comes from the model. The model has an owner. The owner maintains quality. The consumer analyzes it in the environment they prefer.",
+          },
+          {
+            type: "paragraph",
+            text: "It is not magic. It is architecture working the way it should have worked a long time ago.",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "conversational-analytics-microsoft-fabric",
     featured: false,
     locales: {
