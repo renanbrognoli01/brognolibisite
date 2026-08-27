@@ -25,6 +25,388 @@ export type ArticleEntry = {
 
 export const articles: ArticleEntry[] = [
   {
+    slug: "microsoft-fabric-free-vale-a-pena-2026",
+    featured: false,
+    locales: {
+      "pt-br": {
+        title: "Microsoft Fabric Free vale a pena? O que dá para fazer de graça em 2026",
+        summary:
+          "Entenda a diferença entre o trial gratuito de 60 dias e a licença permanente do Microsoft Fabric, o que cada um permite fazer e em quais cenários faz sentido começar sem pagar nada.",
+        eyebrow: "Microsoft Fabric",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-08-27",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "Quando a Microsoft anunciou o Microsoft Fabric, muita gente ficou curiosa sobre o que conseguiria usar sem pagar nada. A resposta curta: dá para fazer bastante coisa, mas tem um porém que ninguém quer ouvir.",
+          },
+          {
+            type: "paragraph",
+            text: "A boa notícia é que existe um trial generoso. A má notícia é que \"gratuito para sempre\" e \"gratuito por 60 dias\" são conceitos bem diferentes, e a Microsoft às vezes deixa essa distinção propositalmente embaçada.",
+          },
+          {
+            type: "paragraph",
+            text: "Aqui vai a explicação sem rodeios.",
+          },
+          {
+            type: "heading",
+            text: "O que é o Microsoft Fabric, afinal?",
+          },
+          {
+            type: "paragraph",
+            text: "O Microsoft Fabric é a plataforma de analytics da Microsoft que reúne Power BI, Data Factory, Data Engineering, Data Science e Real-Time Intelligence em um único lugar. Em vez de contratar vários serviços separados, você tem tudo dentro do mesmo ambiente, compartilhando o mesmo armazenamento (o OneLake) e o mesmo modelo de capacidade.",
+          },
+          {
+            type: "paragraph",
+            text: "É uma proposta interessante, especialmente para quem já vive dentro do ecossistema Microsoft. A integração com Microsoft 365, Azure e Dynamics é quase transparente.",
+          },
+          {
+            type: "heading",
+            text: "O gratuito do Fabric: duas coisas diferentes",
+          },
+          {
+            type: "paragraph",
+            text: "Quando alguém pesquisa \"Microsoft Fabric Free\", está na verdade falando de dois modelos distintos. Confundi-los é o erro mais comum.",
+          },
+          {
+            type: "heading",
+            text: "Trial de 60 dias",
+          },
+          {
+            type: "paragraph",
+            text: "O trial é o mais robusto dos dois. Você ganha acesso a uma capacidade equivalente a F64 (64 unidades de capacidade), além de 1 TB de armazenamento no OneLake. Durante esse período, pode criar pipelines, notebooks, lakehouses, warehouses e colaborar em workspaces com outros usuários.",
+          },
+          {
+            type: "paragraph",
+            text: "O que não funciona no trial:",
+          },
+          {
+            type: "list",
+            items: [
+              "Copilot e recursos de IA (Data Agent, funções de IA, AI Services)",
+              "Private Link para ambientes com requisitos de rede mais rígidos",
+              "Trusted Workspace Access, que é o controle de acesso avançado para dados sensíveis",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "São limitações que, para quem está avaliando a plataforma, provavelmente não vão fazer diferença no dia a dia. O trial serve muito bem para testar workflows reais antes de abrir a carteira.",
+          },
+          {
+            type: "paragraph",
+            text: "Um detalhe importante: cada tenant do Microsoft Entra tem direito a até cinco trials. Se cancelar antes do prazo, os itens criados ficam disponíveis por mais 7 dias. Depois disso, somem.",
+          },
+          {
+            type: "heading",
+            text: "Licença gratuita por usuário (a permanente)",
+          },
+          {
+            type: "paragraph",
+            text: "Aqui mora a confusão. Existe uma licença por usuário que não expira, mas ela é bem mais limitada do que o trial.",
+          },
+          {
+            type: "paragraph",
+            text: "Com a licença gratuita permanente, você pode:",
+          },
+          {
+            type: "list",
+            items: [
+              "Criar itens do Fabric que não são do Power BI (lakehouses, notebooks, warehouses) dentro de workspaces que já rodam em uma capacidade F-SKU paga",
+              "Visualizar conteúdo do Power BI, mas só se ele estiver em uma capacidade F64 ou superior",
+              "Usar o Power BI Desktop localmente para criar relatórios na sua máquina",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "O que não rola com a licença gratuita: publicar ou compartilhar conteúdo do Power BI na nuvem, colaborar em workspaces sem ter uma capacidade paga por baixo, ou fazer qualquer coisa colaborativa de verdade sem alguém pagando a conta da infraestrutura.",
+          },
+          {
+            type: "paragraph",
+            text: "Traduzindo para o português direto: a licença gratuita permanente só faz sentido se você for um usuário dentro de uma organização que já contratou uma capacidade Fabric. Sozinho, sem pagar nada, você consegue usar o Power BI Desktop localmente. Só isso.",
+          },
+          {
+            type: "heading",
+            text: "Os planos pagos e os SKUs F",
+          },
+          {
+            type: "paragraph",
+            text: "Se o trial acabar e você quiser continuar, o caminho é contratar uma capacidade F-SKU. Os SKUs F vão de F2 (2 unidades de capacidade) até F2048, para quem tem volumes de dados que a maioria de nós jamais vai ver. O modelo de cobrança tem duas opções:",
+          },
+          {
+            type: "paragraph",
+            text: "Pay-as-you-go: você paga por segundo, com mínimo de um minuto. Pode pausar a capacidade quando não está usando e parar de ser cobrado. Ótimo para times de desenvolvimento ou cargas de trabalho intermitentes. Um F2 nesse modelo custa aproximadamente R$ 1.500 por mês.",
+          },
+          {
+            type: "paragraph",
+            text: "Reserva de 1 ou 3 anos: você se compromete antecipadamente e paga cerca de 41% a menos em relação ao pay-as-you-go. O problema é que a cobrança não para, mesmo que você pause a capacidade. Faz sentido para cargas de trabalho previsíveis e constantes em produção.",
+          },
+          {
+            type: "paragraph",
+            text: "O OneLake é cobrado separadamente, em torno de US$ 0,023 por GB por mês. As capacidades incluem armazenamento espelhado gratuito equivalente ao número de CUs.",
+          },
+          {
+            type: "heading",
+            text: "O threshold do F64: o ponto que muda o jogo",
+          },
+          {
+            type: "paragraph",
+            text: "Existe um divisor de águas no modelo de licenciamento do Fabric que vale entender antes de tomar qualquer decisão.",
+          },
+          {
+            type: "paragraph",
+            text: "Abaixo do F64 (ou seja, F2 até F32), todo mundo que vai visualizar um relatório do Power BI precisa ter uma licença Power BI Pro, que custa US$ 14 por usuário por mês. Num time de 20 pessoas que só leem dashboards, isso soma US$ 280 mensais só em licenças de visualização, além do custo da capacidade.",
+          },
+          {
+            type: "paragraph",
+            text: "A partir do F64, usuários que apenas consomem conteúdo do Power BI podem usar a licença gratuita do Fabric. Ou seja, quanto maior a empresa e maior o número de pessoas acessando relatórios, mais o F64 começa a fazer sentido financeiro.",
+          },
+          {
+            type: "paragraph",
+            text: "Para pequenas e médias empresas com times enxutos, a conta quase sempre fecha melhor nos SKUs menores com Power BI Pro para cada usuário.",
+          },
+          {
+            type: "heading",
+            text: "Para quem o trial gratuito faz sentido hoje?",
+          },
+          {
+            type: "paragraph",
+            text: "O trial de 60 dias é uma oportunidade genuína em três cenários:",
+          },
+          {
+            type: "list",
+            items: [
+              "Desenvolvedores e analistas de dados que querem aprender a plataforma sem comprometer orçamento. Dá para montar um lakehouse, criar pipelines com o Data Factory, escrever notebooks em Python ou SQL e entender como tudo se conecta.",
+              "Times de BI migrando do Power BI Premium (P-SKUs), que foram descontinuados em dezembro de 2024. O trial serve para testar a migração e entender os impactos antes de contratar um SKU F definitivo.",
+              "Empresas avaliando se o Fabric resolve um problema específico, como centralizar dados de fontes diferentes ou automatizar relatórios que hoje dependem de processos manuais.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "O que aconteceu com o Copilot no Fabric?",
+          },
+          {
+            type: "paragraph",
+            text: "Até março de 2025, o Copilot no Fabric era exclusivo das capacidades maiores. A partir daí, a Microsoft liberou o Copilot e os recursos de IA para todos os SKUs pagos (F2 e acima). Isso mudou bastante a proposta de valor para empresas menores, que antes precisavam pagar muito mais para ter acesso às funcionalidades de IA.",
+          },
+          {
+            type: "paragraph",
+            text: "No trial gratuito, o Copilot ainda não está disponível, o que é uma limitação real para quem queria justamente testar essa parte.",
+          },
+          {
+            type: "heading",
+            text: "Vale a pena começar?",
+          },
+          {
+            type: "paragraph",
+            text: "Depende do que você quer fazer. Se a ideia é aprender, explorar e entender se o Fabric resolve um problema real para o seu negócio, o trial de 60 dias é uma das melhores formas de fazer isso sem gastar nada. Você tem capacidade F64 equivalente, que é o suficiente para montar pipelines, centralizar dados e gerar relatórios colaborativos de verdade.",
+          },
+          {
+            type: "paragraph",
+            text: "Se a ideia é colocar em produção, a conta precisa ser feita com cuidado. Um F2 com 10 usuários usando Power BI Pro já soma em torno de R$ 2.000 mensais. Para uma pequena empresa, esse custo precisa estar claramente justificado pela redução de tempo em tarefas manuais ou pela qualidade das decisões que os dados vão embasar.",
+          },
+          {
+            type: "paragraph",
+            text: "A Microsoft não criou o Fabric para substituir o Power BI Desktop gratuito. Criou para ser a plataforma de dados completa para times que já cresceram além das planilhas. Se você ainda está nesse caminho, o trial é o lugar certo para começar a entender o que te espera mais na frente.",
+          },
+          {
+            type: "paragraph",
+            text: "*Fontes: Microsoft Learn (fabric-trial, licenses, fabric-features), documentação oficial do Microsoft Fabric, Synapx Fabric Pricing Guide 2026, Promethium Fabric Pricing Guide, Alphabold Fabric Pricing and Licensing.*",
+          },
+        ],
+      },
+      en: {
+        title: "Is Microsoft Fabric Free Worth It? What You Can Actually Do for Free in 2026",
+        summary:
+          "Understand the difference between the 60-day free trial and the permanent free license for Microsoft Fabric, what each one lets you do, and in which scenarios starting for free actually makes sense.",
+        eyebrow: "Microsoft Fabric",
+        author: "Renan Brognoli",
+        category: "Microsoft Fabric",
+        publishedAt: "2026-08-27",
+        readingTime: "9 min",
+        body: [
+          {
+            type: "paragraph",
+            text: "When Microsoft announced Microsoft Fabric, a lot of people got curious about what they could use without paying anything. The short answer: you can do quite a bit, but there's a catch nobody wants to hear.",
+          },
+          {
+            type: "paragraph",
+            text: "The good news is that the trial is generous. The bad news is that \"free forever\" and \"free for 60 days\" are very different things, and Microsoft sometimes keeps that distinction intentionally blurry.",
+          },
+          {
+            type: "paragraph",
+            text: "Here's the explanation without the fluff.",
+          },
+          {
+            type: "heading",
+            text: "What Is Microsoft Fabric, Anyway?",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft Fabric is Microsoft's analytics platform that brings together Power BI, Data Factory, Data Engineering, Data Science, and Real-Time Intelligence in a single place. Instead of subscribing to several separate services, you get everything in the same environment, sharing the same storage layer (OneLake) and the same capacity model.",
+          },
+          {
+            type: "paragraph",
+            text: "It's a compelling offer, especially for anyone already living inside the Microsoft ecosystem. The integration with Microsoft 365, Azure, and Dynamics is nearly seamless.",
+          },
+          {
+            type: "heading",
+            text: "The Free in Fabric: Two Very Different Things",
+          },
+          {
+            type: "paragraph",
+            text: "When someone searches for \"Microsoft Fabric Free\", they're actually talking about two distinct models. Confusing them is the most common mistake people make.",
+          },
+          {
+            type: "heading",
+            text: "The 60-Day Trial",
+          },
+          {
+            type: "paragraph",
+            text: "The trial is the more robust of the two. You get access to a capacity equivalent to F64 (64 capacity units), plus 1 TB of storage in OneLake. During that period, you can create pipelines, notebooks, lakehouses, warehouses, and collaborate in workspaces with other users.",
+          },
+          {
+            type: "paragraph",
+            text: "What doesn't work in the trial:",
+          },
+          {
+            type: "list",
+            items: [
+              "Copilot and AI features (Data Agent, AI functions, AI Services)",
+              "Private Link for environments with stricter network requirements",
+              "Trusted Workspace Access, which is the advanced access control for sensitive data",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "These are limitations that, for anyone evaluating the platform, probably won't matter on a day-to-day basis. The trial works well for testing real workflows before opening your wallet.",
+          },
+          {
+            type: "paragraph",
+            text: "One important detail: each Microsoft Entra tenant is entitled to up to five trials. If you cancel before the deadline, created items remain available for another 7 days. After that, they're gone.",
+          },
+          {
+            type: "heading",
+            text: "The Free Per-User License (the Permanent One)",
+          },
+          {
+            type: "paragraph",
+            text: "This is where the confusion lives. There's a per-user license that doesn't expire, but it's far more limited than the trial.",
+          },
+          {
+            type: "paragraph",
+            text: "With the permanent free license, you can:",
+          },
+          {
+            type: "list",
+            items: [
+              "Create non-Power BI Fabric items (lakehouses, notebooks, warehouses) inside workspaces that run on a paid F-SKU capacity",
+              "View Power BI content, but only if it's hosted on an F64 capacity or higher",
+              "Use Power BI Desktop locally to create reports on your machine",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "What you can't do with the free license: publish or share Power BI content to the cloud, collaborate in workspaces without a paid capacity underneath, or do anything genuinely collaborative without someone paying for the infrastructure.",
+          },
+          {
+            type: "paragraph",
+            text: "In plain terms: the permanent free license only makes sense if you're a user inside an organization that has already purchased a Fabric capacity. On your own, paying nothing, you can use Power BI Desktop locally. That's it.",
+          },
+          {
+            type: "heading",
+            text: "Paid Plans and F SKUs",
+          },
+          {
+            type: "paragraph",
+            text: "Once the trial ends and you want to keep going, the path is purchasing an F-SKU capacity. F SKUs range from F2 (2 capacity units) to F2048, for whoever has data volumes most of us will never see. The billing model has two options:",
+          },
+          {
+            type: "paragraph",
+            text: "Pay-as-you-go: you pay per second, with a one-minute minimum. You can pause capacity when not in use and stop being charged. Great for development teams or intermittent workloads. An F2 in this model costs approximately US$ 262.80 per month.",
+          },
+          {
+            type: "paragraph",
+            text: "1- or 3-year reservation: you commit upfront and pay about 41% less compared to pay-as-you-go. The catch is that billing doesn't stop, even if you pause capacity. Makes sense for predictable, constant production workloads.",
+          },
+          {
+            type: "paragraph",
+            text: "OneLake is billed separately, at around US$ 0.023 per GB per month. Capacities include free mirrored storage equivalent to the number of CUs.",
+          },
+          {
+            type: "heading",
+            text: "The F64 Threshold: the Point That Changes Everything",
+          },
+          {
+            type: "paragraph",
+            text: "There's a dividing line in Fabric's licensing model worth understanding before making any decision.",
+          },
+          {
+            type: "paragraph",
+            text: "Below F64 (meaning F2 through F32), everyone who's going to view a Power BI report needs a Power BI Pro license, which costs US$ 14 per user per month. In a team of 20 people who only read dashboards, that adds up to US$ 280 monthly just in viewing licenses, on top of the capacity cost.",
+          },
+          {
+            type: "paragraph",
+            text: "From F64 upward, users who only consume Power BI content can use the free Fabric license. The larger the company and the more people accessing reports, the more F64 starts to make financial sense.",
+          },
+          {
+            type: "paragraph",
+            text: "For small and medium businesses with lean teams, the math almost always works out better with smaller SKUs and Power BI Pro for each user.",
+          },
+          {
+            type: "heading",
+            text: "Who Should Actually Use the Free Trial Today?",
+          },
+          {
+            type: "paragraph",
+            text: "The 60-day trial is a genuine opportunity in three scenarios:",
+          },
+          {
+            type: "list",
+            items: [
+              "Developers and data analysts who want to learn the platform without burning budget. You can set up a lakehouse, build pipelines with Data Factory, write notebooks in Python or SQL, and understand how everything connects.",
+              "BI teams migrating from Power BI Premium (P-SKUs), which were discontinued in December 2024. The trial is useful for testing migration and understanding the impact before committing to a permanent F SKU.",
+              "Companies evaluating whether Fabric solves a specific problem, such as centralizing data from different sources or automating reports that currently depend on manual processes.",
+            ],
+          },
+          {
+            type: "heading",
+            text: "What Happened to Copilot in Fabric?",
+          },
+          {
+            type: "paragraph",
+            text: "Until March 2025, Copilot in Fabric was exclusive to larger capacities. After that, Microsoft made Copilot and AI features available for all paid SKUs (F2 and above). This significantly changed the value proposition for smaller companies, which previously needed to pay much more to access AI features.",
+          },
+          {
+            type: "paragraph",
+            text: "In the free trial, Copilot is still not available, which is a real limitation for anyone who wanted to test that part specifically.",
+          },
+          {
+            type: "heading",
+            text: "Is It Worth Starting?",
+          },
+          {
+            type: "paragraph",
+            text: "It depends on what you want to do. If the goal is to learn, explore, and understand whether Fabric solves a real problem for your business, the 60-day trial is one of the best ways to do that without spending anything. You get F64-equivalent capacity, which is enough to build pipelines, centralize data, and generate genuinely collaborative reports.",
+          },
+          {
+            type: "paragraph",
+            text: "If the goal is production deployment, the math needs careful attention. An F2 with 10 users on Power BI Pro already adds up to around US$ 400 per month. For a small business, that cost needs to be clearly justified by time saved on manual tasks or by the quality of decisions the data will support.",
+          },
+          {
+            type: "paragraph",
+            text: "Microsoft didn't build Fabric to replace the free Power BI Desktop. It built it as the complete data platform for teams that have already grown beyond spreadsheets. If you're still on that path, the trial is the right place to start understanding what's ahead.",
+          },
+          {
+            type: "paragraph",
+            text: "*Sources: Microsoft Learn (fabric-trial, licenses, fabric-features), official Microsoft Fabric documentation, Synapx Fabric Pricing Guide 2026, Promethium Fabric Pricing Guide, Alphabold Fabric Pricing and Licensing.*",
+          },
+        ],
+      },
+    },
+  },
+  {
     slug: "copilot-no-excel-com-dados-do-power-bi-julho-2026",
     featured: false,
     locales: {
