@@ -57,7 +57,16 @@ export default async function ContactPage({
               {locale === "pt-br" ? "Abrir canal" : "Open channel"}
             </a>
           </GlassCard>
-          <GlassCard title="Instagram" description={dict.contact.instagramLabel} />
+          <GlassCard title="Instagram" description={dict.contact.instagramLabel}>
+            <a
+              href={dict.contact.instagram}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-semibold text-[var(--brand-amber)]"
+            >
+              {locale === "pt-br" ? "Abrir perfil" : "Open profile"}
+            </a>
+          </GlassCard>
         </div>
       </Section>
     </>
