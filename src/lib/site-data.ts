@@ -63,6 +63,7 @@ type ContactData = {
   description: string;
   email: string;
   linkedin: string;
+  instagram: string;
   instagramLabel: string;
 };
 
@@ -98,6 +99,10 @@ export const sharedChannels = {
   pt: "https://www.youtube.com/@renanbrognolibr",
   en: "https://www.youtube.com/@renanbrognoliint",
   linkedin: "https://www.linkedin.com/in/renan-brognoli",
+  instagramPt:
+    "https://www.instagram.com/brognolibi?utm_source=qr&igsh=MXY0ZDgyeHMwZ2loMA%3D%3D",
+  instagramEn:
+    "https://www.instagram.com/brognolibi2?utm_source=qr&igsh=aHNhbnFuOHVhY2M4",
   calmiaPilot: "https://renanbrognoli01.github.io/",
 };
 
@@ -348,7 +353,8 @@ export const siteData: Record<Locale, SharedData> = {
         "Fale comigo para parcerias, produtos, conteúdo, treinamentos e oportunidades relacionadas a Power BI, Excel e Analytics.",
       email: "renan.brognoli@brognolibi.com",
       linkedin: sharedChannels.linkedin,
-      instagramLabel: "Instagram profissional em breve",
+      instagram: sharedChannels.instagramPt,
+      instagramLabel: "Conteúdo em português · @brognolibi",
     },
     articles: {
       title: "Artigos",
@@ -711,7 +717,8 @@ export const siteData: Record<Locale, SharedData> = {
         "Reach out for partnerships, products, content, training, or opportunities related to Power BI, Excel, and Analytics.",
       email: "renan.brognoli@brognolibi.com",
       linkedin: sharedChannels.linkedin,
-      instagramLabel: "Professional Instagram coming soon",
+      instagram: sharedChannels.instagramEn,
+      instagramLabel: "English content · @brognolibi2",
     },
     articles: {
       title: "Articles",
