@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import type { Locale } from "@/lib/i18n";
+import { getSafeInternalRedirect } from "@/lib/client-security";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 const authNextStorageKey = "brognolibi-auth-next";
@@ -27,7 +28,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
             body: "Estamos conectando sua conta e levando você para a área do assinante.",
             failed: "Falha na autenticação",
             back: "Voltar para o login",
-            missingCode: "Código de autenticação ausente.",
+            errorBody: "Não foi possível concluir o login. Tente novamente.",
           }
         : {
             working: "Finalizing your login...",
@@ -35,7 +36,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
             body: "We are connecting your account and taking you to the subscriber area.",
             failed: "Authentication failed",
             back: "Back to login",
-            missingCode: "Missing authentication code.",
+            errorBody: "We could not complete your sign-in. Please try again.",
           },
     [locale],
   );
@@ -49,13 +50,11 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
         typeof window !== "undefined"
           ? window.sessionStorage.getItem(authNextStorageKey)
           : null;
-      const candidate = queryNext || storedNext || `/${locale}/account`;
-
-      if (!candidate.startsWith("/") || candidate.startsWith("//")) {
-        return `/${locale}/account`;
-      }
-
-      return candidate;
+      return getSafeInternalRedirect(
+        queryNext || storedNext,
+        locale,
+        window.location.origin,
+      );
     }
 
     async function finishOAuth() {
@@ -65,7 +64,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
         const next = resolveNextPath();
 
         if (!code) {
-          throw new Error(dict.missingCode);
+          throw new Error("Missing authentication code.");
         }
 
         const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
@@ -83,12 +82,13 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
 
         setCompleted(true);
         window.location.replace(next);
-      } catch (caughtError) {
+      } catch {
         if (!mounted) {
           return;
         }
 
-        setError(caughtError instanceof Error ? caughtError.message : "Unexpected callback error.");
+        window.sessionStorage.removeItem(authNextStorageKey);
+        setError(dict.errorBody);
       }
     }
 
@@ -97,7 +97,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
     return () => {
       mounted = false;
     };
-  }, [dict.missingCode, locale, searchParams]);
+  }, [dict.errorBody, locale, searchParams]);
 
   return (
     <div className="mx-auto flex min-h-[60vh] max-w-3xl items-center px-6 py-16">

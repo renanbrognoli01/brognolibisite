@@ -49,8 +49,12 @@ export function SiteAccountEntry({ locale }: { locale: Locale }) {
         subscription.unsubscribe();
       };
     } catch {
-      setReady(true);
-      setHasSession(false);
+      queueMicrotask(() => {
+        if (mounted) {
+          setReady(true);
+          setHasSession(false);
+        }
+      });
     }
   }, []);
 

@@ -51,6 +51,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               "Se precisar de ajuda com acesso, assinatura ou cobrança, fale com nosso suporte.",
             missingEnv:
               "As variáveis públicas do Supabase ainda não foram configuradas neste site.",
+            authError: "Não foi possível concluir a autenticação. Confira os dados e tente novamente.",
           }
         : {
             eyebrow: "Subscriber area",
@@ -79,6 +80,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               "If you need help with access, subscription, or billing, contact our support team.",
             missingEnv:
               "The public Supabase variables have not been configured for this website yet.",
+            authError: "We could not complete authentication. Check your details and try again.",
           },
     [locale],
   );
@@ -101,7 +103,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
 
       if (mode === "login") {
         const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
+          email: email.trim().toLocaleLowerCase(),
           password,
         });
 
@@ -115,12 +117,12 @@ export function AuthPanel({ locale }: AuthPanelProps) {
       }
 
       const { error: signUpError } = await supabase.auth.signUp({
-        email,
+        email: email.trim().toLocaleLowerCase(),
         password,
         options: {
           emailRedirectTo: authRedirectUrl,
           data: {
-            full_name: fullName,
+            full_name: fullName.trim(),
           },
         },
       });
@@ -130,8 +132,8 @@ export function AuthPanel({ locale }: AuthPanelProps) {
       }
 
       setMessage(dict.signupSuccess);
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected authentication error.");
+    } catch {
+      setError(dict.authError);
     } finally {
       setLoading(false);
     }
@@ -148,16 +150,14 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         provider,
         options: {
           redirectTo: authRedirectUrl,
-          queryParams: provider === "google" ? { access_type: "offline", prompt: "consent" } : undefined,
-          scopes: provider === "azure" ? "openid email profile offline_access" : undefined,
         },
       });
 
       if (oauthError) {
         throw oauthError;
       }
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected authentication error.");
+    } catch {
+      setError(dict.authError);
       setLoading(false);
     }
   }
@@ -184,8 +184,8 @@ export function AuthPanel({ locale }: AuthPanelProps) {
       }
 
       setMessage(dict.forgotPasswordSent);
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected authentication error.");
+    } catch {
+      setError(dict.authError);
     } finally {
       setLoading(false);
     }
@@ -234,6 +234,9 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               <input
                 value={fullName}
                 onChange={(event) => setFullName(event.target.value)}
+                autoComplete="name"
+                maxLength={120}
+                required
                 className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
                 placeholder={dict.fullName}
               />
@@ -246,6 +249,9 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              autoComplete="email"
+              maxLength={254}
+              required
               className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
               placeholder="you@example.com"
             />
@@ -257,6 +263,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              autoComplete={mode === "login" ? "current-password" : "new-password"}
+              minLength={mode === "signup" ? 8 : undefined}
+              maxLength={128}
+              required
               className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
               placeholder="********"
             />

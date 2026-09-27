@@ -15,6 +15,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [initializing, setInitializing] = useState(true);
+  const [recoveryReady, setRecoveryReady] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,6 +31,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
             submit: "Salvar nova senha",
             success: "Senha atualizada com sucesso. Agora você já pode entrar normalmente.",
             mismatch: "As senhas não coincidem.",
+            weakPassword: "Use uma senha com pelo menos 8 caracteres.",
             invalidLink:
               "Este link de redefinição não está válido ou expirou. Solicite um novo e-mail para continuar.",
             backToLogin: "Voltar para o login",
@@ -44,6 +46,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
             submit: "Save new password",
             success: "Password updated successfully. You can now sign in normally.",
             mismatch: "Passwords do not match.",
+            weakPassword: "Use a password with at least 8 characters.",
             invalidLink:
               "This reset link is invalid or expired. Request a new email to continue.",
             backToLogin: "Back to login",
@@ -70,13 +73,16 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
 
         if (!data.session) {
           setError(dict.invalidLink);
+        } else {
+          setRecoveryReady(true);
         }
-      } catch (caughtError) {
+      } catch {
         if (!mounted) {
           return;
         }
 
-        setError(caughtError instanceof Error ? caughtError.message : dict.invalidLink);
+        setRecoveryReady(false);
+        setError(dict.invalidLink);
       } finally {
         if (mounted) {
           setInitializing(false);
@@ -101,6 +107,11 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
       return;
     }
 
+    if (password.length < 8) {
+      setError(dict.weakPassword);
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -111,11 +122,14 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
         throw updateError;
       }
 
+      await supabase.auth.signOut({ scope: "global" });
+
+      setRecoveryReady(false);
       setMessage(dict.success);
       setPassword("");
       setConfirmPassword("");
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected password reset error.");
+    } catch {
+      setError(dict.invalidLink);
     } finally {
       setLoading(false);
     }
@@ -139,6 +153,10 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            autoComplete="new-password"
+            minLength={8}
+            maxLength={128}
+            required
             className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
             placeholder="********"
           />
@@ -150,6 +168,10 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
             type="password"
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
+            autoComplete="new-password"
+            minLength={8}
+            maxLength={128}
+            required
             className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
             placeholder="********"
           />
@@ -169,7 +191,7 @@ export function ResetPasswordPanel({ locale }: ResetPasswordPanelProps) {
 
         <button
           type="submit"
-          disabled={loading || initializing || !!error}
+          disabled={loading || initializing || !recoveryReady}
           className="w-full rounded-full bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0F1D2A] transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
         >
           {dict.submit}
