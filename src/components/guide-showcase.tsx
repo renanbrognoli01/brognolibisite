@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type Locale = "pt-br" | "en";
 
@@ -214,14 +214,8 @@ export function GuideShowcase({
   const flattenedEntries = normalizedGroups.flatMap((group) => group.entries);
   const [selectedId, setSelectedId] = useState(flattenedEntries[0]?.id ?? details[0]?.id ?? "");
 
-  const selectedEntry = useMemo(
-    () => flattenedEntries.find((entry) => entry.id === selectedId) ?? flattenedEntries[0],
-    [flattenedEntries, selectedId],
-  );
-  const selectedDetails = useMemo(
-    () => details.find((entry) => entry.id === selectedId) ?? details[0],
-    [details, selectedId],
-  );
+  const selectedEntry = flattenedEntries.find((entry) => entry.id === selectedId) ?? flattenedEntries[0];
+  const selectedDetails = details.find((entry) => entry.id === selectedId) ?? details[0];
 
   if (!selectedEntry || !selectedDetails) {
     return null;

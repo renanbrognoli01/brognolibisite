@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { isTrustedStripeCheckoutUrl } from "@/lib/client-security";
 import { getSupabaseBrowserClient, getSupabaseBrowserConfig } from "@/lib/supabase-browser";
 
 const supportEmail = "support@brognolibi.com";
@@ -47,6 +49,7 @@ type CreditPackOption = {
 };
 
 export function AccountDashboard({ locale }: SubscriberDashboardProps) {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -105,6 +108,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             subscribeLight: "Assinar Light",
             missingEnv:
               "As variáveis públicas do Supabase ainda não foram configuradas neste site.",
+            operationError: "Não foi possível concluir a operação. Tente novamente ou fale com o suporte.",
           }
         : {
             eyebrow: "My account",
@@ -153,6 +157,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             subscribeLight: "Subscribe to Light",
             missingEnv:
               "The public Supabase variables have not been configured for this website yet.",
+            operationError: "We could not complete the operation. Try again or contact support.",
           },
     [locale],
   );
@@ -405,12 +410,12 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
           extraCredits: walletResult.data?.extra_credit_balance ?? 0,
           currentPriceLabel,
         });
-      } catch (caughtError) {
+      } catch {
         if (!mounted) {
           return;
         }
 
-        setError(caughtError instanceof Error ? caughtError.message : "Unexpected account error.");
+        setError(dict.operationError);
       } finally {
         if (mounted) {
           setLoading(false);
@@ -423,7 +428,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
     return () => {
       mounted = false;
     };
-  }, [locale]);
+  }, [dict.operationError, locale]);
 
   async function startCheckout(target: CheckoutTarget) {
     setCheckoutLoading(`${target.targetKind}:${target.targetCode}`);
@@ -464,12 +469,16 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
 
       const data = (await response.json()) as { checkoutUrl?: string; error?: string; details?: string };
       if (!response.ok || !data.checkoutUrl) {
-        throw new Error(data.details ?? data.error ?? "Failed to create checkout session.");
+        throw new Error("Failed to create checkout session.");
       }
 
-      window.location.assign(data.checkoutUrl);
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected checkout error.");
+      if (!isTrustedStripeCheckoutUrl(data.checkoutUrl)) {
+        throw new Error("The checkout service returned an untrusted destination.");
+      }
+
+      window.location.replace(data.checkoutUrl);
+    } catch {
+      setError(dict.operationError);
       setCheckoutLoading(null);
     }
   }
@@ -477,7 +486,8 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
   async function handleSignOut() {
     const supabase = getSupabaseBrowserClient();
     await supabase.auth.signOut();
-    window.location.assign(`/${locale}/login`);
+    router.push(`/${locale}/login`);
+    router.refresh();
   }
 
   async function handleCancelSubscription() {
@@ -521,7 +531,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
       };
 
       if (!response.ok || !data.success) {
-        throw new Error(data.details ?? data.error ?? "Failed to cancel subscription.");
+        throw new Error("Failed to cancel subscription.");
       }
 
       setAccount((current) =>
@@ -534,8 +544,8 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
           : current,
       );
       setMessage(dict.cancellationDone);
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected cancellation error.");
+    } catch {
+      setError(dict.operationError);
     } finally {
       setCancelLoading(false);
     }
@@ -578,7 +588,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
       };
 
       if (!response.ok || !data.success) {
-        throw new Error(data.details ?? data.error ?? "Failed to resume subscription.");
+        throw new Error("Failed to resume subscription.");
       }
 
       setAccount((current) =>
@@ -591,8 +601,8 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
           : current,
       );
       setMessage(dict.resumeDone);
-    } catch (caughtError) {
-      setError(caughtError instanceof Error ? caughtError.message : "Unexpected resume error.");
+    } catch {
+      setError(dict.operationError);
     } finally {
       setResumeLoading(false);
     }
@@ -610,7 +620,6 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
     }).format(new Date(value));
   }
 
-  const isStarterActive = account?.planCode === "starter" && account.subscriptionStatus === "active";
   const hasCancellableSubscription = Boolean(
     account?.planCode &&
       account.subscriptionStatus &&

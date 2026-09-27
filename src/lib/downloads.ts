@@ -13,19 +13,50 @@ export const DEFAULT_WINDOWS_SHA256 = "54A70C2ABED022795CE7EA9FA266843DF4BDB8F2D
 export const DEFAULT_RELEASE_PAGE_URL =
   "https://github.com/renanbrognoli01/Dax_Descriptions/releases/tag/v1.0.7";
 
+const trustedReleasePrefix = "/renanbrognoli01/Dax_Descriptions/releases/download/";
+
+function getTrustedWindowsDownloadUrl(candidate: string | undefined) {
+  if (!candidate) {
+    return DEFAULT_WINDOWS_DOWNLOAD_URL;
+  }
+
+  try {
+    const url = new URL(candidate.trim());
+    const trusted =
+      url.protocol === "https:" &&
+      url.hostname === "github.com" &&
+      url.pathname.startsWith(trustedReleasePrefix) &&
+      url.pathname.toLocaleLowerCase().endsWith(".exe") &&
+      !url.username &&
+      !url.password;
+
+    return trusted ? url.toString() : DEFAULT_WINDOWS_DOWNLOAD_URL;
+  } catch {
+    return DEFAULT_WINDOWS_DOWNLOAD_URL;
+  }
+}
+
+function getValidVersion(candidate: string | undefined) {
+  const value = candidate?.trim();
+  return value && /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(value)
+    ? value
+    : DEFAULT_WINDOWS_VERSION;
+}
+
+function getValidSha256(candidate: string | undefined) {
+  const value = candidate?.trim();
+  return value && /^[A-Fa-f0-9]{64}$/.test(value) ? value.toUpperCase() : DEFAULT_WINDOWS_SHA256;
+}
+
 export function getStudioDownloadInfo(): StudioDownloadInfo {
-  const windowsUrl =
-    process.env.NEXT_PUBLIC_STUDIO_WINDOWS_DOWNLOAD_URL?.trim() ||
-    DEFAULT_WINDOWS_DOWNLOAD_URL;
-  const version =
-    process.env.NEXT_PUBLIC_STUDIO_WINDOWS_VERSION?.trim() ||
-    DEFAULT_WINDOWS_VERSION;
+  const windowsUrl = getTrustedWindowsDownloadUrl(
+    process.env.NEXT_PUBLIC_STUDIO_WINDOWS_DOWNLOAD_URL,
+  );
+  const version = getValidVersion(process.env.NEXT_PUBLIC_STUDIO_WINDOWS_VERSION);
   const minOs =
     process.env.NEXT_PUBLIC_STUDIO_WINDOWS_MIN_OS?.trim() ||
     DEFAULT_WINDOWS_MIN_OS;
-  const sha256 =
-    process.env.NEXT_PUBLIC_STUDIO_WINDOWS_SHA256?.trim() ||
-    DEFAULT_WINDOWS_SHA256;
+  const sha256 = getValidSha256(process.env.NEXT_PUBLIC_STUDIO_WINDOWS_SHA256);
 
   return {
     windowsUrl,

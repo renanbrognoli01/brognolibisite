@@ -31,7 +31,26 @@ const typeCategories: Record<string, string> = {
   pdf: "PDF",
   json: "JSON",
   zip: "Arquivos",
+  txt: "Texto",
+  docx: "Documentos",
+  pptx: "Apresentações",
 };
+
+const allowedMaterialExtensions = new Set(Object.keys(typeCategories));
+
+function isTrustedBlobUrl(candidate: string) {
+  try {
+    const url = new URL(candidate);
+    return (
+      url.protocol === "https:" &&
+      url.hostname.endsWith(".public.blob.vercel-storage.com") &&
+      !url.username &&
+      !url.password
+    );
+  } catch {
+    return false;
+  }
+}
 
 function safeDecode(value: string) {
   try {
@@ -102,6 +121,9 @@ function materialFromBlob(blob: ListBlobResultBlob): MaterialItem | null {
 
   const extensionMatch = fileName.match(/\.([^.]+)$/);
   const extension = extensionMatch?.[1]?.toLocaleLowerCase() ?? "arquivo";
+  if (!allowedMaterialExtensions.has(extension) || !isTrustedBlobUrl(blob.downloadUrl)) {
+    return null;
+  }
   const nameWithoutExtension = extensionMatch
     ? fileName.slice(0, -extensionMatch[0].length)
     : fileName;
