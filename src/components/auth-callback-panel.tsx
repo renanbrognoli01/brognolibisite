@@ -10,7 +10,6 @@ import { privacyConsentSessionKey, privacyPolicyVersion } from "@/lib/privacy";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 const authNextStorageKey = "brognolibi-auth-next";
-const codeExchanges = new Map<string, Promise<void>>();
 
 function readSessionValue(key: string) {
   try {
@@ -26,26 +25,6 @@ function removeSessionValue(key: string) {
   } catch {
     // Auth must still complete when browser storage is unavailable.
   }
-}
-
-function exchangeCodeOnce(code: string) {
-  const inFlight = codeExchanges.get(code);
-  if (inFlight) {
-    return inFlight;
-  }
-
-  const supabase = getSupabaseBrowserClient();
-  const exchange = supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
-    if (error) {
-      throw error;
-    }
-  });
-  codeExchanges.set(code, exchange);
-  void exchange.then(
-    () => codeExchanges.delete(code),
-    () => codeExchanges.delete(code),
-  );
-  return exchange;
 }
 
 type AuthCallbackPanelProps = {
@@ -95,14 +74,18 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
     async function finishOAuth() {
       try {
         const supabase = getSupabaseBrowserClient();
-        const code = searchParams.get("code");
         const next = resolveNextPath();
 
-        if (!code) {
-          throw new Error("Missing authentication code.");
+        // The browser client has detectSessionInUrl enabled and performs the PKCE
+        // code exchange during initialization. Calling exchangeCodeForSession here
+        // again reuses an already-consumed verifier and can make sign-in fail.
+        const {
+          data: { session },
+          error: sessionError,
+        } = await supabase.auth.getSession();
+        if (sessionError || !session) {
+          throw sessionError ?? new Error("OAuth session was not established.");
         }
-
-        await exchangeCodeOnce(code);
         if (!mounted) {
           return;
         }
