@@ -175,6 +175,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         provider,
         options: {
           redirectTo: authRedirectUrl,
+          scopes: provider === "azure" ? "email" : undefined,
         },
       });
 
