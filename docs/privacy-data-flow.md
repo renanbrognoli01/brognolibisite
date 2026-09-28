@@ -24,4 +24,4 @@ Internal implementation inventory, checked against the website and BROGNOLI Stud
 
 Do not infer the location of one service from another service's region. The site policy describes the confirmed primary regions and the provider-published processing/retention baselines while noting that international transfers and service-specific exceptions may apply.
 
-The website's privacy contact currently supports manual access/export/deletion requests. There is no self-service export or automated account-deletion workflow in these repositories; requests require identity verification and manual fulfillment, including review of billing records that may need to be retained.
+The website account area now provides an authenticated JSON export of account-scoped service data and registers account-deletion requests for staff review. Deletion is not automatic; staff must verify the request and review active billing/legal-retention obligations. People who cannot sign in can still contact `support@brognolibi.com` for identity-verified manual handling. Exports do not include API-key values, files/settings stored only on a user's device, or data held directly by third-party providers.

@@ -425,7 +425,7 @@ export const siteData: Record<Locale, SharedData> = {
           body: [
             "Você pode solicitar confirmação de tratamento, acesso, correção de dados incompletos ou desatualizados, anonimização, bloqueio, eliminação, portabilidade e informações sobre compartilhamento, quando aplicável.",
             "Também pode revogar consentimentos concedidos e solicitar a exclusão da conta, observadas as limitações legais e operacionais aplicáveis a dados que precisem ser mantidos.",
-            "Para exercer seus direitos, entre em contato pelos canais indicados nesta política.",
+            "Se você tem uma conta, pode baixar uma cópia dos dados associados a ela ou registrar, na área Minha conta, um pedido de exclusão para análise. A equipe revisará o pedido antes de qualquer exclusão; dados que precisem ser mantidos por obrigações legais, cobrança ou prevenção a fraude poderão ser preservados ou anonimizados. Se não conseguir acessar sua conta, fale com support@brognolibi.com.",
           ],
         },
         {
@@ -793,7 +793,7 @@ export const siteData: Record<Locale, SharedData> = {
           body: [
             "You may request confirmation of processing, access, correction of incomplete or outdated data, anonymization, blocking, deletion, portability, and information about data sharing, where applicable.",
             "You may also revoke consent when consent is the applicable legal basis and request account deletion, subject to legal and operational limitations.",
-            "To exercise your rights, please contact us using the channels listed in this policy.",
+            "If you have an account, you can download a copy of its associated data or submit an account deletion request for review in My account. Staff will review the request before any deletion; records that must be retained for legal obligations, billing, or fraud prevention may be preserved or anonymized. If you cannot access your account, contact support@brognolibi.com.",
           ],
         },
         {

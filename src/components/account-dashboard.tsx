@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { isTrustedStripeCheckoutUrl } from "@/lib/client-security";
 import { getSupabaseBrowserClient, getSupabaseBrowserConfig } from "@/lib/supabase-browser";
+import { PrivacyDataControls } from "@/components/privacy-data-controls";
 
 const supportEmail = "support@brognolibi.com";
 
@@ -876,6 +877,8 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
           </div>
         </div>
       </div>
+
+      <PrivacyDataControls locale={locale} />
 
       <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
         <h2 className="text-2xl font-semibold text-white">{dict.support}</h2>
