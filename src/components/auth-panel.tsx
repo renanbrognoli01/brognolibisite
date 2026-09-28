@@ -1,8 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { privacyConsentSessionKey, privacyPolicyVersion } from "@/lib/privacy";
 import { getSupabaseBrowserClient, getSupabaseBrowserConfig } from "@/lib/supabase-browser";
 
 const supportEmail = "support@brognolibi.com";
@@ -17,6 +19,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -34,6 +37,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             email: "E-mail",
             password: "Senha",
             fullName: "Nome completo",
+            namePurpose: "O nome é exibido no perfil da conta e pode ser usado no atendimento.",
+            emailPurpose: "Usamos o e-mail para autenticar sua conta, administrar assinatura e créditos e enviar comunicações operacionais e de suporte. A senha é tratada pelo serviço de autenticação do Supabase.",
+            privacyAcceptance: "Li e aceito a Política de Privacidade (versão 2026-09-28).",
+            privacyRequired: "Leia e aceite a Política de Privacidade para criar uma conta ou continuar com Google/Microsoft.",
             submitLogin: "Entrar na conta",
             submitSignup: "Criar conta",
             forgotPassword: "Esqueci minha senha",
@@ -63,6 +70,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
             email: "Email",
             password: "Password",
             fullName: "Full name",
+            namePurpose: "Your name appears on your account profile and may be used for support.",
+            emailPurpose: "We use your email to authenticate your account, manage your subscription and credits, and send operational and support communications. Your password is handled by Supabase Auth.",
+            privacyAcceptance: "I have read and accept the Privacy Policy (version 2026-09-28).",
+            privacyRequired: "Read and accept the Privacy Policy to create an account or continue with Google/Microsoft.",
             submitLogin: "Sign in",
             submitSignup: "Create account",
             forgotPassword: "Forgot password",
@@ -98,6 +109,12 @@ export function AuthPanel({ locale }: AuthPanelProps) {
     setError(null);
     setMessage(null);
 
+    if (mode === "signup" && !privacyAccepted) {
+      setError(dict.privacyRequired);
+      setLoading(false);
+      return;
+    }
+
     try {
       const supabase = getSupabaseBrowserClient();
 
@@ -123,6 +140,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
           emailRedirectTo: authRedirectUrl,
           data: {
             full_name: fullName.trim(),
+            privacy_policy_version: privacyPolicyVersion,
           },
         },
       });
@@ -144,7 +162,14 @@ export function AuthPanel({ locale }: AuthPanelProps) {
     setError(null);
     setMessage(null);
 
+    if (!privacyAccepted) {
+      setError(dict.privacyRequired);
+      setLoading(false);
+      return;
+    }
+
     try {
+      window.sessionStorage.setItem(privacyConsentSessionKey, privacyPolicyVersion);
       const supabase = getSupabaseBrowserClient();
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider,
@@ -157,6 +182,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         throw oauthError;
       }
     } catch {
+      window.sessionStorage.removeItem(privacyConsentSessionKey);
       setError(dict.authError);
       setLoading(false);
     }
@@ -229,18 +255,36 @@ export function AuthPanel({ locale }: AuthPanelProps) {
 
         <form onSubmit={handlePasswordAuth} className="mt-8 space-y-4">
           {mode === "signup" ? (
-            <label className="block space-y-2">
-              <span className="text-sm font-medium text-white/76">{dict.fullName}</span>
-              <input
-                value={fullName}
-                onChange={(event) => setFullName(event.target.value)}
-                autoComplete="name"
-                maxLength={120}
-                required
-                className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
-                placeholder={dict.fullName}
-              />
-            </label>
+            <>
+              <label className="block space-y-2">
+                <span className="text-sm font-medium text-white/76">{dict.fullName}</span>
+                <input
+                  value={fullName}
+                  onChange={(event) => setFullName(event.target.value.slice(0, 120))}
+                  autoComplete="name"
+                  maxLength={120}
+                  required
+                  className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
+                  placeholder={dict.fullName}
+                />
+                <span className="block text-xs leading-5 text-white/60">{dict.namePurpose}</span>
+              </label>
+              <label className="flex items-start gap-3 text-sm leading-6 text-white/80">
+                <input
+                  type="checkbox"
+                  checked={privacyAccepted}
+                  onChange={(event) => setPrivacyAccepted(event.target.checked)}
+                  required
+                  className="mt-1 accent-[var(--brand-amber)]"
+                />
+                <span id="oauth-privacy-notice">
+                  {dict.privacyAcceptance}{" "}
+                  <Link href={`/${locale}/privacy`} target="_blank" rel="noreferrer" className="text-[var(--brand-amber)] underline">
+                    {locale === "pt-br" ? "Ler política" : "Read policy"}
+                  </Link>
+                </span>
+              </label>
+            </>
           ) : null}
 
           <label className="block space-y-2">
@@ -255,6 +299,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
               className="w-full rounded-2xl border border-white/10 bg-[var(--surface-1)] px-4 py-3 text-white outline-none transition focus:border-[color:rgba(255,204,0,0.6)]"
               placeholder="you@example.com"
             />
+            <span className="block text-xs leading-5 text-white/60">{dict.emailPurpose}</span>
           </label>
 
           <label className="block space-y-2">
@@ -311,8 +356,25 @@ export function AuthPanel({ locale }: AuthPanelProps) {
         </form>
 
         <div className="mt-6 grid gap-3">
+          {mode === "login" ? (
+            <label className="flex items-start gap-3 text-sm leading-6 text-white/80">
+              <input
+                type="checkbox"
+                checked={privacyAccepted}
+                onChange={(event) => setPrivacyAccepted(event.target.checked)}
+                className="mt-1 accent-[var(--brand-amber)]"
+              />
+              <span id="oauth-privacy-notice">
+                {dict.privacyAcceptance}{" "}
+                  <Link href={`/${locale}/privacy`} target="_blank" rel="noreferrer" className="text-[var(--brand-amber)] underline">
+                  {locale === "pt-br" ? "Ler política" : "Read policy"}
+                </Link>
+              </span>
+            </label>
+          ) : null}
           <button
             type="button"
+            aria-describedby="oauth-privacy-notice"
             disabled={loading || envMissing}
             onClick={() => void handleOAuth("google")}
             className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"
@@ -321,6 +383,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
           </button>
           <button
             type="button"
+            aria-describedby="oauth-privacy-notice"
             disabled={loading || envMissing}
             onClick={() => void handleOAuth("azure")}
             className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] disabled:cursor-not-allowed disabled:opacity-70"

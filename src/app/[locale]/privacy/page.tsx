@@ -26,6 +26,22 @@ export default async function PrivacyPage({
             </div>
           ))}
         </div>
+        <div className="mt-6 rounded-[1.75rem] border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.06)] p-6">
+          <h2 className="text-lg font-semibold text-white">
+            {locale === "pt-br" ? "Solicitar acesso, exportação ou exclusão de dados" : "Request access, export, or deletion of your data"}
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-white/72">
+            {locale === "pt-br"
+              ? "Envie a solicitação pelo e-mail abaixo usando o endereço associado à sua conta. Podemos pedir uma confirmação de identidade antes de atender. Não envie senha, chave de API ou documentos desnecessários por e-mail."
+              : "Send your request to the email below using the address associated with your account. We may ask you to verify your identity before fulfilling it. Do not email passwords, API keys, or unnecessary identity documents."}
+          </p>
+          <a
+            href={`mailto:renan.brognoli@brognolibi.com?subject=${encodeURIComponent(locale === "pt-br" ? "Solicitação de privacidade / LGPD" : "Privacy rights request")}`}
+            className="mt-4 inline-flex rounded-full bg-[var(--brand-amber)] px-5 py-3 text-sm font-semibold text-[#0F1D2A]"
+          >
+            renan.brognoli@brognolibi.com
+          </a>
+        </div>
       </Section>
     </>
   );
