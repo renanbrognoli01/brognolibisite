@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -17,11 +18,16 @@ export const metadata: Metadata = {
   description: "Official website for Renan Brognoli, BROGNOLI Studio, products, videos, and guides.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Request headers carry the per-request CSP nonce generated in src/proxy.ts.
+  // Reading them opts HTML rendering into request time so static HTML can never
+  // contain a reusable or missing nonce.
+  await headers();
+
   return (
     <html
       lang="en"

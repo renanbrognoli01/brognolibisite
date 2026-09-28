@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import type { Locale } from "@/lib/i18n";
 import { getSafeInternalRedirect } from "@/lib/client-security";
+import { privacyConsentSessionKey, privacyPolicyVersion } from "@/lib/privacy";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 const authNextStorageKey = "brognolibi-auth-next";
@@ -72,12 +73,24 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
           throw exchangeError;
         }
 
+        const pendingPrivacyVersion = window.sessionStorage.getItem(privacyConsentSessionKey);
+        if (pendingPrivacyVersion === privacyPolicyVersion) {
+          const { error: consentError } = await supabase.auth.updateUser({
+            data: { privacy_policy_version: privacyPolicyVersion },
+          });
+          if (consentError) {
+            throw consentError;
+          }
+          window.sessionStorage.removeItem(privacyConsentSessionKey);
+        }
+
         if (!mounted) {
           return;
         }
 
         if (typeof window !== "undefined") {
           window.sessionStorage.removeItem(authNextStorageKey);
+          window.sessionStorage.removeItem(privacyConsentSessionKey);
         }
 
         setCompleted(true);
@@ -88,6 +101,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
         }
 
         window.sessionStorage.removeItem(authNextStorageKey);
+        window.sessionStorage.removeItem(privacyConsentSessionKey);
         setError(dict.errorBody);
       }
     }

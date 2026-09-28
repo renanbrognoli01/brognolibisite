@@ -372,7 +372,7 @@ export const siteData: Record<Locale, SharedData> = {
           body: [
             "A Brognoli BI é a marca responsável pelo site brognolibi.com e pelo software BROGNOLI Studio, voltados a conteúdo, produtos digitais e ferramentas de produtividade para Power BI, Excel e analytics.",
             "Esta política explica como tratamos dados pessoais quando você navega pelo site, cria uma conta, contrata um plano, utiliza o BROGNOLI Studio ou entra em contato conosco.",
-            "Última atualização: 1 de junho de 2026.",
+            "Última atualização: 28 de setembro de 2026. Versão: 2026-09-28.",
           ],
         },
         {
@@ -404,7 +404,9 @@ export const siteData: Record<Locale, SharedData> = {
           body: [
             "Você tem acesso aos dados da sua própria conta e às informações disponibilizadas dentro do site e do BROGNOLI Studio conforme o seu perfil de uso.",
             "A equipe da Brognoli BI pode acessar dados estritamente necessários para suporte, atendimento, prevenção a abuso, faturamento e manutenção operacional, sempre de forma limitada e conforme a necessidade.",
-            "Também utilizamos provedores de infraestrutura e serviços essenciais, como autenticação, banco de dados, pagamentos, e-mail e hospedagem. Esses parceiros tratam dados apenas para viabilizar a operação do serviço.",
+            "Usamos Supabase para autenticação e banco de dados; Stripe para cobrança e pagamentos; Resend para e-mails operacionais; e Vercel para hospedagem e armazenamento dos materiais publicados. Google ou Microsoft recebem os dados necessários quando você escolhe login social.",
+            "Quando você usa IA gerenciada no BROGNOLI Studio, o prompt e os arquivos que enviar são encaminhados ao provedor escolhido no recurso (OpenAI, Anthropic ou Google) para gerar a resposta. No modo com chave própria, o aplicativo envia a solicitação diretamente ao provedor selecionado usando a chave configurada no seu dispositivo. Evite incluir dados pessoais de terceiros ou informações confidenciais sem autorização e base legal adequadas.",
+            "Esses fornecedores podem processar dados no Brasil ou em outros países, conforme a região do projeto e a infraestrutura de cada serviço. A localização efetiva precisa ser verificada nas configurações dos fornecedores; você pode solicitar a relação atualizada pelo contato desta política.",
             "Não vendemos, alugamos nem monetizamos seus dados pessoais com terceiros.",
           ],
         },
@@ -736,7 +738,7 @@ export const siteData: Record<Locale, SharedData> = {
           body: [
             "Brognoli BI is the brand responsible for the brognolibi.com website and the BROGNOLI Studio software, focused on content, digital products, and productivity tools for Power BI, Excel, and analytics.",
             "This policy explains how we handle personal data when you browse the website, create an account, subscribe to a plan, use BROGNOLI Studio, or contact us.",
-            "Last updated: June 1, 2026.",
+            "Last updated: September 28, 2026. Version: 2026-09-28.",
           ],
         },
         {
@@ -768,7 +770,9 @@ export const siteData: Record<Locale, SharedData> = {
           body: [
             "You may access your own account data and the information made available inside the website and BROGNOLI Studio according to your usage profile.",
             "The Brognoli BI team may access data strictly necessary for support, customer service, abuse prevention, billing, and operational maintenance, always on a limited need-to-know basis.",
-            "We also rely on essential infrastructure providers, such as authentication, database, payment, email, and hosting services. These partners process data only to enable service operation.",
+            "We use Supabase for authentication and database services; Stripe for billing and payments; Resend for operational email; and Vercel for hosting and storage of published materials. Google or Microsoft receive the data required when you choose social sign-in.",
+            "When you use managed AI in BROGNOLI Studio, your prompt and any files you submit are sent to the provider selected for that feature (OpenAI, Anthropic, or Google) to generate a response. In bring-your-own-key mode, the app sends the request directly to the selected provider using the key configured on your device. Avoid submitting third-party personal data or confidential information unless you have appropriate authorization and a legal basis.",
+            "These providers may process data in Brazil or other countries, depending on project regions and each provider's infrastructure. The effective locations must be verified in provider settings; you may request the current list using the contact in this policy.",
             "We do not sell, rent, or monetize your personal data with third parties.",
           ],
         },
