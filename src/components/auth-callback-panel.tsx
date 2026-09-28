@@ -10,6 +10,43 @@ import { privacyConsentSessionKey, privacyPolicyVersion } from "@/lib/privacy";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 const authNextStorageKey = "brognolibi-auth-next";
+const codeExchanges = new Map<string, Promise<void>>();
+
+function readSessionValue(key: string) {
+  try {
+    return window.sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function removeSessionValue(key: string) {
+  try {
+    window.sessionStorage.removeItem(key);
+  } catch {
+    // Auth must still complete when browser storage is unavailable.
+  }
+}
+
+function exchangeCodeOnce(code: string) {
+  const inFlight = codeExchanges.get(code);
+  if (inFlight) {
+    return inFlight;
+  }
+
+  const supabase = getSupabaseBrowserClient();
+  const exchange = supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
+    if (error) {
+      throw error;
+    }
+  });
+  codeExchanges.set(code, exchange);
+  void exchange.then(
+    () => codeExchanges.delete(code),
+    () => codeExchanges.delete(code),
+  );
+  return exchange;
+}
 
 type AuthCallbackPanelProps = {
   locale: Locale;
@@ -47,10 +84,7 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
 
     function resolveNextPath() {
       const queryNext = searchParams.get("next");
-      const storedNext =
-        typeof window !== "undefined"
-          ? window.sessionStorage.getItem(authNextStorageKey)
-          : null;
+      const storedNext = readSessionValue(authNextStorageKey);
       return getSafeInternalRedirect(
         queryNext || storedNext,
         locale,
@@ -68,30 +102,29 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
           throw new Error("Missing authentication code.");
         }
 
-        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-        if (exchangeError) {
-          throw exchangeError;
-        }
-
-        const pendingPrivacyVersion = window.sessionStorage.getItem(privacyConsentSessionKey);
-        if (pendingPrivacyVersion === privacyPolicyVersion) {
-          const { error: consentError } = await supabase.auth.updateUser({
-            data: { privacy_policy_version: privacyPolicyVersion },
-          });
-          if (consentError) {
-            throw consentError;
-          }
-          window.sessionStorage.removeItem(privacyConsentSessionKey);
-        }
-
+        await exchangeCodeOnce(code);
         if (!mounted) {
           return;
         }
 
-        if (typeof window !== "undefined") {
-          window.sessionStorage.removeItem(authNextStorageKey);
-          window.sessionStorage.removeItem(privacyConsentSessionKey);
+        const pendingPrivacyVersion = readSessionValue(privacyConsentSessionKey);
+        if (pendingPrivacyVersion === privacyPolicyVersion) {
+          try {
+            const { error: consentError } = await supabase.auth.updateUser({
+              data: { privacy_policy_version: privacyPolicyVersion },
+            });
+            if (consentError) {
+              console.warn("Could not persist privacy policy acceptance after OAuth sign-in.");
+            }
+          } catch {
+            // Consent persistence must not turn a successful sign-in into a failed login.
+            console.warn("Could not persist privacy policy acceptance after OAuth sign-in.");
+          }
+          removeSessionValue(privacyConsentSessionKey);
         }
+
+        removeSessionValue(authNextStorageKey);
+        removeSessionValue(privacyConsentSessionKey);
 
         setCompleted(true);
         window.location.replace(next);
@@ -100,8 +133,8 @@ export function AuthCallbackPanel({ locale }: AuthCallbackPanelProps) {
           return;
         }
 
-        window.sessionStorage.removeItem(authNextStorageKey);
-        window.sessionStorage.removeItem(privacyConsentSessionKey);
+        removeSessionValue(authNextStorageKey);
+        removeSessionValue(privacyConsentSessionKey);
         setError(dict.errorBody);
       }
     }
