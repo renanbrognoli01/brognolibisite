@@ -453,7 +453,7 @@ export const siteData: Record<Locale, SharedData> = {
         {
           title: "11. Contato e encarregado (DPO)",
           body: [
-            "Para dúvidas, solicitações relacionadas a dados pessoais ou exercício de direitos previstos na LGPD, entre em contato pelo e-mail renan.brognoli@brognolibi.com.",
+            "Para dúvidas, solicitações relacionadas a dados pessoais ou exercício de direitos previstos na LGPD, entre em contato pelo e-mail support@brognolibi.com.",
             "Faremos o possível para responder em prazo razoável e conforme as exigências legais aplicáveis.",
           ],
         },
@@ -821,7 +821,7 @@ export const siteData: Record<Locale, SharedData> = {
         {
           title: "11. Contact and data privacy requests",
           body: [
-            "For questions, personal data requests, or the exercise of privacy rights, please contact renan.brognoli@brognolibi.com.",
+            "For questions, personal data requests, or the exercise of privacy rights, please contact support@brognolibi.com.",
             "We will make reasonable efforts to respond within an appropriate timeframe and in accordance with applicable law.",
           ],
         },
