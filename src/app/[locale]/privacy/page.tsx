@@ -36,10 +36,10 @@ export default async function PrivacyPage({
               : "Send your request to the email below using the address associated with your account. We may ask you to verify your identity before fulfilling it. Do not email passwords, API keys, or unnecessary identity documents."}
           </p>
           <a
-            href={`mailto:renan.brognoli@brognolibi.com?subject=${encodeURIComponent(locale === "pt-br" ? "Solicitação de privacidade / LGPD" : "Privacy rights request")}`}
+            href={`mailto:support@brognolibi.com?subject=${encodeURIComponent(locale === "pt-br" ? "Solicitação de privacidade / LGPD" : "Privacy rights request")}`}
             className="mt-4 inline-flex rounded-full bg-[var(--brand-amber)] px-5 py-3 text-sm font-semibold text-[#0F1D2A]"
           >
-            renan.brognoli@brognolibi.com
+            support@brognolibi.com
           </a>
         </div>
       </Section>
