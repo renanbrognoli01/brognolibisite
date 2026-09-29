@@ -36,7 +36,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
             </p>
           </Link>
 
-          <nav className="hidden items-center gap-3 lg:flex xl:gap-5">
+          <nav className="hidden items-center gap-3 xl:flex 2xl:gap-5">
             {dict.nav.map((item) => (
               <Link
                 key={item.href}
@@ -48,7 +48,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-3">
             <SiteAccountEntry locale={locale} />
             <LocaleSwitcher locale={locale} />
           </div>
