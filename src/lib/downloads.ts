@@ -6,12 +6,12 @@ export type StudioDownloadInfo = {
 };
 
 export const DEFAULT_WINDOWS_DOWNLOAD_URL =
-  "https://github.com/renanbrognoli01/Dax_Descriptions/releases/download/v1.0.7/BrognoliStudio-Setup-1.0.7.exe";
-export const DEFAULT_WINDOWS_VERSION = "1.0.7";
+  "https://github.com/renanbrognoli01/Dax_Descriptions/releases/download/v1.0.8/BrognoliStudio-Setup-1.0.8.exe";
+export const DEFAULT_WINDOWS_VERSION = "1.0.8";
 export const DEFAULT_WINDOWS_MIN_OS = "Windows 10 or later";
-export const DEFAULT_WINDOWS_SHA256 = "54A70C2ABED022795CE7EA9FA266843DF4BDB8F2D8E89804698D6D95BEFDB5EE";
+export const DEFAULT_WINDOWS_SHA256 = "4D0D735AFBB7F0DE3215C70A3A9897FCCC29DBDDF7AAFCB79D07EE5492B28047";
 export const DEFAULT_RELEASE_PAGE_URL =
-  "https://github.com/renanbrognoli01/Dax_Descriptions/releases/tag/v1.0.7";
+  "https://github.com/renanbrognoli01/Dax_Descriptions/releases/tag/v1.0.8";
 
 const trustedReleasePrefix = "/renanbrognoli01/Dax_Descriptions/releases/download/";
 
