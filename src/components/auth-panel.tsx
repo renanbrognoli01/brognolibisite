@@ -102,6 +102,10 @@ export function AuthPanel({ locale }: AuthPanelProps) {
     typeof window !== "undefined"
       ? `${window.location.origin}/${locale}/auth/callback?next=/${locale}/account`
       : undefined;
+  const oauthRedirectUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/${locale}/auth/callback`
+      : undefined;
 
   async function handlePasswordAuth(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -174,7 +178,7 @@ export function AuthPanel({ locale }: AuthPanelProps) {
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: authRedirectUrl,
+          redirectTo: oauthRedirectUrl,
           scopes: provider === "azure" ? "email" : undefined,
         },
       });
