@@ -8,8 +8,6 @@ import { isTrustedStripeCheckoutUrl } from "@/lib/client-security";
 import { getSupabaseBrowserClient, getSupabaseBrowserConfig } from "@/lib/supabase-browser";
 import { PrivacyDataControls } from "@/components/privacy-data-controls";
 
-const supportEmail = "support@brognolibi.com";
-
 type SubscriberDashboardProps = {
   locale: "pt-br" | "en";
 };
@@ -77,9 +75,6 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             planCredits: "Créditos do plano",
             extraCredits: "Créditos extras",
             noSubscription: "Nenhuma assinatura ativa ainda",
-            support: "Suporte ao assinante",
-            supportBody:
-              "Dúvidas de acesso, cobrança, créditos ou cancelamento podem ser tratadas por e-mail.",
             signOut: "Sair",
             openStudio: "Conhecer o Studio",
             subscribeStarter: "Assinar Starter",
@@ -109,7 +104,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             subscribeLight: "Assinar Light",
             missingEnv:
               "As variáveis públicas do Supabase ainda não foram configuradas neste site.",
-            operationError: "Não foi possível concluir a operação. Tente novamente ou fale com o suporte.",
+            operationError: "Não foi possível concluir a operação. Tente novamente mais tarde.",
           }
         : {
             eyebrow: "My account",
@@ -126,9 +121,6 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             planCredits: "Plan credits",
             extraCredits: "Extra credits",
             noSubscription: "No active subscription yet",
-            support: "Subscriber support",
-            supportBody:
-              "Questions about access, billing, credits, or cancellation can be handled by email.",
             signOut: "Sign out",
             openStudio: "Explore Studio",
             subscribeStarter: "Subscribe to Starter",
@@ -158,7 +150,7 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
             subscribeLight: "Subscribe to Light",
             missingEnv:
               "The public Supabase variables have not been configured for this website yet.",
-            operationError: "We could not complete the operation. Try again or contact support.",
+            operationError: "We could not complete the operation. Please try again later.",
           },
     [locale],
   );
@@ -672,17 +664,17 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
           ) : null}
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
+            <div className="min-w-0 rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">Email</p>
-              <p className="mt-3 text-lg font-semibold text-white">{account.email}</p>
+              <p className="mt-3 break-all text-lg font-semibold text-white">{account.email}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
+            <div className="min-w-0 rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.status}</p>
-              <p className="mt-3 text-lg font-semibold text-white">{account.subscriptionStatus ?? dict.noSubscription}</p>
+              <p className="mt-3 break-words text-lg font-semibold text-white">{account.subscriptionStatus ?? dict.noSubscription}</p>
             </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
+            <div className="min-w-0 rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.plan}</p>
-              <p className="mt-3 text-lg font-semibold text-white">{account.planName ?? dict.noSubscription}</p>
+              <p className="mt-3 break-words text-lg font-semibold text-white">{account.planName ?? dict.noSubscription}</p>
             </div>
             <div className="rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-white/45">{dict.nextBilling}</p>
@@ -852,12 +844,6 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
 
           <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-[var(--surface-1)] p-5">
             <p className="text-sm leading-7 text-white/72">{dict.billingPortalSoon}</p>
-            <a
-              href={`mailto:${supportEmail}`}
-              className="mt-4 inline-flex rounded-full border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)] px-4 py-3 text-sm font-semibold text-[var(--brand-amber)] transition hover:bg-[color:rgba(255,204,0,0.16)]"
-            >
-              {supportEmail}
-            </a>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -880,16 +866,6 @@ export function AccountDashboard({ locale }: SubscriberDashboardProps) {
 
       <PrivacyDataControls locale={locale} />
 
-      <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_80px_rgba(0,0,0,0.22)]">
-        <h2 className="text-2xl font-semibold text-white">{dict.support}</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-white/72">{dict.supportBody}</p>
-        <a
-          href={`mailto:${supportEmail}`}
-          className="mt-6 inline-flex rounded-full border border-[color:rgba(255,204,0,0.3)] bg-[color:rgba(255,204,0,0.1)] px-4 py-3 text-sm font-semibold text-[var(--brand-amber)] transition hover:bg-[color:rgba(255,204,0,0.16)]"
-        >
-          {supportEmail}
-        </a>
-      </div>
     </div>
   );
 }

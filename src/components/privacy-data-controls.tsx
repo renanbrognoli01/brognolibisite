@@ -30,9 +30,12 @@ const copy = {
       "Registrar um pedido de exclusão para análise? Isso não apaga os dados imediatamente nem cancela sua assinatura.",
     exportSuccess: "Seu arquivo de dados foi baixado.",
     deletionSuccess: "Pedido registrado para análise. Número do pedido:",
-    error: "Não foi possível concluir. Tente novamente ou fale com o suporte.",
+    error: "Não foi possível concluir. Tente novamente mais tarde.",
+    sessionError: "Sua sessão expirou. Entre novamente e tente outra vez.",
+    limitError: "Você atingiu o limite de solicitações. Tente novamente mais tarde.",
+    unavailableError: "O serviço está temporariamente indisponível. Tente novamente mais tarde.",
+    tooLargeError: "O arquivo excede o limite para download pelo site.",
     processing: "Processando...",
-    support: "Falar com o suporte",
   },
   en: {
     title: "Your personal data",
@@ -50,9 +53,12 @@ const copy = {
       "Submit an account deletion request for review? This will not immediately erase data or cancel your subscription.",
     exportSuccess: "Your data export has been downloaded.",
     deletionSuccess: "Request submitted for review. Request ID:",
-    error: "We could not complete this request. Try again or contact support.",
+    error: "We could not complete this request. Please try again later.",
+    sessionError: "Your session has expired. Sign in again and retry.",
+    limitError: "You have reached the request limit. Please try again later.",
+    unavailableError: "The service is temporarily unavailable. Please try again later.",
+    tooLargeError: "The file exceeds the website download limit.",
     processing: "Processing...",
-    support: "Contact support",
   },
 } satisfies Record<Locale, Record<string, string>>;
 
@@ -92,7 +98,11 @@ export function PrivacyDataControls({ locale }: { locale: Locale }) {
       });
 
       if (!response.ok) {
-        throw new Error("Privacy request failed");
+        if (response.status === 401) throw new Error("session");
+        if (response.status === 429) throw new Error("limit");
+        if (response.status === 503) throw new Error("unavailable");
+        if (response.status === 413) throw new Error("too-large");
+        throw new Error("request");
       }
 
       if (action === "export") {
@@ -116,8 +126,19 @@ export function PrivacyDataControls({ locale }: { locale: Locale }) {
 
       setConfirmed(false);
       setNotice(`${text.deletionSuccess} ${result.requestId}`);
-    } catch {
-      setError(text.error);
+    } catch (cause) {
+      const reason = cause instanceof Error ? cause.message : "request";
+      setError(
+        reason === "session"
+          ? text.sessionError
+          : reason === "limit"
+            ? text.limitError
+            : reason === "unavailable"
+              ? text.unavailableError
+              : reason === "too-large"
+                ? text.tooLargeError
+                : text.error,
+      );
     } finally {
       setBusy(null);
     }
@@ -138,12 +159,6 @@ export function PrivacyDataControls({ locale }: { locale: Locale }) {
         >
           {busy === "export" ? text.processing : text.export}
         </button>
-        <a
-          href="mailto:support@brognolibi.com"
-          className="rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08]"
-        >
-          {text.support}
-        </a>
       </div>
 
       <div className="mt-8 rounded-2xl border border-[color:rgba(243,112,112,0.24)] bg-[color:rgba(243,112,112,0.06)] p-5">

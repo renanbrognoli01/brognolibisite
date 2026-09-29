@@ -28,7 +28,7 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] p-1 text-xs font-semibold text-white/70">
+    <div className="flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] p-1 text-xs font-semibold text-white/70">
       {locales.map((entry) => {
         const active = entry === locale;
 
@@ -36,7 +36,7 @@ export function LocaleSwitcher({ locale }: { locale: Locale }) {
           <Link
             key={entry}
             href={buildLocaleHref(pathname, locale, entry)}
-            className={`rounded-full px-3 py-2 transition ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-3 py-2 transition ${
               active ? "bg-[var(--brand-amber)] text-[#0F1D2A]" : "hover:bg-white/6"
             }`}
           >
