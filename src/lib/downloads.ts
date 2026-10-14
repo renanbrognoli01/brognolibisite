@@ -9,7 +9,7 @@ export const DEFAULT_WINDOWS_DOWNLOAD_URL =
   "https://github.com/renanbrognoli01/brognolibisite/releases/download/studio-v1.0.11/BrognoliStudio-Setup-1.0.11.exe";
 export const DEFAULT_WINDOWS_VERSION = "1.0.11";
 export const DEFAULT_WINDOWS_MIN_OS = "Windows 10 or later";
-export const DEFAULT_WINDOWS_SHA256 = "569EBFB62E512B806214660D775FB555BB7971C470B9290BD368525F72E0917E";
+export const DEFAULT_WINDOWS_SHA256 = "4C3E90995F135EFCF5459F861BDA9B7D29D95AD7DA1BF39DC93E1B47218C72A2";
 export const DEFAULT_RELEASE_PAGE_URL =
   "https://github.com/renanbrognoli01/brognolibisite/releases/tag/studio-v1.0.11";
 
