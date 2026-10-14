@@ -6,14 +6,17 @@ export type StudioDownloadInfo = {
 };
 
 export const DEFAULT_WINDOWS_DOWNLOAD_URL =
-  "https://github.com/renanbrognoli01/Dax_Descriptions/releases/download/v1.0.10/BrognoliStudio-Setup-1.0.10.exe";
-export const DEFAULT_WINDOWS_VERSION = "1.0.10";
+  "https://github.com/renanbrognoli01/brognolibisite/releases/download/studio-v1.0.11/BrognoliStudio-Setup-1.0.11.exe";
+export const DEFAULT_WINDOWS_VERSION = "1.0.11";
 export const DEFAULT_WINDOWS_MIN_OS = "Windows 10 or later";
-export const DEFAULT_WINDOWS_SHA256 = "222489E10CF15E0877111069033507FBCC76D43BF98FD70DE38EC7353914E4EE";
+export const DEFAULT_WINDOWS_SHA256 = "4C3E90995F135EFCF5459F861BDA9B7D29D95AD7DA1BF39DC93E1B47218C72A2";
 export const DEFAULT_RELEASE_PAGE_URL =
-  "https://github.com/renanbrognoli01/Dax_Descriptions/releases/tag/v1.0.10";
+  "https://github.com/renanbrognoli01/brognolibisite/releases/tag/studio-v1.0.11";
 
-const trustedReleasePrefix = "/renanbrognoli01/Dax_Descriptions/releases/download/";
+const trustedReleasePrefixes = [
+  "/renanbrognoli01/Dax_Descriptions/releases/download/",
+  "/renanbrognoli01/brognolibisite/releases/download/",
+];
 
 function getTrustedWindowsDownloadUrl(candidate: string | undefined) {
   if (!candidate) {
@@ -25,7 +28,7 @@ function getTrustedWindowsDownloadUrl(candidate: string | undefined) {
     const trusted =
       url.protocol === "https:" &&
       url.hostname === "github.com" &&
-      url.pathname.startsWith(trustedReleasePrefix) &&
+      trustedReleasePrefixes.some((prefix) => url.pathname.startsWith(prefix)) &&
       url.pathname.toLocaleLowerCase().endsWith(".exe") &&
       !url.username &&
       !url.password;
