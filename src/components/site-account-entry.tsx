@@ -60,14 +60,14 @@ export function SiteAccountEntry({ locale }: { locale: Locale }) {
 
   if (!ready) {
     return (
-      <div className="hidden h-11 w-28 rounded-full border border-white/10 bg-white/[0.03] lg:block" />
+      <div className="account-placeholder" />
     );
   }
 
   return (
     <Link
       href={`/${locale}/${hasSession ? "account" : "login"}`}
-      className="hidden items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] lg:inline-flex"
+      className="account-link"
     >
       {hasSession ? labels.account : labels.login}
     </Link>

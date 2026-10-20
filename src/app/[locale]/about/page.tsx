@@ -15,7 +15,7 @@ export default async function AboutPage({
   return (
     <>
       <PageHero title={dict.about.introTitle} description={dict.about.intro[0]}>
-        <div className="relative mx-auto aspect-[0.9] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03]">
+        <div className="relative mx-auto aspect-[0.9] w-full max-w-md overflow-hidden rounded-none  bg-white/[0.03]">
           <Image
             src="/media/renan 5.png"
             alt="Renan Brognoli"
@@ -39,7 +39,7 @@ export default async function AboutPage({
           <GlassCard title={dict.about.certificationsTitle}>
             <div className="grid grid-cols-2 gap-4">
               {["/media/certificacao 1.png", "/media/certificacao 2.png", "/media/certificacao 3.png", "/media/certificacao 4.png"].map((src) => (
-                <div key={src} className="rounded-[1.5rem] border border-white/10 bg-white p-4">
+                <div key={src} className="rounded-none  bg-white p-4">
                   <div className="relative mx-auto aspect-square w-full max-w-[9rem]">
                     <Image src={src} alt="Microsoft certification" fill className="object-contain" />
                   </div>
@@ -60,9 +60,9 @@ export default async function AboutPage({
           {dict.about.timeline.map((item) => (
             <div
               key={`${item.year}-${item.title}`}
-              className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6"
+              className="rounded-none  bg-white/[0.03] p-6"
             >
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--brand-amber)]">{item.year}</p>
+              <p className="text-sm font-semibold normal-case  text-[var(--brand-amber)]">{item.year}</p>
               <h3 className="mt-3 text-xl font-semibold text-white">{item.title}</h3>
               <p className="mt-3 text-sm leading-7 text-white/72">{item.description}</p>
             </div>

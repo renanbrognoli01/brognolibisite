@@ -21,7 +21,7 @@ export default async function GuidesPage({
   return (
     <>
       <PageHero title={dict.guides.title} description={dict.guides.description}>
-        <div className="space-y-5 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
+        <div className="space-y-5 rounded-none  bg-white/[0.03] p-8">
           <h2 className="text-2xl font-semibold text-white">
             {isPt
               ? "Aprenda mais rápido com materiais diretos e práticos"
@@ -101,7 +101,7 @@ export default async function GuidesPage({
             : "If you want a more practical path to learn Power BI or Excel, the pocket guides were built exactly for that."
         }
       >
-        <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
+        <div className="rounded-none  bg-white/[0.03] p-8">
           <div className="flex flex-wrap gap-4">
             <PrimaryButton href="#excel">
               {isPt ? "Ver guia de Excel" : "See Excel guide"}

@@ -25,19 +25,19 @@ export default async function MaterialsPage({
         }
       >
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
+          <div className="rounded-none  bg-white/[0.04] p-5">
             <p className="text-2xl font-semibold text-white">1</p>
             <p className="mt-2 text-sm leading-6 text-white/62">
               {isPt ? "Encontre o vídeo ou tema" : "Find the video or topic"}
             </p>
           </div>
-          <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
+          <div className="rounded-none  bg-white/[0.04] p-5">
             <p className="text-2xl font-semibold text-white">2</p>
             <p className="mt-2 text-sm leading-6 text-white/62">
               {isPt ? "Confira o formato do arquivo" : "Check the file format"}
             </p>
           </div>
-          <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5">
+          <div className="rounded-none  bg-white/[0.04] p-5">
             <p className="text-2xl font-semibold text-white">3</p>
             <p className="mt-2 text-sm leading-6 text-white/62">
               {isPt ? "Faça o download direto" : "Download it directly"}

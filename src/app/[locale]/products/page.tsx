@@ -15,7 +15,7 @@ export default async function ProductsPage({
   return (
     <>
       <PageHero title={dict.products.title} description={dict.products.description}>
-        <div className="space-y-5 rounded-[2rem] border border-white/10 bg-white/[0.03] p-8">
+        <div className="space-y-5 rounded-none  bg-white/[0.03] p-8">
           <h2 className="text-2xl font-semibold text-white">
             {isPt
               ? "Produtos digitais com foco em valor real para a rotina"

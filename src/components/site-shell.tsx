@@ -17,11 +17,10 @@ export function SiteShell({ locale, children }: SiteShellProps) {
 
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top_left,_rgba(15,76,129,0.28),_transparent_42%),radial-gradient(circle_at_top_right,_rgba(0,178,169,0.16),_transparent_36%),linear-gradient(180deg,_rgba(7,21,33,0),_rgba(7,21,33,0.82))]" />
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[color:rgba(7,21,33,0.88)] backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
+      <header className="site-header">
+        <div className="site-nav-frame">
           <Link href={locale === "pt-br" ? "/pt-br" : "/en"} className="flex items-center gap-4">
-            <div className="relative h-16 w-16 shrink-0">
+            <div className="relative h-12 w-12 shrink-0">
               <Image
                 src="/media/LogoDesktop.png"
                 alt="Brognoli BI"
@@ -31,33 +30,26 @@ export function SiteShell({ locale, children }: SiteShellProps) {
                 priority
               />
             </div>
-            <p className="whitespace-nowrap text-2xl font-semibold tracking-tight text-white">
+            <p className="brand-name">
               {dict.siteTitle}
             </p>
           </Link>
 
-          <nav className="hidden items-center gap-3 xl:flex 2xl:gap-5">
-            {dict.nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-[0.78rem] font-medium text-white/72 transition hover:text-[var(--brand-amber)] xl:text-sm"
-              >
-                {item.label}
-              </Link>
-            ))}
+          <nav className="desktop-navigation">
+            {dict.nav.filter((item) => ["/studio", "/articles", "/guides", "/about"].some((suffix) => item.href.endsWith(suffix))).map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
           </nav>
 
           <div className="flex shrink-0 items-center gap-3">
             <SiteAccountEntry locale={locale} />
             <LocaleSwitcher locale={locale} />
+            <details className="site-menu"><summary>Menu</summary><nav aria-label={locale === "pt-br" ? "Todas as páginas" : "All pages"}>{dict.nav.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}<Link href={`/${locale}/login`}>{locale === "pt-br" ? "Minha conta" : "My account"}</Link></nav></details>
           </div>
         </div>
       </header>
 
       <main className="relative z-10">{children}</main>
 
-      <footer className="border-t border-white/10 bg-[var(--background)]">
+      <footer className="site-footer">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-10 md:grid-cols-[1.2fr_1fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
@@ -71,7 +63,7 @@ export function SiteShell({ locale, children }: SiteShellProps) {
                 />
               </div>
               <div>
-                <p className="text-sm uppercase tracking-[0.24em] text-white/45">Brognoli BI</p>
+                <p className="footer-wordmark">Brognoli BI</p>
                 <p className="font-semibold">{dict.siteTitle}</p>
               </div>
             </div>

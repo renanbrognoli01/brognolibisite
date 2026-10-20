@@ -21,7 +21,7 @@ export default async function ContactPage({
           >
             <a
               href={`mailto:${dict.contact.email}`}
-              className="whitespace-nowrap text-[0.78rem] font-semibold tracking-[-0.01em] text-[var(--brand-amber)] sm:text-[0.82rem]"
+              className="whitespace-nowrap text-[0.78rem] font-semibold  text-[var(--brand-amber)] sm:text-[0.82rem]"
             >
               {dict.contact.email}
             </a>

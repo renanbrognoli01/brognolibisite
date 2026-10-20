@@ -40,11 +40,11 @@ export function ScreenshotGallery({ items }: ScreenshotGalleryProps) {
             onClick={() => setActive(item)}
             className="group text-left"
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] transition duration-200 group-hover:-translate-y-1 group-hover:border-white/20">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-none  bg-white/[0.03] transition duration-200 group-hover:-translate-y-1 group-hover:border-white/20">
               <Image src={item.src} alt={item.title} fill className="object-cover" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[var(--background)] via-[color:rgba(7,21,33,0.7)] to-transparent p-4">
+              <div className="absolute inset-x-0 bottom-0 bg-[var(--background)] p-4">
                 <p className="text-sm font-medium text-white">{item.title}</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-white/45">Clique para ampliar</p>
+                <p className="text-base text-white/45">Clique para ampliar</p>
               </div>
             </div>
           </button>
@@ -57,18 +57,18 @@ export function ScreenshotGallery({ items }: ScreenshotGalleryProps) {
           onClick={() => setActive(null)}
         >
           <div
-            className="relative w-full max-w-6xl rounded-[2rem] border border-white/10 bg-[var(--surface-1)] p-4 shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
+            className="relative w-full max-w-6xl rounded-none  bg-[var(--surface-1)] p-4 shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
             onClick={(event) => event.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setActive(null)}
-              className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/30 text-xl text-white/80 transition hover:bg-white/10 hover:text-white"
+              className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full  bg-black/30 text-xl text-white/80 transition hover:bg-white/10 hover:text-white"
               aria-label="Close preview"
             >
               ×
             </button>
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] bg-[#061521]">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-none bg-[#061521]">
               <Image src={active.src} alt={active.title} fill className="object-contain" />
             </div>
             <div className="px-2 pb-2 pt-5">
