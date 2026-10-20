@@ -39,11 +39,11 @@ export default async function ArticlesPage({
                     <span>{article.readingTime}</span>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    <div className="inline-flex rounded-full  bg-white/[0.04] px-3 py-1 text-xs normal-case  text-[var(--brand-amber)]">
+                    <div className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[var(--brand-amber)]">
                       {article.category}
                     </div>
                     {article.featured ? (
-                      <div className="inline-flex rounded-full border border-[color:rgba(0,178,169,0.3)] bg-[color:rgba(0,178,169,0.12)] px-3 py-1 text-xs normal-case  text-[#72E9DE]">
+                      <div className="inline-flex rounded-full border border-[color:rgba(0,178,169,0.3)] bg-[color:rgba(0,178,169,0.12)] px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#72E9DE]">
                         {locale === "pt-br" ? "Destaque" : "Featured"}
                       </div>
                     ) : null}

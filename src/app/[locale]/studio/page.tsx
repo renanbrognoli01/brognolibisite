@@ -78,7 +78,7 @@ const studioCopy: Record<Locale, StudioCopy> = {
   "pt-br": {
     title: "BROGNOLI Studio",
     heroText:
-      "Crie medidas DAX, analise relacionamentos e documente seu modelo Power BI em um aplicativo Windows. Use sua chave de API ou os créditos do Studio.",
+      "O BROGNOLI Studio é um software completo para Power BI e analytics. Ele combina automação, melhores práticas e inteligência artificial para reduzir tarefas repetitivas e devolver tempo para o que realmente importa: analisar, decidir e gerar valor com dados.",
     osLabel: "Sistema operacional",
     versionLabel: "Versão disponível",
     versionHintReady: "Instalador pronto para download direto.",
@@ -127,7 +127,7 @@ const studioCopy: Record<Locale, StudioCopy> = {
       "Pacotes extras para ampliar seu uso sem trocar de plano. Eles aparecem na sua área do assinante e somam ao seu saldo existente.",
     signInToBuyCredits: "Entrar para comprar créditos",
     viewMyAccount: "Ver minha conta",
-    finalTitle: "Seu próximo projeto",
+    finalTitle: "Se o Power BI faz parte da sua rotina, o Studio foi feito para você",
     finalDescription:
       "A proposta do BROGNOLI Studio é simples: reduzir fricção, elevar qualidade e te dar mais tempo para gerar valor com dados.",
     finalBody:
@@ -140,10 +140,10 @@ const studioCopy: Record<Locale, StudioCopy> = {
     practicalOutcomeTitle: "Resultado prático",
     practicalOutcomeDescription:
       "Mais padronização, mais autonomia e mais capacidade de focar no que realmente agrega valor.",
-    capabilitiesTitle: "Ferramentas para o modelo",
+    capabilitiesTitle: "Uma plataforma pensada para o fluxo completo de trabalho",
     capabilitiesDescription:
       "Do DAX à performance, de governança à criação visual, o Studio conecta frentes que normalmente ficam espalhadas em várias ferramentas.",
-    audienceTitle: "Para quem trabalha com BI",
+    audienceTitle: "Feito para profissionais que precisam de velocidade com qualidade",
     idealProfileTitle: "Perfil ideal",
     idealProfileDescription:
       "Se você trabalha com Power BI de forma recorrente, o ganho de produtividade e consistência tende a ser imediato.",
@@ -154,7 +154,7 @@ const studioCopy: Record<Locale, StudioCopy> = {
       "Ele foi pensado para funcionar como companheiro de trabalho, não como ferramenta pontual.",
       "Isso significa mais velocidade na execução e mais clareza para padronizar o que sua equipe faz.",
     ],
-    visualTitle: "Por dentro do Studio",
+    visualTitle: "Veja partes reais do produto em ação",
     visualDescription:
       "Clique em qualquer imagem para ampliar e explorar melhor os detalhes da interface.",
     problemEyebrow: "Problema e solução",
@@ -216,7 +216,7 @@ const studioCopy: Record<Locale, StudioCopy> = {
       "One-off packs to expand your usage without changing plans. They appear in your subscriber area and add to your existing balance.",
     signInToBuyCredits: "Sign in to buy credits",
     viewMyAccount: "View my account",
-    finalTitle: "Your next project",
+    finalTitle: "If Power BI is part of your routine, Studio was built for you",
     finalDescription:
       "BROGNOLI Studio has a simple goal: reduce friction, improve quality, and give you more time to create value with data.",
     finalBody:
@@ -229,10 +229,10 @@ const studioCopy: Record<Locale, StudioCopy> = {
     practicalOutcomeTitle: "Practical outcome",
     practicalOutcomeDescription:
       "More standardization, more autonomy, and more ability to focus on what actually creates value.",
-    capabilitiesTitle: "Tools for your model",
+    capabilitiesTitle: "A platform designed for the full workflow",
     capabilitiesDescription:
       "From DAX to performance, from governance to visual creation, Studio connects workflows that are usually spread across multiple tools.",
-    audienceTitle: "For people working with BI",
+    audienceTitle: "Built for professionals who need speed with quality",
     idealProfileTitle: "Ideal profile",
     idealProfileDescription:
       "If you work with Power BI regularly, the productivity and consistency gains tend to be immediate.",
@@ -243,7 +243,7 @@ const studioCopy: Record<Locale, StudioCopy> = {
       "It is designed to work as a day-to-day companion, not as a one-off tool.",
       "That means more execution speed and more clarity when standardizing what your team delivers.",
     ],
-    visualTitle: "Inside Studio",
+    visualTitle: "See real parts of the product in action",
     visualDescription:
       "Click any image to enlarge it and explore the interface details more clearly.",
     problemEyebrow: "Problem and solution",
@@ -438,29 +438,28 @@ export default async function StudioPage({
       ];
 
   return (
-    <div className="studio-page">
-      <section className="studio-opening">
+    <>
+      <section className="border-b border-white/10">
         <Container>
           <div className="grid gap-12 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
             <div className="space-y-8">
               <div className="space-y-6">
-                <h1 className="studio-title">
+                <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-6xl">
                   {copy.title}
                 </h1>
                 <p className="max-w-3xl text-lg leading-8 text-white/72">{copy.heroText}</p>
-                <PrimaryButton href={downloadHref}>{copy.downloadWindows}</PrimaryButton>
               </div>
 
               <div className="grid max-w-xl gap-4 sm:grid-cols-2">
-                <div className="rounded-none  bg-white/[0.03] p-5">
-                  <p className="text-sm normal-case  text-white/45">
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
                     {copy.osLabel}
                   </p>
                   <p className="mt-3 text-2xl font-semibold text-white">Windows 10+</p>
                   <p className="mt-2 text-sm leading-7 text-white/66">{download.minOs}</p>
                 </div>
-                <div className="rounded-none  bg-white/[0.03] p-5">
-                  <p className="text-sm normal-case  text-white/45">
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-sm uppercase tracking-[0.18em] text-white/45">
                     {copy.versionLabel}
                   </p>
                   <p className="mt-3 text-2xl font-semibold text-white">
@@ -474,12 +473,12 @@ export default async function StudioPage({
             </div>
 
             <div className="space-y-5">
-              <div className="relative mx-auto aspect-[1.3] w-full overflow-hidden bg-[var(--surface-1)] ">
+              <div className="relative mx-auto aspect-[1.02] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.25)]">
                 <Image
-                  src="/media/data model analyzer.png"
+                  src="/media/StudioHero.png"
                   alt="BROGNOLI Studio"
                   fill
-                  className="object-contain"
+                  className="object-contain p-8"
                   priority
                 />
               </div>
@@ -497,14 +496,14 @@ export default async function StudioPage({
             </div>
           </div>
 
-          <div className="mt-10 rounded-none  bg-white/[0.03] p-6 md:p-8">
+          <div className="mt-10 rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 md:p-8">
             <div className="space-y-6">
               <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
                 {installNotice.eyebrow}
               </h2>
 
               <div className="grid gap-8 lg:grid-cols-[1.18fr_0.82fr] lg:items-start">
-                <div className="relative min-h-[420px] overflow-hidden rounded-none  bg-[var(--surface-1)] md:min-h-[520px]">
+                <div className="relative min-h-[420px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[var(--surface-1)] md:min-h-[520px]">
                   <Image
                     src="/media/aviso-studio.png"
                     alt={installNotice.title}
@@ -525,7 +524,7 @@ export default async function StudioPage({
                     {installNotice.steps.map((step, index) => (
                       <div
                         key={step}
-                        className={`rounded-none border p-5 text-sm leading-8 md:text-base ${
+                        className={`rounded-[1.25rem] border p-5 text-sm leading-8 md:text-base ${
                           index === 2
                             ? "border-[color:rgba(255,204,0,0.2)] bg-[color:rgba(255,204,0,0.1)] text-white/82"
                             : "border-white/10 bg-white/[0.03] text-white/78"
@@ -546,8 +545,8 @@ export default async function StudioPage({
         eyebrow={copy.problemEyebrow}
         title={
           isPt
-            ? "Mais tempo para analisar."
-            : "More time for analysis."
+            ? "Menos trabalho operacional. Mais tempo para análise."
+            : "Less operational work. More time for analysis."
         }
         description={
           isPt
@@ -571,7 +570,7 @@ export default async function StudioPage({
               {copy.benefits.map((benefit) => (
                 <div
                   key={benefit}
-                  className="rounded-none  bg-white/[0.03] p-4 text-sm leading-6 text-white/78"
+                  className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 text-sm leading-6 text-white/78"
                 >
                   {benefit}
                 </div>
@@ -586,7 +585,7 @@ export default async function StudioPage({
         title={copy.capabilitiesTitle}
         description={copy.capabilitiesDescription}
       >
-        <div id="features" className="studio-feature-list">
+        <div id="features" className="grid gap-6 lg:grid-cols-2">
           {copy.features.map((feature) => (
             <GlassCard
               key={feature.title}
@@ -650,14 +649,18 @@ export default async function StudioPage({
               {commercialPlans.map((plan) => (
                 <div
                   key={plan.name}
-                  className={`rounded-none border p-6 ${
+                  className={`rounded-[2rem] border p-6 ${
                     plan.highlight
-                      ? "border-[color:rgba(255,204,0,0.4)] bg-[color:rgba(255,204,0,0.1)] "
+                      ? "border-[color:rgba(255,204,0,0.4)] bg-[color:rgba(255,204,0,0.1)] shadow-[0_20px_60px_rgba(255,204,0,0.08)]"
                       : "border-white/10 bg-white/[0.03]"
                   }`}
                 >
                   <div className="space-y-4">
-
+                    {plan.highlight ? (
+                      <span className="inline-flex rounded-full bg-[var(--brand-amber)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0F1D2A]">
+                        {isPt ? "Mais popular" : "Most popular"}
+                      </span>
+                    ) : null}
                     <h4 className="text-2xl font-semibold text-white">{plan.name}</h4>
                     <p className="text-3xl font-semibold text-white">{plan.price}</p>
                     <p className="text-sm font-medium text-[var(--brand-amber)]">{plan.credits}</p>
@@ -668,7 +671,7 @@ export default async function StudioPage({
             </div>
           </div>
 
-          <div className="rounded-none  bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-6 md:p-8">
+          <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] p-6 md:p-8">
             <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
               <div className="max-w-3xl space-y-2">
                 <h3 className="text-2xl font-semibold text-white">{copy.extraCreditsTitle}</h3>
@@ -690,7 +693,7 @@ export default async function StudioPage({
               {creditPacks.map((pack) => (
                 <div
                   key={pack.name}
-                  className="rounded-none  bg-[var(--surface-1)] p-6"
+                  className="rounded-[1.75rem] border border-white/10 bg-[var(--surface-1)] p-6"
                 >
                   <div className="space-y-4">
                     <h4 className="text-2xl font-semibold text-white">{pack.name}</h4>
@@ -709,7 +712,7 @@ export default async function StudioPage({
         title={copy.finalTitle}
         description={copy.finalDescription}
       >
-        <div className="rounded-none border border-[color:rgba(255,204,0,0.2)] bg-[linear-gradient(135deg,rgba(255,204,0,0.14),rgba(255,204,0,0.04),rgba(255,255,255,0.02))] p-8">
+        <div className="rounded-[2rem] border border-[color:rgba(255,204,0,0.2)] bg-[linear-gradient(135deg,rgba(255,204,0,0.14),rgba(255,204,0,0.04),rgba(255,255,255,0.02))] p-8">
           <div className="space-y-6">
             <p className="max-w-3xl text-sm leading-7 text-white/78">{copy.finalBody}</p>
             <div className="flex flex-wrap gap-4">
@@ -725,6 +728,6 @@ export default async function StudioPage({
           </div>
         </div>
       </Section>
-    </div>
+    </>
   );
 }

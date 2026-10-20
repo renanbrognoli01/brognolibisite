@@ -44,14 +44,14 @@ export default async function VideosPage({
             <div key={group.title} className="space-y-5">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-semibold text-white">{group.title}</h2>
-                <a href={group.href} target="_blank" rel="noreferrer" className="rounded-full  bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white">
+                <a href={group.href} target="_blank" rel="noreferrer" className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white">
                   {locale === "pt-br" ? "Ver canal" : "View channel"}
                 </a>
               </div>
               <div className="grid gap-5">
                 {group.videos.map((video) => (
                   <GlassCard key={video.id} title={video.title} href={video.url}>
-                    <div className="relative mt-4 aspect-video overflow-hidden rounded-none ">
+                    <div className="relative mt-4 aspect-video overflow-hidden rounded-[1.25rem] border border-white/10">
                       <Image src={video.thumbnail} alt={video.title} fill className="object-cover" unoptimized />
                     </div>
                   </GlassCard>

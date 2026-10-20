@@ -16,6 +16,7 @@ export function Container({ children }: { children: ReactNode }) {
 export function PageHero({
   title,
   description,
+  eyebrow,
   children,
 }: {
   title: string;
@@ -24,10 +25,15 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="page-hero">
+    <section className="border-b border-white/10">
       <Container>
         <div className="grid gap-12 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-6">
+            {eyebrow ? (
+              <p className="text-sm font-medium tracking-[0.04em] text-[var(--brand-amber)]">
+                {eyebrow}
+              </p>
+            ) : null}
             <h1 className="max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-6xl">
               {title}
             </h1>
@@ -40,11 +46,14 @@ export function PageHero({
   );
 }
 
-export function Section({ title, description, children }: SectionProps) {
+export function Section({ eyebrow, title, description, children }: SectionProps) {
   return (
-    <section className="editorial-section">
+    <section className="py-16">
       <Container>
         <div className="mb-8 max-w-3xl space-y-4">
+          {eyebrow ? (
+            <p className="text-sm font-medium tracking-[0.04em] text-[var(--text-muted)]">{eyebrow}</p>
+          ) : null}
           <h2 className="text-3xl font-semibold tracking-tight text-white">{title}</h2>
           {description ? <p className="text-base leading-7 text-white/70">{description}</p> : null}
         </div>
@@ -66,7 +75,7 @@ export function GlassCard({
   href?: string;
 }) {
   const content = (
-    <div className="content-panel">
+    <div className="brognoli-panel h-full rounded-lg border border-transparent bg-[var(--surface-1)] p-6 transition-colors hover:bg-[var(--surface-2)]">
       <div className="space-y-4">
         <h3 className="text-xl font-semibold text-white">{title}</h3>
         {description ? <p className="text-sm leading-7 text-white/72">{description}</p> : null}
@@ -88,7 +97,7 @@ export function HeroPortrait({
   src?: string;
 }) {
   return (
-    <div className="relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden bg-[var(--surface-1)]">
+    <div className="brognoli-portrait relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden rounded-lg border border-transparent bg-[var(--surface-1)]">
       <Image
         src={src}
         alt="Renan Brognoli"
@@ -104,7 +113,7 @@ export function PrimaryButton({ href, children }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className="action-primary"
+      className="brognoli-primary inline-flex items-center justify-center rounded-md bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0f1d2a] transition-colors hover:bg-[#eabf24]"
     >
       {children}
     </Link>
@@ -115,7 +124,7 @@ export function SecondaryButton({ href, children }: { href: string; children: Re
   return (
     <Link
       href={href}
-      className="action-secondary"
+      className="brognoli-secondary inline-flex items-center justify-center rounded-md border border-transparent bg-[var(--surface-2)] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[var(--surface-3)]"
     >
       {children}
     </Link>
