@@ -48,3 +48,5 @@ Validation and limitations:
 - ESLint and Next production build passed. Browser exercised screenshot switching and mobile menu (10 links, no horizontal overflow). Fourteen principal routes returned HTTP 200. Login inputs remain present; no authenticated checkout, account mutations or contact submissions were performed.
 - Motion uses transform/opacity with reduced-motion fallbacks. Existing backend, checkout, authentication and download configuration remain intact.
 - Third-party picture/clip credits: none. Bundled stock photography: none. Drawings standing in for photographs: none. Sample business content to replace: none.
+
+Final confirmation: the final Studio build with the Data Model Analyzer opening image was re-inspected at 1440, 768 and 390px: 0 FAIL, 2 defended warnings. Every listed final screenshot for the two home languages and Studio was opened and reviewed. The final Studio visual remains deliberately more conventional than the home because of its existing commercial and installation detail; home score above is a subjective design critique, not an independent rating.
