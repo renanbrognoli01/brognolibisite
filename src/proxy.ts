@@ -20,6 +20,8 @@ export function proxy(request: NextRequest) {
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("Content-Security-Policy", contentSecurityPolicy);
+  // Always overwrite incoming values: only the actual URL determines metadata.
+  requestHeaders.set("x-brognoli-pathname", request.nextUrl.pathname);
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set("Content-Security-Policy", contentSecurityPolicy);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { defaultLocale, isLocale } from "@/lib/i18n";
 import { headers } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -26,11 +27,13 @@ export default async function RootLayout({
   // Request headers carry the per-request CSP nonce generated in src/proxy.ts.
   // Reading them opts HTML rendering into request time so static HTML can never
   // contain a reusable or missing nonce.
-  await headers();
+  const requestHeaders = await headers();
+  const segment = requestHeaders.get("x-brognoli-pathname")?.split("/")[1] ?? defaultLocale;
+  const locale = isLocale(segment) ? segment : defaultLocale;
 
   return (
     <html
-      lang="en"
+      lang={locale === "pt-br" ? "pt-BR" : "en"}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[var(--background)] text-white flex flex-col">{children}</body>

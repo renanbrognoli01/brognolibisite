@@ -30,7 +30,7 @@ export function PageHero({
         <div className="grid gap-12 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-6">
             {eyebrow ? (
-              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[var(--brand-amber)]">
+              <p className="brand-caption text-sm font-semibold text-[var(--brand-amber)]">
                 {eyebrow}
               </p>
             ) : null}
@@ -52,7 +52,7 @@ export function Section({ eyebrow, title, description, children }: SectionProps)
       <Container>
         <div className="mb-8 max-w-3xl space-y-4">
           {eyebrow ? (
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[var(--brand-cyan)]">{eyebrow}</p>
+            <p className="brand-caption text-sm font-semibold text-[var(--brand-cyan)]">{eyebrow}</p>
           ) : null}
           <h2 className="text-3xl font-semibold tracking-tight text-white">{title}</h2>
           {description ? <p className="text-base leading-7 text-white/70">{description}</p> : null}
@@ -75,7 +75,7 @@ export function GlassCard({
   href?: string;
 }) {
   const content = (
-    <div className="h-full rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.22)] transition hover:-translate-y-1 hover:border-white/16">
+    <div className="brand-panel h-full border border-transparent p-6">
       <div className="space-y-4">
         <h3 className="text-xl font-semibold text-white">{title}</h3>
         {description ? <p className="text-sm leading-7 text-white/72">{description}</p> : null}
@@ -97,8 +97,7 @@ export function HeroPortrait({
   src?: string;
 }) {
   return (
-    <div className="relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[var(--surface-1)] via-[var(--surface-3)] to-[var(--surface-4)] shadow-[0_40px_120px_rgba(0,0,0,0.32)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,204,0,0.16),_transparent_35%),radial-gradient(circle_at_bottom_left,_rgba(0,178,169,0.24),_transparent_30%)]" />
+    <div className="brand-portrait relative mx-auto aspect-[0.82] w-full max-w-md overflow-hidden border border-transparent">
       <Image
         src={src}
         alt="Renan Brognoli"
@@ -114,7 +113,7 @@ export function PrimaryButton({ href, children }: { href: string; children: Reac
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-full bg-[var(--brand-amber)] px-6 py-3 text-sm font-semibold text-[#0f1d2a] transition hover:scale-[1.02]"
+      className="brand-button brand-button-primary inline-flex items-center justify-center px-6 py-3 text-sm font-semibold"
     >
       {children}
     </Link>
@@ -125,7 +124,7 @@ export function SecondaryButton({ href, children }: { href: string; children: Re
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08]"
+      className="brand-button brand-button-secondary inline-flex items-center justify-center border border-transparent px-6 py-3 text-sm font-semibold"
     >
       {children}
     </Link>
