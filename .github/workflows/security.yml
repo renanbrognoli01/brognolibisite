@@ -23,3 +23,13 @@ jobs:
       - run: npm audit --omit=dev --audit-level=high
       - run: npm run lint
       - run: npm run build
+      - name: Verify public route metadata
+        run: |
+          npm run start -- --port 3000 > /tmp/brognoli-next.log 2>&1 &
+          site_pid=$!
+          trap 'kill "$site_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --silent --fail http://127.0.0.1:3000/pt-br > /dev/null; then break; fi
+            sleep 1
+          done
+          node tests/preserve-seo.mjs http://127.0.0.1:3000

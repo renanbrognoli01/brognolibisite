@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { getSupabaseBrowserClient } from "@/lib/supabase-browser";
 
-export function SiteAccountEntry({ locale }: { locale: Locale }) {
+export function SiteAccountEntry({ locale, mobile = false }: { locale: Locale; mobile?: boolean }) {
   const [hasSession, setHasSession] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -60,14 +60,14 @@ export function SiteAccountEntry({ locale }: { locale: Locale }) {
 
   if (!ready) {
     return (
-      <div className="hidden h-11 w-28 rounded-full border border-white/10 bg-white/[0.03] lg:block" />
+      <div className={mobile ? "h-11 w-28" : "hidden h-11 w-28 xl:block"} />
     );
   }
 
   return (
     <Link
       href={`/${locale}/${hasSession ? "account" : "login"}`}
-      className="hidden items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08] lg:inline-flex"
+      className={`${mobile ? "inline-flex" : "hidden xl:inline-flex"} items-center justify-center rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.08]`}
     >
       {hasSession ? labels.account : labels.login}
     </Link>
